@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-	Window window = Window(800, 600, "STEFF");
+	Window window = Window(800, 600, "Wavendow");
 
 	window.Init();
 
@@ -19,4 +19,3 @@ int main()
 
 	return 0;
 }
-
