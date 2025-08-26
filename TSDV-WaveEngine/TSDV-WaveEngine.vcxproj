@@ -150,6 +150,7 @@
     <ClCompile Include="src\Entity\Material\Material.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\BaseGame.cpp" />
+    <ClCompile Include="src\Vector3.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
