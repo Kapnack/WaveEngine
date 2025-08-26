@@ -1,0 +1,31 @@
+#pragma once
+
+#include <glfw3.h>
+
+class Window
+{
+private:
+
+	GLFWwindow* window = nullptr;
+
+	int width = 0;
+	int height = 0;
+	const char* title;
+	GLFWmonitor* monitor;
+	GLFWwindow* share;
+
+public:
+
+	Window();
+	Window(int width, int height, const char* title, GLFWmonitor* monitor = nullptr, GLFWwindow* share = nullptr);
+	~Window();
+
+	GLFWwindow* GetWindow();
+	int GetWidth();
+	int GetHeight();
+
+	void Init();
+
+	void Unload();
+};
+

@@ -1,44 +1,22 @@
-#include <glfw3.h>
-#include <iostream>
+#include "Window/Window.h"
+#include "Renderer/Renderer.h"
 
 using namespace std;
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-
 int main()
 {
-    glfwInit();
+	Window window = Window(800, 600, "LearnOpenGL");
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	window.Init();
 
-    GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
-    if (window == NULL)
-    {
-        cout << "Failed to create GLFW window" << endl;
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
+	Renderer renderer = Renderer(window);
 
-    glViewport(0, 0, 800, 600);
+	renderer.Init();
 
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	renderer.Update();
 
-    while (!glfwWindowShouldClose(window))
-    {
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    } 
+	window.Unload();
 
-    glfwTerminate();
-    return 0;
-}
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0, 0, width, height);
+	return 0;
 }
 
