@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-	Window window = Window(800, 600, "LearnOpenGL");
+	Window window = Window(800, 600, "STEFF");
 
 	window.Init();
 

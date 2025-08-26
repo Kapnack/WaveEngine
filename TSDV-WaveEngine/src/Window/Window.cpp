@@ -25,7 +25,7 @@ void Window::Init()
 	if (!glfwInit())
 		exit(-1);
 
-	window = glfwCreateWindow(width, height, "LearnOpenGL", monitor, share);
+	window = glfwCreateWindow(width, height, title, monitor, share);
 	if (!window)
 	{
 		cout << "Failed to create GLFW window" << endl;
