@@ -1,9 +1,10 @@
 #pragma once
 
+#include "Shader/Shader.h"
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "Shader/Shader.h"
 
 class Renderer
 {
@@ -17,7 +18,6 @@ public:
 
 	void Unload();
 
-	Renderer();
 	Renderer();
 	~Renderer();
 };

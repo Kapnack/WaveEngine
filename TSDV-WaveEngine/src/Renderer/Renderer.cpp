@@ -8,11 +8,6 @@ Renderer::Renderer()
 {
 }
 
-Renderer::Renderer()
-{
-
-}
-
 Renderer::~Renderer()
 {
 }
