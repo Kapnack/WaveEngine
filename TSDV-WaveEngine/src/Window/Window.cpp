@@ -1,4 +1,5 @@
 #include "Window.h"
+
 #include <iostream>
 
 using namespace std;
@@ -35,6 +36,11 @@ void Window::Init()
 	}
 
 	glfwMakeContextCurrent(window);
+
+	glViewport(0, 0, width, height);
+
+	if (glewInit() != GLEW_OK)
+		cout << "GLEW FAILED TO INIT!!!";
 }
 
 GLFWwindow* Window::GetWindow()

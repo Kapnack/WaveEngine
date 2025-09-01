@@ -1,24 +1,24 @@
 #pragma once
 
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "Window/Window.h"
+#include "Shader/Shader.h"
 
 class Renderer
 {
 private:
 
-	Window* window;
+	unsigned int shader;
 
 public:
 
-	void Init();
+	void Init(float position[]);
 
-	void Update();
+	void Unload();
 
 	Renderer();
-	Renderer(Window& window);
+	Renderer();
 	~Renderer();
 };
 
- 
