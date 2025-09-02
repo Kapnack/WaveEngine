@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class Shader
+class Material
 {
 private:
 
@@ -15,8 +15,8 @@ private:
 
 public:
 
-	Shader();
-	~Shader();
+	Material();
+	~Material();
 
 	void CreateShader(const string& vertexShader, const string& fragmenteShader);
 

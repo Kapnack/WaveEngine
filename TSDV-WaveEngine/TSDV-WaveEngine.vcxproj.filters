@@ -39,7 +39,7 @@
     <ClCompile Include="src\Vector3.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\Shader\Shader.cpp">
+    <ClCompile Include="src\Material\Material.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,7 +65,7 @@
     <ClInclude Include="src\Vector3.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\Shader\Shader.h">
+    <ClInclude Include="src\Material\Material.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

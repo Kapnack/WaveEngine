@@ -23,7 +23,6 @@ int main()
 		1, 2, 3    // second triangle
 	};
 
-
 	renderer.Init(positions, indices);
 
 	while (!glfwWindowShouldClose(window.GetWindow()))

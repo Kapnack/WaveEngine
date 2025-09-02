@@ -1,16 +1,16 @@
-#include "Shader.h"
+#include "Material.h"
 
 #include <GL/glew.h>
 
-Shader::Shader()
+Material::Material()
 {
 }
 
-Shader::~Shader()
+Material::~Material()
 {
 }
 
-unsigned int Shader::CompileShader(const string& source, unsigned int type)
+unsigned int Material::CompileShader(const string& source, unsigned int type)
 {
 	unsigned int id = glCreateShader(type);
 	const char* src = source.c_str();
@@ -38,7 +38,7 @@ unsigned int Shader::CompileShader(const string& source, unsigned int type)
 	return id;
 }
 
-void Shader::CreateShader(const string& vertexShader, const string& fragmenteShader)
+void Material::CreateShader(const string& vertexShader, const string& fragmenteShader)
 {
 	unsigned int program = glCreateProgram();
 	unsigned int vs = CompileShader(vertexShader, GL_VERTEX_SHADER);
@@ -55,12 +55,12 @@ void Shader::CreateShader(const string& vertexShader, const string& fragmenteSha
 	this->program = program;
 }
 
-unsigned int Shader::GetProgram()
+unsigned int Material::GetProgram()
 {
 	return program;
 }
 
-void Shader::Unload()
+void Material::Unload()
 {
 	glDeleteShader(program);
 }
