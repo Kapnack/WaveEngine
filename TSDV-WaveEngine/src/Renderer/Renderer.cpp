@@ -27,34 +27,25 @@ void Renderer::Init(float position[], unsigned int indices[])
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
 	glEnableVertexAttribArray(0);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	const char* vertexShader = "#version 330 core\n"
+    "layout (location = 0) in vec3 aPos;\n"
+    "void main()\n"
+    "{\n"
+    "gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+	"}\0";
 
-	string vertexShader =
-		"#version 330 core \n"
-		"\n"
-		"layout(location = 0) in vec4 position;\n"
-		"void main()\n"
-		"{\n"
-		"gl_Position = position;\n"
-		"}\n";
-
-	string fragmentShader =
-		"#version 330 core \n"
-		"\n"
-		"layout(location = 0) out vec4 color;\n"
-		"void main()\n"
-		"{\n"
-		"color = vec4(1.0, 0.0, 0.0, 1.0);\n"
-		"}\n";
-
+	const char* fragmentShader = "#version 330 core\n"
+    "out vec4 FragColor;\n"
+    "void main()\n"
+    "{\n"
+    "FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+	"}\n\0";
 
 	shader.CreateShader(vertexShader, fragmentShader);
-	glUseProgram(shader.GetProgram());
 }
 
 void Renderer::Unload()

@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WaveEngine", "TSDV-WaveEngine\TSDV-WaveEngine.vcxproj", "{001DD79A-91B3-4EA4-878F-5FBC199F471E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{90A4B3E8-30C9-4584-9FE0-A3FEABF44720}"
+	ProjectSection(ProjectDependencies) = postProject
+		{001DD79A-91B3-4EA4-878F-5FBC199F471E} = {001DD79A-91B3-4EA4-878F-5FBC199F471E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

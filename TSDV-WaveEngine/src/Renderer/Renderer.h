@@ -10,9 +10,11 @@ class Renderer
 {
 private:
 
-	Material shader;
+
 
 public:
+
+	Material shader;
 
 	void Init(float position[], unsigned int indices[]);
 	void Unload();

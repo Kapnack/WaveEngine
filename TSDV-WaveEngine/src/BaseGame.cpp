@@ -7,7 +7,7 @@ int main()
 
 	window.Init();
 
-	Renderer renderer;
+	Renderer* renderer = new Renderer;
 
 	float positions[] =
 	{
@@ -18,12 +18,12 @@ int main()
 	};
 
 	unsigned int indices[] =
-	{  // note that we start from 0!
+	{  
 		0, 1, 3,   // first triangle
 		1, 2, 3    // second triangle
 	};
 
-	renderer.Init(positions, indices);
+	renderer->Init(positions, indices);
 
 	while (!glfwWindowShouldClose(window.GetWindow()))
 	{
@@ -31,12 +31,16 @@ int main()
 
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+		glUseProgram(renderer->shader.GetProgram());
+
 		glfwSwapBuffers(window.GetWindow());
 		glfwPollEvents();
 	}
 
-	renderer.Unload();
+	renderer->Unload();
 	window.Unload();
+
+	delete renderer;
 
 	return 0;
 }
