@@ -38,7 +38,7 @@ unsigned int Shader::CompileShader(const string& source, unsigned int type)
 	return id;
 }
 
-unsigned int Shader::CreateShader(const string& vertexShader, const string& fragmenteShader)
+void Shader::CreateShader(const string& vertexShader, const string& fragmenteShader)
 {
 	unsigned int program = glCreateProgram();
 	unsigned int vs = CompileShader(vertexShader, GL_VERTEX_SHADER);
@@ -52,5 +52,15 @@ unsigned int Shader::CreateShader(const string& vertexShader, const string& frag
 	glDeleteShader(vs);
 	glDeleteShader(fs);
 
+	this->program = program;
+}
+
+unsigned int Shader::GetProgram()
+{
 	return program;
+}
+
+void Shader::Unload()
+{
+	glDeleteShader(program);
 }

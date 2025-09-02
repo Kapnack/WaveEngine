@@ -10,12 +10,11 @@ class Renderer
 {
 private:
 
-	unsigned int shader;
+	Shader shader;
 
 public:
 
-	void Init(float position[]);
-
+	void Init(float position[], unsigned int indices[]);
 	void Unload();
 
 	Renderer();
