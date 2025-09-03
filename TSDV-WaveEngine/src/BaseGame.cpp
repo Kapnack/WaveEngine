@@ -3,29 +3,15 @@
 
 int main()
 {
-	Window window = Window(800, 600, "Wavendow");
+	Window* window = new Window(800, 600, "Wavendow");
 
-	window.Init();
+	window->Init();
 
 	Renderer* renderer = new Renderer;
 
-	float positions[] =
-	{
-		 0.5f,  0.5f, 0.0f,  // top right
-		 0.5f, -0.5f, 0.0f,  // bottom right
-		-0.5f, -0.5f, 0.0f,  // bottom left
-		-0.5f,  0.5f, 0.0f   // top left 
-	};
+	renderer->Init();
 
-	unsigned int indices[] =
-	{  
-		0, 1, 3,   // first triangle
-		1, 2, 3    // second triangle
-	};
-
-	renderer->Init(positions, indices);
-
-	while (!glfwWindowShouldClose(window.GetWindow()))
+	while (!glfwWindowShouldClose(window->GetWindow()))
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -33,14 +19,15 @@ int main()
 
 		glUseProgram(renderer->shader.GetProgram());
 
-		glfwSwapBuffers(window.GetWindow());
+		glfwSwapBuffers(window->GetWindow());
 		glfwPollEvents();
 	}
 
 	renderer->Unload();
-	window.Unload();
+	window->Unload();
 
 	delete renderer;
+	delete window;
 
 	return 0;
 }

@@ -12,7 +12,21 @@ Renderer::~Renderer()
 {
 }
 
-void Renderer::Init(float position[], unsigned int indices[])
+float positions[] =
+{
+	 0.5f,  0.5f, 0.0f,  // top right
+	 0.5f, -0.5f, 0.0f,  // bottom right
+	-0.5f, -0.5f, 0.0f,  // bottom left
+	-0.5f,  0.5f, 0.0f   // top left 
+};
+
+unsigned int indices[] =
+{
+	0, 1, 3,   // first triangle
+	1, 2, 3    // second triangle
+};
+
+void Renderer::Init()
 {
 	unsigned int VAO, VBO, EBO;
 
@@ -23,7 +37,7 @@ void Renderer::Init(float position[], unsigned int indices[])
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(position), position, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
@@ -32,18 +46,18 @@ void Renderer::Init(float position[], unsigned int indices[])
 	glEnableVertexAttribArray(0);
 
 	const char* vertexShader = "#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
-    "void main()\n"
-    "{\n"
-    "gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-	"}\0";
+		"layout (location = 0) in vec3 aPos;\n"
+		"void main()\n"
+		"{\n"
+		"gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+		"}\0";
 
 	const char* fragmentShader = "#version 330 core\n"
-    "out vec4 FragColor;\n"
-    "void main()\n"
-    "{\n"
-    "FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-	"}\n\0";
+		"out vec4 FragColor;\n"
+		"void main()\n"
+		"{\n"
+		"FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+		"}\n\0";
 
 	shader.CreateShader(vertexShader, fragmentShader);
 }

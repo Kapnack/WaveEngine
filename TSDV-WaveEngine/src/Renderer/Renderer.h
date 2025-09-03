@@ -16,7 +16,7 @@ public:
 
 	Material shader;
 
-	void Init(float position[], unsigned int indices[]);
+	void Init();
 	void Unload();
 
 	Renderer();
