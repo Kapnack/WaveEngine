@@ -62,6 +62,11 @@ void Renderer::Init()
 	shader.CreateShader(vertexShader, fragmentShader);
 }
 
+void Renderer::DrawElement()
+{
+	glDrawElements(GL_TRIANGLES, sizeof(indices), GL_UNSIGNED_INT, (void*)0);
+}
+
 void Renderer::Unload()
 {
 }

@@ -9,9 +9,11 @@ class Material
 {
 private:
 
-	unsigned int program;
+	unsigned int program = 0;
 
 	unsigned int CompileShader(const string& source, unsigned int type);
+
+	string FileReader(const string& filePath);
 
 public:
 
@@ -19,6 +21,8 @@ public:
 	~Material();
 
 	void CreateShader(const string& vertexShader, const string& fragmenteShader);
+
+	void CreateShader(const string& filePath, unsigned int type);
 
 	unsigned int GetProgram();
 

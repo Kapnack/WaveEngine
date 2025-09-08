@@ -8,6 +8,6 @@ class Entity2D : public Entity
 public:
 
 	Entity2D();
-		~Entity2D() override;
+	~Entity2D();
 };
 

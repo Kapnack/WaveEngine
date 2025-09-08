@@ -1,11 +1,15 @@
 #pragma once
 
+#include <vector>
+
+#include "Renderer/Renderer.h"
 #include "Vector3.h"
 
 class Entity
 {
 protected:
 
+	Renderer render;
 	Vector3 position;
 
 public:
@@ -18,4 +22,3 @@ public:
 
 	virtual void Draw() = 0;
 };
-

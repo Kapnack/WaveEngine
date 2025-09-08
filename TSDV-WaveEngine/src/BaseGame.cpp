@@ -1,5 +1,6 @@
 #include "Window/Window.h"
 #include "Renderer/Renderer.h"
+#include "Entity/Entity2D/Shape/Shape.h"
 
 int main()
 {
@@ -11,13 +12,15 @@ int main()
 
 	renderer->Init();
 
+	Shape shape;
+
 	while (!glfwWindowShouldClose(window->GetWindow()))
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
 		glUseProgram(renderer->shader.GetProgram());
+
+		shape.Draw();
 
 		glfwSwapBuffers(window->GetWindow());
 		glfwPollEvents();
