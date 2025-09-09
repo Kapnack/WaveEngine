@@ -35,7 +35,7 @@ void Engine::Update()
 
 }
 
-void Engine::Loop()
+void Engine::Run()
 {
 	while (!glfwWindowShouldClose(window->GetWindow()))
 	{

@@ -18,15 +18,16 @@ protected:
 
 	Renderer* GetRenderer();
 
+
+	virtual void Init() = 0;
+	virtual void Update();
+	virtual void Unload() = 0;
+
 public:
 
 	Engine(int width, int height);
 	virtual ~Engine();
 
-	void Loop();
-
-	virtual void Init() = 0;
-	virtual void Update();
-	virtual void Unload() = 0;
+	void Run();
 };
 

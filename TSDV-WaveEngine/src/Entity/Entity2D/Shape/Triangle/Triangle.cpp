@@ -3,12 +3,6 @@
 Triangle::Triangle(Renderer* renderer, Vector3 position) : Shape(renderer, position)
 {
 	vertexSize = 9.0f;
-	//vertex = new float[vertexSize]
-	//	{
-	//		0.5f, 0.5f, 0.0f,  // top right
-	//			0.5f, -0.5f, 0.0f,  // bottom right
-	//			-0.5f, -0.5f, 0.0f,  // bottom left
-	//	};
 
 	vertex = new float[vertexSize]
 		{
@@ -20,7 +14,7 @@ Triangle::Triangle(Renderer* renderer, Vector3 position) : Shape(renderer, posit
 	indexSize = 3;
 	indices = new int[indexSize]
 		{
-			0, 1, 3
+			0, 1, 2
 		};
 
 	renderer->CreateBuffers(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO);

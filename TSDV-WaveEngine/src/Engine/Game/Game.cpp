@@ -10,6 +10,7 @@ Game::Game(int width, int height) : Engine(width, height)
 
 Game::~Game()
 {
+	Unload();
 }
 
 void Game::Init()
