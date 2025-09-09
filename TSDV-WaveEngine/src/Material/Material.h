@@ -26,6 +26,9 @@ public:
 
 	unsigned int GetProgram();
 
+	void Bind();
+	void UnBind();
+
 	void Unload();
 };
 

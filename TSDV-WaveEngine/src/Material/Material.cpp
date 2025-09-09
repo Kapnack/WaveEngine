@@ -12,6 +12,7 @@ Material::Material()
 
 Material::~Material()
 {
+	Unload();
 }
 
 unsigned int Material::CompileShader(const string& source, unsigned int type)
@@ -119,6 +120,16 @@ void Material::CreateShader(const string& filePath, unsigned int type)
 unsigned int Material::GetProgram()
 {
 	return program;
+}
+
+void Material::Bind()
+{
+	glUseProgram(program);
+}
+
+void Material::UnBind()
+{
+	glUseProgram(0);
 }
 
 void Material::Unload()

@@ -1,18 +1,16 @@
-#include "Window/Window.h"
-#include "Renderer/Renderer.h"
-#include "Entity/Entity2D/Shape/Shape.h"
+#include "Engine/Game/Game.h"
+#include "Entity/Entity2D/Shape/Square/Square.h"
 
 int main()
 {
+	/*
 	Window* window = new Window(800, 600, "Wavendow");
-
-	window->Init();
 
 	Renderer* renderer = new Renderer;
 
-	renderer->Init();
+	Vector3 pos;
 
-	Shape shape;
+	Square shape = Square(renderer, pos);
 
 	while (!glfwWindowShouldClose(window->GetWindow()))
 	{
@@ -26,11 +24,17 @@ int main()
 		glfwPollEvents();
 	}
 
-	renderer->Unload();
-	window->Unload();
-
 	delete renderer;
 	delete window;
 
 	return 0;
+	*/
+
+	Game* game = new Game(800, 600);
+
+	game->Loop();
+
+	game->Unload();
+
+	delete game;
 }

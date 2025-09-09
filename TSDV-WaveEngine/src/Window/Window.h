@@ -15,9 +15,11 @@ private:
 	GLFWmonitor* monitor;
 	GLFWwindow* share;
 
+	void Init();
+	void Unload();
+
 public:
 
-	Window();
 	Window(int width, int height, const char* title, GLFWmonitor* monitor = nullptr, GLFWwindow* share = nullptr);
 	~Window();
 
@@ -25,8 +27,5 @@ public:
 	int GetWidth();
 	int GetHeight();
 
-	void Init();
-
-	void Unload();
 };
 

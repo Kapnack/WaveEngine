@@ -11,16 +11,18 @@ class Renderer
 {
 private:
 
-
+	void Init();
+	void Unload();
 
 public:
 
 	Material shader;
 
-	void Init();
-	void Unload();
+	void CreateBuffers(float* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO,
+		unsigned& VBO,
+		unsigned& EBO);
 
-	void DrawElement();
+	void DrawElement(int indicesSize, unsigned int VAO);
 
 	Renderer();
 	~Renderer();

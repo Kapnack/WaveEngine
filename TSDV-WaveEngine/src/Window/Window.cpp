@@ -4,8 +4,9 @@
 
 using namespace std;
 
-Window::Window()
+Window::~Window()
 {
+	Unload();
 }
 
 Window::Window(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share)
@@ -15,17 +16,12 @@ Window::Window(int width, int height, const char* title, GLFWmonitor* monitor, G
 	this->title = title;
 	this->monitor = monitor;
 	this->share = share;
-}
 
-Window::~Window()
-{
+	Init();
 }
 
 void Window::Init()
 {
-	if (!glfwInit())
-		exit(-1);
-
 	window = glfwCreateWindow(width, height, title, monitor, share);
 	if (!window)
 	{
@@ -37,7 +33,7 @@ void Window::Init()
 
 	glfwMakeContextCurrent(window);
 
-	glViewport(0, 0, width, height);
+	//glViewport(0, 0, width, height);
 
 	if (glewInit() != GLEW_OK)
 		cout << "GLEW FAILED TO INIT!!!";

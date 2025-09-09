@@ -7,7 +7,7 @@ class Entity2D : public Entity
 
 public:
 
-	Entity2D();
-	~Entity2D();
+	Entity2D(Renderer* renderer, Vector3 position);
+	virtual ~Entity2D();
 };
 

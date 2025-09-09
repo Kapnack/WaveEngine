@@ -1,11 +1,15 @@
 #include "Entity.h"
 
-Entity::Entity()
+Entity::Entity(Renderer* renderer, Vector3 position)
 {
+	this->renderer = renderer;
+	this->position = position;
 }
 
 Entity::~Entity()
 {
+	delete vertex;
+	delete indices;
 }
 
 void Entity::SetPosition(float x, float y, float z)
