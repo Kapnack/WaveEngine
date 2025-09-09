@@ -2,11 +2,11 @@
 
 #include "../Shape.h"
 
-class Square : public Shape
+WAVEEXPORT class Square : public Shape
 {
 public:
 
-	Square(Renderer* renderer, Vector3 position);
-	~Square();
+	WAVEEXPORT Square(Renderer* renderer, Vector3 position);
+	WAVEEXPORT ~Square();
 };
 

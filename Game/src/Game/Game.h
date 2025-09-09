@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Entity/Entity2D/Shape/Square/Square.h"
+#include "Entity/Entity2D/Shape/Shape.h"
 #include "Engine/Engine.h"
 
 class Game : public Engine

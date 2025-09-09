@@ -4,7 +4,7 @@
 #include "Window/Window.h"
 #include "Renderer/Renderer.h"
 
-class Engine
+WAVEEXPORT class Engine
 {
 private:
 
@@ -16,18 +16,17 @@ private:
 
 protected:
 
-	Renderer* GetRenderer();
+	WAVEEXPORT	Renderer* GetRenderer();
 
-
-	virtual void Init() = 0;
-	virtual void Update();
-	virtual void Unload() = 0;
+	WAVEEXPORT	virtual void Init() = 0;
+	WAVEEXPORT	virtual void Update();
+	WAVEEXPORT	virtual void Unload() = 0;
 
 public:
 
-	Engine(int width, int height);
-	virtual ~Engine();
+	WAVEEXPORT	Engine(int width, int height);
+	WAVEEXPORT	virtual ~Engine();
 
-	void Run();
+	WAVEEXPORT	void Run();
 };
 

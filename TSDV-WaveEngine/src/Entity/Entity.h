@@ -6,7 +6,7 @@
 #include "Renderer/Renderer.h"
 #include "Vector3.h"
 
-class Entity
+WAVEEXPORT class Entity
 {
 protected:
 
@@ -25,11 +25,11 @@ protected:
 
 public:
 
-	Entity(Renderer* renderer, Vector3 position);
-	virtual ~Entity();
+	WAVEEXPORT	Entity(Renderer* renderer, Vector3 position);
+	WAVEEXPORT virtual ~Entity();
 
-	void SetPosition(float x, float y, float z);
-	void SetPosition(Vector3 vector);
+	WAVEEXPORT void SetPosition(float x, float y, float z);
+	WAVEEXPORT void SetPosition(Vector3 vector);
 
-	virtual void Draw() = 0;
+	WAVEEXPORT virtual void Draw() = 0;
 };

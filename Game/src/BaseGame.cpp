@@ -1,5 +1,4 @@
-#include "Engine/Game/Game.h"
-#include "Entity/Entity2D/Shape/Square/Square.h"
+#include "Game/Game.h"
 
 int main()
 {
