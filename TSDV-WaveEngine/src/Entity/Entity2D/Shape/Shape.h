@@ -10,7 +10,5 @@ public:
 
 	Shape(Renderer* renderer, Vector3 position);
 	~Shape();
-
-	void Draw() override;
 };
 

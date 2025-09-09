@@ -7,3 +7,8 @@ Entity2D::Entity2D(Renderer* renderer, Vector3 position) : Entity(renderer, posi
 Entity2D::~Entity2D()
 {
 }
+
+void Entity2D::Draw()
+{
+	renderer->DrawElement(indexSize, VAO);
+}

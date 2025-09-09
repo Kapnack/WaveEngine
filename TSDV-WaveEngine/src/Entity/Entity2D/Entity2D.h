@@ -9,5 +9,7 @@ public:
 
 	Entity2D(Renderer* renderer, Vector3 position);
 	virtual ~Entity2D();
+
+	void Draw() override;
 };
 
