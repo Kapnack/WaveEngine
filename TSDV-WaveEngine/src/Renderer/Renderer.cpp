@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "VertexPosColor.h"
+
 using namespace std;
 
 Renderer::Renderer()
@@ -16,24 +18,31 @@ Renderer::~Renderer()
 
 void Renderer::Init()
 {
-	const string vertexShader = "#version 330 core\n"
-		"layout (location = 0) in vec3 aPos;\n"
+	const std::string vertexShader =
+		"#version 330 core\n"
+		"layout(location = 0) in vec3 aPos;\n"
+		"layout(location = 1) in vec3 aColor;\n"
+		"out vec3 vertexColor;\n"
 		"void main()\n"
 		"{\n"
-		"gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-		"}\0";
+		"   gl_Position = vec4(aPos, 1.0);\n"
+		"   vertexColor = aColor;\n"
+		"}\n";
 
-	const string fragmentShader = "#version 330 core\n"
+
+	const std::string fragmentShader =
+		"#version 330 core\n"
+		"in vec3 vertexColor;\n"
 		"out vec4 FragColor;\n"
 		"void main()\n"
 		"{\n"
-		"FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-		"}\n\0";
+		"   FragColor = vec4(vertexColor, 1.0);\n"
+		"}\n";
 
 	shader.CreateShader(vertexShader, fragmentShader);
 }
 
-void Renderer::CreateBuffers(float* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO)
+void Renderer::CreateBuffers(VertexPosColor* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO)
 {
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
@@ -42,14 +51,21 @@ void Renderer::CreateBuffers(float* vertex, int vertexSize, int* indices, int in
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertexSize * sizeof(float), vertex, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertexSize * sizeof(VertexPosColor), vertex, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize * sizeof(int), indices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPosColor), (void*)offsetof(VertexPosColor, position));
 	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(VertexPosColor), (void*)offsetof(VertexPosColor, color));
+	glEnableVertexAttribArray(1);
+
+	glBindVertexArray(0);
 }
+
+
 
 void Renderer::DrawElement(int indicesSize, unsigned int VAO)
 {

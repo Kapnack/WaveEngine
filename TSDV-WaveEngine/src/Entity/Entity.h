@@ -4,7 +4,7 @@
 
 #include "Export.h"
 #include "Renderer/Renderer.h"
-#include "Vector3.h"
+#include "VertexPosColor.h"
 
 WAVEEXPORT class Entity
 {
@@ -16,7 +16,7 @@ protected:
 	unsigned int VAO;
 
 	unsigned int VBO;
-	float* vertex;
+	VertexPosColor* vertex;
 	int vertexSize;
 
 	unsigned int EBO;

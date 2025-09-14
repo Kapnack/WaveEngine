@@ -45,6 +45,9 @@
     <ClCompile Include="src\Entity\Entity2D\Shape\Triangle\Triangle.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\VertexPosColor.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Window\Window.h">
@@ -68,7 +71,7 @@
     <ClInclude Include="src\Material\Material.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\BufferData.h">
+    <ClInclude Include="src\VertexPosColor.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\Engine\Engine.h">

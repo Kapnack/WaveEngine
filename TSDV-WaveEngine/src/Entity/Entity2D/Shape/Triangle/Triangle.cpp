@@ -2,14 +2,14 @@
 
 Triangle::Triangle(Renderer* renderer, Vector3 position) : Shape(renderer, position)
 {
-	vertexSize = 9.0f;
+	vertexSize = 3;
 
-	vertex = new float[vertexSize]
-		{
-			1.0f, 1.0f, 0.5f,  // top right
-				1.0f, 0.0f, 0.5f,  // bottom right
-				0.0f, 1.0f, 0.5f,  // bottom left
-		};
+	vertex = new VertexPosColor[vertexSize]
+	{
+		VertexPosColor(0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f),  // bottom right
+		VertexPosColor(-0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f),  // bottom left
+		VertexPosColor(0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f)    // top
+	};
 
 	indexSize = 3;
 	indices = new int[indexSize]

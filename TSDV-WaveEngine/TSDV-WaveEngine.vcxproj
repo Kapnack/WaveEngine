@@ -162,13 +162,14 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Vector3.cpp" />
+    <ClCompile Include="src\VertexPosColor.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Triangle\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Entity\Entity2D\Shape\Square\Square.h" />
     <ClInclude Include="src\Engine\Engine.h" />
-    <ClInclude Include="src\BufferData.h" />
+    <ClInclude Include="src\VertexPosColor.h" />
     <ClInclude Include="src\Export.h" />
     <ClInclude Include="src\Material\Material.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Shape.h" />

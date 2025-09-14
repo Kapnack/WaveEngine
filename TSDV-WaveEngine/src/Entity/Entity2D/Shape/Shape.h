@@ -9,6 +9,6 @@ protected:
 public:
 
 	WAVEEXPORT Shape(Renderer* renderer, Vector3 position);
-	WAVEEXPORT ~Shape();
+	WAVEEXPORT virtual ~Shape();
 };
 

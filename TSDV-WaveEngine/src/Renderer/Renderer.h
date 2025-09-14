@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "BufferData.h"
+#include "VertexPosColor.h"
 #include "Material/Material.h"
 
 class Renderer
@@ -17,7 +17,7 @@ public:
 
 	Material shader;
 
-	void CreateBuffers(float* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO,
+	void CreateBuffers(VertexPosColor* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO,
 		unsigned& VBO,
 		unsigned& EBO);
 
