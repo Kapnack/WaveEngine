@@ -87,7 +87,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\include;$(ProjectDir)src;$(ProjectDir)lib\glew-2.2.0\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\include;$(ProjectDir)src;$(ProjectDir)lib\glew-2.2.0\include;$(ProjectDir)lib\glm-1.0.1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -109,7 +109,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\include;$(ProjectDir)src;$(ProjectDir)lib\glew-2.2.0\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\include;$(ProjectDir)src;$(ProjectDir)lib\glew-2.2.0\include;$(ProjectDir)lib\glm-1.0.1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -162,6 +162,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Vector3.cpp" />
+    <ClCompile Include="src\Vector4.cpp" />
     <ClCompile Include="src\VertexPosColor.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Triangle\Triangle.cpp" />
@@ -169,6 +170,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
   <ItemGroup>
     <ClInclude Include="src\Entity\Entity2D\Shape\Square\Square.h" />
     <ClInclude Include="src\Engine\Engine.h" />
+    <ClInclude Include="src\Vector4.h" />
     <ClInclude Include="src\VertexPosColor.h" />
     <ClInclude Include="src\Export.h" />
     <ClInclude Include="src\Material\Material.h" />

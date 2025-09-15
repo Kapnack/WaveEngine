@@ -23,6 +23,8 @@ protected:
 	int* indices;
 	int indexSize;
 
+	glm::mat4 model;
+
 public:
 
 	WAVEEXPORT	Entity(Renderer* renderer, Vector3 position);

@@ -15,6 +15,10 @@ private:
 
 	string FileReader(const string& filePath);
 
+	int uModel = 0;
+	int uView = 0;
+	int uProj = 0;
+
 public:
 
 	Material();
@@ -25,6 +29,9 @@ public:
 	void CreateShader(const string& filePath, unsigned int type);
 
 	unsigned int GetProgram();
+	unsigned int GetUModel();
+	unsigned int GetUView();
+	unsigned int GetUProj();
 
 	void Bind();
 	void UnBind();

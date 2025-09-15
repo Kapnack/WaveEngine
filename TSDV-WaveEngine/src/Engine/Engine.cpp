@@ -41,7 +41,7 @@ void Engine::Run()
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glUseProgram(renderer->shader.GetProgram());
+		glUseProgram(renderer->shader->GetProgram());
 
 		Update();
 

@@ -2,6 +2,11 @@
 
 #include <GL/glew.h>
 
+#define GLM_FORCE_ALIGNED_GENTYPES
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <fstream>
 
 using namespace std;
@@ -96,6 +101,12 @@ void Material::CreateShader(const string& vertexShader, const string& fragmenteS
 	glDeleteShader(fs);
 
 	this->program = program;
+
+	uModel = glGetUniformLocation(program, "uModel");
+
+	uView = glGetUniformLocation(program, "uView");
+
+	uProj = glGetUniformLocation(program, "uProj");
 }
 
 void Material::CreateShader(const string& filePath, unsigned int type)
@@ -120,6 +131,21 @@ void Material::CreateShader(const string& filePath, unsigned int type)
 unsigned int Material::GetProgram()
 {
 	return program;
+}
+
+unsigned int Material::GetUModel()
+{
+	return uModel;
+}
+
+unsigned int Material::GetUView()
+{
+	return uView;
+}
+
+unsigned int Material::GetUProj()
+{
+	return uProj;
 }
 
 void Material::Bind()

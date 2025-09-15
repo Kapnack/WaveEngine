@@ -3,6 +3,11 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#define GLM_FORCE_ALIGNED_GENTYPES
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "VertexPosColor.h"
 #include "Material/Material.h"
 
@@ -15,13 +20,13 @@ private:
 
 public:
 
-	Material shader;
+	Material* shader;
 
 	void CreateBuffers(VertexPosColor* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO,
 		unsigned& VBO,
 		unsigned& EBO);
 
-	void DrawElement(int indicesSize, unsigned int VAO);
+	void DrawElement(glm::mat4& model, int indicesSize, unsigned int VAO);
 
 	Renderer();
 	~Renderer();

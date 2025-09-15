@@ -10,5 +10,5 @@ Entity2D::~Entity2D()
 
 void Entity2D::Draw()
 {
-	renderer->DrawElement(indexSize, VAO);
+	renderer->DrawElement(model, indexSize, VAO);
 }

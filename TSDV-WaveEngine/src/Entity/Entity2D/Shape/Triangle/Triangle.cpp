@@ -1,14 +1,14 @@
 #include "Triangle.h"
 
-Triangle::Triangle(Renderer* renderer, Vector3 position) : Shape(renderer, position)
+Triangle::Triangle(Renderer* renderer, Vector3 position, Vector4 color) : Shape(renderer, position)
 {
 	vertexSize = 3;
 
 	vertex = new VertexPosColor[vertexSize]
 	{
-		VertexPosColor(0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f),  // bottom right
-		VertexPosColor(-0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f),  // bottom left
-		VertexPosColor(0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f)    // top
+		VertexPosColor(0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f),  // bottom right
+		VertexPosColor(-0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f),  // bottom left
+		VertexPosColor(0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f)    // top
 	};
 
 	indexSize = 3;
@@ -16,6 +16,11 @@ Triangle::Triangle(Renderer* renderer, Vector3 position) : Shape(renderer, posit
 		{
 			0, 1, 2
 		};
+
+	model = glm::mat4(1.0f);                    // Identity
+	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // Translate
+	model = glm::rotate(model, glm::radians(0.0f), glm::vec3(0.0f, 0.0f, 1.0f)); // Rotate
+	model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f)); // Scale
 
 	renderer->CreateBuffers(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO);
 }
