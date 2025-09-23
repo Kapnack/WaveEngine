@@ -15,6 +15,9 @@ class Renderer
 {
 private:
 
+	glm::mat4* view;
+	glm::mat4 proj;
+
 	void Init(int width, int height);
 	void Unload();
 
