@@ -6,7 +6,7 @@ void Engine::InitEngine(int width, int height)
 		exit(-1);
 
 	window = new Window(width, height, "WaveEngine", nullptr, nullptr);
-	renderer = new Renderer();
+	renderer = new Renderer(width, height);
 }
 
 void Engine::EndEngine()

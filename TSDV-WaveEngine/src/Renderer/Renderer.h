@@ -15,7 +15,7 @@ class Renderer
 {
 private:
 
-	void Init();
+	void Init(int width, int height);
 	void Unload();
 
 public:
@@ -28,7 +28,7 @@ public:
 
 	void DrawElement(glm::mat4& model, int indicesSize, unsigned int VAO);
 
-	Renderer();
+	Renderer(int width, int height);
 	~Renderer();
 };
 

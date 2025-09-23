@@ -4,9 +4,9 @@
 
 using namespace std;
 
-Renderer::Renderer()
+Renderer::Renderer(int width, int height)
 {
-	Init();
+	Init(width, height);
 }
 
 Renderer::~Renderer()
@@ -14,8 +14,10 @@ Renderer::~Renderer()
 	Unload();
 }
 
-void Renderer::Init()
+void Renderer::Init(int width, int height)
 {
+	glViewport(0, 0, width, height);
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
