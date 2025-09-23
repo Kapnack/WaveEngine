@@ -10,6 +10,8 @@ private:
 	Shape* shape;
 	Shape* shape2;
 
+protected:
+
 	void Init() override;
 	void Update() override;
 	void Unload() override;

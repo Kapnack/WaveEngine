@@ -4,11 +4,11 @@ Triangle::Triangle(Renderer* renderer, Vector3 position, Vector4 color) : Shape(
 {
 	vertexSize = 3;
 
-	vertex = new VertexPosColor[vertexSize]
+	vertex = new VertexData[vertexSize]
 	{
-		VertexPosColor(0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f),  // bottom right
-		VertexPosColor(-0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f),  // bottom left
-		VertexPosColor(0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f)    // top
+		VertexData(0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f),  // bottom right
+		VertexData(-0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f),  // bottom left
+		VertexData(0.0f,  0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f)    // top
 	};
 
 	indexSize = 3;

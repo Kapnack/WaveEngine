@@ -8,7 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "VertexPosColor.h"
+#include "VertexData.h"
 #include "Material/Material.h"
 
 class Renderer
@@ -22,7 +22,7 @@ public:
 
 	Material* shader;
 
-	void CreateBuffers(VertexPosColor* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO,
+	void CreateBuffers(VertexData* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO,
 		unsigned& VBO,
 		unsigned& EBO);
 

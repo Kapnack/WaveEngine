@@ -30,11 +30,6 @@ Engine::~Engine()
 	EndEngine();
 }
 
-void Engine::Update()
-{
-
-}
-
 void Engine::Run()
 {
 	while (!glfwWindowShouldClose(window->GetWindow()))

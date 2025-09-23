@@ -19,7 +19,7 @@ protected:
 	WAVEEXPORT	Renderer* GetRenderer();
 
 	WAVEEXPORT	virtual void Init() = 0;
-	WAVEEXPORT	virtual void Update();
+	WAVEEXPORT	virtual void Update() = 0;
 	WAVEEXPORT	virtual void Unload() = 0;
 
 public:

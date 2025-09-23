@@ -163,7 +163,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Vector3.cpp" />
     <ClCompile Include="src\Vector4.cpp" />
-    <ClCompile Include="src\VertexPosColor.cpp" />
+    <ClCompile Include="src\VertexData.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Triangle\Triangle.cpp" />
   </ItemGroup>
@@ -171,7 +171,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClInclude Include="src\Entity\Entity2D\Shape\Square\Square.h" />
     <ClInclude Include="src\Engine\Engine.h" />
     <ClInclude Include="src\Vector4.h" />
-    <ClInclude Include="src\VertexPosColor.h" />
+    <ClInclude Include="src\VertexData.h" />
     <ClInclude Include="src\Export.h" />
     <ClInclude Include="src\Material\Material.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Shape.h" />
