@@ -60,6 +60,15 @@ int Window::GetHeight()
 	return height;
 }
 
+void Window::SwapBuffer()
+{
+	glfwSwapBuffers(window);
+}
+
+void Window::HandleInput()
+{
+	glfwPollEvents();
+}
 
 void Window::Unload()
 {

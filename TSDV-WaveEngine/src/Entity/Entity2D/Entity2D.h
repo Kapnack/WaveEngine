@@ -9,7 +9,5 @@ public:
 
 	WAVEEXPORT Entity2D(Renderer* renderer, Vector3 position);
 	WAVEEXPORT virtual ~Entity2D();
-
-	WAVEEXPORT void Draw() override;
 };
 

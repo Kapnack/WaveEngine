@@ -24,7 +24,7 @@ void Renderer::Init(int width, int height)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	view = new glm::mat4(1.0f);
-	proj = glm::ortho(-5.0f, 5.0f, -5.0f, 5.0f, -1.0f, 1.0f);
+	proj = new glm::mat4(glm::ortho(-5.0f, 5.0f, -5.0f, 5.0f, -1.0f, 1.0f));
 
 	const std::string vertexShader =
 		"#version 330 core						\n"
@@ -82,6 +82,11 @@ void Renderer::CreateBuffers(VertexData* vertex, int vertexSize, int* indices, i
 	glBindVertexArray(0);
 }
 
+void Renderer::Clear()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+}
+
 void Renderer::DrawElement(glm::mat4& model, int indicesSize, unsigned int VAO)
 {
 	shader->Bind();
@@ -90,7 +95,7 @@ void Renderer::DrawElement(glm::mat4& model, int indicesSize, unsigned int VAO)
 
 	glUniformMatrix4fv(shader->GetUView(), 1, GL_FALSE, glm::value_ptr(*view));
 
-	glUniformMatrix4fv(shader->GetUProj(), 1, GL_FALSE, glm::value_ptr(proj));
+	glUniformMatrix4fv(shader->GetUProj(), 1, GL_FALSE, glm::value_ptr(*proj));
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*)0);
@@ -100,4 +105,5 @@ void Renderer::Unload()
 {
 	delete shader;
 	delete view;
+	delete proj;
 }

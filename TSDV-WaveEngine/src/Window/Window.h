@@ -27,5 +27,7 @@ public:
 	int GetWidth();
 	int GetHeight();
 
+	void SwapBuffer();
+	void HandleInput();
 };
 

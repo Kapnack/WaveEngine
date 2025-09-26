@@ -10,5 +10,7 @@ public:
 
 	WAVEEXPORT Shape(Renderer* renderer, Vector3 position);
 	WAVEEXPORT virtual ~Shape();
+
+	WAVEEXPORT void Draw() override;
 };
 

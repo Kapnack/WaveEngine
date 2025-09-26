@@ -23,6 +23,7 @@ Material::~Material()
 unsigned int Material::CompileShader(const string& source, unsigned int type)
 {
 	unsigned int id = glCreateShader(type);
+
 	const char* src = source.c_str();
 
 	glShaderSource(id, 1, &src, nullptr);
@@ -88,9 +89,10 @@ void Material::CreateShader(const string& vertexShader, const string& fragmenteS
 	if (program != 0)
 		Unload();
 
-	unsigned int program = glCreateProgram();
 	unsigned int vs = CompileShader(vertexShader, GL_VERTEX_SHADER);
 	unsigned int fs = CompileShader(fragmenteShader, GL_FRAGMENT_SHADER);
+
+	unsigned int program = glCreateProgram();
 
 	glAttachShader(program, vs);
 	glAttachShader(program, fs);

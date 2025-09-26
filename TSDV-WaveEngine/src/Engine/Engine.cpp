@@ -34,13 +34,11 @@ void Engine::Run()
 {
 	while (!glfwWindowShouldClose(window->GetWindow()))
 	{
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		glUseProgram(renderer->shader->GetProgram());
+		renderer->Clear();
 
 		Update();
 
-		glfwSwapBuffers(window->GetWindow());
-		glfwPollEvents();
+		window->SwapBuffer();
+		window->HandleInput();
 	}
 }
