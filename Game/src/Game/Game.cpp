@@ -26,8 +26,6 @@ void Game::Init()
 
 	pos = Vector3(width / 2, height / 2, 0);
 	shape2->SetScale(pos);
-
-	//	shape2->SetRotation(45.0f);
 }
 
 void Game::Update()
