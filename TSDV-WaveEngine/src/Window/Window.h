@@ -29,5 +29,7 @@ public:
 
 	void SwapBuffer();
 	void HandleInput();
+
+	float GetGLTime();
 };
 

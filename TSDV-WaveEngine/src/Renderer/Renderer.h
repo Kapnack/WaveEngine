@@ -5,6 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Window/Window.h"
+
 #include "VertexData.h"
 #include "Material/Material.h"
 
@@ -12,15 +14,19 @@ class Renderer
 {
 private:
 
+	Window* window;
+
 	glm::mat4* view;
 	glm::mat4* proj;
 
-	void Init(int width, int height);
+	void Init();
 	void Unload();
+
+	Vector3 res;
 
 public:
 
-	Renderer(int width, int height);
+	Renderer(Window* window);
 	~Renderer();
 
 	Material* shader;
@@ -30,6 +36,10 @@ public:
 		unsigned& EBO);
 
 	void Clear();
+
+	Vector3 GetRes();
+
+	static float GetGLTime();
 
 	void DrawElement(glm::mat4& model, int indicesSize, unsigned int VAO);
 };

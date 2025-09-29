@@ -1,6 +1,6 @@
 #include "Triangle.h"
 
-Triangle::Triangle(Renderer* renderer, Vector3 position, Vector4 color) : Shape(renderer, position)
+Triangle::Triangle(Renderer* renderer, Vector4 color) : Shape(renderer)
 {
 	vertexSize = 3;
 
@@ -27,4 +27,5 @@ Triangle::Triangle(Renderer* renderer, Vector3 position, Vector4 color) : Shape(
 
 Triangle::~Triangle()
 {
+
 }

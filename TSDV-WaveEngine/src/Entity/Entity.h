@@ -12,6 +12,8 @@ protected:
 
 	Renderer* renderer;
 	Vector3 position;
+	Vector3 scale = Vector3(1.0f, 1.0f, 1.0f);
+	float rotation = 0.0f;
 
 	unsigned int VAO;
 
@@ -25,13 +27,27 @@ protected:
 
 	glm::mat4 model;
 
+	void SetTRS();
+
 public:
 
-	WAVEEXPORT	Entity(Renderer* renderer, Vector3 position);
+	WAVEEXPORT	Entity(Renderer* renderer);
 	WAVEEXPORT virtual ~Entity();
 
-	WAVEEXPORT void SetPosition(float x, float y, float z);
+	WAVEEXPORT void Translate(Vector3 translation);
+	WAVEEXPORT void Translate(float x, float y);
+
+	WAVEEXPORT void SetPosition(float x, float y);
 	WAVEEXPORT void SetPosition(Vector3 vector);
+
+	WAVEEXPORT void SetScale(float x, float y);
+	WAVEEXPORT void SetScale(Vector3 vector);
+
+	WAVEEXPORT void Scale(float x, float y);
+	WAVEEXPORT void Scale(Vector3 vector);
+
+	WAVEEXPORT void SetRotation(float angle);
+	WAVEEXPORT void Rotate(float angle);
 
 	WAVEEXPORT virtual void Draw() = 0;
 };

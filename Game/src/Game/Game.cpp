@@ -15,13 +15,29 @@ Game::~Game()
 
 void Game::Init()
 {
-	Vector3 pos;
-	shape = new Square(GetRenderer(), pos);
-	shape2 = new Triangle(GetRenderer(), pos);
+	shape = new Square(GetRenderer());
+	shape2 = new Triangle(GetRenderer());
+
+	shape->SetPosition(pos);
+
+	pos = Vector3(width / 2, height / 2, 0);
+
+	shape2->SetPosition(pos);
+
+	pos = Vector3(width / 2, height / 2, 0);
+	shape2->SetScale(pos);
+
+	//	shape2->SetRotation(45.0f);
 }
 
 void Game::Update()
 {
+	float delta = GetDeltaTime();
+
+	float rotate = 45.0f;
+
+	shape2->Rotate(rotate * GetDeltaTime());
+
 	if (shape)
 		shape->Draw();
 

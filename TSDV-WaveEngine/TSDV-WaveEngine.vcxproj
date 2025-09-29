@@ -166,6 +166,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClCompile Include="src\VertexData.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Triangle\Triangle.cpp" />
+    <ClCompile Include="src\Time\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Entity\Entity2D\Shape\Square\Square.h" />
@@ -181,6 +182,10 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClInclude Include="src\Vector3.h" />
     <ClInclude Include="src\Window\Window.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Triangle\Triangle.h" />
+    <ClInclude Include="src\Time\Time.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

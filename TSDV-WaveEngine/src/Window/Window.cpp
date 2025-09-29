@@ -70,6 +70,11 @@ void Window::HandleInput()
 	glfwPollEvents();
 }
 
+float Window::GetGLTime()
+{
+	return static_cast<float>(glfwGetTime());
+}
+
 void Window::Unload()
 {
 	glfwTerminate();

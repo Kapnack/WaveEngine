@@ -8,7 +8,7 @@ protected:
 
 public:
 
-	WAVEEXPORT Shape(Renderer* renderer, Vector3 position);
+	WAVEEXPORT Shape(Renderer* renderer);
 	WAVEEXPORT virtual ~Shape();
 
 	WAVEEXPORT void Draw() override;

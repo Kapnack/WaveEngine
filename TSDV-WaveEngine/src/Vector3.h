@@ -10,4 +10,7 @@ WAVEEXPORT struct Vector3
 
 	WAVEEXPORT Vector3();
 	WAVEEXPORT Vector3(float x, float y, float z);
+	WAVEEXPORT Vector3 operator/(Vector3 other);
+	WAVEEXPORT void operator+=(Vector3 other);
+	WAVEEXPORT void operator-=(Vector3 other);
 };

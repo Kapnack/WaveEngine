@@ -6,8 +6,8 @@ WAVEEXPORT class Square : public Shape
 {
 public:
 
-	WAVEEXPORT Square(Renderer* renderer, Vector3 position);
-	WAVEEXPORT Square(Renderer* renderer, Vector3 position, Vector4 color);
+	WAVEEXPORT Square(Renderer* renderer);
+	WAVEEXPORT Square(Renderer* renderer, Vector4 color);
 	WAVEEXPORT ~Square();
 };
 

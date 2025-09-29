@@ -4,9 +4,10 @@
 
 using namespace std;
 
-Renderer::Renderer(int width, int height)
+Renderer::Renderer(Window* window)
 {
-	Init(width, height);
+	this->window = window;
+	Init();
 }
 
 Renderer::~Renderer()
@@ -14,17 +15,21 @@ Renderer::~Renderer()
 	Unload();
 }
 
-void Renderer::Init(int width, int height)
+void Renderer::Init()
 {
+	res.x = window->GetWidth();
+	res.y = window->GetHeight();
+	res.z = 1.0f;
+
 	//This tells OpenGL from were in the window it is able to draw
-	glViewport(0, 0, width, height); // 0,0 = inferior left corner of the window.
+	glViewport(0, 0, res.x, res.y); // 0,0 = inferior left corner of the window.
 	//Some drivers might automatically create a viewport. But not all of them do that. That is why it is important to create one.
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	view = new glm::mat4(1.0f);
-	proj = new glm::mat4(glm::ortho(-5.0f, 5.0f, -5.0f, 5.0f, -1.0f, 1.0f));
+	proj = new glm::mat4(glm::ortho(0.0f, res.x, 0.0f, res.y, -1.0f, 1.0f));
 
 	const std::string vertexShader =
 		"#version 330 core						\n"
@@ -85,6 +90,11 @@ void Renderer::CreateBuffers(VertexData* vertex, int vertexSize, int* indices, i
 void Renderer::Clear()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
+}
+
+Vector3 Renderer::GetRes()
+{
+	return res;
 }
 
 void Renderer::DrawElement(glm::mat4& model, int indicesSize, unsigned int VAO)
