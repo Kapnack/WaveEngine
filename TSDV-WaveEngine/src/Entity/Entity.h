@@ -34,6 +34,9 @@ public:
 	WAVEEXPORT	Entity(Renderer* renderer);
 	WAVEEXPORT virtual ~Entity();
 
+	WAVEEXPORT Vector3 GetScale();
+	WAVEEXPORT Vector3 GetPosition();
+
 	WAVEEXPORT void Translate(Vector3 translation);
 	WAVEEXPORT void Translate(float x, float y);
 

@@ -15,36 +15,76 @@ Game::~Game()
 
 void Game::Init()
 {
-	shape = new Square(GetRenderer());
-	shape2 = new Triangle(GetRenderer());
-
-	shape->SetPosition(pos);
+	pinkSquare = new Square(GetRenderer(), Vector4(1.0f, 0.5f, 0.8f, 1.0f));
+	blueSquare = new Square(GetRenderer(), Vector4(0.0f, 0.0f, 1.0f, 1.0f));
 
 	pos = Vector3(width / 2, height / 2, 0);
+	pinkSquare->SetPosition(pos);
 
-	shape2->SetPosition(pos);
+	pos = Vector3(width / 10, width / 10, 0);
+	pinkSquare->SetScale(pos);
 
-	pos = Vector3(width / 2, height / 2, 0);
-	shape2->SetScale(pos);
+	//----------------------------------------------------------------------
+
+	pos = Vector3(width / 8, height - height / 8, 0);
+
+	blueSquare->SetPosition(pos);
+
+	pos = Vector3(width / 10, width / 10, 0);
+	blueSquare->SetScale(pos);
 }
 
 void Game::Update()
 {
 	float delta = GetDeltaTime();
 
-	float rotate = 45.0f;
+	blueSquare->Rotate(-45.0f * GetDeltaTime());
 
-	shape2->Rotate(rotate * GetDeltaTime());
+	bool isOnTopLeft = blueSquare->GetPosition().x > width - width / 10;
+	bool isOnTopRight = blueSquare->GetPosition().x < width / 10;
+	bool isOnButtonLeft = blueSquare->GetPosition().y < height / 10;
+	bool isOnButtonRight = blueSquare->GetPosition().y > height - height / 10;
 
-	if (shape)
-		shape->Draw();
+	float speedSquare = 400;
 
-	if (shape2)
-		shape2->Draw();
+	if (!reverseMovement)
+	{
+		if (!isOnTopLeft)
+		{
+			blueSquare->Translate(Vector3(speedSquare * delta, 0, 0));
+		}
+		else
+		{
+			if (!isOnButtonLeft)
+				blueSquare->Translate(Vector3(0, -speedSquare * delta, 0));
+			else
+				reverseMovement = true;
+		}
+	}
+	else
+	{
+		if (!isOnTopRight)
+		{
+			blueSquare->Translate(Vector3(-speedSquare * delta, 0, 0));
+		}
+		else
+		{
+			if (!isOnButtonRight)
+				blueSquare->Translate(Vector3(0, speedSquare * delta, 0));
+			else
+				reverseMovement = false;
+		}
+	};
+
+	if (pinkSquare)
+		pinkSquare->Draw();
+
+	if (blueSquare)
+		blueSquare->Draw();
 }
 
 void Game::Unload()
 {
-	delete shape;
-	delete shape2;
+	delete pinkSquare;
+	delete blueSquare;
 }

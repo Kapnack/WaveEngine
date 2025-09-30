@@ -13,6 +13,16 @@ Entity::~Entity()
 	delete indices;
 }
 
+Vector3 Entity::GetScale()
+{
+	return scale;
+}
+
+Vector3 Entity::GetPosition()
+{
+	return position;
+}
+
 void Entity::SetPosition(Vector3 vector)
 {
 	SetPosition(vector.x, vector.y);

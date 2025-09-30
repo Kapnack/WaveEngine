@@ -9,8 +9,10 @@ private:
 
 	Vector3 pos;
 	Vector3 scale;
-	Shape* shape;
-	Shape* shape2;
+	Shape* pinkSquare;
+	Shape* blueSquare;
+
+	bool reverseMovement;
 
 protected:
 

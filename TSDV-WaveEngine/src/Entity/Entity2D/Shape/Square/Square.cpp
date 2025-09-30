@@ -21,7 +21,7 @@ Square::Square(Renderer* renderer, Vector4 color) : Shape(renderer)
 				1, 2, 3    // second triangle
 		};
 
-	renderer->CreateBuffers(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO);
+		renderer->CreateBuffers(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO);
 }
 
 Square::Square(Renderer* renderer) : Shape(renderer)
@@ -43,9 +43,7 @@ Square::Square(Renderer* renderer) : Shape(renderer)
 				1, 2, 3    // second triangle
 		};
 
-	SetTRS();
-
-	renderer->CreateBuffers(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO);
+		renderer->CreateBuffers(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO);
 }
 
 Square::~Square()
