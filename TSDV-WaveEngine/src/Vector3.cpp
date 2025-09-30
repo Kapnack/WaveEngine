@@ -29,3 +29,13 @@ void Vector3::operator-=(Vector3 other)
 	y -= other.y;
 	z -= other.z;
 }
+
+bool Vector3::operator<(Vector3 other)
+{
+	return (x < other.x && y < other.y && z < other.z);
+}
+
+bool Vector3::operator>(Vector3 other)
+{
+	return (x > other.x && y > other.y && z > other.z);
+}

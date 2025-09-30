@@ -9,6 +9,9 @@ private:
 
 	Vector3 pos;
 	Vector3 scale;
+
+	Vector3 originalScale;
+
 	Shape* pinkSquare;
 	Shape* blueSquare;
 

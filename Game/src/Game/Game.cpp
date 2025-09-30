@@ -21,8 +21,8 @@ void Game::Init()
 	pos = Vector3(width / 2, height / 2, 0);
 	pinkSquare->SetPosition(pos);
 
-	pos = Vector3(width / 10, width / 10, 0);
-	pinkSquare->SetScale(pos);
+	originalScale = Vector3(width / 10, width / 10, 0);
+	pinkSquare->SetScale(originalScale);
 
 	//----------------------------------------------------------------------
 
@@ -75,6 +75,9 @@ void Game::Update()
 				reverseMovement = false;
 		}
 	};
+
+	if (pinkSquare->GetScale() > originalScale)
+		pinkSquare->Scale(Vector3(1 * delta, 1 * delta, 0));
 
 	if (pinkSquare)
 		pinkSquare->Draw();
