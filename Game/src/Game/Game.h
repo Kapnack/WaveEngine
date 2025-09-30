@@ -7,10 +7,13 @@ class Game : public Engine
 {
 private:
 
-	Vector3 pos;
+	Vector3 squarePos;
+	Vector3 trianglePos;
 	Vector3 scale;
 	Shape* shape;
 	Shape* shape2;
+	bool isGoingUp = true;
+	bool isGoingDown = false;
 
 protected:
 

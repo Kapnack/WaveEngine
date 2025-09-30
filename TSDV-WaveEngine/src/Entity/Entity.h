@@ -11,7 +11,7 @@ WAVEEXPORT class Entity
 protected:
 
 	Renderer* renderer;
-	Vector3 position;
+
 	Vector3 scale = Vector3(1.0f, 1.0f, 1.0f);
 	float rotation = 0.0f;
 
@@ -30,6 +30,7 @@ protected:
 	void SetTRS();
 
 public:
+	Vector3 position;
 
 	WAVEEXPORT	Entity(Renderer* renderer);
 	WAVEEXPORT virtual ~Entity();
