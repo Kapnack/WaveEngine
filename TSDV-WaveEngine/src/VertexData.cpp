@@ -21,3 +21,25 @@ VertexData::VertexData(Vector3 position, Vector4 color)
 	this->position = position;
 	this->color = color;
 }
+
+VertexData::VertexData(Vector3 position, Vector4 color, TextureData textureCordinates)
+{
+	this->position = position;
+	this->color = color;
+	this->textureCordinates = textureCordinates;
+}
+
+void VertexData::SetColor(Vector4 color)
+{
+	this->color = color;
+}
+
+TextureData::TextureData()
+{
+}
+
+TextureData::TextureData(float u, float v)
+{
+	this->u = u;
+	this->v = v;
+}

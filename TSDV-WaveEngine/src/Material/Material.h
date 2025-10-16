@@ -18,6 +18,7 @@ private:
 	int uModel = 0;
 	int uView = 0;
 	int uProj = 0;
+	int ourTexture = 0;
 
 public:
 
@@ -32,6 +33,7 @@ public:
 	unsigned int GetUModel();
 	unsigned int GetUView();
 	unsigned int GetUProj();
+	unsigned int GetOurTexture();
 
 	void Bind();
 	void UnBind();

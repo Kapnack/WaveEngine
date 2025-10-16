@@ -109,6 +109,8 @@ void Material::CreateShader(const string& vertexShader, const string& fragmenteS
 	uView = glGetUniformLocation(program, "uView");
 
 	uProj = glGetUniformLocation(program, "uProj");
+
+	ourTexture = glGetUniformLocation(program, "ourTexture");
 }
 
 void Material::CreateShader(const string& filePath, unsigned int type)
@@ -148,6 +150,11 @@ unsigned int Material::GetUView()
 unsigned int Material::GetUProj()
 {
 	return uProj;
+}
+
+unsigned int Material::GetOurTexture()
+{
+	return ourTexture;
 }
 
 void Material::Bind()

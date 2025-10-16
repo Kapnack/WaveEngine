@@ -79,6 +79,28 @@ void Entity::Rotate(float angle)
 	SetTRS();
 }
 
+void Entity::SetColor(Vector4 color)
+{
+	for (int i = 0; i < vertexSize; i++)
+	{
+		vertex[i].SetColor(color);
+	}
+
+	renderer->UpdateColorBuffer(vertex, vertexSize, VBO);
+}
+
+void Entity::SetVertexColor(int index, Vector4 color)
+{
+	if (index < 0 || index > indexSize)
+	{
+		cout << "ERROR: Index is: " + to_string(index) + ". and it should be between 0 to " + to_string(indexSize) + ".";
+		return;
+	}
+
+	vertex[index].SetColor(color);
+	renderer->UpdateColorBuffer(vertex, vertexSize, VBO);
+}
+
 void Entity::SetTRS()
 {
 	model = glm::mat4(1.0f);                    // Identity

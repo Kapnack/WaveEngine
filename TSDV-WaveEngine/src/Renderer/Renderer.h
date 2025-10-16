@@ -29,11 +29,15 @@ public:
 	Renderer(Window* window);
 	~Renderer();
 
-	Material* shader;
+	Material* shapeShaders;
+	Material* spriteShaders;
 
 	void CreateBuffers(VertexData* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO,
 		unsigned& VBO,
 		unsigned& EBO);
+	void CreateBuffersSprite(VertexData* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO, unsigned int& texture);
+
+	void UpdateColorBuffer(VertexData* vertex, int vertexSize, unsigned& VBO);
 
 	void Clear();
 
@@ -42,5 +46,6 @@ public:
 	static float GetGLTime();
 
 	void DrawElement(glm::mat4& model, int indicesSize, unsigned int VAO);
+	void DrawElementSprite(glm::mat4& model, int indicesSize, unsigned int VAO, unsigned int texture);
 };
 

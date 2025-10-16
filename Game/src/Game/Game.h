@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Entity/Entity2D/Shape/Shape.h"
+#include "Entity/Entity2D/Sprite/Sprite.h"
 #include "Engine/Engine.h"
 
 class Game : public Engine
@@ -11,6 +12,9 @@ private:
 	Vector3 scale;
 	Shape* shape;
 	Shape* shape2;
+	Sprite* sprite;
+
+	float timer = 0;
 
 protected:
 

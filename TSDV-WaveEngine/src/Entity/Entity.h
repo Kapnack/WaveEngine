@@ -49,5 +49,8 @@ public:
 	WAVEEXPORT void SetRotation(float angle);
 	WAVEEXPORT void Rotate(float angle);
 
+	WAVEEXPORT void SetColor(Vector4 color);
+	WAVEEXPORT void SetVertexColor(int index, Vector4 color);
+
 	WAVEEXPORT virtual void Draw() = 0;
 };

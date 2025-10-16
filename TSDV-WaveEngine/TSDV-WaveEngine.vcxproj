@@ -154,6 +154,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entity\Entity2D\Sprite\Sprite.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Square\Square.cpp" />
     <ClCompile Include="src\Engine\Engine.cpp" />
     <ClCompile Include="src\Material\Material.cpp" />
@@ -167,8 +168,10 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Triangle\Triangle.cpp" />
     <ClCompile Include="src\Time\Time.cpp" />
+    <ClCompile Include="src\TextureImporter\TextureImporter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entity\Entity2D\Sprite\Sprite.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Square\Square.h" />
     <ClInclude Include="src\Engine\Engine.h" />
     <ClInclude Include="src\Vector4.h" />
@@ -183,6 +186,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClInclude Include="src\Window\Window.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Triangle\Triangle.h" />
     <ClInclude Include="src\Time\Time.h" />
+    <ClInclude Include="src\TextureImporter\TextureImporter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
