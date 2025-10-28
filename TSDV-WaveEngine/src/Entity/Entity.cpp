@@ -13,6 +13,16 @@ Entity::~Entity()
 	delete indices;
 }
 
+Vector3 Entity::GetPos()
+{
+	return position;
+}
+
+Vector3 Entity::GetScale()
+{
+	return scale;
+}
+
 void Entity::SetPosition(Vector3 vector)
 {
 	SetPosition(vector.x, vector.y);
@@ -20,10 +30,15 @@ void Entity::SetPosition(Vector3 vector)
 
 void Entity::SetPosition(float x, float y)
 {
-	position.x = x; /// renderer->GetRes().x;
-	position.y = y; /// renderer->GetRes().y;
+	position.x = x;
+	position.y = y;
 
 	SetTRS();
+}
+
+float Entity::GetRotation()
+{
+	return rotation;
 }
 
 void Entity::Translate(Vector3 translation)
