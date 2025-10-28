@@ -4,6 +4,7 @@
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Export.h"
+#include <Entity/Entity2D/Animation/Animation.h>
 
 using namespace std;
 
@@ -22,12 +23,12 @@ WAVEEXPORT struct VertexData
 
 	Vector4 color;
 
-	TextureData textureCordinates;
+	Vector2 textureCordinates;
 
 	WAVEEXPORT VertexData();
 	WAVEEXPORT VertexData(float v1, float v2, float v3, float r, float g, float b, float a);
 	WAVEEXPORT VertexData(Vector3 position, Vector4 color);
-	WAVEEXPORT VertexData(Vector3 position, Vector4 color, TextureData textureCordinates);
+	WAVEEXPORT VertexData(Vector3 position, Vector4 color, Vector2 textureCordinates);
 
 	WAVEEXPORT void SetColor(Vector4 color);
 };

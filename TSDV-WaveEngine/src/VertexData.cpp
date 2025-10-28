@@ -1,4 +1,5 @@
 #include "VertexData.h"
+#include <Entity/Entity2D/Animation/Animation.h>
 
 VertexData::VertexData()
 {
@@ -22,7 +23,7 @@ VertexData::VertexData(Vector3 position, Vector4 color)
 	this->color = color;
 }
 
-VertexData::VertexData(Vector3 position, Vector4 color, TextureData textureCordinates)
+VertexData::VertexData(Vector3 position, Vector4 color, Vector2 textureCordinates)
 {
 	this->position = position;
 	this->color = color;

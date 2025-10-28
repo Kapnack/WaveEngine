@@ -37,7 +37,7 @@ public:
 		unsigned& EBO);
 	void CreateBuffersSprite(VertexData* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO, unsigned int& texture);
 
-	void UpdateColorBuffer(VertexData* vertex, int vertexSize, unsigned& VBO);
+	void UpdateBuffer(VertexData* vertex, int vertexSize, unsigned& VBO);
 
 	void Clear();
 

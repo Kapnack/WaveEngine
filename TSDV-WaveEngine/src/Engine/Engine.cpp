@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "Input/Input.h"
 
 void Engine::InitEngine(int width, int height)
 {
@@ -10,12 +11,12 @@ void Engine::InitEngine(int width, int height)
 
 	window = new Window(width, height, "WaveEngine", nullptr, nullptr);
 	renderer = new Renderer(window);
-	time = new Time(window);
+
+	Input::SetWindow(window);
 }
 
 void Engine::EndEngine()
 {
-	delete time;
 	delete renderer;
 	delete window;
 }
@@ -27,7 +28,7 @@ Renderer* Engine::GetRenderer()
 
 float Engine::GetDeltaTime()
 {
-	return time->GetDeltaTime();
+	return Time::GetDeltaTime();
 }
 
 Engine::Engine(int width, int height)
@@ -44,7 +45,7 @@ void Engine::Run()
 {
 	while (!glfwWindowShouldClose(window->GetWindow()))
 	{
-		time->SetDeltaTime();
+		Time::SetDeltaTime();
 
 		renderer->Clear();
 

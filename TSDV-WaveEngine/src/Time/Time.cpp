@@ -1,17 +1,13 @@
 #include "Time.h"
 
-Time::Time(Window* window)
-{
-	this->window = window;
-}
+#include "Window/Window.h"
 
-Time::~Time()
-{
-}
+float Time::deltaTime = 0;
+float Time::lastTime = 0;
 
 void Time::SetDeltaTime()
 {
-	float actualTime = window->GetGLTime();
+	float actualTime = Window::GetGLTime();
 
 	deltaTime = actualTime - lastTime;
 

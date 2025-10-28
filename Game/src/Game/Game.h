@@ -14,6 +14,8 @@ private:
 	Shape* shape2;
 	Sprite* sprite;
 
+	Animation* animation;
+
 	float timer = 0;
 
 protected:

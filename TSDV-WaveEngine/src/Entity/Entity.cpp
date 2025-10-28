@@ -86,7 +86,7 @@ void Entity::SetColor(Vector4 color)
 		vertex[i].SetColor(color);
 	}
 
-	renderer->UpdateColorBuffer(vertex, vertexSize, VBO);
+	renderer->UpdateBuffer(vertex, vertexSize, VBO);
 }
 
 void Entity::SetVertexColor(int index, Vector4 color)
@@ -98,7 +98,7 @@ void Entity::SetVertexColor(int index, Vector4 color)
 	}
 
 	vertex[index].SetColor(color);
-	renderer->UpdateColorBuffer(vertex, vertexSize, VBO);
+	renderer->UpdateBuffer(vertex, vertexSize, VBO);
 }
 
 void Entity::SetTRS()

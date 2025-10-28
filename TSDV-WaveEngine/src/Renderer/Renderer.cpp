@@ -146,7 +146,7 @@ void Renderer::CreateBuffersSprite(VertexData* vertex, int vertexSize, int* indi
 	glBindVertexArray(0);
 }
 
-void Renderer::UpdateColorBuffer(VertexData* vertex, int vertexSize, unsigned& VBO)
+void Renderer::UpdateBuffer(VertexData* vertex, int vertexSize, unsigned& VBO)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, vertexSize * sizeof(VertexData), vertex);

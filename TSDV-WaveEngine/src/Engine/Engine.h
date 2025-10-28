@@ -11,7 +11,6 @@ private:
 
 	Window* window;
 	Renderer* renderer;
-	Time* time;
 
 	void InitEngine(int width, int height);
 	void EndEngine();

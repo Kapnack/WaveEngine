@@ -1,22 +1,15 @@
 #pragma once
 
-#include "Window/Window.h"
-
 class Time
 {
 private:
 
-	Window* window;
-	float deltaTime;
-	float lastTime;
+	static float deltaTime;
+	static float lastTime;
 
 public:
 
-	Time(Window* window);
-	~Time();
-
-
-	void SetDeltaTime();
-	float GetDeltaTime();
+	static void SetDeltaTime();
+	static float GetDeltaTime();
 };
 
