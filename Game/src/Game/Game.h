@@ -10,8 +10,6 @@ private:
 
 	Vector3 pos;
 	Vector3 scale;
-	Shape* shape;
-	Shape* shape2;
 	Sprite* sprite;
 
 	Animation* animation;

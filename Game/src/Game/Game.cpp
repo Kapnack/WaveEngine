@@ -18,14 +18,11 @@ Game::~Game()
 
 void Game::Init()
 {
-	shape = new Square(GetRenderer());
-	shape2 = new Triangle(GetRenderer());
-
 	TextureImporter textureImporter;
 
-	textureImporter.LoadTexture("C:/Users/Kapnack/Desktop/WaveEngine/Game/Sprites/test.jpg");
+	textureImporter.LoadTexture("Sprites/test.jpg");
 
-	sprite = new Sprite(textureImporter.GetLoadedTexture(), Vector4(1, 1, 1, 1), GetRenderer());
+	sprite = new Sprite(textureImporter.GetLoadedTexture(), GetRenderer());
 
 	pos = Vector3(width / 2, height / 2, 0);
 
@@ -33,6 +30,8 @@ void Game::Init()
 
 	pos = Vector3(width / 2, height / 2, 0);
 	sprite->SetScale(pos);
+
+	sprite->SetColor(Vector4(1, 0, 0, 1));
 
 	animation = new Animation(Vector2(75, 30), Vector2(175, 230), Vector2(1024, 300), 5, 0.0001);
 }
@@ -43,14 +42,7 @@ void Game::Update()
 
 	float rotate = 45.0f;
 
-	shape2->Rotate(rotate * GetDeltaTime());
-
 	timer += GetDeltaTime();
-
-	if (sprite)
-		sprite->Update();
-
-	sprite->SetAnimation(animation);
 
 	if (sprite)
 		sprite->Draw();
@@ -58,8 +50,6 @@ void Game::Update()
 
 void Game::Unload()
 {
-	delete shape;
-	delete shape2;
 	delete sprite;
 	delete animation;
 }

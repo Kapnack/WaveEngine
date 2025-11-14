@@ -5,19 +5,24 @@
 
 #include <GL/glew.h>
 #include <iostream>
+#include <filesystem>
 
 void TextureImporter::LoadTexture(std::string filePath)
 {
-	int width, height, nrChannels;
+	std::string absolutePath = std::filesystem::absolute(filePath).lexically_normal().string();
+
+	int width;
+	int height;
+	int nrChannels;
 
 	stbi_set_flip_vertically_on_load(true);
-	unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(absolutePath.c_str(), &width, &height, &nrChannels, 0);
 
 	GLenum format = (nrChannels == 4) ? GL_RGBA : GL_RGB;
 
 	if (!data)
 	{
-		std::cout << "Failed to load texture: " << filePath << std::endl;
+		std::cout << "Failed to load texture: " << absolutePath << std::endl;
 		return;
 	}
 
@@ -34,7 +39,7 @@ void TextureImporter::LoadTexture(std::string filePath)
 
 	stbi_image_free(data);
 
-	std::cout << "Loaded texture: " << filePath << " (" << width << "x" << height << ")" << std::endl;
+	std::cout << "Loaded texture: " << absolutePath << " (" << width << "x" << height << ")" << std::endl;
 }
 
 unsigned int TextureImporter::GetLoadedTexture()
