@@ -12,9 +12,9 @@ protected:
 
 	Renderer* renderer;
 
-	Vector3 translation;
 	Vector3 previousPostion;
 	Vector3 position;
+	Vector3 previousPosition;
 
 	Vector3 scale = Vector3(1.0f, 1.0f, 1.0f);
 	float rotation = 0.0f;
@@ -41,6 +41,10 @@ public:
 	WAVEEXPORT virtual Vector3 GetPos() = 0;
 	WAVEEXPORT virtual Vector3 GetScale() = 0;
 	WAVEEXPORT virtual float GetRotation() = 0;
+
+	WAVEEXPORT Vector3 GetPreviousPos();
+
+	WAVEEXPORT void GoToPreviousPos();
 
 	WAVEEXPORT virtual void Translate(Vector3 translation) = 0;
 	WAVEEXPORT virtual void Translate(float x, float y) = 0;

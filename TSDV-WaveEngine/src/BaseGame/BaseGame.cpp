@@ -1,7 +1,7 @@
-#include "Engine.h"
+#include "BaseGame.h"
 #include "Input/Input.h"
 
-void Engine::InitEngine(int width, int height)
+void BaseGame::InitEngine(int width, int height)
 {
 	this->width = width;
 	this->height = height;
@@ -15,33 +15,33 @@ void Engine::InitEngine(int width, int height)
 	Input::SetWindow(window);
 }
 
-void Engine::EndEngine()
+void BaseGame::EndEngine()
 {
 	delete renderer;
 	delete window;
 }
 
-Renderer* Engine::GetRenderer()
+Renderer* BaseGame::GetRenderer()
 {
 	return renderer;
 }
 
-float Engine::GetDeltaTime()
+float BaseGame::GetDeltaTime()
 {
 	return Time::GetDeltaTime();
 }
 
-Engine::Engine(int width, int height)
+BaseGame::BaseGame(int width, int height)
 {
 	InitEngine(width, height);
 }
 
-Engine::~Engine()
+BaseGame::~BaseGame()
 {
 	EndEngine();
 }
 
-void Engine::Run()
+void BaseGame::Run()
 {
 	while (!glfwWindowShouldClose(window->GetWindow()))
 	{

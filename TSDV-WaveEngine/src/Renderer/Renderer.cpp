@@ -187,11 +187,12 @@ void Renderer::DrawElementSprite(glm::mat4& model, int indicesSize, unsigned int
 
 	glUniformMatrix4fv(spriteShaders->GetUProj(), 1, GL_FALSE, glm::value_ptr(*proj));
 
-	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, texture);
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*)0);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Renderer::Unload()

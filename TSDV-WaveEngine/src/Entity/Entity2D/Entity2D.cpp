@@ -44,8 +44,7 @@ void Entity2D::SetPosition(float x, float y)
 	position.x = x;
 	position.y = y;
 
-	translation.x = x;
-	translation.y = y;
+	previousPosition = position;
 
 	SetTRS();
 	UpdateCollider();
@@ -56,6 +55,16 @@ float Entity2D::GetRotation()
 	return rotation;
 }
 
+Vector3 Entity::GetPreviousPos()
+{
+	return previousPosition;
+}
+
+void Entity::GoToPreviousPos()
+{
+	SetPosition(previousPosition);
+}
+
 void Entity2D::Translate(Vector3 translation)
 {
 	Translate(translation.x, translation.y);
@@ -63,6 +72,8 @@ void Entity2D::Translate(Vector3 translation)
 
 void Entity2D::Translate(float x, float y)
 {
+	previousPosition = position;
+
 	position.x += x;
 	position.y += y;
 

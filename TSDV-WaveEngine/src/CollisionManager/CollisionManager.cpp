@@ -3,6 +3,9 @@
 
 bool CollisionManager::CheckCollision(Entity2D* anEntity, Entity2D* otherEntity)
 {
+    if (anEntity == nullptr || otherEntity == nullptr)
+        return false;
+
     Collider entityCollider = anEntity->GetCollider();
     Collider otherCollider = otherEntity->GetCollider();
 

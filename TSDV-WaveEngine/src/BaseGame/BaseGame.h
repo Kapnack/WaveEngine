@@ -5,7 +5,7 @@
 #include "Renderer/Renderer.h"
 #include "Time/Time.h"
 
-WAVEEXPORT class Engine
+WAVEEXPORT class BaseGame
 {
 private:
 
@@ -30,8 +30,8 @@ protected:
 
 public:
 
-	WAVEEXPORT	Engine(int width, int height);
-	WAVEEXPORT	virtual ~Engine();
+	WAVEEXPORT	BaseGame(int width, int height);
+	WAVEEXPORT	virtual ~BaseGame();
 
 	WAVEEXPORT	void Run();
 };

@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BaseGame.cpp" />
+    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Game\Game.cpp" />
   </ItemGroup>
   <ItemGroup>
