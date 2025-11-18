@@ -1,0 +1,132 @@
+﻿  Collider.h
+  CollisionManager.cpp
+  Animation.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\CollisionManager\CollisionManager.h(3,10): error C1083: No se puede abrir el archivo incluir: 'Export.h': No such file or directory
+  (compilando archivo de origen "src/CollisionManager/CollisionManager.cpp")
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Entity\Entity2D\Animation\Animation.h(3,10): error C1083: No se puede abrir el archivo incluir: 'Export.h': No such file or directory
+  (compilando archivo de origen "src/Entity/Entity2D/Animation/Animation.cpp")
+  
+  Input.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Input\Input.h(3,10): error C1083: No se puede abrir el archivo incluir: 'Window/Window.h': No such file or directory
+  (compilando archivo de origen "src/Input/Input.cpp")
+  
+  Sprite.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Entity\Entity2D\Entity2D.h(3,10): error C1083: No se puede abrir el archivo incluir: 'Entity/Entity.h': No such file or directory
+  (compilando archivo de origen "src/Entity/Entity2D/Sprite/Sprite.cpp")
+  
+  Square.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Entity\Entity2D\Shape\Shape.h(3,10): error C1083: No se puede abrir el archivo incluir: 'Entity/Entity2D/Entity2D.h': No such file or directory
+  (compilando archivo de origen "src/Entity/Entity2D/Shape/Square/Square.cpp")
+  
+  BaseGame.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\BaseGame\BaseGame.h(3,10): error C1083: No se puede abrir el archivo incluir: 'Export.h': No such file or directory
+  (compilando archivo de origen "src/BaseGame/BaseGame.cpp")
+  
+  Material.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Material\Material.cpp(3,10): error C1083: No se puede abrir el archivo incluir: 'GL/glew.h': No such file or directory
+  Shape.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Entity\Entity2D\Shape\Shape.h(3,10): error C1083: No se puede abrir el archivo incluir: 'Entity/Entity2D/Entity2D.h': No such file or directory
+  (compilando archivo de origen "src/Entity/Entity2D/Shape/Shape.cpp")
+  
+  Entity.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Entity\Entity.h(5,10): error C1083: No se puede abrir el archivo incluir: 'Export.h': No such file or directory
+  (compilando archivo de origen "src/Entity/Entity.cpp")
+  
+  Entity2D.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Entity\Entity2D\Entity2D.h(3,10): error C1083: No se puede abrir el archivo incluir: 'Entity/Entity.h': No such file or directory
+  (compilando archivo de origen "src/Entity/Entity2D/Entity2D.cpp")
+  
+  Renderer.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Renderer\Renderer.h(3,10): error C1083: No se puede abrir el archivo incluir: 'GL/glew.h': No such file or directory
+  (compilando archivo de origen "src/Renderer/Renderer.cpp")
+  
+  Vector3.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(5,19): warning C4091: '__declspec(dllimport)': se ha omitido a la izquierda de 'Vector3' cuando no hay ninguna variable declarada
+  (compilando archivo de origen "src/Vector3.cpp")
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.cpp(4,10): warning C4273: 'Vector3::Vector3': vinculación de DLL incoherente
+  Vector4.cpp
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(11,2):
+      vea la definición anterior de “Vector3::Vector3”
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.cpp(8,10): warning C4273: 'Vector3::Vector3': vinculación de DLL incoherente
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(12,2):
+      vea la definición anterior de “Vector3::Vector3”
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.cpp(15,18): warning C4273: 'Vector3::operator /': vinculación de DLL incoherente
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(13,21):
+      vea la definición anterior de “Vector3::operator /”
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.cpp(20,15): warning C4273: 'Vector3::operator +=': vinculación de DLL incoherente
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(14,18):
+      vea la definición anterior de “Vector3::operator +=”
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.cpp(27,15): warning C4273: 'Vector3::operator -=': vinculación de DLL incoherente
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(15,18):
+      vea la definición anterior de “Vector3::operator -=”
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.cpp(34,18): warning C4273: 'Vector3::operator *': vinculación de DLL incoherente
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(16,21):
+      vea la definición anterior de “Vector3::operator *”
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.cpp(39,9): warning C4273: 'operator *': vinculación de DLL incoherente
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(17,28):
+      vea la definición anterior de “operator *”
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.cpp(44,18): warning C4273: 'Vector3::One': vinculación de DLL incoherente
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(23,28):
+      vea la definición anterior de “Vector3::One”
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.cpp(49,18): warning C4273: 'Vector3::Up': vinculación de DLL incoherente
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(19,28):
+      vea la definición anterior de “Vector3::Up”
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.cpp(54,18): warning C4273: 'Vector3::Down': vinculación de DLL incoherente
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(20,28):
+      vea la definición anterior de “Vector3::Down”
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.cpp(59,18): warning C4273: 'Vector3::Left': vinculación de DLL incoherente
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(21,28):
+      vea la definición anterior de “Vector3::Left”
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.cpp(64,18): warning C4273: 'Vector3::Right': vinculación de DLL incoherente
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(22,28):
+      vea la definición anterior de “Vector3::Right”
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector4.h(5,19): warning C4091: '__declspec(dllimport)': se ha omitido a la izquierda de 'Vector4' cuando no hay ninguna variable declarada
+  (compilando archivo de origen "src/Vector4.cpp")
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector4.cpp(3,10): warning C4273: 'Vector4::Vector4': vinculación de DLL incoherente
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector4.h(12,2):
+      vea la definición anterior de “Vector4::Vector4”
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector4.cpp(7,10): warning C4273: 'Vector4::Vector4': vinculación de DLL incoherente
+      C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector4.h(13,2):
+      vea la definición anterior de “Vector4::Vector4”
+  
+  VertexData.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector3.h(5,19): warning C4091: '__declspec(dllimport)': se ha omitido a la izquierda de 'Vector3' cuando no hay ninguna variable declarada
+  (compilando archivo de origen "src/VertexData.cpp")
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Vector4.h(5,19): warning C4091: '__declspec(dllimport)': se ha omitido a la izquierda de 'Vector4' cuando no hay ninguna variable declarada
+  (compilando archivo de origen "src/VertexData.cpp")
+  
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\VertexData.h(7,10): error C1083: No se puede abrir el archivo incluir: 'Entity/Entity2D/Animation/Animation.h': No such file or directory
+  (compilando archivo de origen "src/VertexData.cpp")
+  
+  Window.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Window\Window.h(3,10): error C1083: No se puede abrir el archivo incluir: 'GL/glew.h': No such file or directory
+  (compilando archivo de origen "src/Window/Window.cpp")
+  
+  Triangle.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Entity\Entity2D\Shape\Shape.h(3,10): error C1083: No se puede abrir el archivo incluir: 'Entity/Entity2D/Entity2D.h': No such file or directory
+  (compilando archivo de origen "src/Entity/Entity2D/Shape/Triangle/Triangle.cpp")
+  
+  Time.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\Time\Time.cpp(3,10): error C1083: No se puede abrir el archivo incluir: 'Window/Window.h': No such file or directory
+  TextureImporter.cpp
+C:\Users\Aula 2\Documents\GitHub\WaveEngine\TSDV-WaveEngine\src\TextureImporter\TextureImporter.h(3,10): error C1083: No se puede abrir el archivo incluir: 'Export.h': No such file or directory
+  (compilando archivo de origen "src/TextureImporter/TextureImporter.cpp")
+  
+  Generando código...

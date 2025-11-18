@@ -10,9 +10,12 @@ private:
 
 	Vector3 pos;
 	Vector3 scale;
-	Sprite* character;
+	Sprite* knuckles;
 	Sprite* obstacle;
 
+	Animation* rockAnim;
+	Animation* idle;
+	Animation* onRock;
 	Animation* WalkDown;
 	Animation* WalkUp;
 	Animation* WalkLeft;

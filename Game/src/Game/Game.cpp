@@ -22,82 +22,95 @@ void Game::Init()
 	TextureImporter textureImporter;
 	TextureImporter texture2;
 
-	textureImporter.LoadTexture("Sprites/Pokemon.png");
-	character = new Sprite(textureImporter.GetLoadedTexture(), GetRenderer());
+	textureImporter.LoadTexture("Sprites/Knuckles_Sprite_Sheet.png");
+	knuckles = new Sprite(textureImporter.GetLoadedTexture(), GetRenderer());
 
-	texture2.LoadTexture("Sprites/graficosImage.png");
+	texture2.LoadTexture("Sprites/Rock.jfif");
 	obstacle = new Sprite(texture2.GetLoadedTexture(), GetRenderer());
 
 	pos = Vector3(width / 2, height / 2, 0);
 
-	character->SetPosition(pos);
+	knuckles->SetPosition(pos);
 
-	obstacle->SetPosition(Vector3(character->GetPos().x - width / 4, height / 2, 0));
+	obstacle->SetPosition(Vector3(knuckles->GetPos().x + width / 4, height / 2, 0));
 
 	pos = Vector3(width / 2, height / 2, 0);
-	character->SetScale(pos);
-	obstacle->SetScale(pos);
+	knuckles->SetScale(pos * 0.5f);
+	obstacle->SetScale(pos * 0.5f);
 
-	character->SetColor(Vector4(1, 1, 1, 1));
+	knuckles->SetColor(Vector4(1, 1, 1, 1));
 	obstacle->SetColor(Vector4(1, 1, 1, 1));
 
-	WalkDown = new Animation(Vector2(0, 0), Vector2(64, 64), Vector2(256, 256), 4, 1);
-	WalkUp = new Animation(Vector2(0, 64), Vector2(64, 64), Vector2(256, 256), 4, 1);
-	WalkRight = new Animation(Vector2(0, 128), Vector2(64, 64), Vector2(256, 256), 4, 1);
-	WalkLeft = new Animation(Vector2(0, 192), Vector2(64, 64), Vector2(256, 256), 4, 1);
+	Vector2 knuclesSpriteArea = Vector2(35, 40);
+	Vector2 knuclesTextureSize = Vector2(646, 473);
+	float animationTime = 1.0f;
 
-	character->SetAnimation(WalkDown);
+	idle = new Animation(Vector2(0, 0), knuclesSpriteArea, knuclesTextureSize, 1, animationTime);
+	WalkRight = new Animation(Vector2(0, knuclesTextureSize.y - 44), Vector2(34, knuclesSpriteArea.y), knuclesTextureSize, 5, animationTime);
+	WalkDown = new Animation(Vector2(1, knuclesTextureSize.y - 127), Vector2(32, knuclesSpriteArea.y), knuclesTextureSize, 5, animationTime);
+	WalkUp = new Animation(Vector2(0, 64), knuclesSpriteArea, knuclesTextureSize, 4, animationTime);
+	onRock = new Animation(Vector2(424, knuclesTextureSize.y - 95), knuclesSpriteArea, knuclesTextureSize, 4, animationTime);
+
+	knuckles->SetAnimation(idle);
+
+	rockAnim = new Animation(Vector2(72, 207 - 18), Vector2(91, 60), Vector2(244, 207), 1, animationTime);
+	obstacle->SetAnimation(rockAnim);
+
 }
 
-const float movementSpeed = 150;
 
 void Game::Update()
 {
+	const float movementSpeed = 300;
 	float delta = GetDeltaTime();
 
 	float rotate = 45.0f;
 
 	timer += GetDeltaTime();
 
-	bool colliding = CollisionManager::CheckCollision(character, obstacle);
+	bool colliding = CollisionManager::CheckCollision(knuckles, obstacle);
+	bool near = knuckles->GetCollider().x + knuckles->GetCollider().width + movementSpeed * 2 * delta > obstacle->GetCollider().x;
 
-	if (colliding)
+	if (colliding || near)
 	{
-		character->GoToPreviousPos();
+		if (colliding)
+			knuckles->GoToPreviousPos();
 
-		if (Input::IsKeyPressed(Keys::E))
+		knuckles->SetAnimation(onRock);
+
+		if (Input::IsKeyPressed(Keys::E) && colliding)
 		{
-			obstacle->Translate(Vector3::Right() * movementSpeed * delta);
+			obstacle->Translate(Vector3::Left() * movementSpeed * delta);
 		}
 	}
 
-	else if (Input::IsKeyPressed(Keys::S) && !colliding)
+	if (Input::IsKeyPressed(Keys::S))
 	{
-		character->SetAnimation(WalkDown);
-		character->Update();
-		character->Translate(movementSpeed * Vector3::Down() * delta);
-	}
-	else if (Input::IsKeyPressed(Keys::W) && !colliding)
-	{
-		character->SetAnimation(WalkUp);
-		character->Update();
-		character->Translate(movementSpeed * Vector3::Up() * delta);
+		knuckles->SetAnimation(WalkDown);
 	}
 	else if (Input::IsKeyPressed(Keys::A) && !colliding)
 	{
-		character->SetAnimation(WalkLeft);
-		character->Update();
-		character->Translate(movementSpeed * Vector3::Right() * delta);
+		if (!near)
+			knuckles->SetAnimation(WalkRight);
+
+		knuckles->Translate(movementSpeed * Vector3::Right() * delta);
 	}
 	else if (Input::IsKeyPressed(Keys::D) && !colliding)
 	{
-		character->SetAnimation(WalkRight);
-		character->Update();
-		character->Translate(movementSpeed * Vector3::Left() * delta);
+		if (!near)
+			knuckles->SetAnimation(WalkRight);
+
+		knuckles->Translate(movementSpeed * Vector3::Left() * delta);
+	}
+	else if (!colliding)
+	{
+		knuckles->SetAnimation(idle);
 	}
 
-	if (character)
-		character->Draw();
+	knuckles->Update();
+
+	if (knuckles)
+		knuckles->Draw();
 
 	if (obstacle)
 		obstacle->Draw();
@@ -105,9 +118,12 @@ void Game::Update()
 
 void Game::Unload()
 {
-	delete character;
+	delete knuckles;
+	delete rockAnim;
+	delete onRock;
 	delete obstacle;
 	delete WalkDown;
+	delete idle;
 	delete WalkUp;
 	delete WalkLeft;
 	delete WalkRight;
