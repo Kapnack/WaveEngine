@@ -2,7 +2,6 @@
 
 #include "Entity/Entity2D/Shape/Square/Square.h"
 #include "Entity/Entity2D/Shape/Triangle/Triangle.h"
-#include "Entity/Entity2D//Animation/Animation.h"
 #include "TextureImporter/TextureImporter.h"
 #include "CollisionManager/CollisionManager.h"
 #include "Input/Input.h"
@@ -19,96 +18,121 @@ Game::~Game()
 
 void Game::Init()
 {
-	TextureImporter textureImporter;
-	TextureImporter texture2;
+	blueSquare = new Square(GetRenderer());
+	pinkSquare = new Square(GetRenderer());
+	triangle = new Triangle(GetRenderer(), Vector4(1, 0.6f, 0, 1));
 
-	textureImporter.LoadTexture("Sprites/Pokemon.png");
-	character = new Sprite(textureImporter.GetLoadedTexture(), GetRenderer());
+	for (int i = 0; i < starParts; i++)
+		star[i] = new Triangle(GetRenderer(), Vector4(1, 0, 0, 1));
 
-	texture2.LoadTexture("Sprites/graficosImage.png");
-	obstacle = new Sprite(texture2.GetLoadedTexture(), GetRenderer());
-
+	//Pos sets
 	pos = Vector3(width / 2, height / 2, 0);
+	pinkSquare->SetPosition(pos);
+	triangle->SetPosition(Vector3(width - 200, height / 2, 0));
 
-	character->SetPosition(pos);
+	for (int i = 0; i < starParts; i++)
+	{
+		star[i]->SetPosition(Vector3(200, 200, 0));
 
-	obstacle->SetPosition(Vector3(character->GetPos().x - width / 4, height / 2, 0));
+		if (i == starParts - 1)
+			star[i]->SetPosition(Vector3(200, 200 - star[i]->GetScale().y * 20, 0));
+	}
 
-	pos = Vector3(width / 2, height / 2, 0);
-	character->SetScale(pos);
-	obstacle->SetScale(pos);
+	//Scale Set
+	scale = Vector3(width / 2, width / 2, 0);
+	blueSquare->SetScale(scale * 0.2f);
+	pinkSquare->SetScale(scale * 0.4f);
+	triangle->SetScale(scale * 0.2f);
 
-	character->SetColor(Vector4(1, 1, 1, 1));
-	obstacle->SetColor(Vector4(1, 1, 1, 1));
+	for (int i = 0; i < starParts; i++)
+		star[i]->SetScale(scale * 0.2f);
 
-	WalkDown = new Animation(Vector2(0, 0), Vector2(64, 64), Vector2(256, 256), 4, 1);
-	WalkUp = new Animation(Vector2(0, 64), Vector2(64, 64), Vector2(256, 256), 4, 1);
-	WalkRight = new Animation(Vector2(0, 128), Vector2(64, 64), Vector2(256, 256), 4, 1);
-	WalkLeft = new Animation(Vector2(0, 192), Vector2(64, 64), Vector2(256, 256), 4, 1);
+	//Extras
+	star[1]->SetRotation(180);
 
-	character->SetAnimation(WalkDown);
+	startingScale = pinkSquare->GetScale();
+	endScale = pinkSquare->GetScale() * 1.5f;
+
+	blueSquare->SetColor(Vector4(0, 0, 1, 1));
+	pinkSquare->SetColor(Vector4(1, 0.7, 0.7, 1));
 }
-
-const float movementSpeed = 150;
 
 void Game::Update()
 {
 	float delta = GetDeltaTime();
 
-	float rotate = 45.0f;
-
-	timer += GetDeltaTime();
-
-	bool colliding = CollisionManager::CheckCollision(character, obstacle);
-
-	if (colliding)
+	if (shouldScale)
 	{
-		character->GoToPreviousPos();
+		pinkSquare->Scale(Vector3(100 * delta, 100 * delta, 0));
+		shouldScale = pinkSquare->GetScale().y < endScale.y;
+	}
+	else
+	{
+		pinkSquare->Scale(Vector3(-100 * delta, -100 * delta, 0));
+		shouldScale = pinkSquare->GetScale().y < startingScale.y;
+	}
 
-		if (Input::IsKeyPressed(Keys::E))
+	blueSquare->Rotate(rotate * delta);
+
+	//Square movement
+	if (blueSquare->GetPos().x <= width - 100.0f && blueSquare->GetPos().y <= 100) //Derecha abajo
+		blueSquare->Translate(500 * delta, 0);
+	else if (blueSquare->GetPos().x <= 100.0f && blueSquare->GetPos().y >= 100) //Baja izquierda
+		blueSquare->Translate(0, -500 * delta);
+	else if (blueSquare->GetPos().x >= width - 100.0f && blueSquare->GetPos().y <= height - 100.0f) //Sube derecha
+		blueSquare->Translate(0, 500 * delta);
+	else if (blueSquare->GetPos().x >= 100.0f && blueSquare->GetPos().y >= height - 100.0f) //Izquierda arriba
+		blueSquare->Translate(-500 * delta, 0);
+
+	//Triangle movement
+	if (triangle->GetPos().y <= height - 100.0f && isGoingUp == true)
+	{
+		triangle->Translate(0, 250 * delta);
+		triangle->SetRotation(0.0f);
+
+		if (triangle->GetPos().y >= height - 100.0f)
 		{
-			obstacle->Translate(Vector3::Right() * movementSpeed * delta);
+			isGoingUp = false;
+			isGoingDown = true;
+		}
+	}
+	else if (triangle->GetPos().y >= 100.0f && isGoingDown == true)
+	{
+		triangle->Translate(0, -250 * delta);
+
+		triangle->SetRotation(180.0f);
+
+		if (triangle->GetPos().y <= 100.0f)
+		{
+			isGoingUp = true;
+			isGoingDown = false;
 		}
 	}
 
-	else if (Input::IsKeyPressed(Keys::S) && !colliding)
-	{
-		character->SetAnimation(WalkDown);
-		character->Update();
-		character->Translate(movementSpeed * Vector3::Down() * delta);
-	}
-	else if (Input::IsKeyPressed(Keys::W) && !colliding)
-	{
-		character->SetAnimation(WalkUp);
-		character->Update();
-		character->Translate(movementSpeed * Vector3::Up() * delta);
-	}
-	else if (Input::IsKeyPressed(Keys::A) && !colliding)
-	{
-		character->SetAnimation(WalkLeft);
-		character->Update();
-		character->Translate(movementSpeed * Vector3::Right() * delta);
-	}
-	else if (Input::IsKeyPressed(Keys::D) && !colliding)
-	{
-		character->SetAnimation(WalkRight);
-		character->Update();
-		character->Translate(movementSpeed * Vector3::Left() * delta);
-	}
+	//Estrella
+	star[0]->Rotate(rotate * delta);
+	star[1]->Rotate(-rotate * delta);
 
-	if (character)
-		character->Draw();
+	if (blueSquare)
+		blueSquare->Draw();
 
-	if (obstacle)
-		obstacle->Draw();
+	if (pinkSquare)
+		pinkSquare->Draw();
+
+	if (triangle)
+		triangle->Draw();
+
+	for (int i = 0; i < starParts; i++)
+		if (star[i])
+			star[i]->Draw();
 }
 
 void Game::Unload()
 {
-	delete character;
-	delete obstacle;
-	delete WalkDown;
-	delete WalkUp;
-	delete WalkLeft;
-	delete WalkRight;
+	delete blueSquare;
+	delete pinkSquare;
+	delete triangle;
+
+	for (int i = 0; i < starParts; i++)
+		delete star[i];
 }

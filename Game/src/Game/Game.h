@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Entity/Entity2D/Shape/Shape.h"
+#include "Entity/Entity2D/Shape/Square/Square.h"
+#include "Entity/Entity2D/Shape/Triangle/Triangle.h"
 #include "Entity/Entity2D/Sprite/Sprite.h"
 #include "BaseGame/BaseGame.h"
 
@@ -8,17 +10,25 @@ class Game : public BaseGame
 {
 private:
 
+	static const int starParts = 2;
+
 	Vector3 pos;
 	Vector3 scale;
-	Sprite* character;
-	Sprite* obstacle;
+	Square* blueSquare;
+	Square* pinkSquare;
+	Triangle* triangle;
+	Triangle* star[starParts];
 
-	Animation* WalkDown;
-	Animation* WalkUp;
-	Animation* WalkLeft;
-	Animation* WalkRight;
+	Vector3 startingScale;
+	Vector3 endScale;
 
-	float timer = 0;
+	bool shouldScale = true;
+
+	const float movementSpeed = 150;
+	const float rotate = -180.0f;
+
+	bool isGoingUp = true;
+	bool isGoingDown = false;
 
 protected:
 
