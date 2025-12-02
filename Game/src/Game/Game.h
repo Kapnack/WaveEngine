@@ -19,6 +19,7 @@ private:
 	Vector3 startingScale;
 	Vector3 endScale;
 	Square* redSquare;
+	Square* blueSquare;
 
 	Animation* idle;
 	Animation* walkingRight;
@@ -29,6 +30,9 @@ private:
 
 	bool shouldScale;
 	bool collitionDetected;
+
+	bool isGoingLeft = true;
+	bool isGoingRight;
 
 protected:
 

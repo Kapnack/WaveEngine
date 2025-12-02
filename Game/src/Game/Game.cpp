@@ -18,6 +18,8 @@ Game::~Game()
 
 void Game::Init()
 {
+
+	// ------- SAMUS -------
 	TextureImporter textureImport;
 
 	textureImport.LoadTexture("Sprites/Samus Aran Sprite Sheet.png");
@@ -43,7 +45,7 @@ void Game::Init()
 
 	samus->SetAnimation(idle);
 
-	//------------------------
+	// ------- RED SQUARE -------
 
 	redSquare = new Square(GetRenderer(), Vector4(1, 0, 0, 1));
 	redSquare->SetScale(samus->GetScale());
@@ -51,6 +53,12 @@ void Game::Init()
 
 	startingScale = redSquare->GetScale();
 	endScale = startingScale * 1.3f;
+
+	// ------- BLUE SQUARE -------
+
+	blueSquare = new Square(GetRenderer(), Vector4(0, 0, 1, 0.5f));
+	blueSquare->SetPosition(Vector3(width / 2, height / 2, 0));
+	blueSquare->SetScale(samus->GetScale() * 2);
 }
 
 void Game::Update()
@@ -90,6 +98,31 @@ void Game::Update()
 
 	collitionDetected = CollisionManager::CheckCollision(samus, redSquare);
 
+
+	if (blueSquare->GetPos().x <= width - 100.0f && isGoingLeft == true)
+	{
+		blueSquare->Translate(250 * delta, 0);
+		blueSquare->SetRotation(0.0f);
+
+		if (blueSquare->GetPos().x >= width - 100.0f)
+		{
+			isGoingLeft = false;
+			isGoingRight = true;
+		}
+	}
+	else if (blueSquare->GetPos().x >= 100.0f && isGoingRight == true)
+	{
+		blueSquare->Translate(-250 * delta, 0);
+
+		blueSquare->SetRotation(180.0f);
+
+		if (blueSquare->GetPos().x <= 100.0f)
+		{
+			isGoingLeft = true;
+			isGoingRight = false;
+		}
+	}
+
 	if (samus)
 		samus->Update();
 
@@ -98,6 +131,9 @@ void Game::Update()
 
 	if (redSquare)
 		redSquare->Draw();
+
+	if (blueSquare)
+		blueSquare->Draw();
 }
 
 void Game::Unload()
@@ -108,4 +144,5 @@ void Game::Unload()
 	delete walkingLeft;
 
 	delete redSquare;
+	delete blueSquare;
 }
