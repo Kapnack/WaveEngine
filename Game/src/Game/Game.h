@@ -14,21 +14,21 @@ private:
 
 	Vector3 pos;
 	Vector3 scale;
-	Square* blueSquare;
-	Square* pinkSquare;
-	Triangle* triangle;
-	Triangle* star[starParts];
+	Sprite* samus;
 
 	Vector3 startingScale;
 	Vector3 endScale;
+	Square* redSquare;
 
-	bool shouldScale = true;
+	Animation* idle;
+	Animation* walkingRight;
+	Animation* walkingLeft;
 
 	const float movementSpeed = 150;
 	const float rotate = -180.0f;
 
-	bool isGoingUp = true;
-	bool isGoingDown = false;
+	bool shouldScale;
+	bool collitionDetected;
 
 protected:
 

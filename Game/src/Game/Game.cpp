@@ -18,122 +18,94 @@ Game::~Game()
 
 void Game::Init()
 {
-	blueSquare = new Square(GetRenderer());
-	pinkSquare = new Square(GetRenderer());
-	triangle = new Triangle(GetRenderer(), Vector4(1, 0.6f, 0, 1));
+	TextureImporter textureImport;
 
-	for (int i = 0; i < starParts; i++)
-		star[i] = new Triangle(GetRenderer(), Vector4(1, 0, 0, 1));
+	textureImport.LoadTexture("Sprites/Samus Aran Sprite Sheet.png");
 
-	//Pos sets
+	samus = new Sprite(textureImport.GetLoadedTexture(), Vector4(1, 1, 1, 1), GetRenderer());
+
 	pos = Vector3(width / 2, height / 2, 0);
-	pinkSquare->SetPosition(pos);
-	triangle->SetPosition(Vector3(width - 200, height / 2, 0));
+	samus->SetPosition(pos);
 
-	for (int i = 0; i < starParts; i++)
-	{
-		star[i]->SetPosition(Vector3(200, 200, 0));
-
-		if (i == starParts - 1)
-			star[i]->SetPosition(Vector3(200, 200 - star[i]->GetScale().y * 20, 0));
-	}
-
-	//Scale Set
 	scale = Vector3(width / 2, width / 2, 0);
-	blueSquare->SetScale(scale * 0.2f);
-	blueSquare->SetPosition(Vector3(100, height - 100, 0));
-	pinkSquare->SetScale(scale * 0.4f);
-	triangle->SetScale(scale * 0.2f);
+	samus->SetScale(scale * 0.4f);
 
-	for (int i = 0; i < starParts; i++)
-		star[i]->SetScale(scale * 0.2f);
+	Vector2 textureSize = Vector2(860, 762);
+	Vector2 frameArea = Vector2(68, 65);
 
-	//Extras
-	star[1]->SetRotation(180);
+	idle = new Animation(Vector2(20, textureSize.y - 40), frameArea, textureSize, 2, 1);
 
-	startingScale = pinkSquare->GetScale();
-	endScale = pinkSquare->GetScale() * 1.5f;
+	frameArea = Vector2(80, 60);
 
-	blueSquare->SetColor(Vector4(0, 0, 1, 1));
-	pinkSquare->SetColor(Vector4(1, 0.7, 0.7, 1));
+	walkingRight = new Animation(Vector2(20, textureSize.y - 215), frameArea, textureSize, 5, 1);
+
+	walkingLeft = new Animation(Vector2(20, textureSize.y - 292), frameArea, textureSize, 5, 1);
+
+	samus->SetAnimation(idle);
+
+	//------------------------
+
+	redSquare = new Square(GetRenderer(), Vector4(1, 0, 0, 1));
+	redSquare->SetScale(samus->GetScale());
+	redSquare->SetPosition(Vector3(samus->GetPos().x - redSquare->GetScale().x, samus->GetPos().y, samus->GetPos().z));
+
+	startingScale = redSquare->GetScale();
+	endScale = startingScale * 1.3f;
 }
 
 void Game::Update()
 {
 	float delta = GetDeltaTime();
 
-	if (shouldScale)
+	if (!collitionDetected)
 	{
-		pinkSquare->Scale(Vector3(100 * delta, 100 * delta, 0));
-		shouldScale = pinkSquare->GetScale().y < endScale.y;
-	}
-	else
-	{
-		pinkSquare->Scale(Vector3(-100 * delta, -100 * delta, 0));
-		shouldScale = pinkSquare->GetScale().y < startingScale.y;
-	}
-
-	blueSquare->Rotate(rotate * delta);
-
-	//Square movement
-	if (blueSquare->GetPos().x <= width - 100.0f && blueSquare->GetPos().y <= 100) //Derecha abajo
-		blueSquare->Translate(500 * delta, 0);
-	else if (blueSquare->GetPos().x <= 100.0f && blueSquare->GetPos().y >= 100) //Baja izquierda
-		blueSquare->Translate(0, -500 * delta);
-	else if (blueSquare->GetPos().x >= width - 100.0f && blueSquare->GetPos().y <= height - 100.0f) //Sube derecha
-		blueSquare->Translate(0, 500 * delta);
-	else if (blueSquare->GetPos().x >= 100.0f && blueSquare->GetPos().y >= height - 100.0f) //Izquierda arriba
-		blueSquare->Translate(-500 * delta, 0);
-
-	//Triangle movement
-	if (triangle->GetPos().y <= height - 100.0f && isGoingUp == true)
-	{
-		triangle->Translate(0, 250 * delta);
-		triangle->SetRotation(0.0f);
-
-		if (triangle->GetPos().y >= height - 100.0f)
+		if (Input::IsKeyPressed(Keys::A) && samus)
 		{
-			isGoingUp = false;
-			isGoingDown = true;
+			samus->SetAnimation(walkingRight);
+			samus->Translate(Vector3::Right() * movementSpeed * delta);
 		}
-	}
-	else if (triangle->GetPos().y >= 100.0f && isGoingDown == true)
-	{
-		triangle->Translate(0, -250 * delta);
-
-		triangle->SetRotation(180.0f);
-
-		if (triangle->GetPos().y <= 100.0f)
+		else if (Input::IsKeyPressed(Keys::D) && samus)
 		{
-			isGoingUp = true;
-			isGoingDown = false;
+			samus->SetAnimation(walkingLeft);
+			samus->Translate(Vector3::Left() * movementSpeed * delta);
 		}
+		else
+			samus->SetAnimation(idle);
+	}
+	else if (samus)
+	{
+		samus->SetPosition(Vector3(redSquare->GetPos().x + redSquare->GetScale().x, samus->GetPos().y, 0));
+		samus->SetAnimation(idle);
 	}
 
-	//Estrella
-	star[0]->Rotate(rotate * delta);
-	star[1]->Rotate(-rotate * delta);
+	if (Input::IsKeyPressed(Keys::LEFT))
+		redSquare->Rotate(180 * delta);
+	else if (Input::IsKeyPressed(Keys::RIGHT))
+		redSquare->Rotate(-180 * delta);
 
-	if (blueSquare)
-		blueSquare->Draw();
+	if (Input::IsKeyPressed(Keys::UP))
+		redSquare->Scale(Vector3(100 * delta, 100 * delta, 0));
+	else if (Input::IsKeyPressed(Keys::DOWN))
+		redSquare->Scale(Vector3(-100 * delta, -100 * delta, 0));
 
-	if (pinkSquare)
-		pinkSquare->Draw();
+	collitionDetected = CollisionManager::CheckCollision(samus, redSquare);
 
-	if (triangle)
-		triangle->Draw();
+	if (samus)
+		samus->Update();
 
-	for (int i = 0; i < starParts; i++)
-		if (star[i])
-			star[i]->Draw();
+	if (samus)
+		samus->Draw();
+
+	if (redSquare)
+		redSquare->Draw();
 }
 
 void Game::Unload()
 {
-	delete blueSquare;
-	delete pinkSquare;
-	delete triangle;
+	delete samus;
+	delete idle;
+	delete walkingRight;
+	delete walkingLeft;
 
-	for (int i = 0; i < starParts; i++)
-		delete star[i];
+	delete redSquare;
 }
