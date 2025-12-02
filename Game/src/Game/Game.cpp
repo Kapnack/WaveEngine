@@ -41,6 +41,7 @@ void Game::Init()
 	//Scale Set
 	scale = Vector3(width / 2, width / 2, 0);
 	blueSquare->SetScale(scale * 0.2f);
+	blueSquare->SetPosition(Vector3(100, height - 100, 0));
 	pinkSquare->SetScale(scale * 0.4f);
 	triangle->SetScale(scale * 0.2f);
 
