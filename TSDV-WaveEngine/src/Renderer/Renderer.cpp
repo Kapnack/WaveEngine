@@ -52,7 +52,7 @@ void Renderer::Init()
 		"out vec4 FragColor;\n"
 		"void main()\n"
 		"{\n"
-		"   FragColor = vertexColor;\n"
+		"   FragColor = vec4(vertexColor.x, vertexColor.y + 0.7, vertexColor.z, vertexColor.w);\n"
 		"}\n";
 
 	shapeShaders = new Material();
