@@ -24,18 +24,18 @@ string FileReader::ReadFile(string filePath)
 		inStream.open(filePath, ios::in);
 
 		if (!inStream.is_open())
-			throw runtime_error("FilePath; " + filePath + " wasn't found.");
+			throw runtime_error("FilePath; " + filePath + " wasn't found.\n");
 
 		buffer << inStream.rdbuf();
 
 	}
 	catch (runtime_error& e)
 	{
-		cerr << e.what();
+		cerr << e.what() << "\n";
 	}
 	catch (...)
 	{
-		cerr << "Uknow error detected while trying to read file";
+		cerr << "Uknow error detected while trying to read file.\n";
 	}
 
 	if (inStream.is_open())
