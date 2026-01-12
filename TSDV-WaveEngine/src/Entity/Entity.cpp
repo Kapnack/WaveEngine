@@ -20,3 +20,13 @@ Entity::~Entity()
 	delete vertex;
 	delete indices;
 }
+
+void Entity::SetMaterial(Material* material)
+{
+	this->material = material;
+}
+
+Material* Entity::GetMaterial()
+{
+	return material;
+}
