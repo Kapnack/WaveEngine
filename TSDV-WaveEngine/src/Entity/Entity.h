@@ -12,6 +12,8 @@ protected:
 
 	Renderer* renderer;
 
+	Material* material;
+
 	Vector3 previousPostion;
 	Vector3 position;
 	Vector3 previousPosition;
@@ -37,6 +39,9 @@ public:
 
 	WAVEEXPORT	Entity(Renderer* renderer);
 	WAVEEXPORT virtual ~Entity();
+
+	WAVEEXPORT void SetMaterial(Material* material);
+	WAVEEXPORT Material* GetMaterial();
 
 	WAVEEXPORT virtual Vector3 GetPos() = 0;
 	WAVEEXPORT virtual Vector3 GetScale() = 0;
