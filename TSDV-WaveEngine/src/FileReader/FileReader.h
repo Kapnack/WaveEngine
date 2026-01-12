@@ -1,17 +1,18 @@
 #pragma once
 
 #include <string>
+#include "Export.h"
 
 using namespace std;
 
-static class FileReader
+WAVEEXPORT static class FileReader
 {
 private:
 
-	string GetAbsoluteFilePath(const string filePath);
+	static string GetAbsoluteFilePath(const string filePath);
 
 public:
 
-	string ReadFile(string filePath);
+	WAVEEXPORT static string ReadFile(string filePath);
 };
 
