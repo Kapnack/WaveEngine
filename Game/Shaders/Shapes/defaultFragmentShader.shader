@@ -6,5 +6,5 @@
 
 	void main()
 	{
-		FragColor = vec4(vertexColor.x, vertexColor.y + 0.7, vertexColor.z, vertexColor.w);
+		FragColor = vec4(1, 0, 1, 1);
 	};
