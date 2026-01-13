@@ -1,5 +1,7 @@
 #include "Entity.h"
 
+#include "Material/MaterialManager.h"
+
 void Entity::SetTRS()
 {
 	model = glm::mat4(1.0f);                    // Identity
@@ -13,17 +15,21 @@ Entity::Entity(Renderer* renderer)
 	this->renderer = renderer;
 
 	SetTRS();
+
+	MaterialManager::AddListener(this);
 }
 
 Entity::~Entity()
 {
 	delete vertex;
 	delete indices;
+
+	MaterialManager::RemoveListener(this);
 }
 
-void Entity::SetMaterial(Material& material)
+void Entity::SetMaterial(Material* material)
 {
-	this->material = &material;
+	this->material = material;
 }
 
 Material& Entity::GetMaterial()
