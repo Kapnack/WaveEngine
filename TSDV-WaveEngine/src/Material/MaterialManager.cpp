@@ -1,18 +1,31 @@
 #include "MaterialManager.h"
+
 #include <GL/glew.h>
 
-std::map<std::string, Material*> MaterialManager::materials;
+#include "FileReader/FileReader.h"
+
+map<string, Material*> MaterialManager::materials;
+list<Entity*> MaterialManager::listeners;
 
 MaterialManager::MaterialManager()
 {
+	string vertexShader = FileReader::ReadFile("Shaders/Shapes/basicVertexShader.shader");
+
+	string fragmentShader = FileReader::ReadFile("Shaders/Shapes/basicFragmentShader.shader");
+
+	CreateMaterial("basicShapeMaterial", vertexShader, fragmentShader);
+
+	vertexShader = FileReader::ReadFile("Shaders/Sprites/basicVertexShader.shader");
+
+	fragmentShader = FileReader::ReadFile("Shaders/Sprites/basicFragmentShader.shader");
+
+	CreateMaterial("basicSpriteMaterial", vertexShader, fragmentShader);
 }
 
 MaterialManager::~MaterialManager()
 {
 	for (map<string, Material*>::iterator it = materials.begin(); it != materials.end(); ++it)
-	{
 		delete it->second;
-	}
 
 	materials.clear();
 }
@@ -102,8 +115,15 @@ Material& MaterialManager::GetMaterial(string name)
 
 void MaterialManager::DeleteMaterial(const string name)
 {
-	delete materials[name];
-	materials.erase(name);
+	map<string, Material*>::iterator it = materials.find(name);
+
+	if (it == materials.end())
+		return;
+
+	OnDeleteMaterial(it->second);
+
+	delete it->second;
+	materials.erase(it);
 }
 
 void MaterialManager::DeleteMaterial(Material* material)
@@ -114,5 +134,26 @@ void MaterialManager::DeleteMaterial(Material* material)
 			it = materials.erase(it);
 	}
 
+	OnDeleteMaterial(material);
+
 	delete material;
+}
+
+void MaterialManager::AddListener(Entity* entity)
+{
+	listeners.push_back(entity);
+}
+
+void MaterialManager::OnDeleteMaterial(Material* material)
+{
+	for (Entity* entity : listeners)
+	{
+		if (&entity->GetMaterial() == material)
+			entity->SetMaterial(nullptr);
+	}
+}
+
+void MaterialManager::RemoveListener(Entity* entity)
+{
+	listeners.remove(entity);
 }
