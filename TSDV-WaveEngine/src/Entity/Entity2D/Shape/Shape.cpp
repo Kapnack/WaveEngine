@@ -10,5 +10,5 @@ Shape::~Shape()
 
 void Shape::Draw()
 {
-	renderer->DrawElement(model, indexSize, VAO);
+	renderer->DrawElement(model, material, indexSize, VAO);
 }
