@@ -1,7 +1,10 @@
 #include "Shape.h"
 
+#include "Material/MaterialManager.h"
+
 Shape::Shape(Renderer* renderer) : Entity2D(renderer)
 {
+	material = &MaterialManager::GetMaterial("basicShapeMaterial");
 }
 
 Shape::~Shape()
