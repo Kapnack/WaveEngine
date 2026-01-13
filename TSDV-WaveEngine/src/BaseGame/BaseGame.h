@@ -4,6 +4,7 @@
 #include "Window/Window.h"
 #include "Renderer/Renderer.h"
 #include "Time/Time.h"
+#include "Material/MaterialManager.h"
 
 WAVEEXPORT class BaseGame
 {
@@ -11,6 +12,8 @@ private:
 
 	Window* window;
 	Renderer* renderer;
+
+	MaterialManager* materialManager;
 
 	void InitEngine(int width, int height);
 	void EndEngine();
