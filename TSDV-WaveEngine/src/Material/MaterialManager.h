@@ -1,8 +1,10 @@
 #pragma once
 
 #include <map>
+#include <list>
 
 #include "Export.h"
+#include "Entity/Entity.h"
 #include "Material/Material.h"
 
 using namespace std;
@@ -14,6 +16,8 @@ private:
 	static map<string, Material*> materials;
 	static unsigned int CompileShader(const string& source, unsigned int type);
 	static void SaveMaterial(const string name, Material* material);
+
+	static list<Entity*> listeners;
 
 public:
 
@@ -27,6 +31,12 @@ public:
 	WAVEEXPORT static void DeleteMaterial(const string name);
 
 	WAVEEXPORT static void DeleteMaterial(Material* material);
+
+	static void AddListener(Entity* entity);
+
+	static void OnDeleteMaterial(Material* material);
+
+	static void RemoveListener(Entity* entity);
 
 };
 
