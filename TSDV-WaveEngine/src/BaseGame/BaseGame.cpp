@@ -12,6 +12,8 @@ void BaseGame::InitEngine(int width, int height)
 	window = new Window(width, height, "WaveEngine", nullptr, nullptr);
 	renderer = new Renderer(window);
 
+	materialManager = new MaterialManager();
+
 	Input::SetWindow(window);
 }
 
@@ -19,6 +21,8 @@ void BaseGame::EndEngine()
 {
 	delete renderer;
 	delete window;
+
+	delete materialManager;
 }
 
 Renderer* BaseGame::GetRenderer()
