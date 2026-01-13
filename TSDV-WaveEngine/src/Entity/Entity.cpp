@@ -21,12 +21,12 @@ Entity::~Entity()
 	delete indices;
 }
 
-void Entity::SetMaterial(Material* material)
+void Entity::SetMaterial(Material& material)
 {
-	this->material = material;
+	this->material = &material;
 }
 
-Material* Entity::GetMaterial()
+Material& Entity::GetMaterial()
 {
-	return material;
+	return *material;
 }
