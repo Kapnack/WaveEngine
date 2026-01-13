@@ -107,5 +107,5 @@ void Sprite::Draw()
 		SetUVCordinates(frame.topLeft, frame.bottomRight);
 	}
 
-	renderer->DrawElementSprite(model, indexSize, VAO, texture);
+	renderer->DrawElementSprite(model, material, indexSize, VAO, texture);
 }
