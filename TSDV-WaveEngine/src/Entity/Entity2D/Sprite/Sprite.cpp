@@ -1,5 +1,7 @@
 #include "Sprite.h"
 
+#include "Material/MaterialManager.h"
+
 Sprite::Sprite(unsigned int texture, Renderer* renderer) : Entity2D(renderer)
 {
 	vertexSize = 4;
@@ -24,6 +26,8 @@ Sprite::Sprite(unsigned int texture, Renderer* renderer) : Entity2D(renderer)
 	this->texture = texture;
 
 	renderer->CreateBuffersSprite(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO, texture);
+
+	material = &MaterialManager::GetMaterial("basicSpriteMaterial");
 }
 
 Sprite::Sprite(unsigned int texture, Vector4 color, Renderer* renderer) : Entity2D(renderer)
@@ -50,6 +54,8 @@ Sprite::Sprite(unsigned int texture, Vector4 color, Renderer* renderer) : Entity
 	this->texture = texture;
 
 	renderer->CreateBuffersSprite(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO, texture);
+
+	material = &MaterialManager::GetMaterial("basicSpriteMaterial");
 }
 
 Sprite::~Sprite()
