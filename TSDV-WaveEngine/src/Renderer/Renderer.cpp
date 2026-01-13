@@ -35,17 +35,17 @@ void Renderer::Init()
 	view = new glm::mat4(1.0f);
 	proj = new glm::mat4(glm::ortho(0.0f, res.x, 0.0f, res.y, -1.0f, 1.0f));
 
-	string vertexShader = FileReader::ReadFile("Shaders/Shapes/defaultVertexShader.shader");
+	string vertexShader = FileReader::ReadFile("Shaders/Shapes/basicVertexShader.shader");
 
 	string fragmentShader = FileReader::ReadFile("Shaders/Shapes/defaultFragmentShader.shader");
 
-	shapeShaders = &MaterialManager::CreateMaterial("shapeShader", vertexShader, fragmentShader);
+	shapeShaders = &MaterialManager::CreateMaterial("defaultShapeShader", vertexShader, fragmentShader);
 
-	vertexShader = FileReader::ReadFile("Shaders/Sprites/defaultVertexShader.shader");
+	vertexShader = FileReader::ReadFile("Shaders/Sprites/basicVertexShader.shader");
 
 	fragmentShader = FileReader::ReadFile("Shaders/Sprites/defaultFragmentShader.shader");
 
-	spriteShaders = &MaterialManager::CreateMaterial("spriteShader", vertexShader, fragmentShader);
+	spriteShaders = &MaterialManager::CreateMaterial("defaultSpriteShader", vertexShader, fragmentShader);
 }
 
 Material* Renderer::ReturnWorkingMaterial(Material* materialToTry, Material* fallBack)
