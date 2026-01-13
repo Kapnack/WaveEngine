@@ -1,8 +1,12 @@
 #include "Renderer.h"
 
+#include "FileReader/FileReader.h"
+#include "Material/MaterialManager.h"
 #include "VertexData.h"
 
 using namespace std;
+
+#include <map>
 
 Renderer::Renderer(Window* window)
 {
@@ -31,65 +35,22 @@ void Renderer::Init()
 	view = new glm::mat4(1.0f);
 	proj = new glm::mat4(glm::ortho(0.0f, res.x, 0.0f, res.y, -1.0f, 1.0f));
 
-	std::string vertexShader =
-		"#version 330 core						\n"
-		"layout(location = 0) in vec3 aPos;		\n"
-		"layout(location = 1) in vec4 aColor; \n"
-		"uniform mat4 uModel;  // TRS matrix\n"
-		"uniform mat4 uView;   // camera transform\n"
-		"uniform mat4 uProj;   // projection\n"
-		"out vec4 vertexColor;\n"
-		"	void main()\n"
-		"	{\n"
-		"		gl_Position = uProj * uView * uModel * vec4(aPos, 1.0);\n"
-		"		vertexColor = aColor;\n"
-		"	}\n";
+	string vertexShader = FileReader::ReadFile("Shaders/Shapes/defaultVertexShader.shader");
 
+	string fragmentShader = FileReader::ReadFile("Shaders/Shapes/defaultFragmentShader.shader");
 
-	std::string fragmentShader =
-		"#version 330 core\n"
-		"in vec4 vertexColor;\n"
-		"out vec4 FragColor;\n"
-		"void main()\n"
-		"{\n"
-		"   FragColor = vec4(vertexColor.x, vertexColor.y + 0.7, vertexColor.z, vertexColor.w);\n"
-		"}\n";
+	shapeShaders = &MaterialManager::CreateMaterial("shapeShader", vertexShader, fragmentShader);
 
-	shapeShaders = new Material();
-	shapeShaders->CreateShader(vertexShader, fragmentShader);
+	vertexShader = FileReader::ReadFile("Shaders/Sprites/defaultVertexShader.shader");
 
+	fragmentShader = FileReader::ReadFile("Shaders/Sprites/defaultFragmentShader.shader");
 
-	vertexShader =
-		"#version 330 core						\n"
-		"layout(location = 0) in vec3 aPos;		\n"
-		"layout(location = 1) in vec4 aColor; \n"
-		"layout (location = 2) in vec2 aTexCoord; \n"
-		"uniform mat4 uModel;  // TRS matrix\n"
-		"uniform mat4 uView;   // camera transform\n"
-		"uniform mat4 uProj;   // projection\n"
-		"out vec4 vertexColor;\n"
-		"out vec2 texCoord;\n"
-		"	void main()\n"
-		"	{\n"
-		"		gl_Position = uProj * uView * uModel * vec4(aPos, 1.0);\n"
-		"		vertexColor = aColor;\n"
-		"		texCoord = aTexCoord;\n"
-		"	}\n";
+	spriteShaders = &MaterialManager::CreateMaterial("spriteShader", vertexShader, fragmentShader);
+}
 
-
-	fragmentShader =
-		"#version 330 core\n"
-		"in vec4 vertexColor;\n"
-		"in vec2 texCoord;\n"
-		"uniform sampler2D ourTexture;"
-		"out vec4 FragColor;\n"
-		"void main()\n"
-		"{\n"
-		"   FragColor = texture(ourTexture, texCoord) * vertexColor;"
-		"}\n";
-
-	spriteShaders = new Material();
-	spriteShaders->CreateShader(vertexShader, fragmentShader);
+Material* Renderer::ReturnWorkingMaterial(Material* materialToTry, Material* fallBack)
+{
+	return materialToTry ? materialToTry : fallBack;
 }
 
 void Renderer::CreateBuffers(VertexData* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO)
@@ -152,7 +113,6 @@ void Renderer::UpdateBuffer(VertexData* vertex, int vertexSize, unsigned& VBO)
 	glBufferSubData(GL_ARRAY_BUFFER, 0, vertexSize * sizeof(VertexData), vertex);
 }
 
-
 void Renderer::Clear()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -163,29 +123,33 @@ Vector3 Renderer::GetRes()
 	return res;
 }
 
-void Renderer::DrawElement(glm::mat4& model, int indicesSize, unsigned int VAO)
+void Renderer::DrawElement(glm::mat4& model, Material* material, int indicesSize, unsigned int VAO)
 {
-	shapeShaders->Bind();
+	Material* materialToUse = ReturnWorkingMaterial(material, shapeShaders);
 
-	glUniformMatrix4fv(shapeShaders->GetUModel(), 1, GL_FALSE, glm::value_ptr(model));
+	materialToUse->Bind();
 
-	glUniformMatrix4fv(shapeShaders->GetUView(), 1, GL_FALSE, glm::value_ptr(*view));
+	glUniformMatrix4fv(materialToUse->GetUModel(), 1, GL_FALSE, glm::value_ptr(model));
 
-	glUniformMatrix4fv(shapeShaders->GetUProj(), 1, GL_FALSE, glm::value_ptr(*proj));
+	glUniformMatrix4fv(materialToUse->GetUView(), 1, GL_FALSE, glm::value_ptr(*view));
+
+	glUniformMatrix4fv(materialToUse->GetUProj(), 1, GL_FALSE, glm::value_ptr(*proj));
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*)0);
 }
 
-void Renderer::DrawElementSprite(glm::mat4& model, int indicesSize, unsigned int VAO, unsigned int texture)
+void Renderer::DrawElementSprite(glm::mat4& model, Material* material, int indicesSize, unsigned int VAO, unsigned int texture)
 {
-	spriteShaders->Bind();
+	Material* materialToUse = ReturnWorkingMaterial(material, spriteShaders);
 
-	glUniformMatrix4fv(spriteShaders->GetUModel(), 1, GL_FALSE, glm::value_ptr(model));
+	materialToUse->Bind();
 
-	glUniformMatrix4fv(spriteShaders->GetUView(), 1, GL_FALSE, glm::value_ptr(*view));
+	glUniformMatrix4fv(materialToUse->GetUModel(), 1, GL_FALSE, glm::value_ptr(model));
 
-	glUniformMatrix4fv(spriteShaders->GetUProj(), 1, GL_FALSE, glm::value_ptr(*proj));
+	glUniformMatrix4fv(materialToUse->GetUView(), 1, GL_FALSE, glm::value_ptr(*view));
+
+	glUniformMatrix4fv(materialToUse->GetUProj(), 1, GL_FALSE, glm::value_ptr(*proj));
 
 	glBindTexture(GL_TEXTURE_2D, texture);
 
@@ -197,7 +161,6 @@ void Renderer::DrawElementSprite(glm::mat4& model, int indicesSize, unsigned int
 
 void Renderer::Unload()
 {
-	delete shapeShaders;
 	delete view;
 	delete proj;
 }
