@@ -24,6 +24,8 @@ private:
 
 	Vector3 res;
 
+	Material* ReturnWorkingMaterial(Material* materialToTry, Material* fallBack);
+
 public:
 
 	Renderer(Window* window);
@@ -45,7 +47,7 @@ public:
 
 	static float GetGLTime();
 
-	void DrawElement(glm::mat4& model, int indicesSize, unsigned int VAO);
-	void DrawElementSprite(glm::mat4& model, int indicesSize, unsigned int VAO, unsigned int texture);
+	void DrawElement(glm::mat4& model, Material* material, int indicesSize, unsigned int VAO);
+	void DrawElementSprite(glm::mat4& model, Material* material, int indicesSize, unsigned int VAO, unsigned int texture);
 };
 
