@@ -4,6 +4,7 @@
 #include "Entity/Entity2D/Shape/Triangle/Triangle.h"
 #include "TextureImporter/TextureImporter.h"
 #include "CollisionManager/CollisionManager.h"
+#include "Material/MaterialManager.h"
 #include "Input/Input.h"
 
 Game::Game(int width, int height) : BaseGame(width, height)
@@ -97,7 +98,6 @@ void Game::Update()
 		redSquare->Scale(Vector3(-100 * delta, -100 * delta, 0));
 
 	collitionDetected = CollisionManager::CheckCollision(samus, redSquare);
-
 
 	if (blueSquare->GetPos().x <= width - 100.0f && isGoingLeft == true)
 	{
