@@ -87,7 +87,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\include;$(ProjectDir)src;$(ProjectDir)lib\glew-2.2.0\include;$(ProjectDir)lib\glm-1.0.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\include;$(ProjectDir)src;$(ProjectDir)lib\glew-2.2.0\include;$(ProjectDir)lib\glm-1.0.1\include;$(ProjectDir)lib</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -176,8 +176,11 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClCompile Include="src\Entity\Entity2D\Shape\Triangle\Triangle.cpp" />
     <ClCompile Include="src\Time\Time.cpp" />
     <ClCompile Include="src\TextureImporter\TextureImporter.cpp" />
+    <ClCompile Include="src\TIleMap\TileMap.cpp" />
+    <ClCompile Include="src\Tile\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="lib\json.hpp" />
     <ClInclude Include="src\Material\MaterialManager.h" />
     <ClInclude Include="src\FileReader\FileReader.h" />
     <ClInclude Include="src\CollisionManager\CollisionManager.h" />
@@ -199,6 +202,8 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClInclude Include="src\Entity\Entity2D\Shape\Triangle\Triangle.h" />
     <ClInclude Include="src\Time\Time.h" />
     <ClInclude Include="src\TextureImporter\TextureImporter.h" />
+    <ClInclude Include="src\TIleMap\TileMap.h" />
+    <ClInclude Include="src\Tile\Tile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
