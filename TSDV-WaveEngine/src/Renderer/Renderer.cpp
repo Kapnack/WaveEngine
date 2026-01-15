@@ -1,6 +1,7 @@
 #include "Renderer.h"
 
 #include "FileReader/FileReader.h"
+#include "ServiceProvider/ServiceProvider.h"
 #include "Material/MaterialManager.h"
 #include "VertexData.h"
 
@@ -39,13 +40,13 @@ void Renderer::Init()
 
 	string fragmentShader = FileReader::ReadFile("Shaders/Shapes/defaultFragmentShader.shader");
 
-	shapeShaders = &MaterialManager::CreateMaterial("defaultShapeShader", vertexShader, fragmentShader);
+	shapeShaders = &ServiceProvider::Get<MaterialManager>()->CreateMaterial("defaultShapeShader", vertexShader, fragmentShader);
 
 	vertexShader = FileReader::ReadFile("Shaders/Sprites/basicVertexShader.shader");
 
 	fragmentShader = FileReader::ReadFile("Shaders/Sprites/defaultFragmentShader.shader");
 
-	spriteShaders = &MaterialManager::CreateMaterial("defaultSpriteShader", vertexShader, fragmentShader);
+	spriteShaders = &ServiceProvider::Get<MaterialManager>()->CreateMaterial("defaultSpriteShader", vertexShader, fragmentShader);
 }
 
 Material* Renderer::ReturnWorkingMaterial(Material* materialToTry, Material* fallBack)
