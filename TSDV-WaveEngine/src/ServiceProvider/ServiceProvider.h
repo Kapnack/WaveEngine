@@ -1,35 +1,39 @@
 #pragma once
 
-#include "Service.h"
+#include "Singleton/Singleton.h"
 
 #include <unordered_map>
 #include <typeindex>
 #include <type_traits>
+
+#include "Service.h"
 
 using namespace std;
 
 template<typename T>
 concept ServiceStandard = is_base_of_v<Service, T>;
 
-class ServiceProvider
+class ServiceProvider : public Singleton<ServiceProvider>
 {
 private:
-    static inline unordered_map<type_index, Service*> services;
+
+	unordered_map<type_index, Service*> services;
 
 public:
-    template<ServiceStandard T>
-    static void Register(T* service);
 
-    template<ServiceStandard T>
-    static T* Get();
+	template<ServiceStandard T>
+	void Register(T* service);
 
-    template<ServiceStandard T>
-    static T* TryGet();
+	template<ServiceStandard T>
+	T* Get();
 
-    template<ServiceStandard T>
-    static void UnRegister();
+	template<ServiceStandard T>
+	T* TryGet();
 
-    static inline void Clear();
+	template<ServiceStandard T>
+	void UnRegister();
+
+	inline void Clear();
 };
 
 #include "ServiceProvider.tpp"
