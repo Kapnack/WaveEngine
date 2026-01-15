@@ -5,33 +5,20 @@
 
 Sprite::Sprite(unsigned int texture, Renderer* renderer) : Entity2D(renderer)
 {
-	vertexSize = 4;
+	Init(texture, Vector4{1,1,1,1}, renderer);
 
-	vertex = new VertexData[vertexSize]
-	{
-		VertexData(Vector3(0.5f, 0.5f, 0.0f), Vector4(1.0f, 0.0f, 0.0f, 1.0f), Vector2(1,1)),
-		VertexData(Vector3(0.5f, -0.5f, 0.0f), Vector4(0.0f, 1.0f, 0.0f, 1.0f), Vector2(1,0)),
-		VertexData(Vector3(-0.5f, -0.5f, 0.0f), Vector4(0.0f, 0.0f, 1.0f, 1.0f), Vector2(0,0)),
-		VertexData(Vector3(-0.5f, 0.5f, 0.0f), Vector4(0.5f, 0.0f, 0.5f, 1.0f), Vector2(0,1))
-	};
-
-	indexSize = 6;
-	indices = new int[indexSize]
-		{
-			0, 1, 3,   // first triangle
-				1, 2, 3    // second triangle
-		};
-
-	SetTRS();
-
-	this->texture = texture;
-
-	renderer->CreateBuffersSprite(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO, texture);
-
-	material = &ServiceProvider::Get<MaterialManager>()->GetMaterial("basicSpriteMaterial");
+	SetVertexColor(0, Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+	SetVertexColor(1, Vector4(0.0f, 1.0f, 0.0f, 1.0f));
+	SetVertexColor(2, Vector4(0.0f, 0.0f, 1.0f, 1.0f));
+	SetVertexColor(3, Vector4(0.5f, 0.0f, 0.5f, 1.0f));
 }
 
 Sprite::Sprite(unsigned int texture, Vector4 color, Renderer* renderer) : Entity2D(renderer)
+{
+	Init(texture, color, renderer);
+}
+
+void Sprite::Init(unsigned int texture, Vector4 color, Renderer* renderer)
 {
 	vertexSize = 4;
 
