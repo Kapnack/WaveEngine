@@ -4,10 +4,19 @@
 
 #include "FileReader/FileReader.h"
 
-map<string, Material*> MaterialManager::materials;
-list<Entity*> MaterialManager::listeners;
+MaterialManager::MaterialManager() : Service()
+{
+}
 
-MaterialManager::MaterialManager()
+MaterialManager::~MaterialManager()
+{
+	for (map<string, Material*>::iterator it = materials.begin(); it != materials.end(); ++it)
+		delete it->second;
+
+	materials.clear();
+}
+
+void MaterialManager::Init()
 {
 	string vertexShader = FileReader::ReadFile("Shaders/Shapes/basicVertexShader.shader");
 
@@ -20,14 +29,6 @@ MaterialManager::MaterialManager()
 	fragmentShader = FileReader::ReadFile("Shaders/Sprites/basicFragmentShader.shader");
 
 	CreateMaterial("basicSpriteMaterial", vertexShader, fragmentShader);
-}
-
-MaterialManager::~MaterialManager()
-{
-	for (map<string, Material*>::iterator it = materials.begin(); it != materials.end(); ++it)
-		delete it->second;
-
-	materials.clear();
 }
 
 unsigned int MaterialManager::CompileShader(const string& source, unsigned int type)
