@@ -1,15 +1,22 @@
 #pragma once
 
-class Time
+#include "Window/Window.h"
+#include "ServiceProvider/Service.h"
+
+class Time : public Service
 {
 private:
 
-	static float deltaTime;
-	static float lastTime;
+	Window* window;
+	float deltaTime = 0;
+	float lastTime = 0;
 
 public:
 
-	static void SetDeltaTime();
-	static float GetDeltaTime();
+	Time(Window* window);
+	~Time();
+
+	void SetDeltaTime();
+	float GetDeltaTime();
 };
 
