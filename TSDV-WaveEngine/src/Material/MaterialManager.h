@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ServiceProvider/Service.h"
+
 #include <map>
 #include <list>
 
@@ -9,34 +11,36 @@
 
 using namespace std;
 
-WAVEEXPORT class MaterialManager
+WAVEEXPORT class MaterialManager : public Service
 {
 private:
 
-	static map<string, Material*> materials;
-	static unsigned int CompileShader(const string& source, unsigned int type);
-	static void SaveMaterial(const string name, Material* material);
+	map<string, Material*> materials;
+	unsigned int CompileShader(const string& source, unsigned int type);
+	void SaveMaterial(const string name, Material* material);
 
-	static list<Entity*> listeners;
+	list<Entity*> listeners;
 
 public:
 
 	MaterialManager();
 	~MaterialManager();
 
-	WAVEEXPORT static Material& CreateMaterial(const string name, const string vertexShader, const string fragmentShader);
+	void Init();
 
-	WAVEEXPORT static Material& GetMaterial(string name);
+	WAVEEXPORT  Material& CreateMaterial(const string name, const string vertexShader, const string fragmentShader);
 
-	WAVEEXPORT static void DeleteMaterial(const string name);
+	WAVEEXPORT  Material& GetMaterial(string name);
 
-	WAVEEXPORT static void DeleteMaterial(Material* material);
+	WAVEEXPORT  void DeleteMaterial(const string name);
 
-	static void AddListener(Entity* entity);
+	WAVEEXPORT  void DeleteMaterial(Material* material);
 
-	static void OnDeleteMaterial(Material* material);
+	void AddListener(Entity* entity);
 
-	static void RemoveListener(Entity* entity);
+	void OnDeleteMaterial(Material* material);
+
+	void RemoveListener(Entity* entity);
 
 };
 
