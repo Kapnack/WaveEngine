@@ -57,7 +57,7 @@ Frame Animation::GetCurrentFrame()
 
 void Animation::Update()
 {
-	this->currentTime += ServiceProvider::TryGet<Time>()->GetDeltaTime();
+	this->currentTime += ServiceProvider::Instance().Get<Time>()->GetDeltaTime();
 
 	while (this->currentTime >= this->animationTime)
 		this->currentTime -= this->animationTime;
