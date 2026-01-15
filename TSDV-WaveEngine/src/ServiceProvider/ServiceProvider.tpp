@@ -29,7 +29,13 @@ T* ServiceProvider::TryGet()
 template<ServiceStandard T>
 void ServiceProvider::UnRegister()
 {
-	services.erase(typeid(T));
+	unordered_map<type_index, Service*>::iterator it = services.find(typeid(T));
+
+	if (it == services.end())
+		return;
+
+	delete it->second;
+	services.erase(it);
 }
 
 void ServiceProvider::Clear()
