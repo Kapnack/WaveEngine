@@ -1,6 +1,8 @@
 #include "BaseGame.h"
 #include "Input/Input.h"
 
+#include "ServiceProvider/ServiceProvider.h"
+
 void BaseGame::InitEngine(int width, int height)
 {
 	this->width = width;
@@ -9,12 +11,17 @@ void BaseGame::InitEngine(int width, int height)
 	if (!glfwInit())
 		exit(-1);
 
+	ServiceProvider::Register(new MaterialManager());
+
 	window = new Window(width, height, "WaveEngine", nullptr, nullptr);
+
+	ServiceProvider::TryGet<MaterialManager>()->Init();
+	
 	renderer = new Renderer(window);
 
-	materialManager = new MaterialManager();
-
-	Input::SetWindow(window);
+	ServiceProvider::Register(new Input(window));
+	ServiceProvider::Register(new Time(window));
+	
 }
 
 void BaseGame::EndEngine()
@@ -22,7 +29,12 @@ void BaseGame::EndEngine()
 	delete renderer;
 	delete window;
 
-	delete materialManager;
+	ServiceProvider::Clear();
+}
+
+Time* BaseGame::GetTime()
+{
+	return ServiceProvider::TryGet<Time>();
 }
 
 Renderer* BaseGame::GetRenderer()
@@ -32,7 +44,12 @@ Renderer* BaseGame::GetRenderer()
 
 float BaseGame::GetDeltaTime()
 {
-	return Time::GetDeltaTime();
+	return ServiceProvider::Get<Time>()->GetDeltaTime();
+}
+
+Input* BaseGame::GetInput()
+{
+	return ServiceProvider::Get<Input>();
 }
 
 BaseGame::BaseGame(int width, int height)
@@ -49,7 +66,7 @@ void BaseGame::Run()
 {
 	while (!glfwWindowShouldClose(window->GetWindow()))
 	{
-		Time::SetDeltaTime();
+		GetTime()->SetDeltaTime();
 
 		renderer->Clear();
 
