@@ -5,7 +5,7 @@
 
 Shape::Shape(Renderer* renderer) : Entity2D(renderer)
 {
-	material = &ServiceProvider::TryGet<MaterialManager>()->GetMaterial("basicShapeMaterial");
+	material = &ServiceProvider::Instance().Get<MaterialManager>()->GetMaterial("basicShapeMaterial");
 }
 
 Shape::~Shape()
