@@ -78,10 +78,10 @@
     <ClCompile Include="src\Material\MaterialManager.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\Tile\Tile.cpp">
+    <ClCompile Include="src\ServiceProvider\Service.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\TIleMap\TileMap.cpp">
+    <ClCompile Include="src\ServiceProvider\ServiceProvider.tpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,17 +149,21 @@
     <ClInclude Include="src\Material\MaterialManager.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\Tile\Tile.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\TIleMap\TileMap.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="lib\json.hpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ServiceProvider\Service.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ServiceProvider\ServiceProvider.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Singleton\Singleton.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+    <None Include="src\Singleton\Singleton.tpp" />
   </ItemGroup>
 </Project>

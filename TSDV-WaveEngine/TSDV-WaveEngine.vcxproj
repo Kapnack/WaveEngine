@@ -88,7 +88,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\include;$(ProjectDir)src;$(ProjectDir)lib\glew-2.2.0\include;$(ProjectDir)lib\glm-1.0.1\include;$(ProjectDir)lib</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,6 +169,8 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Entity2D.cpp" />
     <ClCompile Include="src\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\ServiceProvider\Service.cpp" />
+    <ClCompile Include="src\ServiceProvider\ServiceProvider.tpp" />
     <ClCompile Include="src\Vector3.cpp" />
     <ClCompile Include="src\Vector4.cpp" />
     <ClCompile Include="src\VertexData.cpp" />
@@ -176,8 +178,6 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClCompile Include="src\Entity\Entity2D\Shape\Triangle\Triangle.cpp" />
     <ClCompile Include="src\Time\Time.cpp" />
     <ClCompile Include="src\TextureImporter\TextureImporter.cpp" />
-    <ClCompile Include="src\TIleMap\TileMap.cpp" />
-    <ClCompile Include="src\Tile\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\json.hpp" />
@@ -189,6 +189,9 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClInclude Include="src\Entity\Entity2D\Sprite\Sprite.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Square\Square.h" />
     <ClInclude Include="src\BaseGame\BaseGame.h" />
+    <ClInclude Include="src\ServiceProvider\Service.h" />
+    <ClInclude Include="src\ServiceProvider\ServiceProvider.h" />
+    <ClInclude Include="src\Singleton\Singleton.h" />
     <ClInclude Include="src\Vector4.h" />
     <ClInclude Include="src\VertexData.h" />
     <ClInclude Include="src\Export.h" />
@@ -202,11 +205,10 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClInclude Include="src\Entity\Entity2D\Shape\Triangle\Triangle.h" />
     <ClInclude Include="src\Time\Time.h" />
     <ClInclude Include="src\TextureImporter\TextureImporter.h" />
-    <ClInclude Include="src\TIleMap\TileMap.h" />
-    <ClInclude Include="src\Tile\Tile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+    <None Include="src\Singleton\Singleton.tpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
