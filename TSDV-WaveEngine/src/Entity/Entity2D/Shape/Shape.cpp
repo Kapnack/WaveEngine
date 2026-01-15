@@ -1,10 +1,11 @@
 #include "Shape.h"
 
+#include "ServiceProvider/ServiceProvider.h"
 #include "Material/MaterialManager.h"
 
 Shape::Shape(Renderer* renderer) : Entity2D(renderer)
 {
-	material = &MaterialManager::GetMaterial("basicShapeMaterial");
+	material = &ServiceProvider::TryGet<MaterialManager>()->GetMaterial("basicShapeMaterial");
 }
 
 Shape::~Shape()
