@@ -1,6 +1,7 @@
 #include "Sprite.h"
 
 #include "Material/MaterialManager.h"
+#include "ServiceProvider/ServiceProvider.h"
 
 Sprite::Sprite(unsigned int texture, Renderer* renderer) : Entity2D(renderer)
 {
@@ -27,7 +28,7 @@ Sprite::Sprite(unsigned int texture, Renderer* renderer) : Entity2D(renderer)
 
 	renderer->CreateBuffersSprite(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO, texture);
 
-	material = &MaterialManager::GetMaterial("basicSpriteMaterial");
+	material = &ServiceProvider::Get<MaterialManager>()->GetMaterial("basicSpriteMaterial");
 }
 
 Sprite::Sprite(unsigned int texture, Vector4 color, Renderer* renderer) : Entity2D(renderer)
@@ -55,7 +56,7 @@ Sprite::Sprite(unsigned int texture, Vector4 color, Renderer* renderer) : Entity
 
 	renderer->CreateBuffersSprite(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO, texture);
 
-	material = &MaterialManager::GetMaterial("basicSpriteMaterial");
+	material = &ServiceProvider::Get<MaterialManager>()->GetMaterial("basicSpriteMaterial");
 }
 
 Sprite::~Sprite()
