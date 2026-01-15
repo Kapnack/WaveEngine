@@ -17,7 +17,7 @@ Entity::Entity(Renderer* renderer)
 
 	SetTRS();
 
-	ServiceProvider::TryGet<MaterialManager>()->AddListener(this);
+	ServiceProvider::Instance().Get<MaterialManager>()->AddListener(this);
 }
 
 Entity::~Entity()
@@ -25,7 +25,7 @@ Entity::~Entity()
 	delete vertex;
 	delete indices;
 
-	ServiceProvider::TryGet<MaterialManager>()->RemoveListener(this);
+	ServiceProvider::Instance().Get<MaterialManager>()->RemoveListener(this);
 }
 
 void Entity::SetMaterial(Material* material)
