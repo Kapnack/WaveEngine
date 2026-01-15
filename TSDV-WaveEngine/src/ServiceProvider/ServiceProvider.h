@@ -29,7 +29,7 @@ public:
     template<ServiceStandard T>
     static void UnRegister();
 
-    static void Clear();
+    static inline void Clear();
 };
 
 #include "ServiceProvider.tpp"
