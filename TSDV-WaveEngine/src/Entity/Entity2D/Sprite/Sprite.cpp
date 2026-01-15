@@ -43,7 +43,7 @@ void Sprite::Init(unsigned int texture, Vector4 color, Renderer* renderer)
 
 	renderer->CreateBuffersSprite(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO, texture);
 
-	material = &ServiceProvider::Get<MaterialManager>()->GetMaterial("basicSpriteMaterial");
+	material = &ServiceProvider::Instance().Get<MaterialManager>()->GetMaterial("basicSpriteMaterial");
 }
 
 Sprite::~Sprite()
