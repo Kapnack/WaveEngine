@@ -11,16 +11,16 @@ void BaseGame::InitEngine(int width, int height)
 	if (!glfwInit())
 		exit(-1);
 
-	ServiceProvider::Register(new MaterialManager());
+	ServiceProvider::Instance().Register(new MaterialManager());
 
 	window = new Window(width, height, "WaveEngine", nullptr, nullptr);
 
-	ServiceProvider::TryGet<MaterialManager>()->Init();
+	ServiceProvider::Instance().TryGet<MaterialManager>()->Init();
 	
 	renderer = new Renderer(window);
 
-	ServiceProvider::Register(new Input(window));
-	ServiceProvider::Register(new Time(window));
+	ServiceProvider::Instance().Register(new Input(window));
+	ServiceProvider::Instance().Register(new Time(window));
 	
 }
 
@@ -29,12 +29,12 @@ void BaseGame::EndEngine()
 	delete renderer;
 	delete window;
 
-	ServiceProvider::Clear();
+	ServiceProvider::Instance().Clear();
 }
 
 Time* BaseGame::GetTime()
 {
-	return ServiceProvider::TryGet<Time>();
+	return ServiceProvider::Instance().TryGet<Time>();
 }
 
 Renderer* BaseGame::GetRenderer()
@@ -44,12 +44,12 @@ Renderer* BaseGame::GetRenderer()
 
 float BaseGame::GetDeltaTime()
 {
-	return ServiceProvider::Get<Time>()->GetDeltaTime();
+	return ServiceProvider::Instance().Get<Time>()->GetDeltaTime();
 }
 
 Input* BaseGame::GetInput()
 {
-	return ServiceProvider::Get<Input>();
+	return ServiceProvider::Instance().Get<Input>();
 }
 
 BaseGame::BaseGame(int width, int height)
