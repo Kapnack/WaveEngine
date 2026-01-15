@@ -4,6 +4,7 @@
 #include "Window/Window.h"
 #include "Renderer/Renderer.h"
 #include "Time/Time.h"
+#include "Input/Input.h"
 #include "Material/MaterialManager.h"
 
 WAVEEXPORT class BaseGame
@@ -13,10 +14,10 @@ private:
 	Window* window;
 	Renderer* renderer;
 
-	MaterialManager* materialManager;
-
 	void InitEngine(int width, int height);
 	void EndEngine();
+
+	Time* GetTime();
 
 protected:
 
@@ -30,6 +31,8 @@ protected:
 	WAVEEXPORT	virtual void Unload() = 0;
 
 	WAVEEXPORT float GetDeltaTime();
+
+	WAVEEXPORT Input* GetInput();
 
 public:
 
