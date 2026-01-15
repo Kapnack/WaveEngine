@@ -1,6 +1,13 @@
 #include "Input.h"
 
-Window* Input::window = nullptr;
+Input::Input(Window* window)
+{
+	this->window = window;
+}
+
+Input::~Input()
+{
+}
 
 int Input::GetGlfwKeyFromKey(Keys key)
 {
@@ -124,11 +131,6 @@ int Input::GetGlfwKeyFromKey(Keys key)
 	case Keys::RIGHT_SUPER: return GLFW_KEY_RIGHT_SUPER;
 	default: return -1;
 	}
-}
-
-void Input::SetWindow(Window* window)
-{
-	Input::window = window;
 }
 
 bool Input::IsKeyPressed(Keys key)
