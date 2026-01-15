@@ -1,6 +1,8 @@
 #include "Animation.h"
 #include "Time/Time.h"
 
+#include "ServiceProvider/ServiceProvider.h"
+
 Animation::Animation(
 	Vector2 startCoords,
 	Vector2 frameArea,
@@ -55,7 +57,7 @@ Frame Animation::GetCurrentFrame()
 
 void Animation::Update()
 {
-	this->currentTime += Time::GetDeltaTime();
+	this->currentTime += ServiceProvider::TryGet<Time>()->GetDeltaTime();
 
 	while (this->currentTime >= this->animationTime)
 		this->currentTime -= this->animationTime;
