@@ -40,13 +40,13 @@ void Renderer::Init()
 
 	string fragmentShader = FileReader::ReadFile("Shaders/Shapes/defaultFragmentShader.shader");
 
-	shapeShaders = &ServiceProvider::Get<MaterialManager>()->CreateMaterial("defaultShapeShader", vertexShader, fragmentShader);
+	shapeShaders = &ServiceProvider::Instance().Get<MaterialManager>()->CreateMaterial("defaultShapeShader", vertexShader, fragmentShader);
 
 	vertexShader = FileReader::ReadFile("Shaders/Sprites/basicVertexShader.shader");
 
 	fragmentShader = FileReader::ReadFile("Shaders/Sprites/defaultFragmentShader.shader");
 
-	spriteShaders = &ServiceProvider::Get<MaterialManager>()->CreateMaterial("defaultSpriteShader", vertexShader, fragmentShader);
+	spriteShaders = &ServiceProvider::Instance().Get<MaterialManager>()->CreateMaterial("defaultSpriteShader", vertexShader, fragmentShader);
 }
 
 Material* Renderer::ReturnWorkingMaterial(Material* materialToTry, Material* fallBack)
