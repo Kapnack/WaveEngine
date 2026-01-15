@@ -30,6 +30,6 @@ public:
 	void SwapBuffer();
 	void HandleInput();
 
-	static float GetGLTime();
+	float GetGLTime();
 };
 
