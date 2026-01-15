@@ -1,9 +1,11 @@
 #pragma once
 
-class Service
+#include "Export.h"
+
+WAVEEXPORT class Service
 {
 public:
-	Service();
-	virtual ~Service();
+	WAVEEXPORT Service();
+	WAVEEXPORT virtual ~Service();
 };
 
