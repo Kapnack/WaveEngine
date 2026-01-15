@@ -41,9 +41,7 @@ void ServiceProvider::UnRegister()
 void ServiceProvider::Clear()
 {
 	for (pair<const type_index, Service*>& service : services)
-	{
 		delete service.second;
-	}
 
 	services.clear();
 }
