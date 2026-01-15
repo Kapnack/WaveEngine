@@ -1,5 +1,6 @@
 #include "Entity.h"
 
+#include "ServiceProvider/ServiceProvider.h"
 #include "Material/MaterialManager.h"
 
 void Entity::SetTRS()
@@ -16,7 +17,7 @@ Entity::Entity(Renderer* renderer)
 
 	SetTRS();
 
-	MaterialManager::AddListener(this);
+	ServiceProvider::TryGet<MaterialManager>()->AddListener(this);
 }
 
 Entity::~Entity()
@@ -24,7 +25,7 @@ Entity::~Entity()
 	delete vertex;
 	delete indices;
 
-	MaterialManager::RemoveListener(this);
+	ServiceProvider::TryGet<MaterialManager>()->RemoveListener(this);
 }
 
 void Entity::SetMaterial(Material* material)
