@@ -68,12 +68,12 @@ void Game::Update()
 
 	if (!collitionDetected)
 	{
-		if (Input::IsKeyPressed(Keys::A) && samus)
+		if (GetInput()->IsKeyPressed(Keys::A) && samus)
 		{
 			samus->SetAnimation(walkingRight);
 			samus->Translate(Vector3::Right() * movementSpeed * delta);
 		}
-		else if (Input::IsKeyPressed(Keys::D) && samus)
+		else if (GetInput()->IsKeyPressed(Keys::D) && samus)
 		{
 			samus->SetAnimation(walkingLeft);
 			samus->Translate(Vector3::Left() * movementSpeed * delta);
@@ -87,14 +87,14 @@ void Game::Update()
 		samus->SetAnimation(idle);
 	}
 
-	if (Input::IsKeyPressed(Keys::LEFT))
+	if (GetInput()->IsKeyPressed(Keys::LEFT))
 		redSquare->Rotate(180 * delta);
-	else if (Input::IsKeyPressed(Keys::RIGHT))
+	else if (GetInput()->IsKeyPressed(Keys::RIGHT))
 		redSquare->Rotate(-180 * delta);
 
-	if (Input::IsKeyPressed(Keys::UP))
+	if (GetInput()->IsKeyPressed(Keys::UP))
 		redSquare->Scale(Vector3(100 * delta, 100 * delta, 0));
-	else if (Input::IsKeyPressed(Keys::DOWN))
+	else if (GetInput()->IsKeyPressed(Keys::DOWN))
 		redSquare->Scale(Vector3(-100 * delta, -100 * delta, 0));
 
 	collitionDetected = CollisionManager::CheckCollision(samus, redSquare);
