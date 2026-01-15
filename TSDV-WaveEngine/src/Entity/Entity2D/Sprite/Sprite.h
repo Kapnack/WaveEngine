@@ -12,6 +12,8 @@ private:
 
 	Vector2 UV;
 
+	void Init(unsigned int texture, Vector4 color, Renderer* renderer);
+
 public:
 
 	WAVEEXPORT Sprite(unsigned int texture, Renderer* renderer);
