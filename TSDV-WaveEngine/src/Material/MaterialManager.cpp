@@ -10,7 +10,7 @@ MaterialManager::MaterialManager() : Service()
 
 MaterialManager::~MaterialManager()
 {
-	for (map<string, Material*>::iterator it = materials.begin(); it != materials.end(); ++it)
+	for (unordered_map<string, Material*>::iterator it = materials.begin(); it != materials.end(); ++it)
 		delete it->second;
 
 	materials.clear();
