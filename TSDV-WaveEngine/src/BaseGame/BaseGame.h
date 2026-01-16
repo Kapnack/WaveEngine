@@ -18,12 +18,12 @@ private:
 
 	Time* GetTime();
 
+	Renderer* GetRenderer();
+
 protected:
 
 	float width = 0.0f;
 	float height = 0.0f;
-
-	WAVEEXPORT	Renderer* GetRenderer();
 
 	WAVEEXPORT	virtual void Init() = 0;
 	WAVEEXPORT	virtual void Update() = 0;
