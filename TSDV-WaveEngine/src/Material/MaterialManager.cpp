@@ -130,10 +130,8 @@ void MaterialManager::DeleteMaterial(const string name)
 void MaterialManager::DeleteMaterial(Material* material)
 {
 	for (map<string, Material*>::iterator it = materials.begin(); it != materials.end(); ++it)
-	{
 		if (it->second == material)
 			it = materials.erase(it);
-	}
 
 	OnDeleteMaterial(material);
 
@@ -148,13 +146,18 @@ void MaterialManager::AddListener(Entity* entity)
 void MaterialManager::OnDeleteMaterial(Material* material)
 {
 	for (Entity* entity : listeners)
-	{
 		if (&entity->GetMaterial() == material)
 			entity->SetMaterial(nullptr);
-	}
 }
 
 void MaterialManager::RemoveListener(Entity* entity)
 {
-	listeners.remove(entity);
+	for (vector<Entity*>::iterator it = listeners.begin(); it != listeners.end(); it++)
+		if (*it == entity)
+		{
+			listeners.erase(it);
+			break;
+		}
+
+
 }
