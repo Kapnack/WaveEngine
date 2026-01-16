@@ -11,10 +11,8 @@ void Entity::SetTRS()
 	model = glm::scale(model, glm::vec3(scale.x, scale.y, scale.z)); // Scale
 }
 
-Entity::Entity(Renderer* renderer)
+Entity::Entity()
 {
-	this->renderer = renderer;
-
 	SetTRS();
 
 	ServiceProvider::Instance().Get<MaterialManager>()->AddListener(this);
@@ -26,6 +24,11 @@ Entity::~Entity()
 	delete indices;
 
 	ServiceProvider::Instance().Get<MaterialManager>()->RemoveListener(this);
+}
+
+Renderer* GetRenderer()
+{
+	return ServiceProvider::Instance().Get<Renderer>();
 }
 
 void Entity::SetMaterial(Material* material)
