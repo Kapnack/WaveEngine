@@ -6,8 +6,8 @@ WAVEEXPORT class Triangle : public Shape
 {
 public:
 
-	WAVEEXPORT Triangle(Renderer* renderer, Vector4 color);
-	WAVEEXPORT Triangle(Renderer* renderer);
+	WAVEEXPORT Triangle();
+	WAVEEXPORT Triangle(Vector4 color);
 	WAVEEXPORT ~Triangle();
 };
 
