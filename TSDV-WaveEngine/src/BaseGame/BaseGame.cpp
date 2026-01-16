@@ -17,7 +17,7 @@ void BaseGame::InitEngine(int width, int height)
 
 	ServiceProvider::Instance().TryGet<MaterialManager>()->Init();
 	
-	renderer = new Renderer(window);
+	ServiceProvider::Instance().Register(new Renderer(window));
 
 	ServiceProvider::Instance().Register(new Input(window));
 	ServiceProvider::Instance().Register(new Time(window));
@@ -26,7 +26,6 @@ void BaseGame::InitEngine(int width, int height)
 
 void BaseGame::EndEngine()
 {
-	delete renderer;
 	delete window;
 
 	ServiceProvider::Instance().Clear();
@@ -39,7 +38,7 @@ Time* BaseGame::GetTime()
 
 Renderer* BaseGame::GetRenderer()
 {
-	return renderer;
+	return ServiceProvider::Instance().Get<Renderer>();
 }
 
 float BaseGame::GetDeltaTime()
@@ -68,7 +67,7 @@ void BaseGame::Run()
 	{
 		GetTime()->SetDeltaTime();
 
-		renderer->Clear();
+		GetRenderer()->Clear();
 
 		Update();
 
