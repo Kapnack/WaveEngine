@@ -10,8 +10,6 @@ WAVEEXPORT class Entity
 {
 protected:
 
-	Renderer* renderer;
-
 	Material* material;
 
 	Vector3 previousPostion;
@@ -35,9 +33,13 @@ protected:
 
 	virtual void SetTRS();
 
+protected:
+
+	Renderer* GetRenderer();
+
 public:
 
-	WAVEEXPORT	Entity(Renderer* renderer);
+	WAVEEXPORT	Entity();
 	WAVEEXPORT virtual ~Entity();
 
 	WAVEEXPORT void SetMaterial(Material* material);
