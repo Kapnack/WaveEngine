@@ -3,9 +3,9 @@
 #include "Material/MaterialManager.h"
 #include "ServiceProvider/ServiceProvider.h"
 
-Sprite::Sprite(unsigned int texture, Renderer* renderer) : Entity2D(renderer)
+Sprite::Sprite(unsigned int texture) : Entity2D()
 {
-	Init(texture, Vector4{1,1,1,1}, renderer);
+	Init(texture, Vector4{ 1,1,1,1 });
 
 	SetVertexColor(0, Vector4(1.0f, 0.0f, 0.0f, 1.0f));
 	SetVertexColor(1, Vector4(0.0f, 1.0f, 0.0f, 1.0f));
@@ -13,12 +13,12 @@ Sprite::Sprite(unsigned int texture, Renderer* renderer) : Entity2D(renderer)
 	SetVertexColor(3, Vector4(0.5f, 0.0f, 0.5f, 1.0f));
 }
 
-Sprite::Sprite(unsigned int texture, Vector4 color, Renderer* renderer) : Entity2D(renderer)
+Sprite::Sprite(unsigned int texture, Vector4 color) : Entity2D()
 {
-	Init(texture, color, renderer);
+	Init(texture, color);
 }
 
-void Sprite::Init(unsigned int texture, Vector4 color, Renderer* renderer)
+void Sprite::Init(unsigned int texture, Vector4 color)
 {
 	vertexSize = 4;
 
@@ -41,7 +41,7 @@ void Sprite::Init(unsigned int texture, Vector4 color, Renderer* renderer)
 
 	this->texture = texture;
 
-	renderer->CreateBuffersSprite(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO, texture);
+	GetRenderer()->CreateBuffersSprite(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO, texture);
 
 	material = &ServiceProvider::Instance().Get<MaterialManager>()->GetMaterial("basicSpriteMaterial");
 }
@@ -52,28 +52,28 @@ Sprite::~Sprite()
 
 void Sprite::SetUVCordinates(Vector2 leftTopUvCoords, Vector2 rightBottomUvCoords)
 {
-		const unsigned int FIRST_VERTEX_U = 7;
+	const unsigned int FIRST_VERTEX_U = 7;
 
-		const unsigned int SECOND_VERTEX_U = 16;
+	const unsigned int SECOND_VERTEX_U = 16;
 
-		const unsigned int THIRD_VERTEX_U = 25;
+	const unsigned int THIRD_VERTEX_U = 25;
 
-		const unsigned int FOURTH_VERTEX_U = 34;
+	const unsigned int FOURTH_VERTEX_U = 34;
 
 
-		vertex[0].textureCordinates.x = rightBottomUvCoords.x;
-		vertex[0].textureCordinates.y = leftTopUvCoords.y;
+	vertex[0].textureCordinates.x = rightBottomUvCoords.x;
+	vertex[0].textureCordinates.y = leftTopUvCoords.y;
 
-		vertex[1].textureCordinates.x = rightBottomUvCoords.x;
-		vertex[1].textureCordinates.y = rightBottomUvCoords.y;
+	vertex[1].textureCordinates.x = rightBottomUvCoords.x;
+	vertex[1].textureCordinates.y = rightBottomUvCoords.y;
 
-		vertex[2].textureCordinates.x = leftTopUvCoords.x;
-		vertex[2].textureCordinates.y = rightBottomUvCoords.y;
+	vertex[2].textureCordinates.x = leftTopUvCoords.x;
+	vertex[2].textureCordinates.y = rightBottomUvCoords.y;
 
-		vertex[3].textureCordinates.x = leftTopUvCoords.x;
-		vertex[3].textureCordinates.y = leftTopUvCoords.y;
+	vertex[3].textureCordinates.x = leftTopUvCoords.x;
+	vertex[3].textureCordinates.y = leftTopUvCoords.y;
 
-		renderer->UpdateBuffer(vertex, vertexSize, VBO);
+	GetRenderer()->UpdateBuffer(vertex, vertexSize, VBO);
 }
 
 void Sprite::SetAnimation(Animation* animation)
@@ -101,5 +101,5 @@ void Sprite::Draw()
 		SetUVCordinates(frame.topLeft, frame.bottomRight);
 	}
 
-	renderer->DrawElementSprite(model, material, indexSize, VAO, texture);
+	GetRenderer()->DrawElementSprite(model, material, indexSize, VAO, texture);
 }

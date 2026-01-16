@@ -12,12 +12,12 @@ private:
 
 	Vector2 UV;
 
-	void Init(unsigned int texture, Vector4 color, Renderer* renderer);
+	void Init(unsigned int texture, Vector4 color);
 
 public:
 
-	WAVEEXPORT Sprite(unsigned int texture, Renderer* renderer);
-	WAVEEXPORT Sprite(unsigned int texture, Vector4 color, Renderer* renderer);
+	WAVEEXPORT Sprite(unsigned int texture);
+	WAVEEXPORT Sprite(unsigned int texture, Vector4 color);
 	WAVEEXPORT ~Sprite();
 
 	WAVEEXPORT void SetUVCordinates(Vector2 cord1, Vector2 cord2);
