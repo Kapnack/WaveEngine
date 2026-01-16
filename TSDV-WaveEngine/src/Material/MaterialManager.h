@@ -2,7 +2,7 @@
 
 #include "ServiceProvider/Service.h"
 
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 #include "Export.h"
@@ -15,7 +15,7 @@ WAVEEXPORT class MaterialManager : public Service
 {
 private:
 
-	map<string, Material*> materials;
+	unordered_map<string, Material*> materials;
 	unsigned int CompileShader(const string& source, unsigned int type);
 	void SaveMaterial(const string name, Material* material);
 
