@@ -3,8 +3,6 @@
 #include <iostream>
 #include <string>
 
-#include <map>
-
 using namespace std;
 
 class Material
@@ -14,8 +12,6 @@ private:
 	string name;
 
 	unsigned int program = 0;
-
-	unsigned int CompileShader(const string& source, unsigned int type);
 
 	int uModel = 0;
 	int uView = 0;
