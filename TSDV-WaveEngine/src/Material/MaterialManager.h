@@ -3,7 +3,7 @@
 #include "ServiceProvider/Service.h"
 
 #include <map>
-#include <list>
+#include <vector>
 
 #include "Export.h"
 #include "Entity/Entity.h"
@@ -19,7 +19,7 @@ private:
 	unsigned int CompileShader(const string& source, unsigned int type);
 	void SaveMaterial(const string name, Material* material);
 
-	list<Entity*> listeners;
+	vector<Entity*> listeners;
 
 public:
 
