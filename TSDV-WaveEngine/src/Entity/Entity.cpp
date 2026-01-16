@@ -26,7 +26,7 @@ Entity::~Entity()
 	ServiceProvider::Instance().Get<MaterialManager>()->RemoveListener(this);
 }
 
-Renderer* GetRenderer()
+Renderer* Entity::GetRenderer()
 {
 	return ServiceProvider::Instance().Get<Renderer>();
 }
