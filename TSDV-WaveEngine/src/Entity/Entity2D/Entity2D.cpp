@@ -11,7 +11,7 @@ void Entity2D::UpdateCollider()
 	};
 }
 
-Entity2D::Entity2D(Renderer* renderer) : Entity(renderer)
+Entity2D::Entity2D() : Entity()
 {
 }
 
@@ -130,7 +130,7 @@ void Entity2D::SetColor(Vector4 color)
 		vertex[i].SetColor(color);
 	}
 
-	renderer->UpdateBuffer(vertex, vertexSize, VBO);
+	GetRenderer()->UpdateBuffer(vertex, vertexSize, VBO);
 }
 
 void Entity2D::SetVertexColor(int index, Vector4 color)
@@ -142,5 +142,5 @@ void Entity2D::SetVertexColor(int index, Vector4 color)
 	}
 
 	vertex[index].SetColor(color);
-	renderer->UpdateBuffer(vertex, vertexSize, VBO);
+	GetRenderer()->UpdateBuffer(vertex, vertexSize, VBO);
 }

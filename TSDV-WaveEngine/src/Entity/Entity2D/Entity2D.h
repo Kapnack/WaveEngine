@@ -12,7 +12,7 @@ protected:
 
 public:
 
-	WAVEEXPORT Entity2D(Renderer* renderer);
+	WAVEEXPORT Entity2D();
 	WAVEEXPORT virtual ~Entity2D();
 	WAVEEXPORT Collider GetCollider();
 
