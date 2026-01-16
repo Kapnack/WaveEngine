@@ -25,7 +25,7 @@ void Game::Init()
 
 	textureImport.LoadTexture("Sprites/Samus Aran Sprite Sheet.png");
 
-	samus = new Sprite(textureImport.GetLoadedTexture(), Vector4(1, 1, 1, 1), GetRenderer());
+	samus = new Sprite(textureImport.GetLoadedTexture(), Vector4(1, 1, 1, 1));
 
 	pos = Vector3(width / 2, height / 2, 0);
 	samus->SetPosition(pos);
@@ -48,7 +48,7 @@ void Game::Init()
 
 	// ------- RED SQUARE -------
 
-	redSquare = new Square(GetRenderer(), Vector4(1, 0, 0, 1));
+	redSquare = new Square(Vector4(1, 0, 0, 1));
 	redSquare->SetScale(samus->GetScale());
 	redSquare->SetPosition(Vector3(samus->GetPos().x - redSquare->GetScale().x, samus->GetPos().y, samus->GetPos().z));
 
@@ -57,7 +57,7 @@ void Game::Init()
 
 	// ------- BLUE SQUARE -------
 
-	blueSquare = new Square(GetRenderer(), Vector4(0, 0, 1, 0.5f));
+	blueSquare = new Square(Vector4(0, 0, 1, 0.5f));
 	blueSquare->SetPosition(Vector3(width / 2, height / 2, 0));
 	blueSquare->SetScale(samus->GetScale() * 2);
 }
