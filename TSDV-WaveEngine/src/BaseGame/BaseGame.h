@@ -12,7 +12,6 @@ WAVEEXPORT class BaseGame
 private:
 
 	Window* window;
-	Renderer* renderer;
 
 	void InitEngine(int width, int height);
 	void EndEngine();
