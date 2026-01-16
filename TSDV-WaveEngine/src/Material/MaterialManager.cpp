@@ -89,7 +89,6 @@ Material& MaterialManager::CreateMaterial(const string name, const string vertex
 
 	newMaterial->SetName(name);
 
-	MaterialManager::SaveMaterial(name, newMaterial);
 	SaveMaterial(name, newMaterial);
 
 	return *newMaterial;
