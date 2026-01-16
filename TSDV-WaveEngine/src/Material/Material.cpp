@@ -94,5 +94,5 @@ void Material::UnBind()
 
 void Material::Unload()
 {
-	glDeleteShader(program);
+	glDeleteProgram(program);
 }
