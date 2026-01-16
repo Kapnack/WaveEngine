@@ -116,7 +116,7 @@ Material& MaterialManager::GetMaterial(string name)
 
 void MaterialManager::DeleteMaterial(const string name)
 {
-	map<string, Material*>::iterator it = materials.find(name);
+	unordered_map<string, Material*>::iterator it = materials.find(name);
 
 	if (it == materials.end())
 		return;
@@ -129,13 +129,15 @@ void MaterialManager::DeleteMaterial(const string name)
 
 void MaterialManager::DeleteMaterial(Material* material)
 {
-	for (map<string, Material*>::iterator it = materials.begin(); it != materials.end(); ++it)
-		if (it->second == material)
-			it = materials.erase(it);
+	unordered_map<string, Material*>::iterator it = materials.find(material->GetName());
 
-	OnDeleteMaterial(material);
+	if (it == materials.end())
+		return;
 
-	delete material;
+	OnDeleteMaterial(it->second);
+
+	delete it->second;
+	materials.erase(it);
 }
 
 void MaterialManager::AddListener(Entity* entity)
@@ -152,7 +154,7 @@ void MaterialManager::OnDeleteMaterial(Material* material)
 
 void MaterialManager::RemoveListener(Entity* entity)
 {
-	for (vector<Entity*>::iterator it = listeners.begin(); it != listeners.end(); it++)
+	for (vector<Entity*>::iterator it = listeners.begin(); it != listeners.end(); ++it)
 		if (*it == entity)
 		{
 			listeners.erase(it);
