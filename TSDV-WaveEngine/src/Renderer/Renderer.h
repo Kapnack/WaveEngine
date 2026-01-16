@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ServiceProvider/Service.h"
+
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -10,7 +12,7 @@
 #include "VertexData.h"
 #include "Material/Material.h"
 
-class Renderer
+class Renderer : public Service
 {
 private:
 
