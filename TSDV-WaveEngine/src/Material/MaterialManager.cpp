@@ -158,6 +158,4 @@ void MaterialManager::RemoveListener(Entity* entity)
 			listeners.erase(it);
 			break;
 		}
-
-
 }
