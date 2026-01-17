@@ -7,10 +7,7 @@ Sprite::Sprite(unsigned int texture) : Entity2D()
 {
 	Init(texture, Vector4{ 1,1,1,1 });
 
-	SetVertexColor(0, Vector4(1.0f, 0.0f, 0.0f, 1.0f));
-	SetVertexColor(1, Vector4(0.0f, 1.0f, 0.0f, 1.0f));
-	SetVertexColor(2, Vector4(0.0f, 0.0f, 1.0f, 1.0f));
-	SetVertexColor(3, Vector4(0.5f, 0.0f, 0.5f, 1.0f));
+	SetColor(Vector4(1, 1, 1, 1));
 }
 
 Sprite::Sprite(unsigned int texture, Vector4 color) : Entity2D()
