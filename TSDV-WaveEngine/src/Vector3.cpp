@@ -58,7 +58,7 @@ Vector3 Vector3::Down()
 
 Vector3 Vector3::Left()
 {
-	return Vector3(1, 0, 0);
+	return Vector3(-1, 0, 0);
 }
 
 Vector3 Vector3::Right()
