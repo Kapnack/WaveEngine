@@ -43,6 +43,13 @@ Tile* TileMap::GetTile(unsigned int id)
 
     return nullptr;
 }
+
+void TileMap::SetTileDimensions(float tileWidth, float tileHeigth)
+{
+    _tileWidth = tileWidth;
+    _tileHeight = tileHeigth;
+}
+
 void TileMap::SetTexture(unsigned int texture)
 {
     this->texture = texture;
