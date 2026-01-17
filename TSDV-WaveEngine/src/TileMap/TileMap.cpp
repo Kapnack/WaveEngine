@@ -79,6 +79,48 @@ void TileMap::ImportTileMap(const string& filePath)
 
     const size_t layersAmount = data[LayersName].size();
     _tileMapGrid.resize(layersAmount);
+
+    unsigned int id = 0;
+
+    for (size_t layer = 0; layer < layersAmount; ++layer)
+    {
+        bool layerHasCollision = data[LayersName][layer][colliderName];
+
+        _tileMapGrid[layer].resize(_mapHeight);
+
+        for (size_t row = 0; row < _mapHeight; ++row)
+        {
+            _tileMapGrid[layer][row].resize(_mapWidth);
+
+            for (size_t col = 0; col < _mapWidth; ++col)
+            {
+                Tile* tile = new Tile(texture);
+                _tileMapGrid[layer][row][col] = tile;
+            }
+        }
+
+        // FILL ONLY DEFINED TILES FROM JSON
+        const auto& tilesJson = data[LayersName][layer][tileName];
+        for (const auto& tileJson : tilesJson)
+        {
+            unsigned int spriteSheetID = stoi(tileJson[IdName].get<string>());
+            unsigned int col = tileJson[ColName];
+            unsigned int row = tileJson[RowName];
+
+            Tile* tile = _tileMapGrid[layer][row][col];
+
+            tile->SetSpriteSheetID(spriteSheetID);
+            tile->SetID(id);
+
+            // APPLY COLLISION FROM LAYER
+            tile->SetCollide(layerHasCollision);
+
+            SetTileUV(*tile, spriteSheetID);
+
+            ++id;
+        }
+    }
+
 }
 void TileMap::UpdateTilesPositions()
 {
