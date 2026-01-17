@@ -37,6 +37,8 @@ private:
 
 	vector<vector<vector<Tile*>>> _tileMapGrid;
 
+	const int EMPTY_TILE = -1;
+
 	float _tileWidth;
 	float _tileHeight;
 

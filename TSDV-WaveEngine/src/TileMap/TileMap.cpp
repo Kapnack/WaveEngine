@@ -7,8 +7,6 @@
 
 #include <iostream>
 
-static constexpr int EMPTY_TILE = -1;
-
 TileMap::TileMap(const string& mapFilePath, const string& texturePath, const Vector2& textureSize)
 {
     TextureImporter textureImporter;
