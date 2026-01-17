@@ -57,6 +57,28 @@ void TileMap::SetTexture(unsigned int texture)
 
 void TileMap::ImportTileMap(const string& filePath)
 {
+    const string TileSizeName = "tileSize";
+    const string MapWidthName = "mapWidth";
+    const string MapHeightName = "mapHeight";
+    const string LayersName = "layers";
+    const string IdName = "id";
+    const string ColName = "x";
+    const string RowName = "y";
+    const string tileName = "tiles";
+    const string colliderName = "collider";
+
+    FileReader fileReader;
+    data = json::parse(fileReader.ReadFile(filePath));
+
+    _mapWidth = data[MapWidthName];
+    _mapHeight = data[MapHeightName];
+
+    float tileSize = data[TileSizeName];
+    _tileWidth = tileSize;
+    _tileHeight = tileSize;
+
+    const size_t layersAmount = data[LayersName].size();
+    _tileMapGrid.resize(layersAmount);
 }
 void TileMap::UpdateTilesPositions()
 {
