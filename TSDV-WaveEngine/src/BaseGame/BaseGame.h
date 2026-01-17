@@ -14,7 +14,6 @@ private:
 	void InitEngine(int width, int height);
 	void EndEngine();
 
-	Time* GetTime();
 
 	Renderer* GetRenderer();
 
@@ -29,6 +28,8 @@ protected:
 	WAVEEXPORT Input* GetInput();
 
 	WAVEEXPORT Window* GetWindow();
+
+	WAVEEXPORT Time* GetTime();
 
 public:
 
