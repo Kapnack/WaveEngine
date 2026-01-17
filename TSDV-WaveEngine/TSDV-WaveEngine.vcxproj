@@ -178,7 +178,8 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClCompile Include="src\Entity\Entity2D\Shape\Triangle\Triangle.cpp" />
     <ClCompile Include="src\Time\Time.cpp" />
     <ClCompile Include="src\TextureImporter\TextureImporter.cpp" />
-    <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="src\TileMap\TileMap.cpp" />
+    <ClCompile Include="src\TileMap\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\json.hpp" />
@@ -206,7 +207,8 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClInclude Include="src\Entity\Entity2D\Shape\Triangle\Triangle.h" />
     <ClInclude Include="src\Time\Time.h" />
     <ClInclude Include="src\TextureImporter\TextureImporter.h" />
-    <ClInclude Include="TileMap.h" />
+    <ClInclude Include="src\TileMap\TileMap.h" />
+    <ClInclude Include="src\TileMap\Tile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
