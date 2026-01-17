@@ -27,6 +27,12 @@ TileMap::~TileMap()
             for (int x = 0; x < _tileMapGrid[layer][y].size(); ++x)
                 delete _tileMapGrid[layer][y][x];
 }
+
+Window* TileMap::GetWindow()
+{
+    return ServiceProvider::Instance().Get<Window>();
+}
+
 Tile* TileMap::GetTile(unsigned int id)
 {
     for (auto& layer : _tileMapGrid)
