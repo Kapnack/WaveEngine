@@ -8,6 +8,11 @@
 #include <vector>
 #include <string>
 
+#include <../lib/json.hpp>
+
+using namespace std;
+
+using namespace nlohmann;
 
 WAVEEXPORT class TileMap
 {
@@ -39,6 +44,7 @@ private:
 
 	float _mapWidth;
 	float _mapHeight;
+
 	string _imagePath;
 
 	json data;
