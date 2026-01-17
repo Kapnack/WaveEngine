@@ -49,15 +49,6 @@ Sprite::~Sprite()
 
 void Sprite::SetUVCordinates(Vector2 leftTopUvCoords, Vector2 rightBottomUvCoords)
 {
-	const unsigned int FIRST_VERTEX_U = 7;
-
-	const unsigned int SECOND_VERTEX_U = 16;
-
-	const unsigned int THIRD_VERTEX_U = 25;
-
-	const unsigned int FOURTH_VERTEX_U = 34;
-
-
 	vertex[0].textureCordinates.x = rightBottomUvCoords.x;
 	vertex[0].textureCordinates.y = leftTopUvCoords.y;
 
