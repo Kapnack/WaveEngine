@@ -1,17 +1,23 @@
 #include "Time.h"
 
-Time::Time(Window* window)
+#include "ServiceProvider/ServiceProvider.h"
+
+Time::Time()
 {
-	this->window = window;
 }
 
 Time::~Time()
 {
 }
 
+Window* Time::GetWindow()
+{
+	return ServiceProvider::Instance().Get<Window>();
+}
+
 void Time::SetDeltaTime()
 {
-	float actualTime = window->GetGLTime();
+	float actualTime = GetWindow()->GetGLTime();
 
 	deltaTime = actualTime - lastTime;
 
