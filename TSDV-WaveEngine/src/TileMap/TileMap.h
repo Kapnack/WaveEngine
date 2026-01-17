@@ -11,4 +11,26 @@
 
 WAVEEXPORT class TileMap
 {
+public:
+
+	WAVEEXPORT TileMap(const string& mapFilePath, const string& texturePath, const Vector2& textureSize);
+	WAVEEXPORT ~TileMap();
+
+	WAVEEXPORT void Draw();
+private:
+
+	vector<vector<vector<Tile*>>> _tileMapGrid;
+	unsigned int texture;
+	Tile* GetTile(unsigned int id);
+
+	void SetTileDimensions(float tileWidth, float tileHeigth);
+
+	void SetTexture(unsigned int texture);
+
+	void ImportTileMap(const string& filePath);
+
+	void SetTileUV(Tile& tile, unsigned int id);
+
+	void UpdateTilesPositions();
+
 };
