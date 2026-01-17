@@ -16,7 +16,7 @@ public:
 	WAVEEXPORT virtual ~Entity2D();
 	WAVEEXPORT Collider GetCollider();
 
-	WAVEEXPORT Vector3 GetPos() override;
+	WAVEEXPORT Vector3 GetPosition() override;
 	WAVEEXPORT  Vector3 GetScale() override;
 	WAVEEXPORT  float GetRotation() override;
 
