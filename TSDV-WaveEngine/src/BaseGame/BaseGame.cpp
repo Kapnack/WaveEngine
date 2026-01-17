@@ -3,31 +3,36 @@
 
 #include "ServiceProvider/ServiceProvider.h"
 
+BaseGame::BaseGame(int width, int height)
+{
+	InitEngine(width, height);
+}
+
+BaseGame::~BaseGame()
+{
+	EndEngine();
+}
+
 void BaseGame::InitEngine(int width, int height)
 {
-	this->width = width;
-	this->height = height;
-
 	if (!glfwInit())
 		exit(-1);
 
 	ServiceProvider::Instance().Register(new MaterialManager());
 
-	window = new Window(width, height, "WaveEngine", nullptr, nullptr);
+	ServiceProvider::Instance().Register(new Window(width, height, "WaveEngine", nullptr, nullptr));
 
 	ServiceProvider::Instance().TryGet<MaterialManager>()->Init();
 	
-	ServiceProvider::Instance().Register(new Renderer(window));
+	ServiceProvider::Instance().Register(new Renderer());
 
-	ServiceProvider::Instance().Register(new Input(window));
-	ServiceProvider::Instance().Register(new Time(window));
+	ServiceProvider::Instance().Register(new Input());
+	ServiceProvider::Instance().Register(new Time());
 	
 }
 
 void BaseGame::EndEngine()
 {
-	delete window;
-
 	ServiceProvider::Instance().Clear();
 }
 
@@ -46,24 +51,19 @@ float BaseGame::GetDeltaTime()
 	return ServiceProvider::Instance().Get<Time>()->GetDeltaTime();
 }
 
+Window* BaseGame::GetWindow()
+{
+	return ServiceProvider::Instance().Get<Window>();
+}
+
 Input* BaseGame::GetInput()
 {
 	return ServiceProvider::Instance().Get<Input>();
 }
 
-BaseGame::BaseGame(int width, int height)
-{
-	InitEngine(width, height);
-}
-
-BaseGame::~BaseGame()
-{
-	EndEngine();
-}
-
 void BaseGame::Run()
 {
-	while (!glfwWindowShouldClose(window->GetWindow()))
+	while (!glfwWindowShouldClose(GetWindow()->GetGLFWindow()))
 	{
 		GetTime()->SetDeltaTime();
 
@@ -71,7 +71,7 @@ void BaseGame::Run()
 
 		Update();
 
-		window->SwapBuffer();
-		window->HandleInput();
+		GetWindow()->SwapBuffer();
+		GetWindow()->HandleInput();
 	}
 }
