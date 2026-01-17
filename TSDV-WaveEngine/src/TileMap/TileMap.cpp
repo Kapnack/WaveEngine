@@ -154,7 +154,32 @@ void TileMap::UpdateTilesPositions()
         }
     }
 }
+
+void TileMap::SetTileUV(Tile& tile, unsigned int id)
+{
+    const string TileSizeName = "tileSize";
+    float tileSize = data[TileSizeName];
+
+    float texW = textureSize.x;
+    float texH = textureSize.y;
+
+    unsigned int cols = static_cast<unsigned int>(texW / tileSize);
+
+    unsigned int row = id / cols;
+    unsigned int col = id % cols;
+
+    const float halfU = 0.5f / texW;
+    const float halfV = 0.5f / texH;
+
+    float u0 = (col * tileSize) / texW + halfU;
+    float u1 = ((col + 1) * tileSize) / texW - halfU;
+
+    float v0 = 1.0f - ((row + 1) * tileSize) / texH + halfV;
+    float v1 = 1.0f - (row * tileSize) / texH - halfV;
+
+    tile.SetUVCordinates({ u0, v1 }, { u1, v0 });
 }
+
 void TileMap::Draw()
 {
     Window* window = GetWindow();
