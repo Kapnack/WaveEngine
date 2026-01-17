@@ -28,6 +28,7 @@ private:
 
 	float _mapWidth;
 	float _mapHeight;
+	json data;
 	Tile* GetTile(unsigned int id);
 
 	void SetTileDimensions(float tileWidth, float tileHeigth);
