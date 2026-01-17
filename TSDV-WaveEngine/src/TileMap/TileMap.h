@@ -17,6 +17,17 @@ public:
 	WAVEEXPORT ~TileMap();
 
 	WAVEEXPORT void Draw();
+
+	WAVEEXPORT float GetMapWidth();
+	WAVEEXPORT float GetMapHeight();
+
+	WAVEEXPORT float GetTileWidth();
+	WAVEEXPORT float GetTileHeight();
+
+	WAVEEXPORT int GetLayerCount();
+
+	WAVEEXPORT Tile* GetTileAt(int layer, int col, int row);
+
 private:
 
 	vector<vector<vector<Tile*>>> _tileMapGrid;
@@ -28,7 +39,14 @@ private:
 
 	float _mapWidth;
 	float _mapHeight;
+	string _imagePath;
+
 	json data;
+
+	Vector2 tilesAmount;
+
+	Vector2 textureSize;
+
 	Tile* GetTile(unsigned int id);
 
 	void SetTileDimensions(float tileWidth, float tileHeigth);
