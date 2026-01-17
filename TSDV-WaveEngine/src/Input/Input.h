@@ -127,12 +127,14 @@ enum Keys
 WAVEEXPORT class Input : public Service
 {
 private:
-	Window* window;
+
 	int GetGlfwKeyFromKey(Keys key);
+
+	Window* GetWindow();
 
 public:
 
-	WAVEEXPORT Input(Window* window);
+	WAVEEXPORT Input();
 	WAVEEXPORT ~Input();
 
 	WAVEEXPORT bool IsKeyPressed(Keys key);

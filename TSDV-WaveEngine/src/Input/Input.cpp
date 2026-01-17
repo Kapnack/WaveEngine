@@ -1,8 +1,9 @@
 #include "Input.h"
 
-Input::Input(Window* window)
+#include "ServiceProvider/ServiceProvider.h"
+
+Input::Input()
 {
-	this->window = window;
 }
 
 Input::~Input()
@@ -133,10 +134,15 @@ int Input::GetGlfwKeyFromKey(Keys key)
 	}
 }
 
+Window* Input::GetWindow()
+{
+	return ServiceProvider::Instance().Get<Window>();
+}
+
 bool Input::IsKeyPressed(Keys key)
 {
 	int keyToUse = GetGlfwKeyFromKey(key);
 
-	return glfwGetKey(window->GetWindow(), keyToUse) == GLFW_PRESS ||
-		glfwGetKey(window->GetWindow(), keyToUse) == GLFW_REPEAT;
+	return glfwGetKey(GetWindow()->GetGLFWindow(), keyToUse) == GLFW_PRESS ||
+		glfwGetKey(GetWindow()->GetGLFWindow(), keyToUse) == GLFW_REPEAT;
 }
