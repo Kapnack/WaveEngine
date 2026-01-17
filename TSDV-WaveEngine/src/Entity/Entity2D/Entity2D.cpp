@@ -56,16 +56,6 @@ float Entity2D::GetRotation()
 	return rotation;
 }
 
-Vector3 Entity::GetPreviousPos()
-{
-	return previousPosition;
-}
-
-void Entity::GoToPreviousPos()
-{
-	SetPosition(previousPosition);
-}
-
 void Entity2D::Translate(Vector3 translation)
 {
 	Translate(translation.x, translation.y);

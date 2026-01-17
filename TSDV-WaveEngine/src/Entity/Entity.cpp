@@ -26,6 +26,16 @@ Entity::~Entity()
 	ServiceProvider::Instance().Get<MaterialManager>()->RemoveListener(this);
 }
 
+Vector3 Entity::GetPreviousPos()
+{
+	return previousPosition;
+}
+
+void Entity::GoToPreviousPos()
+{
+	SetPosition(previousPosition);
+}
+
 Renderer* Entity::GetRenderer()
 {
 	return ServiceProvider::Instance().Get<Renderer>();
