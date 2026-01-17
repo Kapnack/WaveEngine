@@ -63,6 +63,24 @@ void TileMap::UpdateTilesPositions()
 }
 void TileMap::Draw()
 {
+    Window* window = GetWindow();
+    if (!window) return;
+
+    for (int layer = _tileMapGrid.size() - 1; layer >= 0; --layer)
+    {
+        for (unsigned int row = 0; row < _mapHeight; ++row)
+        {
+            for (unsigned int col = 0; col < _mapWidth; ++col)
+            {
+                Tile* tile = _tileMapGrid[layer][row][col];
+
+                if (tile->GetSpriteSheetID() == EMPTY_TILE)
+                    continue;
+
+                tile->Draw();
+            }
+        }
+    }
 }
 
 float TileMap::GetMapWidth()
