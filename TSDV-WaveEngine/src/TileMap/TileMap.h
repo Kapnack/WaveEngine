@@ -20,7 +20,14 @@ public:
 private:
 
 	vector<vector<vector<Tile*>>> _tileMapGrid;
+
+	float _tileWidth;
+	float _tileHeight;
+
 	unsigned int texture;
+
+	float _mapWidth;
+	float _mapHeight;
 	Tile* GetTile(unsigned int id);
 
 	void SetTileDimensions(float tileWidth, float tileHeigth);
