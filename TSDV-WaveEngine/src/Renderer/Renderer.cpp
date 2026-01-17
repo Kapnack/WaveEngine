@@ -9,9 +9,8 @@ using namespace std;
 
 #include <map>
 
-Renderer::Renderer(Window* window)
+Renderer::Renderer()
 {
-	this->window = window;
 	Init();
 }
 
@@ -20,10 +19,15 @@ Renderer::~Renderer()
 	Unload();
 }
 
+Window* Renderer::GetWindow()
+{
+	return ServiceProvider::Instance().Get<Window>();
+}
+
 void Renderer::Init()
 {
-	res.x = window->GetWidth();
-	res.y = window->GetHeight();
+	res.x = GetWindow()->GetWidth();
+	res.y = GetWindow()->GetHeight();
 	res.z = 1.0f;
 
 	//This tells OpenGL from were in the window it is able to draw

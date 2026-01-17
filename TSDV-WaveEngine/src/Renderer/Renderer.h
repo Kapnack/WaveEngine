@@ -16,8 +16,6 @@ class Renderer : public Service
 {
 private:
 
-	Window* window;
-
 	glm::mat4* view;
 	glm::mat4* proj;
 
@@ -28,9 +26,11 @@ private:
 
 	Material* ReturnWorkingMaterial(Material* materialToTry, Material* fallBack);
 
+	Window* GetWindow();
+
 public:
 
-	Renderer(Window* window);
+	Renderer();
 	~Renderer();
 
 	Material* shapeShaders;
