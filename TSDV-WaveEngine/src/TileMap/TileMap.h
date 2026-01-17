@@ -59,4 +59,5 @@ private:
 
 	void UpdateTilesPositions();
 
+	Window* GetWindow();
 };
