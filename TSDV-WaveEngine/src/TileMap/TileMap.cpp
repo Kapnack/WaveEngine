@@ -54,3 +54,52 @@ void TileMap::SetTexture(unsigned int texture)
 {
     this->texture = texture;
 }
+
+void TileMap::ImportTileMap(const string& filePath)
+{
+}
+void TileMap::UpdateTilesPositions()
+{
+}
+void TileMap::Draw()
+{
+}
+
+float TileMap::GetMapWidth()
+{
+    return _mapWidth;
+}
+
+float TileMap::GetMapHeight()
+{
+    return _mapHeight;
+}
+
+float TileMap::GetTileWidth()
+{
+    return _tileWidth;
+}
+
+float TileMap::GetTileHeight()
+{
+    return _tileHeight;
+}
+
+int TileMap::GetLayerCount()
+{
+    return _tileMapGrid.size();
+}
+
+Tile* TileMap::GetTileAt(int layer, int col, int row)
+{
+    if (layer < 0 || layer >= (int)_tileMapGrid.size())
+        return nullptr;
+
+    if (row < 0 || row >= (int)_tileMapGrid[layer].size())
+        return nullptr;
+
+    if (col < 0 || col >= (int)_tileMapGrid[layer][row].size())
+        return nullptr;
+
+    return _tileMapGrid[layer][row][col];
+}
