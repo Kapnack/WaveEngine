@@ -121,6 +121,7 @@ void TileMap::ImportTileMap(const string& filePath)
         }
     }
 
+    UpdateTilesPositions();
 }
 
 
