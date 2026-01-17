@@ -1,9 +1,13 @@
 #pragma once
 
+#include "ServiceProvider/Service.h"
+
+#include "Export.h"
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-class Window
+WAVEEXPORT class Window : public Service
 {
 private:
 
@@ -20,16 +24,16 @@ private:
 
 public:
 
-	Window(int width, int height, const char* title, GLFWmonitor* monitor = nullptr, GLFWwindow* share = nullptr);
-	~Window();
+	WAVEEXPORT Window(int width, int height, const char* title, GLFWmonitor* monitor = nullptr, GLFWwindow* share = nullptr);
+	WAVEEXPORT ~Window();
 
-	GLFWwindow* GetWindow();
-	int GetWidth();
-	int GetHeight();
+	 GLFWwindow* GetGLFWindow();
+	WAVEEXPORT int GetWidth();
+	WAVEEXPORT int GetHeight();
 
-	void SwapBuffer();
-	void HandleInput();
+	WAVEEXPORT void SwapBuffer();
+	WAVEEXPORT void HandleInput();
 
-	float GetGLTime();
+	WAVEEXPORT float GetGLTime();
 };
 

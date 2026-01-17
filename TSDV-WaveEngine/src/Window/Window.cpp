@@ -4,11 +4,6 @@
 
 using namespace std;
 
-Window::~Window()
-{
-	Unload();
-}
-
 Window::Window(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share)
 {
 	this->width = width;
@@ -18,6 +13,11 @@ Window::Window(int width, int height, const char* title, GLFWmonitor* monitor, G
 	this->share = share;
 
 	Init();
+}
+
+Window::~Window()
+{
+	Unload();
 }
 
 void Window::Init()
@@ -45,7 +45,7 @@ void Window::Init()
 		cout << "GLEW FAILED TO INIT!!!";
 }
 
-GLFWwindow* Window::GetWindow()
+GLFWwindow* Window::GetGLFWindow()
 {
 	return window;
 }
