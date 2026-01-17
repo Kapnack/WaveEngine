@@ -11,8 +11,6 @@ WAVEEXPORT class BaseGame
 {
 private:
 
-	Window* window;
-
 	void InitEngine(int width, int height);
 	void EndEngine();
 
@@ -22,9 +20,6 @@ private:
 
 protected:
 
-	float width = 0.0f;
-	float height = 0.0f;
-
 	WAVEEXPORT	virtual void Init() = 0;
 	WAVEEXPORT	virtual void Update() = 0;
 	WAVEEXPORT	virtual void Unload() = 0;
@@ -32,6 +27,8 @@ protected:
 	WAVEEXPORT float GetDeltaTime();
 
 	WAVEEXPORT Input* GetInput();
+
+	WAVEEXPORT Window* GetWindow();
 
 public:
 
