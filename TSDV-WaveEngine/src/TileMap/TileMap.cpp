@@ -37,3 +37,7 @@ Tile* TileMap::GetTile(unsigned int id)
 
     return nullptr;
 }
+void TileMap::SetTexture(unsigned int texture)
+{
+    this->texture = texture;
+}
