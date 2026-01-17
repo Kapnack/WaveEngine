@@ -7,13 +7,14 @@ class Time : public Service
 {
 private:
 
-	Window* window;
 	float deltaTime = 0;
 	float lastTime = 0;
 
+	Window* GetWindow();
+
 public:
 
-	Time(Window* window);
+	Time();
 	~Time();
 
 	void SetDeltaTime();
