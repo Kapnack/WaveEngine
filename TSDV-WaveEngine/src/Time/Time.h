@@ -1,9 +1,11 @@
 #pragma once
 
-#include "Window/Window.h"
 #include "ServiceProvider/Service.h"
 
-class Time : public Service
+#include "Export.h"
+#include "Window/Window.h"
+
+WAVEEXPORT class Time : public Service
 {
 private:
 
@@ -18,6 +20,6 @@ public:
 	~Time();
 
 	void SetDeltaTime();
-	float GetDeltaTime();
+	WAVEEXPORT float GetDeltaTime();
 };
 
