@@ -122,8 +122,37 @@ void TileMap::ImportTileMap(const string& filePath)
     }
 
 }
+
+
 void TileMap::UpdateTilesPositions()
 {
+    Window* window = GetWindow();
+    if (!window) return;
+
+    const float windowWidth = static_cast<float>(window->GetWidth());
+    const float windowHeight = static_cast<float>(window->GetHeight());
+
+    const float scaledTileWidth = windowWidth / static_cast<float>(_mapWidth);
+    const float scaledTileHeight = windowHeight / static_cast<float>(_mapHeight);
+
+    for (size_t layer = 0; layer < _tileMapGrid.size(); ++layer)
+    {
+        for (unsigned int row = 0; row < _mapHeight; ++row)
+        {
+            for (unsigned int col = 0; col < _mapWidth; ++col)
+            {
+                Tile* tile = _tileMapGrid[layer][row][col];
+
+                tile->SetScale(Vector3{ scaledTileWidth, scaledTileHeight, 1 });
+
+                float posX = (scaledTileWidth / 2.0f) + (scaledTileWidth * col);
+                float posY = windowHeight - (scaledTileHeight / 2.0f) - (scaledTileHeight * row);
+
+                tile->SetPosition(Vector3{ posX, posY, 0 });
+            }
+        }
+    }
+}
 }
 void TileMap::Draw()
 {
