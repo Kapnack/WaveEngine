@@ -45,7 +45,7 @@ public:
 	WAVEEXPORT void SetMaterial(Material* material);
 	WAVEEXPORT Material& GetMaterial();
 
-	WAVEEXPORT virtual Vector3 GetPos() = 0;
+	WAVEEXPORT virtual Vector3 GetPosition() = 0;
 	WAVEEXPORT virtual Vector3 GetScale() = 0;
 	WAVEEXPORT virtual float GetRotation() = 0;
 
