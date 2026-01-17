@@ -18,7 +18,7 @@ public:
 
 	WAVEEXPORT Sprite(unsigned int texture);
 	WAVEEXPORT Sprite(unsigned int texture, Vector4 color);
-	WAVEEXPORT ~Sprite();
+	WAVEEXPORT virtual ~Sprite();
 
 	WAVEEXPORT void SetUVCordinates(Vector2 cord1, Vector2 cord2);
 	WAVEEXPORT void SetAnimation(Animation* animation);
