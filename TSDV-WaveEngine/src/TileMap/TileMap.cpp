@@ -27,3 +27,13 @@ TileMap::~TileMap()
             for (int x = 0; x < _tileMapGrid[layer][y].size(); ++x)
                 delete _tileMapGrid[layer][y][x];
 }
+Tile* TileMap::GetTile(unsigned int id)
+{
+    for (auto& layer : _tileMapGrid)
+        for (auto& row : layer)
+            for (auto& tile : row)
+                if (tile->GetID() == id)
+                    return tile;
+
+    return nullptr;
+}
