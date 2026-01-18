@@ -23,15 +23,15 @@ public:
 
 	WAVEEXPORT void Draw();
 
-	WAVEEXPORT float GetMapWidth();
-	WAVEEXPORT float GetMapHeight();
+	WAVEEXPORT float GetMapWidth() const;
+	WAVEEXPORT float GetMapHeight() const;
 
-	WAVEEXPORT float GetTileWidth();
-	WAVEEXPORT float GetTileHeight();
+	WAVEEXPORT float GetTileWidth() const;
+	WAVEEXPORT float GetTileHeight() const;
 
-	WAVEEXPORT int GetLayerCount();
+	WAVEEXPORT int GetLayerCount() const;
 
-	WAVEEXPORT Tile* GetTileAt(int layer, int col, int row);
+	WAVEEXPORT Tile* GetTileAt(const int& layer, const int& col, const int& row) const;
 
 private:
 
@@ -55,17 +55,17 @@ private:
 
 	Vector2 textureSize;
 
-	Tile* GetTile(unsigned int id);
+	Tile* GetTile(const unsigned int id) const;
 
-	void SetTileDimensions(float tileWidth, float tileHeigth);
+	void SetTileDimensions(float tileWidth, float tileHeigth) noexcept;
 
-	void SetTexture(unsigned int texture);
+	void SetTexture(const unsigned int texture) noexcept;
 
 	void ImportTileMap(const string& filePath);
 
-	void SetTileUV(Tile& tile, unsigned int id);
+	void SetTileUV(Tile& tile, unsigned int id) const;
 
 	void UpdateTilesPositions();
 
-	Window* GetWindow();
+	Window* GetWindow() const;
 };
