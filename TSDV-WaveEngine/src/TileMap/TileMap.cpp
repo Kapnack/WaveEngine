@@ -9,232 +9,233 @@
 
 TileMap::TileMap(const string& mapFilePath, const string& texturePath, const Vector2& textureSize)
 {
-    TextureImporter textureImporter;
-    textureImporter.LoadTexture(texturePath);
-    texture = textureImporter.GetLoadedTexture();
+	TextureImporter textureImporter;
+	textureImporter.LoadTexture(texturePath);
+	texture = textureImporter.GetLoadedTexture();
 
-    this->textureSize = textureSize;
+	this->textureSize = textureSize;
 
-    ImportTileMap(mapFilePath);
+	ImportTileMap(mapFilePath);
 }
 
 TileMap::~TileMap()
 {
-    for (int layer = 0; layer < _tileMapGrid.size(); ++layer)
-        for (int y = 0; y < _tileMapGrid[layer].size(); ++y)
-            for (int x = 0; x < _tileMapGrid[layer][y].size(); ++x)
-                delete _tileMapGrid[layer][y][x];
+	for (int layer = 0; layer < _tileMapGrid.size(); ++layer)
+		for (int y = 0; y < _tileMapGrid[layer].size(); ++y)
+			for (int x = 0; x < _tileMapGrid[layer][y].size(); ++x)
+				delete _tileMapGrid[layer][y][x];
 }
 
-Window* TileMap::GetWindow()
+Window* TileMap::GetWindow() const
 {
-    return ServiceProvider::Instance().Get<Window>();
+	return ServiceProvider::Instance().Get<Window>();
 }
 
-Tile* TileMap::GetTile(unsigned int id)
+Tile* TileMap::GetTile(const unsigned int id) const
 {
-    for (auto& layer : _tileMapGrid)
-        for (auto& row : layer)
-            for (auto& tile : row)
-                if (tile->GetID() == id)
-                    return tile;
+	for (auto& layer : _tileMapGrid)
+		for (auto& row : layer)
+			for (auto& tile : row)
+				if (tile->GetID() == id)
+					return tile;
 
-    return nullptr;
+	return nullptr;
 }
 
-void TileMap::SetTileDimensions(float tileWidth, float tileHeigth)
+void TileMap::SetTileDimensions(float tileWidth, float tileHeigth) noexcept
 {
-    _tileWidth = tileWidth;
-    _tileHeight = tileHeigth;
+	_tileWidth = tileWidth;
+	_tileHeight = tileHeigth;
 }
 
-void TileMap::SetTexture(unsigned int texture)
+void TileMap::SetTexture(unsigned int texture) noexcept
 {
-    this->texture = texture;
+	this->texture = texture;
 }
 
 void TileMap::ImportTileMap(const string& filePath)
 {
-    const string TileSizeName = "tileSize";
-    const string MapWidthName = "mapWidth";
-    const string MapHeightName = "mapHeight";
-    const string LayersName = "layers";
-    const string IdName = "id";
-    const string ColName = "x";
-    const string RowName = "y";
-    const string tileName = "tiles";
-    const string colliderName = "collider";
+	const string TileSizeName = "tileSize";
+	const string MapWidthName = "mapWidth";
+	const string MapHeightName = "mapHeight";
+	const string LayersName = "layers";
+	const string IdName = "id";
+	const string ColName = "x";
+	const string RowName = "y";
+	const string tileName = "tiles";
+	const string colliderName = "collider";
 
-    FileReader fileReader;
-    data = json::parse(fileReader.ReadFile(filePath));
+	FileReader fileReader;
+	data = json::parse(fileReader.ReadFile(filePath));
 
-    _mapWidth = data[MapWidthName];
-    _mapHeight = data[MapHeightName];
+	_mapWidth = data[MapWidthName];
+	_mapHeight = data[MapHeightName];
 
-    float tileSize = data[TileSizeName];
-    _tileWidth = tileSize;
-    _tileHeight = tileSize;
+	float tileSize = data[TileSizeName];
+	_tileWidth = tileSize;
+	_tileHeight = tileSize;
 
-    const size_t layersAmount = data[LayersName].size();
-    _tileMapGrid.resize(layersAmount);
+	const size_t layersAmount = data[LayersName].size();
+	_tileMapGrid.resize(layersAmount);
 
-    unsigned int id = 0;
+	unsigned int id = 0;
 
-    for (size_t layer = 0; layer < layersAmount; ++layer)
-    {
-        bool layerHasCollision = data[LayersName][layer][colliderName];
+	for (size_t layer = 0; layer < layersAmount; ++layer)
+	{
+		bool layerHasCollision = data[LayersName][layer][colliderName];
 
-        _tileMapGrid[layer].resize(_mapHeight);
+		_tileMapGrid[layer].resize(_mapHeight);
 
-        for (size_t row = 0; row < _mapHeight; ++row)
-        {
-            _tileMapGrid[layer][row].resize(_mapWidth);
+		for (size_t row = 0; row < _mapHeight; ++row)
+		{
+			_tileMapGrid[layer][row].resize(_mapWidth);
+		}
 
-            for (size_t col = 0; col < _mapWidth; ++col)
-            {
-                Tile* tile = new Tile(texture);
-                _tileMapGrid[layer][row][col] = tile;
-            }
-        }
+		// FILL ONLY DEFINED TILES FROM JSON
+		const auto& tilesJson = data[LayersName][layer][tileName];
+		for (const auto& tileJson : tilesJson)
+		{
+			unsigned int spriteSheetID = stoi(tileJson[IdName].get<string>());
+			unsigned int col = tileJson[ColName];
+			unsigned int row = tileJson[RowName];
 
-        // FILL ONLY DEFINED TILES FROM JSON
-        const auto& tilesJson = data[LayersName][layer][tileName];
-        for (const auto& tileJson : tilesJson)
-        {
-            unsigned int spriteSheetID = stoi(tileJson[IdName].get<string>());
-            unsigned int col = tileJson[ColName];
-            unsigned int row = tileJson[RowName];
+			Tile* tile = new Tile(texture);
 
-            Tile* tile = _tileMapGrid[layer][row][col];
+			tile->SetSpriteSheetID(spriteSheetID);
+			tile->SetID(id);
 
-            tile->SetSpriteSheetID(spriteSheetID);
-            tile->SetID(id);
+			// APPLY COLLISION FROM LAYER
+			tile->SetCollide(layerHasCollision);
 
-            // APPLY COLLISION FROM LAYER
-            tile->SetCollide(layerHasCollision);
+			SetTileUV(*tile, spriteSheetID);
 
-            SetTileUV(*tile, spriteSheetID);
+			_tileMapGrid[layer][row][col] = tile;
 
-            ++id;
-        }
-    }
+			++id;
+		}
+	}
 
-    UpdateTilesPositions();
+	UpdateTilesPositions();
 }
 
 
 void TileMap::UpdateTilesPositions()
 {
-    Window* window = GetWindow();
-    if (!window) return;
+	Window* window = GetWindow();
+	if (!window) return;
 
-    const float windowWidth = static_cast<float>(window->GetWidth());
-    const float windowHeight = static_cast<float>(window->GetHeight());
+	const float windowWidth = static_cast<float>(window->GetWidth());
+	const float windowHeight = static_cast<float>(window->GetHeight());
 
-    const float scaledTileWidth = windowWidth / static_cast<float>(_mapWidth);
-    const float scaledTileHeight = windowHeight / static_cast<float>(_mapHeight);
+	const float scaledTileWidth = windowWidth / static_cast<float>(_mapWidth);
+	const float scaledTileHeight = windowHeight / static_cast<float>(_mapHeight);
 
-    for (size_t layer = 0; layer < _tileMapGrid.size(); ++layer)
-    {
-        for (unsigned int row = 0; row < _mapHeight; ++row)
-        {
-            for (unsigned int col = 0; col < _mapWidth; ++col)
-            {
-                Tile* tile = _tileMapGrid[layer][row][col];
+	for (size_t layer = 0; layer < _tileMapGrid.size(); ++layer)
+	{
+		for (unsigned int row = 0; row < _mapHeight; ++row)
+		{
+			for (unsigned int col = 0; col < _mapWidth; ++col)
+			{
+				Tile* tile = _tileMapGrid[layer][row][col];
 
-                tile->SetScale(Vector3{ scaledTileWidth, scaledTileHeight, 1 });
+				if (tile == nullptr)
+					continue;
 
-                float posX = (scaledTileWidth / 2.0f) + (scaledTileWidth * col);
-                float posY = windowHeight - (scaledTileHeight / 2.0f) - (scaledTileHeight * row);
+				tile->SetScale(Vector3{ scaledTileWidth, scaledTileHeight, 1 });
 
-                tile->SetPosition(Vector3{ posX, posY, 0 });
-            }
-        }
-    }
+				float posX = (scaledTileWidth / 2.0f) + (scaledTileWidth * col);
+				float posY = windowHeight - (scaledTileHeight / 2.0f) - (scaledTileHeight * row);
+
+				tile->SetPosition(Vector3{ posX, posY, 0 });
+			}
+		}
+	}
+
+	_tileMapGrid.at(1):
 }
 
-void TileMap::SetTileUV(Tile& tile, unsigned int id)
+void TileMap::SetTileUV(Tile& tile, unsigned int id) const
 {
-    const string TileSizeName = "tileSize";
-    float tileSize = data[TileSizeName];
+	const string TileSizeName = "tileSize";
+	float tileSize = data[TileSizeName];
 
-    float texW = textureSize.x;
-    float texH = textureSize.y;
+	float texW = textureSize.x;
+	float texH = textureSize.y;
 
-    unsigned int cols = static_cast<unsigned int>(texW / tileSize);
+	unsigned int cols = static_cast<unsigned int>(texW / tileSize);
 
-    unsigned int row = id / cols;
-    unsigned int col = id % cols;
+	unsigned int row = id / cols;
+	unsigned int col = id % cols;
 
-    const float halfU = 0.5f / texW;
-    const float halfV = 0.5f / texH;
+	const float halfU = 0.5f / texW;
+	const float halfV = 0.5f / texH;
 
-    float u0 = (col * tileSize) / texW + halfU;
-    float u1 = ((col + 1) * tileSize) / texW - halfU;
+	float u0 = (col * tileSize) / texW + halfU;
+	float u1 = ((col + 1) * tileSize) / texW - halfU;
 
-    float v0 = 1.0f - ((row + 1) * tileSize) / texH + halfV;
-    float v1 = 1.0f - (row * tileSize) / texH - halfV;
+	float v0 = 1.0f - ((row + 1) * tileSize) / texH + halfV;
+	float v1 = 1.0f - (row * tileSize) / texH - halfV;
 
-    tile.SetUVCordinates({ u0, v1 }, { u1, v0 });
+	tile.SetUVCordinates({ u0, v1 }, { u1, v0 });
 }
 
 void TileMap::Draw()
 {
-    Window* window = GetWindow();
-    if (!window) return;
+	Window* window = GetWindow();
+	if (!window) return;
 
-    for (int layer = _tileMapGrid.size() - 1; layer >= 0; --layer)
-    {
-        for (unsigned int row = 0; row < _mapHeight; ++row)
-        {
-            for (unsigned int col = 0; col < _mapWidth; ++col)
-            {
-                Tile* tile = _tileMapGrid[layer][row][col];
+	for (int layer = _tileMapGrid.size() - 1; layer >= 0; --layer)
+	{
+		for (unsigned int row = 0; row < _mapHeight; ++row)
+		{
+			for (unsigned int col = 0; col < _mapWidth; ++col)
+			{
+				Tile* tile = _tileMapGrid[layer][row][col];
 
-                if (tile->GetSpriteSheetID() == EMPTY_TILE)
-                    continue;
+				if (tile == nullptr)
+					continue;
 
-                tile->Draw();
-            }
-        }
-    }
+				tile->Draw();
+			}
+		}
+	}
 }
 
-float TileMap::GetMapWidth()
+float TileMap::GetMapWidth() const
 {
-    return _mapWidth;
+	return _mapWidth;
 }
 
-float TileMap::GetMapHeight()
+float TileMap::GetMapHeight() const
 {
-    return _mapHeight;
+	return _mapHeight;
 }
 
-float TileMap::GetTileWidth()
+float TileMap::GetTileWidth() const
 {
-    return _tileWidth;
+	return _tileWidth;
 }
 
-float TileMap::GetTileHeight()
+float TileMap::GetTileHeight() const
 {
-    return _tileHeight;
+	return _tileHeight;
 }
 
-int TileMap::GetLayerCount()
+int TileMap::GetLayerCount() const
 {
-    return _tileMapGrid.size();
+	return _tileMapGrid.size();
 }
 
-Tile* TileMap::GetTileAt(int layer, int col, int row)
+Tile* TileMap::GetTileAt(const int& layer, const int& col, const int& row) const
 {
-    if (layer < 0 || layer >= (int)_tileMapGrid.size())
-        return nullptr;
+	if (layer < 0 || layer >= (int)_tileMapGrid.size())
+		return nullptr;
 
-    if (row < 0 || row >= (int)_tileMapGrid[layer].size())
-        return nullptr;
+	if (row < 0 || row >= (int)_tileMapGrid[layer].size())
+		return nullptr;
 
-    if (col < 0 || col >= (int)_tileMapGrid[layer][row].size())
-        return nullptr;
+	if (col < 0 || col >= (int)_tileMapGrid[layer][row].size())
+		return nullptr;
 
-    return _tileMapGrid[layer][row][col];
+	return _tileMapGrid[layer][row][col];
 }
