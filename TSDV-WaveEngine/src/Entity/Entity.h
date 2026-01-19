@@ -12,9 +12,8 @@ protected:
 
 	Material* material;
 
-	Vector3 previousPostion;
-	Vector3 position;
 	Vector3 previousPosition;
+	Vector3 position;
 
 	Vector3 scale = Vector3(1.0f, 1.0f, 1.0f);
 	Vector3 rotation;
