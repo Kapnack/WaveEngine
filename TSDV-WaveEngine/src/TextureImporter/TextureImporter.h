@@ -3,6 +3,8 @@
 #include "Export.h"
 #include <string>
 
+using namespace std;
+
 class TextureImporter
 {
 private:
@@ -11,6 +13,6 @@ private:
 
 public:
 
-	WAVEEXPORT void LoadTexture(std::string filePath);
+	WAVEEXPORT void LoadTexture(string filePath);
 	WAVEEXPORT unsigned int GetLoadedTexture();
 };

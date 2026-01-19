@@ -7,9 +7,9 @@
 #include <iostream>
 #include <filesystem>
 
-void TextureImporter::LoadTexture(std::string filePath)
+void TextureImporter::LoadTexture(string filePath)
 {
-	std::string absolutePath = std::filesystem::absolute(filePath).lexically_normal().string();
+	string absolutePath = std::filesystem::absolute(filePath).lexically_normal().string();
 
 	int width;
 	int height;
@@ -26,8 +26,10 @@ void TextureImporter::LoadTexture(std::string filePath)
 		return;
 	}
 
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	unsigned int textureID;
+
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
