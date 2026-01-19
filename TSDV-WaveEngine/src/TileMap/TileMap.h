@@ -35,17 +35,19 @@ public:
 
 private:
 
-	vector<vector<vector<Tile*>>> _tileMapGrid;
+	Tile**** _tileMapGrid = nullptr;
+
+	int layersAmount = 0;
+	int rowAmount = 0;
+	int columnsAmount = 0;
 
 	const int EMPTY_TILE = -1;
 
-	float _tileWidth;
-	float _tileHeight;
+	float _tilePixelSize;
+	float _worldTileWidth;
+	float _worldTileHeight;
 
 	unsigned int texture;
-
-	float _mapWidth;
-	float _mapHeight;
 
 	string _imagePath;
 
