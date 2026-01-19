@@ -21,4 +21,5 @@ WAVEEXPORT struct Vector3
 	WAVEEXPORT static Vector3 Left();
 	WAVEEXPORT static Vector3 Right();
 	WAVEEXPORT static Vector3 One();
+	WAVEEXPORT static Vector3 Z();
 };

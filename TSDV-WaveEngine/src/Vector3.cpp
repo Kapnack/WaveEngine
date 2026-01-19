@@ -43,7 +43,7 @@ Vector3 operator*(float scalar, Vector3 vector3)
 
 Vector3 Vector3::One()
 {
-	return Vector3(1, 1, 0);
+	return Vector3(1, 1, 1);
 }
 
 Vector3 Vector3::Up()
@@ -64,5 +64,10 @@ Vector3 Vector3::Left()
 Vector3 Vector3::Right()
 {
 	return -1.0f * Left();
+}
+
+Vector3 Vector3::Z()
+{
+	return Vector3(0, 0, 1);
 }
 
