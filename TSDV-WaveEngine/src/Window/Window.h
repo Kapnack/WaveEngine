@@ -15,6 +15,7 @@ private:
 
 	int width = 0;
 	int height = 0;
+
 	const char* title;
 	GLFWmonitor* monitor;
 	GLFWwindow* share;
@@ -22,12 +23,14 @@ private:
 	void Init();
 	void Unload();
 
+	static void FrameBufferCallBack(GLFWwindow* window, int width, int height);
+
 public:
 
 	WAVEEXPORT Window(int width, int height, const char* title, GLFWmonitor* monitor = nullptr, GLFWwindow* share = nullptr);
 	WAVEEXPORT ~Window();
 
-	 GLFWwindow* GetGLFWindow();
+	GLFWwindow* GetGLFWindow();
 	WAVEEXPORT int GetWidth();
 	WAVEEXPORT int GetHeight();
 
