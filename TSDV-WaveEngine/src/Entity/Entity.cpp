@@ -230,6 +230,21 @@ void Entity::SetVertexColor(const int& index, const Vector4& color)
 	GetRenderer()->UpdateBuffer(vertex, vertexSize, VBO);
 }
 
+void Entity::FlipX()
+{
+	SetScale(-scale.x, scale.y, scale.z);
+}
+
+void Entity::FlipY()
+{
+	SetScale(scale.x, -scale.y, scale.z);
+}
+
+void Entity::FlipZ()
+{
+	SetScale(scale.x, scale.y, -scale.z);
+}
+
 void Entity::SetTRS()
 {
 	model = glm::mat4(1.0f);                    // Identity

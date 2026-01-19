@@ -85,5 +85,9 @@ public:
 	WAVEEXPORT void SetColor(const Vector4& color);
 	WAVEEXPORT void SetVertexColor(const int& index, const Vector4& color);
 
+	WAVEEXPORT void FlipX();
+	WAVEEXPORT void FlipY();
+	WAVEEXPORT void FlipZ();
+
 	WAVEEXPORT virtual void Draw() = 0;
 };
