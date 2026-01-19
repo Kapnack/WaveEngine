@@ -23,7 +23,7 @@ bool CollisionManager::CheckCollision(const Entity2D& entity, const TileMap& til
     int mapW = tileMap.GetMapWidth();
     int mapH = tileMap.GetMapHeight();
 
-    float windowH = ServiceProvider::Instance().Get<Window>()->GetHeight();
+    float windowH = tileMap.GetMapHeight() * tileH;
 
     float left = c.x;
     float right = c.x + c.width;
