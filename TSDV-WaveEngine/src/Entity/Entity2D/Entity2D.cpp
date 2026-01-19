@@ -13,8 +13,8 @@ void Entity2D::UpdateCollider()
 {
 	collider =
 	{
-		position.x,
-		position.y,
+		position.x - scale.x * 0.5f,
+		position.y - scale.y * 0.5f,
 		scale.x,
 		scale.y
 	};
