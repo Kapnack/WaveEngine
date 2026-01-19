@@ -3,19 +3,19 @@
 #include "Material/MaterialManager.h"
 #include "ServiceProvider/ServiceProvider.h"
 
-Sprite::Sprite(unsigned int texture) : Entity2D()
+Sprite::Sprite(const unsigned int& texture) : Entity2D()
 {
 	Init(texture, Vector4{ 1,1,1,1 });
 
 	SetColor(Vector4(1, 1, 1, 1));
 }
 
-Sprite::Sprite(unsigned int texture, Vector4 color) : Entity2D()
+Sprite::Sprite(const unsigned int& texture, const Vector4& color) : Entity2D()
 {
 	Init(texture, color);
 }
 
-void Sprite::Init(unsigned int texture, Vector4 color)
+void Sprite::Init(const unsigned int& texture, const Vector4& color)
 {
 	vertexSize = 4;
 
@@ -48,7 +48,7 @@ Sprite::~Sprite()
 {
 }
 
-void Sprite::SetUVCordinates(Vector2 leftTopUvCoords, Vector2 rightBottomUvCoords)
+void Sprite::SetUVCordinates(const Vector2& leftTopUvCoords, const Vector2& rightBottomUvCoords)
 {
 	vertex[0].textureCordinates.x = rightBottomUvCoords.x;
 	vertex[0].textureCordinates.y = leftTopUvCoords.y;
