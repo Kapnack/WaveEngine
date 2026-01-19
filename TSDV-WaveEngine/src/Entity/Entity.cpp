@@ -70,11 +70,11 @@ void Entity::SetPosition(const float& x, const float& y)
 
 void Entity::SetPosition(const float& x, const float& y, const float& z)
 {
-	previousPosition = position;
-
 	position.x = x;
 	position.y = y;
 	position.z = z;
+
+	previousPosition = position;
 
 	SetTRS();
 
