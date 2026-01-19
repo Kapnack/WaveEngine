@@ -5,14 +5,14 @@
 
 using namespace std;
 
-WAVEEXPORT static class FileReader
+WAVEEXPORT class FileReader
 {
 private:
 
-	static string GetAbsoluteFilePath(const string filePath);
+	string GetAbsoluteFilePath(const string& filePath) const;
 
 public:
 
-	WAVEEXPORT static string ReadFile(string filePath);
+	WAVEEXPORT string ReadFile(string filePath);
 };
 

@@ -6,7 +6,7 @@
 #include <sstream>
 #include <fstream>
 
-string FileReader::GetAbsoluteFilePath(const string filePath)
+string FileReader::GetAbsoluteFilePath(const string& filePath) const
 {
 	return filesystem::absolute(filePath).lexically_normal().string();
 }
@@ -35,7 +35,7 @@ string FileReader::ReadFile(string filePath)
 	}
 	catch (...)
 	{
-		cerr << "Uknow error detected while trying to read file.\n";
+		cerr << "Unknow error detected while trying to read file.\n";
 	}
 
 	if (inStream.is_open())
