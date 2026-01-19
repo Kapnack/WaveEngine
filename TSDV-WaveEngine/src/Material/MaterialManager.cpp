@@ -18,15 +18,17 @@ MaterialManager::~MaterialManager()
 
 void MaterialManager::Init()
 {
-	string vertexShader = FileReader::ReadFile("Shaders/Shapes/basicVertexShader.shader");
+	FileReader fileReader;
 
-	string fragmentShader = FileReader::ReadFile("Shaders/Shapes/basicFragmentShader.shader");
+	string vertexShader = fileReader.ReadFile("Shaders/Shapes/basicVertexShader.shader");
+
+	string fragmentShader = fileReader.ReadFile("Shaders/Shapes/basicFragmentShader.shader");
 
 	CreateMaterial("basicShapeMaterial", vertexShader, fragmentShader);
 
-	vertexShader = FileReader::ReadFile("Shaders/Sprites/basicVertexShader.shader");
+	vertexShader = fileReader.ReadFile("Shaders/Sprites/basicVertexShader.shader");
 
-	fragmentShader = FileReader::ReadFile("Shaders/Sprites/basicFragmentShader.shader");
+	fragmentShader = fileReader.ReadFile("Shaders/Sprites/basicFragmentShader.shader");
 
 	CreateMaterial("basicSpriteMaterial", vertexShader, fragmentShader);
 }
@@ -121,7 +123,7 @@ void MaterialManager::DeleteMaterial(const string name)
 	if (it == materials.end())
 		return;
 
-	OnDeleteMaterial(it->second);
+	OnDeleteMaterial(*it->second);
 
 	delete it->second;
 	materials.erase(it);
@@ -134,7 +136,7 @@ void MaterialManager::DeleteMaterial(Material* material)
 	if (it == materials.end())
 		return;
 
-	OnDeleteMaterial(it->second);
+	OnDeleteMaterial(*it->second);
 
 	delete it->second;
 	materials.erase(it);
@@ -145,10 +147,10 @@ void MaterialManager::AddListener(Entity* entity)
 	listeners.push_back(entity);
 }
 
-void MaterialManager::OnDeleteMaterial(Material* material)
+void MaterialManager::OnDeleteMaterial(Material& material)
 {
 	for (Entity* entity : listeners)
-		if (&entity->GetMaterial() == material)
+		if (entity->GetMaterial() == &material)
 			entity->SetMaterial(nullptr);
 }
 

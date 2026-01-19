@@ -38,7 +38,7 @@ public:
 
 	void AddListener(Entity* entity);
 
-	void OnDeleteMaterial(Material* material);
+	void OnDeleteMaterial(Material& material);
 
 	void RemoveListener(Entity* entity);
 
