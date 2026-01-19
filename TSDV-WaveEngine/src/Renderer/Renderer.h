@@ -36,10 +36,8 @@ public:
 	Material* shapeShaders;
 	Material* spriteShaders;
 
-	void CreateBuffers(VertexData* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO,
-		unsigned& VBO,
-		unsigned& EBO);
-	void CreateBuffersSprite(VertexData* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO, unsigned int& texture);
+	void CreateBuffers(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const;
+	void CreateBuffersSprite(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO, const unsigned int& texture) const;
 
 	void UpdateBuffer(VertexData* vertex, int vertexSize, unsigned& VBO);
 

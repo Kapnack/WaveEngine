@@ -40,15 +40,17 @@ void Renderer::Init()
 	view = new glm::mat4(1.0f);
 	proj = new glm::mat4(glm::ortho(0.0f, res.x, 0.0f, res.y, -1.0f, 1.0f));
 
-	string vertexShader = FileReader::ReadFile("Shaders/Shapes/basicVertexShader.shader");
+	FileReader fileReader;
 
-	string fragmentShader = FileReader::ReadFile("Shaders/Shapes/defaultFragmentShader.shader");
+	string vertexShader = fileReader.ReadFile("Shaders/Shapes/basicVertexShader.shader");
+
+	string fragmentShader = fileReader.ReadFile("Shaders/Shapes/defaultFragmentShader.shader");
 
 	shapeShaders = &ServiceProvider::Instance().Get<MaterialManager>()->CreateMaterial("defaultShapeShader", vertexShader, fragmentShader);
 
-	vertexShader = FileReader::ReadFile("Shaders/Sprites/basicVertexShader.shader");
+	vertexShader = fileReader.ReadFile("Shaders/Sprites/basicVertexShader.shader");
 
-	fragmentShader = FileReader::ReadFile("Shaders/Sprites/defaultFragmentShader.shader");
+	fragmentShader = fileReader.ReadFile("Shaders/Sprites/defaultFragmentShader.shader");
 
 	spriteShaders = &ServiceProvider::Instance().Get<MaterialManager>()->CreateMaterial("defaultSpriteShader", vertexShader, fragmentShader);
 }
@@ -58,7 +60,7 @@ Material* Renderer::ReturnWorkingMaterial(Material* materialToTry, Material* fal
 	return materialToTry ? materialToTry : fallBack;
 }
 
-void Renderer::CreateBuffers(VertexData* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO)
+void Renderer::CreateBuffers(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const
 {
 	//VAO = Vertex Array Object: It's the object were VBO & EBO store.
 	glGenVertexArrays(1, &VAO);
@@ -86,7 +88,7 @@ void Renderer::CreateBuffers(VertexData* vertex, int vertexSize, int* indices, i
 	glBindVertexArray(0);
 }
 
-void Renderer::CreateBuffersSprite(VertexData* vertex, int vertexSize, int* indices, int indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO, unsigned int& texture)
+void Renderer::CreateBuffersSprite(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO, const unsigned int& texture) const
 {
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
