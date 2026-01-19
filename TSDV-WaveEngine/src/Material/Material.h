@@ -18,6 +18,8 @@ private:
 	int uProj = 0;
 	int ourTexture = 0;
 
+	void Unload();
+
 public:
 
 	Material();
@@ -30,17 +32,15 @@ public:
 	unsigned int GetUProj();
 
 	void SetName(const string name);
-	void SetProgram(unsigned int program);
-	void SetUModel(unsigned int model);
-	void SetUView(unsigned int view);
-	void SetUProj(unsigned int projection);
-	void SetOurTexture(unsigned int ourTexture);
+	void SetProgram(const unsigned int program);
+	void SetUModel(const unsigned int model);
+	void SetUView(const unsigned int view);
+	void SetUProj(const unsigned int projection);
+	void SetOurTexture(const unsigned int ourTexture);
 
 	unsigned int GetOurTexture();
 
 	void Bind();
 	void UnBind();
-
-	void Unload();
 };
 

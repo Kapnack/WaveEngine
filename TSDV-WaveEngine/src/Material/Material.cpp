@@ -52,27 +52,27 @@ void Material::SetName(const string name)
 	this->name = name;
 }
 
-void Material::SetProgram(unsigned int program)
+void Material::SetProgram(const unsigned int program)
 {
 	this->program = program;
 }
 
-void Material::SetUModel(unsigned int model)
+void Material::SetUModel(const unsigned int model)
 {
 	uModel = model;
 }
 
-void Material::SetUView(unsigned int view)
+void Material::SetUView(const unsigned int view)
 {
 	uView = view;
 }
 
-void Material::SetUProj(unsigned int projection)
+void Material::SetUProj(const unsigned int projection)
 {
 	uProj = projection;
 }
 
-void Material::SetOurTexture(unsigned int ourTexture)
+void Material::SetOurTexture(const unsigned int ourTexture)
 {
 	this->ourTexture = ourTexture;
 }
