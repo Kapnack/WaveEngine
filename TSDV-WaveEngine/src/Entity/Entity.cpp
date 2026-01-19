@@ -20,8 +20,8 @@ Entity::Entity()
 
 Entity::~Entity()
 {
-	delete vertex;
-	delete indices;
+	delete[] vertex;
+	delete[] indices;
 
 	ServiceProvider::Instance().Get<MaterialManager>()->RemoveListener(this);
 }
