@@ -1,21 +1,19 @@
 ﻿#include "CollisionManager.h"
 #include "Collider.h"
 
-bool CollisionManager::CheckCollision(Entity2D* anEntity, Entity2D* otherEntity)
+bool CollisionManager::CheckCollision(const Entity2D& anEntity, const Entity2D& otherEntity) const noexcept
 {
-    if (anEntity == nullptr || otherEntity == nullptr)
-        return false;
 
-    Collider entityCollider = anEntity->GetCollider();
-    Collider otherCollider = otherEntity->GetCollider();
+	Collider entityCollider = anEntity.GetCollider();
+	Collider otherCollider = otherEntity.GetCollider();
 
-    return entityCollider.x < otherCollider.x + otherCollider.width &&
-        entityCollider.x + entityCollider.width > otherCollider.x &&
-        entityCollider.y < otherCollider.y + otherCollider.height &&
-        entityCollider.y + entityCollider.height > otherCollider.y;
+	return entityCollider.x < otherCollider.x + otherCollider.width &&
+		entityCollider.x + entityCollider.width > otherCollider.x &&
+		entityCollider.y < otherCollider.y + otherCollider.height &&
+		entityCollider.y + entityCollider.height > otherCollider.y;
 }
 
-bool CollisionManager::CheckCollision(Entity2D* entity, TileMap* tileMap)
+bool CollisionManager::CheckCollision(const Entity2D& entity, const TileMap& tileMap) const
 {
     return false;
 }
