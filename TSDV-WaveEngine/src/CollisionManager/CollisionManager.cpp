@@ -13,8 +13,6 @@ bool CollisionManager::CheckCollision(const Entity2D& anEntity, const Entity2D& 
 		entityCollider.y + entityCollider.height > otherCollider.y;
 }
 
-#include "ServiceProvider/ServiceProvider.h"
-
 bool CollisionManager::CheckCollision(const Entity2D& entity, const TileMap& tileMap) const
 {
 	Collider c = entity.GetCollider();
