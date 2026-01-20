@@ -41,8 +41,6 @@ private:
 	int rowAmount = 0;
 	int columnsAmount = 0;
 
-	const int EMPTY_TILE = -1;
-
 	float _tilePixelSize;
 	float _worldTileWidth;
 	float _worldTileHeight;
