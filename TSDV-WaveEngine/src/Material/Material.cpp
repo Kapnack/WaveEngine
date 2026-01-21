@@ -13,6 +13,8 @@
 
 using namespace std;
 
+const unsigned int Material::NULL_MATERIAL = 0;
+
 Material::Material()
 {
 }

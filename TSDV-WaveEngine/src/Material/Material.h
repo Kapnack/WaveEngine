@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 
+class MaterialManager;
+
 using namespace std;
 
 class Material
@@ -18,18 +20,8 @@ private:
 	int uProj = 0;
 	int ourTexture = 0;
 
-	void Unload();
-
-public:
-
 	Material();
 	~Material();
-
-	const string GetName();
-	unsigned int GetProgram();
-	unsigned int GetUModel();
-	unsigned int GetUView();
-	unsigned int GetUProj();
 
 	void SetName(const string name);
 	void SetProgram(const unsigned int program);
@@ -37,6 +29,19 @@ public:
 	void SetUView(const unsigned int view);
 	void SetUProj(const unsigned int projection);
 	void SetOurTexture(const unsigned int ourTexture);
+	void Unload();
+
+	friend class MaterialManager;
+
+public:
+
+	const static unsigned int NULL_MATERIAL;
+
+	const string GetName();
+	unsigned int GetProgram();
+	unsigned int GetUModel();
+	unsigned int GetUView();
+	unsigned int GetUProj();
 
 	unsigned int GetOurTexture();
 
