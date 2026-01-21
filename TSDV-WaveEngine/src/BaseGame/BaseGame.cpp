@@ -18,14 +18,9 @@ void BaseGame::InitEngine(int width, int height)
 	if (!glfwInit())
 		exit(-1);
 
-	ServiceProvider::Instance().Register(new MaterialManager());
-
 	ServiceProvider::Instance().Register(new Window(width, height, "WaveEngine", nullptr, nullptr));
-
-	ServiceProvider::Instance().TryGet<MaterialManager>()->Init();
-	
+	ServiceProvider::Instance().Register(new MaterialManager());
 	ServiceProvider::Instance().Register(new Renderer());
-
 	ServiceProvider::Instance().Register(new Input());
 	ServiceProvider::Instance().Register(new Time());
 	

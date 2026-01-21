@@ -1,6 +1,14 @@
 ﻿#include "CollisionManager.h"
 #include "Collider.h"
 
+CollisionManager::CollisionManager() : Service()
+{
+}
+
+CollisionManager::~CollisionManager()
+{
+}
+
 bool CollisionManager::CheckCollision(const Entity2D& anEntity, const Entity2D& otherEntity) const noexcept
 {
 
