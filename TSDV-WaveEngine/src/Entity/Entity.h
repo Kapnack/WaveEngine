@@ -8,9 +8,13 @@
 
 WAVEEXPORT class Entity
 {
+private:
+
+	unsigned int ID = 0;
+
 protected:
 
-	Material* material;
+	unsigned int materialID;
 
 	Vector3 previousPosition;
 	Vector3 position;
@@ -41,8 +45,8 @@ public:
 	WAVEEXPORT	Entity();
 	WAVEEXPORT virtual ~Entity();
 
-	WAVEEXPORT void SetMaterial(Material* material);
-	WAVEEXPORT Material* GetMaterial() const;
+	WAVEEXPORT void SetMaterial(const unsigned int materialID);
+	WAVEEXPORT const unsigned int GetMaterial() const;
 
 	WAVEEXPORT Vector3 GetPosition() const;
 	WAVEEXPORT Vector3 GetScale() const;

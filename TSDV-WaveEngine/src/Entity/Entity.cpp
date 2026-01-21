@@ -18,14 +18,14 @@ Entity::~Entity()
 	ServiceProvider::Instance().Get<MaterialManager>()->RemoveListener(this);
 }
 
-void Entity::SetMaterial(Material* material)
+void Entity::SetMaterial(const unsigned int materialID)
 {
-	this->material = material;
+	this->materialID = materialID;
 }
 
-Material* Entity::GetMaterial() const
+const unsigned int Entity::GetMaterial() const
 {
-	return material;
+	return materialID;
 }
 
 Vector3 Entity::GetPosition() const
