@@ -14,7 +14,7 @@ using namespace std;
 
 using namespace nlohmann;
 
-WAVEEXPORT class TileMap
+WAVEEXPORT class TileMap final
 {
 public:
 
