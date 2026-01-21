@@ -12,7 +12,7 @@ using namespace std;
 template<typename T>
 concept ServiceStandard = is_base_of_v<Service, T>;
 
-class ServiceProvider : public Singleton<ServiceProvider>
+class ServiceProvider final : public Singleton<ServiceProvider>
 {
 private:
 
