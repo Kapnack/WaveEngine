@@ -7,7 +7,10 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-WAVEEXPORT class Window : public Service
+class BaseGame;
+class ServiceProvider;
+
+WAVEEXPORT class Window final : public Service
 {
 private:
 
@@ -25,10 +28,14 @@ private:
 
 	static void FrameBufferCallBack(GLFWwindow* window, int width, int height);
 
+	Window(int width, int height, const char* title, GLFWmonitor* monitor = nullptr, GLFWwindow* share = nullptr);
+	~Window();
+
+	friend class BaseGame;
+	friend class ServiceProvider;
+
 public:
 
-	WAVEEXPORT Window(int width, int height, const char* title, GLFWmonitor* monitor = nullptr, GLFWwindow* share = nullptr);
-	WAVEEXPORT ~Window();
 
 	GLFWwindow* GetGLFWindow();
 	WAVEEXPORT int GetWidth();
