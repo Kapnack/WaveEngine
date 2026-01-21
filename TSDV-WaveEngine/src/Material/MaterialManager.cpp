@@ -5,7 +5,7 @@
 
 #include "FileReader/FileReader.h"
 
-MaterialManager::MaterialManager() : Service()
+MaterialManager::MaterialManager()
 {
 }
 

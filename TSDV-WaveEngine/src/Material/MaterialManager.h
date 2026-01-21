@@ -8,9 +8,11 @@
 #include "Export.h"
 #include "Entity/Entity.h"
 #include "Material/Material.h"
+#include "ServiceProvider/ServiceProvider.h"
 
 class Renderer;
 class MaterialFactory;
+class BaseGame;
 
 using namespace std;
 
@@ -30,11 +32,13 @@ private:
 
 	friend class Renderer;
 	friend class MaterialFactory;
-
-public:
+	friend class BaseGame;
+	friend class ServiceProvider;
 
 	MaterialManager();
 	~MaterialManager();
+
+public:
 
 	WAVEEXPORT unsigned int GetMaterial(const string name);
 
