@@ -2,10 +2,15 @@
 
 #include "Export.h"
 
-WAVEEXPORT class Service
+class ServiceProvider;
+
+class Service
 {
-public:
-	WAVEEXPORT Service();
-	WAVEEXPORT virtual ~Service();
+	friend class ServiceProvider;
+
+protected:
+
+	Service();
+	virtual ~Service();
 };
 
