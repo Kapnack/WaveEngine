@@ -8,7 +8,7 @@ class MaterialFactory;
 
 using namespace std;
 
-class Material
+class Material final
 {
 private:
 
