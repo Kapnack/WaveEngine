@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class TextureImporter
+class TextureImporter final
 {
 private:
 
