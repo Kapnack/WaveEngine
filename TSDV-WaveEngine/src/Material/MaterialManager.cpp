@@ -1,16 +1,19 @@
 #include "MaterialManager.h"
 
 #include <GL/glew.h>
+#include <algorithm>
 
 #include "FileReader/FileReader.h"
 
 MaterialManager::MaterialManager() : Service()
 {
+
+	Init();
 }
 
 MaterialManager::~MaterialManager()
 {
-	for (unordered_map<string, Material*>::iterator it = materials.begin(); it != materials.end(); ++it)
+	for (unordered_map<unsigned int, Material*>::iterator it = materials.begin(); it != materials.end(); ++it)
 		delete it->second;
 
 	materials.clear();
@@ -62,10 +65,8 @@ unsigned int MaterialManager::CompileShader(const string& source, unsigned int t
 	return id;
 }
 
-Material& MaterialManager::CreateMaterial(const string name, const string vertexShader, const string fragmentShader)
+unsigned int MaterialManager::CreateMaterial(const string name, const string vertexShader, const string fragmentShader)
 {
-	Material* newMaterial = new Material();
-
 	unsigned int vs = CompileShader(vertexShader, GL_VERTEX_SHADER);
 	unsigned int fs = CompileShader(fragmentShader, GL_FRAGMENT_SHADER);
 
@@ -79,6 +80,8 @@ Material& MaterialManager::CreateMaterial(const string name, const string vertex
 	glDeleteShader(vs);
 	glDeleteShader(fs);
 
+	Material* newMaterial = new Material();
+
 	newMaterial->SetProgram(program);
 
 	newMaterial->SetUModel(glGetUniformLocation(program, "uModel"));
@@ -91,34 +94,44 @@ Material& MaterialManager::CreateMaterial(const string name, const string vertex
 
 	newMaterial->SetName(name);
 
-	SaveMaterial(name, newMaterial);
+	++currentMaterialID;
 
-	return *newMaterial;
+	SaveMaterial(currentMaterialID, newMaterial);
+
+	return currentMaterialID;
 }
 
-void MaterialManager::SaveMaterial(const string name, Material* material)
+unsigned int MaterialManager::GetMaterial(const string name)
 {
-	string nameToSearch = name;
-	int numberToAdd = 1;
+	unordered_map<unsigned int, Material*>::iterator it = find_if(materials.begin(), materials.end(),
+		[&name](const auto& pair)
+		{
+			return pair.second && pair.second->GetName() == name;
+		});
 
-	while (materials.find(nameToSearch) != materials.end())
-	{
-		nameToSearch = name + "_(" + to_string(numberToAdd) + ")";
-		++numberToAdd;
-	}
+	if (it == materials.end())
+		return 0;
 
-	materials[nameToSearch] = material;
-	material->SetName(nameToSearch);
+	return it->first;
 }
 
-Material& MaterialManager::GetMaterial(string name)
+void MaterialManager::SaveMaterial(const unsigned int id, Material* material)
 {
-	return *materials[name];
+	materials[id] = material;
+}
+
+Material& MaterialManager::GetMaterial(const unsigned int id)
+{
+	return *materials[id];
 }
 
 void MaterialManager::DeleteMaterial(const string name)
 {
-	unordered_map<string, Material*>::iterator it = materials.find(name);
+	unordered_map<unsigned int, Material*>::iterator it = find_if(materials.begin(), materials.end(),
+		[&name](const auto& pair)
+		{
+			return pair.second && pair.second->GetName() == name;
+		});
 
 	if (it == materials.end())
 		return;
@@ -129,9 +142,9 @@ void MaterialManager::DeleteMaterial(const string name)
 	materials.erase(it);
 }
 
-void MaterialManager::DeleteMaterial(Material* material)
+void MaterialManager::DeleteMaterial(const unsigned int id)
 {
-	unordered_map<string, Material*>::iterator it = materials.find(material->GetName());
+	unordered_map<unsigned, Material*>::iterator it = materials.find(id);
 
 	if (it == materials.end())
 		return;
@@ -150,8 +163,8 @@ void MaterialManager::AddListener(Entity* entity)
 void MaterialManager::OnDeleteMaterial(Material& material)
 {
 	for (Entity* entity : listeners)
-		if (entity->GetMaterial() == &material)
-			entity->SetMaterial(nullptr);
+		if (entity->GetMaterial() == material.GetProgram())
+			entity->SetMaterial(Material::NULL_MATERIAL);
 }
 
 void MaterialManager::RemoveListener(Entity* entity)

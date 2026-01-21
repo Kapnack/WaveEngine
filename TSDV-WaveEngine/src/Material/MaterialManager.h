@@ -9,17 +9,25 @@
 #include "Entity/Entity.h"
 #include "Material/Material.h"
 
+class Renderer;
+
 using namespace std;
 
 WAVEEXPORT class MaterialManager : public Service
 {
 private:
 
-	unordered_map<string, Material*> materials;
+	unsigned int currentMaterialID = Material::NULL_MATERIAL;
+
+	unordered_map<unsigned int, Material*> materials;
 	unsigned int CompileShader(const string& source, unsigned int type);
-	void SaveMaterial(const string name, Material* material);
+	void SaveMaterial(const unsigned int id, Material* material);
 
 	vector<Entity*> listeners;
+
+	Material& GetMaterial(const unsigned int id);
+
+	friend class Renderer;
 
 public:
 
@@ -28,13 +36,13 @@ public:
 
 	void Init();
 
-	WAVEEXPORT  Material& CreateMaterial(const string name, const string vertexShader, const string fragmentShader);
+	WAVEEXPORT unsigned int CreateMaterial(const string name, const string vertexShader, const string fragmentShader);
 
-	WAVEEXPORT  Material& GetMaterial(string name);
+	WAVEEXPORT unsigned int GetMaterial(const string name);
 
-	WAVEEXPORT  void DeleteMaterial(const string name);
+	WAVEEXPORT void DeleteMaterial(const string name);
 
-	WAVEEXPORT  void DeleteMaterial(Material* material);
+	WAVEEXPORT void DeleteMaterial(const unsigned int id);
 
 	void AddListener(Entity* entity);
 
