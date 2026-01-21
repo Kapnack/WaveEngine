@@ -2,6 +2,7 @@
 #include "Input/Input.h"
 
 #include "ServiceProvider/ServiceProvider.h"
+#include "Material/MaterialFactory.h"
 
 BaseGame::BaseGame(int width, int height)
 {
@@ -20,10 +21,10 @@ void BaseGame::InitEngine(int width, int height)
 
 	ServiceProvider::Instance().Register(new Window(width, height, "WaveEngine", nullptr, nullptr));
 	ServiceProvider::Instance().Register(new MaterialManager());
+	ServiceProvider::Instance().Register(new MaterialFactory());
 	ServiceProvider::Instance().Register(new Renderer());
 	ServiceProvider::Instance().Register(new Input());
 	ServiceProvider::Instance().Register(new Time());
-	
 }
 
 void BaseGame::EndEngine()
