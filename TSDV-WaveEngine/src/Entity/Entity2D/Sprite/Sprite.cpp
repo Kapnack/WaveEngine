@@ -40,7 +40,7 @@ void Sprite::Init(const unsigned int& texture, const Vector4& color)
 
 	GetRenderer()->CreateBuffersSprite(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO, texture);
 
-	material = &ServiceProvider::Instance().Get<MaterialManager>()->GetMaterial("basicSpriteMaterial");
+	materialID = ServiceProvider::Instance().Get<MaterialManager>()->GetMaterial("basicSpriteMaterial");
 }
 
 Sprite::~Sprite()
@@ -89,5 +89,5 @@ void Sprite::Draw()
 		SetUVCordinates(frame.topLeft, frame.bottomRight);
 	}
 
-	GetRenderer()->DrawElementSprite(model, material, indexSize, VAO, texture);
+	GetRenderer()->DrawElementSprite(model, materialID, indexSize, VAO, texture);
 }

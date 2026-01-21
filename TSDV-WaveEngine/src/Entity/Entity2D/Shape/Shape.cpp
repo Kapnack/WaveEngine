@@ -5,7 +5,7 @@
 
 Shape::Shape() : Entity2D()
 {
-	material = &ServiceProvider::Instance().Get<MaterialManager>()->GetMaterial("basicShapeMaterial");
+	materialID = ServiceProvider::Instance().Get<MaterialManager>()->GetMaterial("basicShapeMaterial");
 }
 
 Shape::~Shape()
@@ -14,5 +14,5 @@ Shape::~Shape()
 
 void Shape::Draw()
 {
-	GetRenderer()->DrawElement(model, material, indexSize, VAO);
+	GetRenderer()->DrawElement(model, materialID, indexSize, VAO);
 }
