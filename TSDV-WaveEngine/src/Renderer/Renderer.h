@@ -12,7 +12,7 @@
 #include "VertexData.h"
 #include "Material/Material.h"
 
-class Renderer : public Service
+class Renderer final : public Service
 {
 private:
 
