@@ -4,6 +4,7 @@
 #include <string>
 
 class MaterialManager;
+class MaterialFactory;
 
 using namespace std;
 
@@ -32,6 +33,7 @@ private:
 	void Unload();
 
 	friend class MaterialManager;
+	friend class MaterialFactory;
 
 public:
 
