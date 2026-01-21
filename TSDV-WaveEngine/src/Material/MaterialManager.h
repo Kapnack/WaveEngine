@@ -10,6 +10,7 @@
 #include "Material/Material.h"
 
 class Renderer;
+class MaterialFactory;
 
 using namespace std;
 
@@ -20,7 +21,7 @@ private:
 	unsigned int currentMaterialID = Material::NULL_MATERIAL;
 
 	unordered_map<unsigned int, Material*> materials;
-	unsigned int CompileShader(const string& source, unsigned int type);
+
 	void SaveMaterial(const unsigned int id, Material* material);
 
 	vector<Entity*> listeners;
@@ -28,15 +29,12 @@ private:
 	Material& GetMaterial(const unsigned int id);
 
 	friend class Renderer;
+	friend class MaterialFactory;
 
 public:
 
 	MaterialManager();
 	~MaterialManager();
-
-	void Init();
-
-	WAVEEXPORT unsigned int CreateMaterial(const string name, const string vertexShader, const string fragmentShader);
 
 	WAVEEXPORT unsigned int GetMaterial(const string name);
 
