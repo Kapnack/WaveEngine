@@ -24,12 +24,12 @@ private:
 	Material();
 	~Material();
 
-	void SetName(const string name);
-	void SetProgram(const unsigned int program);
-	void SetUModel(const unsigned int model);
-	void SetUView(const unsigned int view);
-	void SetUProj(const unsigned int projection);
-	void SetOurTexture(const unsigned int ourTexture);
+	void SetName(const string& name);
+	void SetProgram(const unsigned int& program);
+	void SetUModel(const unsigned int& model);
+	void SetUView(const unsigned int& view);
+	void SetUProj(const unsigned int& projection);
+	void SetOurTexture(const unsigned int& ourTexture);
 	void Unload();
 
 	friend class MaterialManager;
