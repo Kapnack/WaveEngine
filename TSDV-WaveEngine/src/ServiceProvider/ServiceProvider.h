@@ -4,7 +4,6 @@
 
 #include <unordered_map>
 #include <typeindex>
-#include <type_traits>
 
 #include "Service.h"
 
