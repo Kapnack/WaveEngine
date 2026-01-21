@@ -5,7 +5,6 @@
 
 #include "Material.h"
 #include "FileReader/FileReader.h"
-#include "ServiceProvider/ServiceProvider.h"
 
 MaterialFactory::MaterialFactory()
 {
