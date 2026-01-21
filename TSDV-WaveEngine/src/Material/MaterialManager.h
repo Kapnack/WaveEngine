@@ -14,7 +14,7 @@ class MaterialFactory;
 
 using namespace std;
 
-WAVEEXPORT class MaterialManager : public Service
+WAVEEXPORT class MaterialManager final : public Service
 {
 private:
 
