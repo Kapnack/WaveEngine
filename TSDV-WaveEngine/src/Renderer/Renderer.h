@@ -24,17 +24,19 @@ private:
 
 	Vector3 res;
 
-	Material* ReturnWorkingMaterial(Material* materialToTry, Material* fallBack);
+	const unsigned int ReturnWorkingMaterial(const unsigned int& materialIDToTry, const unsigned int& materialIDfallBack);
 
 	Window* GetWindow();
+
+	MaterialManager* GetMaterialManager();
 
 public:
 
 	Renderer();
 	~Renderer();
 
-	Material* shapeShaders;
-	Material* spriteShaders;
+	unsigned int shapeShaders;
+	unsigned int spriteShaders;
 
 	void CreateBuffers(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const;
 	void CreateBuffersSprite(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO, const unsigned int& texture) const;
@@ -47,7 +49,7 @@ public:
 
 	static float GetGLTime();
 
-	void DrawElement(glm::mat4& model, Material* material, int indicesSize, unsigned int VAO);
-	void DrawElementSprite(glm::mat4& model, Material* material, int indicesSize, unsigned int VAO, unsigned int texture);
+	void DrawElement(glm::mat4& model, unsigned int materialID, int indicesSize, unsigned int VAO);
+	void DrawElementSprite(glm::mat4& model, unsigned int materialID, int indicesSize, unsigned int VAO, unsigned int texture);
 };
 

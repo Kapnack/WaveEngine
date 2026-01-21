@@ -24,6 +24,11 @@ Window* Renderer::GetWindow()
 	return ServiceProvider::Instance().Get<Window>();
 }
 
+MaterialManager* Renderer::GetMaterialManager()
+{
+	return ServiceProvider::Instance().Get<MaterialManager>();
+}
+
 void Renderer::Init()
 {
 	res.x = GetWindow()->GetWidth();
@@ -46,18 +51,18 @@ void Renderer::Init()
 
 	string fragmentShader = fileReader.ReadFile("Shaders/Shapes/defaultFragmentShader.shader");
 
-	shapeShaders = &ServiceProvider::Instance().Get<MaterialManager>()->CreateMaterial("defaultShapeShader", vertexShader, fragmentShader);
+	shapeShaders = ServiceProvider::Instance().Get<MaterialManager>()->CreateMaterial("defaultShapeShader", vertexShader, fragmentShader);
 
 	vertexShader = fileReader.ReadFile("Shaders/Sprites/basicVertexShader.shader");
 
 	fragmentShader = fileReader.ReadFile("Shaders/Sprites/defaultFragmentShader.shader");
 
-	spriteShaders = &ServiceProvider::Instance().Get<MaterialManager>()->CreateMaterial("defaultSpriteShader", vertexShader, fragmentShader);
+	spriteShaders = ServiceProvider::Instance().Get<MaterialManager>()->CreateMaterial("defaultSpriteShader", vertexShader, fragmentShader);
 }
 
-Material* Renderer::ReturnWorkingMaterial(Material* materialToTry, Material* fallBack)
+const unsigned int Renderer::ReturnWorkingMaterial(const unsigned int& materialIDToTry, const unsigned int& materialIDfallBack)
 {
-	return materialToTry ? materialToTry : fallBack;
+	return materialIDToTry != Material::NULL_MATERIAL ? materialIDToTry : materialIDfallBack;
 }
 
 void Renderer::CreateBuffers(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const
@@ -130,9 +135,9 @@ Vector3 Renderer::GetRes()
 	return res;
 }
 
-void Renderer::DrawElement(glm::mat4& model, Material* material, int indicesSize, unsigned int VAO)
+void Renderer::DrawElement(glm::mat4& model, unsigned int materialID, int indicesSize, unsigned int VAO)
 {
-	Material* materialToUse = ReturnWorkingMaterial(material, shapeShaders);
+	Material* materialToUse = &GetMaterialManager()->GetMaterial(ReturnWorkingMaterial(materialID, shapeShaders));
 
 	materialToUse->Bind();
 
@@ -146,9 +151,9 @@ void Renderer::DrawElement(glm::mat4& model, Material* material, int indicesSize
 	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*)0);
 }
 
-void Renderer::DrawElementSprite(glm::mat4& model, Material* material, int indicesSize, unsigned int VAO, unsigned int texture)
+void Renderer::DrawElementSprite(glm::mat4& model, unsigned int materialID, int indicesSize, unsigned int VAO, unsigned int texture)
 {
-	Material* materialToUse = ReturnWorkingMaterial(material, spriteShaders);
+	Material* materialToUse = &GetMaterialManager()->GetMaterial(ReturnWorkingMaterial(materialID, spriteShaders));
 
 	materialToUse->Bind();
 
