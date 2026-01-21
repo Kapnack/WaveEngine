@@ -2,7 +2,7 @@
 
 #include "FileReader/FileReader.h"
 #include "ServiceProvider/ServiceProvider.h"
-#include "Material/MaterialManager.h"
+#include "Material/MaterialFactory.h"
 #include "VertexData.h"
 
 using namespace std;
@@ -51,13 +51,13 @@ void Renderer::Init()
 
 	string fragmentShader = fileReader.ReadFile("Shaders/Shapes/defaultFragmentShader.shader");
 
-	shapeShaders = ServiceProvider::Instance().Get<MaterialManager>()->CreateMaterial("defaultShapeShader", vertexShader, fragmentShader);
+	shapeShaders = ServiceProvider::Instance().Get<MaterialFactory>()->CreateMaterial("defaultShapeShader", vertexShader, fragmentShader);
 
 	vertexShader = fileReader.ReadFile("Shaders/Sprites/basicVertexShader.shader");
 
 	fragmentShader = fileReader.ReadFile("Shaders/Sprites/defaultFragmentShader.shader");
 
-	spriteShaders = ServiceProvider::Instance().Get<MaterialManager>()->CreateMaterial("defaultSpriteShader", vertexShader, fragmentShader);
+	spriteShaders = ServiceProvider::Instance().Get<MaterialFactory>()->CreateMaterial("defaultSpriteShader", vertexShader, fragmentShader);
 }
 
 const unsigned int Renderer::ReturnWorkingMaterial(const unsigned int& materialIDToTry, const unsigned int& materialIDfallBack)
