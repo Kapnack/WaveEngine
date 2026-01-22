@@ -43,7 +43,7 @@ void ServiceProvider::UnRegister()
 		return;
 	}
 
-		delete it->second;
+	delete it->second;
 	services.erase(it);
 }
 
