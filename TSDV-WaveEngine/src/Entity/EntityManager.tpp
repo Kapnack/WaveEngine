@@ -42,11 +42,7 @@ T* EntityManager::Get(const unsigned int& ID)
 
 Entity* EntityManager::Get(const unsigned int& ID)
 {
-	auto it = entitiesByID.find(ID);
-	if (it == entitiesByID.end())
-		return nullptr;
-
-	return dynamic_cast<Entity*>(it->second);
+	return Get<Entity>(ID);
 }
 
 template<EntityManagerStandar T>
