@@ -3,19 +3,14 @@
 #include "Material/MaterialManager.h"
 #include "ServiceProvider/ServiceProvider.h"
 
-Sprite::Sprite(const unsigned int& texture) : Entity2D()
+Sprite::Sprite() : Entity2D()
 {
-	Init(texture, Vector4{ 1,1,1,1 });
+	Init(Vector4{ 1,1,1,1 });
 
 	SetColor(Vector4(1, 1, 1, 1));
 }
 
-Sprite::Sprite(const unsigned int& texture, const Vector4& color) : Entity2D()
-{
-	Init(texture, color);
-}
-
-void Sprite::Init(const unsigned int& texture, const Vector4& color)
+void Sprite::Init(const Vector4& color)
 {
 	vertexSize = 4;
 
@@ -36,9 +31,9 @@ void Sprite::Init(const unsigned int& texture, const Vector4& color)
 
 	SetTRS();
 
-	this->texture = texture;
+	this->textureID = textureID;
 
-	GetRenderer()->CreateBuffersSprite(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO, texture);
+	GetRenderer()->CreateBuffersSprite(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO);
 
 	materialID = ServiceProvider::Instance().Get<MaterialManager>()->GetMaterial("basicSpriteMaterial");
 }
@@ -81,6 +76,11 @@ void Sprite::Update()
 		animation->Update();
 }
 
+void Sprite::SetTexture(const unsigned int& textureID)
+{
+	this->textureID = textureID;
+}
+
 void Sprite::Draw()
 {
 	if (animation)
@@ -89,5 +89,5 @@ void Sprite::Draw()
 		SetUVCordinates(frame.topLeft, frame.bottomRight);
 	}
 
-	GetRenderer()->DrawElementSprite(model, materialID, indexSize, VAO, texture);
+	GetRenderer()->DrawElementSprite(model, materialID, indexSize, VAO, textureID);
 }
