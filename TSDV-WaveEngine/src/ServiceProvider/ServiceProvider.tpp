@@ -43,8 +43,11 @@ void ServiceProvider::UnRegister()
 
 void ServiceProvider::Clear()
 {
-	for (pair<const type_index, Service*>& service : services)
-		delete service.second;
+	for (unordered_map<type_index, Service*>::iterator it = services.begin(); it != services.end(); ++it)
+	{
+		delete it->second;
+		services[it->first] = nullptr;
+	}
 
 	services.clear();
 }
