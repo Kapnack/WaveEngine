@@ -117,7 +117,9 @@ void TileMap::ImportTileMap(const string& filePath)
 			unsigned int col = tileJson[ColName];
 			unsigned int row = tileJson[RowName];
 
-			Tile* tile = new Tile(texture);
+			Tile* tile = new Tile();
+
+			tile->SetTexture(texture);
 
 			tile->SetSpriteSheetID(spriteSheetID);
 			tile->SetID(id);
