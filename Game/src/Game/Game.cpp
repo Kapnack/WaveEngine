@@ -44,11 +44,22 @@ void Game::Init(int width, int height)
 
 	EntityFactory* factory = GetEntityFactory();
 
-	entityController = new EntityController(factory->Create<Sprite>());
+	unsigned int player = factory->Create<Sprite>();
+	unsigned int player2 = factory->Create<Sprite>();
 
-	GetEntityManager()->Get<Sprite>(entityController->GetEntityID())->SetTexture(textureImporter.GetLoadedTexture());
-	GetEntityManager()->Get<Sprite>(entityController->GetEntityID())->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
-	GetEntityManager()->Get<Sprite>(entityController->GetEntityID())->SetPosition(Vector3{ 100,100,0 });
+	entityController = new EntityController();
+
+	GetEntityManager()->Get<Sprite>(player)->SetTexture(textureImporter.GetLoadedTexture());
+	GetEntityManager()->Get<Sprite>(player)->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
+	GetEntityManager()->Get<Sprite>(player)->SetPosition(Vector3{ 100,100,0 });
+
+	for (int i = 1; i < 90; i++)
+		entityController->AddEntityID(i);
+
+	GetEntityManager()->Get<Sprite>(player2)->SetTexture(textureImporter.GetLoadedTexture());
+	GetEntityManager()->Get<Sprite>(player2)->SetColor(Vector4{ 1,0,0,1 });
+	GetEntityManager()->Get<Sprite>(player2)->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
+	GetEntityManager()->Get<Sprite>(player2)->SetPosition(Vector3{ (float)GetWindow()->GetWidth() / 2 - 100, (float)GetWindow()->GetHeight() / 2 - 100,0 });
 }
 
 void Game::Update()
@@ -58,6 +69,7 @@ void Game::Update()
 
 void Game::Draw()
 {
+	tileMap->Draw();
 }
 
 void Game::Unload()
