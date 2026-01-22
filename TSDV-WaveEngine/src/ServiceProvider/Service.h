@@ -6,11 +6,11 @@ class ServiceProvider;
 
 class Service
 {
-	friend class ServiceProvider;
-
 protected:
 
 	Service();
 	virtual ~Service();
+
+	friend class ServiceProvider;
 };
 
