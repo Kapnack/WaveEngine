@@ -37,7 +37,13 @@ void ServiceProvider::UnRegister()
 	if (it == services.end())
 		return;
 
-	delete it->second;
+	if (it->second == nullptr)
+	{
+		services.erase(it);
+		return;
+	}
+
+		delete it->second;
 	services.erase(it);
 }
 
