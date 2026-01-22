@@ -32,6 +32,8 @@ private:
 	template<EntityManagerStandar T>
 	void SaveEntity(const unsigned int& ID, T* entity);
 
+	inline void DrawEntities();
+
 	inline EntityManager();
 	inline ~EntityManager();
 
@@ -43,6 +45,8 @@ public:
 
 	template<EntityManagerStandar T>
 	T* Get(const unsigned int& ID);
+
+	inline Entity* Get(const unsigned int& ID);
 
 	template<EntityManagerStandar T>
 	vector<T*> GetAll();
