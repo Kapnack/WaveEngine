@@ -34,6 +34,11 @@ void BaseGame::EndEngine()
 	ServiceProvider::Instance().Clear();
 }
 
+void BaseGame::EngineDraw()
+{
+	GetEntityManager()->DrawEntities();
+}
+
 Time* BaseGame::GetTime()
 {
 	return ServiceProvider::Instance().Get<Time>();
@@ -88,6 +93,10 @@ void BaseGame::Run()
 		GetRenderer()->Clear();
 
 		Update();
+
+		EngineDraw();
+
+		Draw();
 
 		GetWindow()->SwapBuffer();
 		GetWindow()->HandleInput();

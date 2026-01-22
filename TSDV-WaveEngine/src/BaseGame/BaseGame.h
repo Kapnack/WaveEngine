@@ -15,12 +15,15 @@ private:
 
 	void EndEngine();
 
+	void EngineDraw();
+
 	Renderer* GetRenderer();
 
 protected:
 
 	WAVEEXPORT	virtual void Init(int width, int height);
 	WAVEEXPORT	virtual void Update() = 0;
+	WAVEEXPORT	virtual void Draw() = 0;
 	WAVEEXPORT	virtual void Unload() = 0;
 
 	WAVEEXPORT float GetDeltaTime();
