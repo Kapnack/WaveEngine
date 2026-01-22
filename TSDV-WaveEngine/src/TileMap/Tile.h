@@ -3,6 +3,8 @@
 #include "Entity/Entity2D/Sprite/Sprite.h"
 
 class TileMap;
+class EntityManager;
+class EntityFactory;
 
 class Tile : public Sprite
 {
@@ -16,6 +18,8 @@ private:
 	~Tile();
 
 	friend class TileMap;
+	friend class EntityManager;
+	friend class EntityFactory;
 
 public:
 
