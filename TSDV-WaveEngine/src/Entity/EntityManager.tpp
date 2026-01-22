@@ -16,6 +16,12 @@ EntityManager::~EntityManager()
 	entitiesIDByType.clear();
 }
 
+inline void EntityManager::DrawEntities()
+{
+	for (unordered_map<const unsigned int, Entity*>::iterator service = entitiesByID.begin(); service != entitiesByID.end(); ++service)
+		service->second->Draw();
+}
+
 template<EntityManagerStandar T>
 void EntityManager::SaveEntity(const unsigned int& ID, T* entity)
 {
@@ -31,6 +37,15 @@ T* EntityManager::Get(const unsigned int& ID)
 		return nullptr;
 
 	return dynamic_cast<T*>(it->second);
+}
+
+Entity* EntityManager::Get(const unsigned int& ID)
+{
+	auto it = entitiesByID.find(ID);
+	if (it == entitiesByID.end())
+		return nullptr;
+
+	return dynamic_cast<Entity*>(it->second);
 }
 
 template<EntityManagerStandar T>
