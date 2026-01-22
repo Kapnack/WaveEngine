@@ -96,7 +96,7 @@
     <ClCompile Include="src\Entity\EntityManager.tpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity\Controller\Controller.cpp">
+    <ClCompile Include="src\Entity\Controller\Controller.tpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="src\Entity\Controller\EntityController\EntityController.cpp">

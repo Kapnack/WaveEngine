@@ -156,7 +156,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Entity\Controller\EntityController\EntityController.cpp" />
-    <ClCompile Include="src\Entity\Controller\Controller.cpp" />
+    <ClCompile Include="src\Entity\Controller\Controller.tpp" />
     <ClCompile Include="src\Entity\EntityManager.tpp" />
     <ClCompile Include="src\Material\MaterialFactory.cpp" />
     <ClCompile Include="src\Material\MaterialManager.cpp" />
