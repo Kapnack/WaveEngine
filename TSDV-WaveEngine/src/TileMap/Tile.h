@@ -2,6 +2,8 @@
 
 #include "Entity/Entity2D/Sprite/Sprite.h"
 
+class TileMap;
+
 class Tile : public Sprite
 {
 private:
@@ -10,10 +12,12 @@ private:
 	unsigned int id = 0;
 	bool collide = false;
 
-public:
-
 	Tile();
 	~Tile();
+
+	friend class TileMap;
+
+public:
 
 	bool CanCollide();
 	void SetCollide(bool walkable);
