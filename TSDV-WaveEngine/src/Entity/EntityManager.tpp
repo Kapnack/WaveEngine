@@ -1,0 +1,47 @@
+#ifndef ENTITYMANAGER
+#define ENTITYMANAGER
+
+#include "EntityManager.h"
+
+EntityManager::EntityManager() : Service()
+{
+}
+
+EntityManager::~EntityManager()
+{
+	for (unordered_map<const unsigned int, Entity*>::iterator service = entitiesByID.begin(); service != entitiesByID.end(); ++service)
+		delete service->second;
+
+	entitiesByID.clear();
+	entitiesIDByType.clear();
+}
+
+template<EntityManagerStandar T>
+void EntityManager::SaveEntity(const unsigned int& ID, T* entity)
+{
+	entitiesByID[ID] = entity;
+	entitiesIDByType[typeid(T)].push_back(ID);
+}
+
+template<EntityManagerStandar T>
+T* EntityManager::Get(const unsigned int& ID)
+{
+	auto it = entitiesByID.find(ID);
+	if (it == entitiesByID.end())
+		return nullptr;
+
+	return dynamic_cast<T*>(it->second);
+}
+
+template<EntityManagerStandar T>
+vector<T*> EntityManager::GetAll()
+{
+	vector<T*> entitiesOfType;
+
+	for (vector<unsigned int>::iterator it = entitiesIDByType[typeid(T)].begin(); it != entitiesIDByType[typeid(T)].end(); it++)
+		entitiesOfType.push_back(Get<T>(*it));
+
+	return entitiesOfType;
+}
+
+#endif
