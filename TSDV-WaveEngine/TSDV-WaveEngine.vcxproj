@@ -155,6 +155,9 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entity\Controller\EntityController\EntityController.cpp" />
+    <ClCompile Include="src\Entity\Controller\Controller.cpp" />
+    <ClCompile Include="src\Entity\EntityManager.tpp" />
     <ClCompile Include="src\Material\MaterialFactory.cpp" />
     <ClCompile Include="src\Material\MaterialManager.cpp" />
     <ClCompile Include="src\FileReader\FileReader.cpp" />
@@ -183,6 +186,10 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClCompile Include="src\TileMap\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entity\Controller\EntityController\EntityController.h" />
+    <ClInclude Include="src\Entity\Controller\Controller.h" />
+    <ClInclude Include="src\Entity\EntityFactory.h" />
+    <ClInclude Include="src\Entity\EntityManager.h" />
     <ClInclude Include="lib\json.hpp" />
     <ClInclude Include="src\Material\MaterialFactory.h" />
     <ClInclude Include="src\Material\MaterialManager.h" />
@@ -214,6 +221,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
+    <None Include="src\Entity\EntityFactory.tpp" />
     <None Include="src\Singleton\Singleton.tpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
