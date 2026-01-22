@@ -36,7 +36,6 @@ private:
 
 public:
 
-
 	GLFWwindow* GetGLFWindow();
 	WAVEEXPORT int GetWidth();
 	WAVEEXPORT int GetHeight();
