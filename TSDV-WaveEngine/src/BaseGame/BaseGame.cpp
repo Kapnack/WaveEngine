@@ -36,7 +36,7 @@ void BaseGame::EndEngine()
 
 void BaseGame::EngineDraw()
 {
-	GetEntityManager()->DrawEntities();
+	//GetEntityManager()->DrawEntities();
 }
 
 Time* BaseGame::GetTime()
@@ -86,20 +86,31 @@ EntityFactory* BaseGame::GetEntityFactory()
 
 void BaseGame::Run()
 {
-	while (!glfwWindowShouldClose(GetWindow()->GetGLFWindow()))
+	try
 	{
-		GetTime()->SetDeltaTime();
+		while (!glfwWindowShouldClose(GetWindow()->GetGLFWindow()))
+		{
+			GetTime()->SetDeltaTime();
 
-		GetRenderer()->Clear();
+			GetRenderer()->Clear();
 
-		Update();
+			Update();
 
-		EngineDraw();
+			EngineDraw();
 
-		Draw();
+			Draw();
 
-		GetWindow()->SwapBuffer();
-		GetWindow()->HandleInput();
+			GetWindow()->SwapBuffer();
+			GetWindow()->HandleInput();
+		}
+	}
+	catch (exception& e)
+	{
+		cerr << e.what();
+	}
+	catch (...)
+	{
+		cerr << "WAVEENGINE: Unknow Error detected.";
 	}
 
 	EndEngine();
