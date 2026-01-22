@@ -49,7 +49,7 @@ public:
 	inline Entity* Get(const unsigned int& ID);
 
 	template<EntityManagerStandar T>
-	vector<T*> GetAll();
+	vector<T*> GetAllOfType();
 };
 
 #include "EntityManager.tpp"

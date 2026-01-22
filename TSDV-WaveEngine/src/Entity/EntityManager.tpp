@@ -2,6 +2,7 @@
 #define ENTITYMANAGER
 
 #include "EntityManager.h"
+#include "TileMap/Tile.h"
 
 EntityManager::EntityManager() : Service()
 {
@@ -49,7 +50,7 @@ Entity* EntityManager::Get(const unsigned int& ID)
 }
 
 template<EntityManagerStandar T>
-vector<T*> EntityManager::GetAll()
+vector<T*> EntityManager::GetAllOfType()
 {
 	vector<T*> entitiesOfType;
 
