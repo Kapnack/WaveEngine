@@ -6,7 +6,7 @@
 #include "Material.h"
 #include "FileReader/FileReader.h"
 
-MaterialFactory::MaterialFactory()
+MaterialFactory::MaterialFactory() : Service()
 {
 	FileReader fileReader;
 
