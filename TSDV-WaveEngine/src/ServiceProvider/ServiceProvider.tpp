@@ -7,7 +7,10 @@ template<ServiceStandard T>
 void ServiceProvider::Register(T* service)
 {
 	if (services.contains(typeid(T)))
+	{
 		delete service;
+		return;
+	}
 
 	services[typeid(T)] = service;
 }
