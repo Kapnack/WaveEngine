@@ -12,23 +12,26 @@ EntityController::~EntityController()
 {
 }
 
-Entity* EntityController::GetEntity()
-{
-	return GetEntityManager()->Get<Entity>(GetEntityID());
-}
-
-
 void EntityController::Update(const float& deltaTime)
 {
-	if (GetInput()->IsKeyPressed(Keys::W))
-		GetEntity()->Translate(Vector3::Up() * deltaTime * 100);
+	Entity* entity;
 
-	if (GetInput()->IsKeyPressed(Keys::S))
-		GetEntity()->Translate(Vector3::Down() * deltaTime * 100);
+	for (vector<unsigned int>::iterator it = entitiesIDs.begin(); it != entitiesIDs.end(); ++it)
+	{
+		entity = GetEntityManager()->Get<Entity>(*it);
 
-	if (GetInput()->IsKeyPressed(Keys::A))
-		GetEntity()->Translate(Vector3::Left() * deltaTime * 100);
+		if (GetInput()->IsKeyPressed(Keys::W))
+			entity->Translate(Vector3::Up() * deltaTime * 100);
 
-	if (GetInput()->IsKeyPressed(Keys::D))
-		GetEntity()->Translate(Vector3::Right() * deltaTime * 100);
+		if (GetInput()->IsKeyPressed(Keys::S))
+			entity->Translate(Vector3::Down() * deltaTime * 100);
+
+		if (GetInput()->IsKeyPressed(Keys::A))
+			entity->Translate(Vector3::Left() * deltaTime * 100);
+
+		if (GetInput()->IsKeyPressed(Keys::D))
+			entity->Translate(Vector3::Right() * deltaTime * 100);
+
+		entity->Draw();
+	}
 }
