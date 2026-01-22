@@ -155,6 +155,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ImGuiClass\ImGuiClass.cpp" />
     <ClCompile Include="src\Entity\Controller\EntityController\EntityController.cpp" />
     <ClCompile Include="src\Entity\Controller\Controller.tpp" />
     <ClCompile Include="src\Entity\EntityManager.tpp" />
@@ -186,6 +187,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClCompile Include="src\TileMap\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ImGuiClass\ImGuiClass.h" />
     <ClInclude Include="src\Entity\Controller\EntityController\EntityController.h" />
     <ClInclude Include="src\Entity\Controller\Controller.h" />
     <ClInclude Include="src\Entity\EntityFactory.h" />
