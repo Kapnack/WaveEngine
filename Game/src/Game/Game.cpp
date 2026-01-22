@@ -9,58 +9,56 @@
 
 Game::Game(int width, int height) : BaseGame(width, height)
 {
-	Init();
+	Init(width, height);
 }
 
 Game::~Game()
 {
-	Unload();
 }
 
-void Game::Init()
+void Game::Init(int width, int height)
 {
-	const string json = "Sprites/map.json";
+	BaseGame::Init(width, height);
+
+	/*const string json = "Sprites/map.json";
 	const string spriteSheet = "Sprites/spritesheet.png";
 
 	tileMap = new TileMap(json, spriteSheet, Vector2{ 128, 160 });
 
-	TextureImporter textureImporter;
-
-	textureImporter.LoadTexture("Sprites/Samus Aran Sprite Sheet.png");
-
-	sprite = new Sprite(textureImporter.GetLoadedTexture());
+	sprite = new Sprite();
 	sprite->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
 	sprite->SetPosition(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
 
 	otherThing = new Sprite(textureImporter.GetLoadedTexture());
 	otherThing->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
-	otherThing->SetPosition(Vector3{ 0,0,0 });
+	otherThing->SetPosition(Vector3{ 0,0,0 });*/
+
+	TextureImporter textureImporter;
+
+	textureImporter.LoadTexture("Sprites/Samus Aran Sprite Sheet.png");
+
+	Vector2 textureSize = Vector2(860, 762);
+
+	GetEntityManager();
+
+	EntityFactory* factory = GetEntityFactory();
+
+	entityController = new EntityController(factory->Create<Sprite>());
+
+	GetEntityManager()->Get<Sprite>(entityController->GetEntityID())->SetTexture(textureImporter.GetLoadedTexture());
+	GetEntityManager()->Get<Sprite>(entityController->GetEntityID())->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
+	GetEntityManager()->Get<Sprite>(entityController->GetEntityID())->SetPosition(Vector3{ 100,100,0 });
 }
 
 void Game::Update()
 {
-	if (GetInput()->IsKeyPressed(Keys::W))
-		sprite->Translate(Vector3::Up() * GetTime()->GetDeltaTime() * 100);
+	entityController->Update(GetDeltaTime());
+}
 
-	if (GetInput()->IsKeyPressed(Keys::S))
-		sprite->Translate(Vector3::Down() * GetTime()->GetDeltaTime() * 100);
-
-	if (GetInput()->IsKeyPressed(Keys::A))
-		sprite->Translate(Vector3::Left() * GetTime()->GetDeltaTime() * 100);
-
-	if (GetInput()->IsKeyPressed(Keys::D))
-		sprite->Translate(Vector3::Right() * GetTime()->GetDeltaTime() * 100);
-
-
-	tileMap->Draw();
-
-	sprite->Draw();
-	otherThing->Draw();
+void Game::Draw()
+{
 }
 
 void Game::Unload()
 {
-	delete tileMap;
-	delete sprite;
-	delete otherThing;
 }

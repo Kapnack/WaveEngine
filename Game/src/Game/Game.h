@@ -2,20 +2,19 @@
 
 #include "BaseGame/BaseGame.h"
 
-#include "TileMap/TileMap.h"
+#include "Entity/Controller/EntityController/EntityController.h"
 
 class Game : public BaseGame
 {
 private:
 
-	TileMap* tileMap;
-	Sprite* sprite;
-	Sprite* otherThing;
+	EntityController* entityController;
 
 protected:
 
-	void Init() override;
+	void Init(int width, int height) override;
 	void Update() override;
+	void Draw() override;
 	void Unload() override;
 
 public:
