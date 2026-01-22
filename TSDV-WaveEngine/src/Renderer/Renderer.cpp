@@ -93,7 +93,7 @@ void Renderer::CreateBuffers(const VertexData* vertex, const int& vertexSize, co
 	glBindVertexArray(0);
 }
 
-void Renderer::CreateBuffersSprite(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO, const unsigned int& texture) const
+void Renderer::CreateBuffersSprite(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const
 {
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);

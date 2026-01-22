@@ -39,7 +39,7 @@ public:
 	unsigned int spriteShaders;
 
 	void CreateBuffers(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const;
-	void CreateBuffersSprite(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO, const unsigned int& texture) const;
+	void CreateBuffersSprite(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const;
 
 	void UpdateBuffer(VertexData* vertex, int vertexSize, unsigned& VBO);
 
