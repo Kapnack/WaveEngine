@@ -20,11 +20,11 @@ private:
 
 	unsigned int CompileShader(const string& source, const unsigned int type);
 
-	friend class BaseGame;
-	friend class ServiceProvider;
-
 	MaterialFactory();
 	~MaterialFactory();
+
+	friend class BaseGame;
+	friend class ServiceProvider;
 
 public:
 
