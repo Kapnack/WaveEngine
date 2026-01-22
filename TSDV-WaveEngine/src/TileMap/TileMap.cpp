@@ -3,6 +3,8 @@
 #include "FileReader/FileReader.h"
 #include "TextureImporter/TextureImporter.h"
 #include "ServiceProvider/ServiceProvider.h"
+#include "Entity/EntityFactory.h"
+#include "Entity/EntityManager.h"
 #include "Window/Window.h"
 
 #include <iostream>
@@ -24,8 +26,8 @@ TileMap::~TileMap()
 	{
 		for (int y = 0; y < columnsAmount; ++y)
 		{
-			for (int x = 0; x < rowAmount; ++x)
-				delete _tileMapGrid[layer][y][x];
+			//for (int x = 0; x < rowAmount; ++x)
+			//	delete _tileMapGrid[layer][y][x];
 
 			delete[] _tileMapGrid[layer][y];
 		}
@@ -117,7 +119,9 @@ void TileMap::ImportTileMap(const string& filePath)
 			unsigned int col = tileJson[ColName];
 			unsigned int row = tileJson[RowName];
 
-			Tile* tile = new Tile();
+			unsigned int newTile = ServiceProvider::Instance().Get<EntityFactory>()->Create<Tile>();
+
+			Tile* tile = ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(newTile);
 
 			tile->SetTexture(texture);
 
@@ -157,7 +161,7 @@ void TileMap::UpdateTilesPositions()
 				Tile* tile = _tileMapGrid[layer][row][col];
 				if (!tile) continue;
 
-				tile->SetScale({ _worldTileWidth, _worldTileHeight, 1 });
+				tile->SetScale({ _worldTileWidth, _worldTileHeight, -1 });
 
 				float posX = (_worldTileWidth * 0.5f) + (_worldTileWidth * col);
 				float posY = windowHeight - (_worldTileHeight * 0.5f) - (_worldTileHeight * row);
