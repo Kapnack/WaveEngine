@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Entity/EntityManager.h"
 #include "ServiceProvider/Service.h"
 #include "ServiceProvider/ServiceProvider.h"
 
