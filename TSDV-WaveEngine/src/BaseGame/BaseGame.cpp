@@ -1,4 +1,4 @@
-#include "BaseGame.h"
+﻿#include "BaseGame.h"
 #include "Input/Input.h"
 
 #include "ServiceProvider/ServiceProvider.h"
@@ -6,25 +6,27 @@
 
 BaseGame::BaseGame(int width, int height)
 {
-	InitEngine(width, height);
 }
 
 BaseGame::~BaseGame()
 {
-	EndEngine();
 }
 
-void BaseGame::InitEngine(int width, int height)
+void BaseGame::Init(int width, int height)
 {
 	if (!glfwInit())
 		exit(-1);
 
 	ServiceProvider::Instance().Register(new Window(width, height, "WaveEngine", nullptr, nullptr));
+
 	ServiceProvider::Instance().Register(new MaterialManager());
 	ServiceProvider::Instance().Register(new MaterialFactory());
+	ServiceProvider::Instance().Register(new EntityManager());
+	ServiceProvider::Instance().Register(new EntityFactory(GetEntityManager()));
 	ServiceProvider::Instance().Register(new Renderer());
 	ServiceProvider::Instance().Register(new Input());
 	ServiceProvider::Instance().Register(new Time());
+
 }
 
 void BaseGame::EndEngine()
@@ -34,7 +36,7 @@ void BaseGame::EndEngine()
 
 Time* BaseGame::GetTime()
 {
-	return ServiceProvider::Instance().TryGet<Time>();
+	return ServiceProvider::Instance().Get<Time>();
 }
 
 Renderer* BaseGame::GetRenderer()
@@ -52,9 +54,29 @@ Window* BaseGame::GetWindow()
 	return ServiceProvider::Instance().Get<Window>();
 }
 
+MaterialManager* BaseGame::GetMaterialManager()
+{
+	return ServiceProvider::Instance().Get<MaterialManager>();
+}
+
+MaterialFactory* BaseGame::GetMaterialFactory()
+{
+	return ServiceProvider::Instance().Get<MaterialFactory>();
+}
+
 Input* BaseGame::GetInput()
 {
 	return ServiceProvider::Instance().Get<Input>();
+}
+
+EntityManager* BaseGame::GetEntityManager()
+{
+	return ServiceProvider::Instance().Get<EntityManager>();
+}
+
+EntityFactory* BaseGame::GetEntityFactory()
+{
+	return ServiceProvider::Instance().Get<EntityFactory>();
 }
 
 void BaseGame::Run()
@@ -70,4 +92,6 @@ void BaseGame::Run()
 		GetWindow()->SwapBuffer();
 		GetWindow()->HandleInput();
 	}
+
+	EndEngine();
 }

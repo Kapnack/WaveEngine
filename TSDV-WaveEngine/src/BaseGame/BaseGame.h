@@ -6,30 +6,32 @@
 #include "Time/Time.h"
 #include "Input/Input.h"
 #include "Material/MaterialManager.h"
+#include "Entity/EntityManager.h"
+#include "Entity/EntityFactory.h"
 
 WAVEEXPORT class BaseGame
 {
 private:
 
-	void InitEngine(int width, int height);
 	void EndEngine();
-
 
 	Renderer* GetRenderer();
 
 protected:
 
-	WAVEEXPORT	virtual void Init() = 0;
+	WAVEEXPORT	virtual void Init(int width, int height);
 	WAVEEXPORT	virtual void Update() = 0;
 	WAVEEXPORT	virtual void Unload() = 0;
 
 	WAVEEXPORT float GetDeltaTime();
 
+	WAVEEXPORT MaterialManager* GetMaterialManager();
+	WAVEEXPORT MaterialFactory* GetMaterialFactory();
 	WAVEEXPORT Input* GetInput();
-
 	WAVEEXPORT Window* GetWindow();
-
 	WAVEEXPORT Time* GetTime();
+	WAVEEXPORT EntityManager* GetEntityManager();
+	WAVEEXPORT EntityFactory* GetEntityFactory();
 
 public:
 
