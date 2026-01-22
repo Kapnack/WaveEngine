@@ -1,10 +1,6 @@
 #include "Tile.h"
 
-Tile::Tile() : Sprite(0)
-{
-}
-
-Tile::Tile(unsigned int texture) : Sprite(texture)
+Tile::Tile() : Sprite()
 {
 }
 

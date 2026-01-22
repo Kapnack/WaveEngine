@@ -13,7 +13,6 @@ private:
 public:
 
 	Tile();
-	Tile(unsigned int texture);
 	~Tile();
 
 	bool CanCollide();
