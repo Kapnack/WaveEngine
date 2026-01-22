@@ -1,7 +1,7 @@
 #pragma once
 
 #include "BaseGame/BaseGame.h"
-
+#include "TileMap/TileMap.h"
 #include "Entity/Controller/EntityController/EntityController.h"
 
 class Game : public BaseGame
@@ -9,6 +9,8 @@ class Game : public BaseGame
 private:
 
 	EntityController* entityController;
+
+	TileMap* tileMap;
 
 protected:
 

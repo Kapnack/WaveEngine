@@ -20,11 +20,7 @@ void Game::Init(int width, int height)
 {
 	BaseGame::Init(width, height);
 
-	/*const string json = "Sprites/map.json";
-	const string spriteSheet = "Sprites/spritesheet.png";
-
-	tileMap = new TileMap(json, spriteSheet, Vector2{ 128, 160 });
-
+	/*
 	sprite = new Sprite();
 	sprite->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
 	sprite->SetPosition(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
@@ -32,6 +28,11 @@ void Game::Init(int width, int height)
 	otherThing = new Sprite(textureImporter.GetLoadedTexture());
 	otherThing->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
 	otherThing->SetPosition(Vector3{ 0,0,0 });*/
+
+	const string json = "Sprites/map.json";
+	const string spriteSheet = "Sprites/spritesheet.png";
+
+	tileMap = new TileMap(json, spriteSheet, Vector2{ 128, 160 });
 
 	TextureImporter textureImporter;
 
@@ -61,4 +62,6 @@ void Game::Draw()
 
 void Game::Unload()
 {
+	delete entityController;
+	delete tileMap;
 }
