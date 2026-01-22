@@ -9,6 +9,10 @@
 #include "Entity/EntityManager.h"
 #include "Entity/EntityFactory.h"
 
+#include "ImGuiClass/ImGuiClass.h"
+
+using namespace WaveEngine::ImGuiClass;
+
 WAVEEXPORT class BaseGame
 {
 private:
@@ -18,6 +22,8 @@ private:
 	void EngineDraw();
 
 	Renderer* GetRenderer();
+
+	ImGuiClass* GetImGuiClass();
 
 protected:
 

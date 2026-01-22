@@ -1,9 +1,5 @@
 ﻿#include "BaseGame.h"
 
-#include <ImGui/imgui.h>
-#include <ImGui/imgui_impl_opengl3.h>
-#include <ImGui/imgui_impl_glfw.h>
-
 #include "Input/Input.h"
 #include "ServiceProvider/ServiceProvider.h"
 #include "Material/MaterialFactory.h"
@@ -22,7 +18,7 @@ void BaseGame::Init(int width, int height)
 		exit(-1);
 
 	ServiceProvider::Instance().Register(new Window(width, height, "WaveEngine", nullptr, nullptr));
-
+	ServiceProvider::Instance().Register(new WaveEngine::ImGuiClass::ImGuiClass(GetWindow()->GetGLFWindow()));
 	ServiceProvider::Instance().Register(new MaterialManager());
 	ServiceProvider::Instance().Register(new MaterialFactory());
 	ServiceProvider::Instance().Register(new EntityManager());
@@ -30,13 +26,6 @@ void BaseGame::Init(int width, int height)
 	ServiceProvider::Instance().Register(new Renderer());
 	ServiceProvider::Instance().Register(new Input());
 	ServiceProvider::Instance().Register(new Time());
-
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	ImGui::StyleColorsDark();
-	ImGui_ImplGlfw_InitForOpenGL(GetWindow()->GetGLFWindow(), true);
-	ImGui_ImplOpenGL3_Init("#version 330");
 
 }
 
@@ -58,6 +47,11 @@ Time* BaseGame::GetTime()
 Renderer* BaseGame::GetRenderer()
 {
 	return ServiceProvider::Instance().Get<Renderer>();
+}
+
+ImGuiClass* BaseGame::GetImGuiClass()
+{
+	return ServiceProvider::Instance().Get<ImGuiClass>();
 }
 
 float BaseGame::GetDeltaTime()
@@ -105,17 +99,13 @@ void BaseGame::Run()
 
 			GetRenderer()->Clear();
 
-			ImGui_ImplOpenGL3_NewFrame();
-			ImGui_ImplGlfw_NewFrame();
-			ImGui::NewFrame();
-
 			Update();
+
+			GetImGuiClass()->Update();
 
 			EngineDraw();
 
 			Draw();
-
-			ImGui::Begin
 
 			GetWindow()->SwapBuffer();
 			GetWindow()->HandleInput();
@@ -129,10 +119,6 @@ void BaseGame::Run()
 	{
 		cerr << "WAVEENGINE: Unknow Error detected.";
 	}
-
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
 
 	EndEngine();
 }
