@@ -6,26 +6,39 @@
 
 #include "Export.h"
 
-WAVEEXPORT class Controller
+#include <concepts>
+
+using namespace std;
+
+template<typename T>
+concept ControllerStandar = is_same_v<T, unsigned int> || is_integral_v<T>;
+
+class Controller
 {
-private:
-
-	unsigned int entityID = Entity::NULL_ENTITY;
-
 protected:
 
-	Input* GetInput();
-	EntityManager* GetEntityManager();
+	vector<unsigned int> entitiesIDs;
+
+	inline Input* GetInput();
+	inline EntityManager* GetEntityManager();
 
 public:
 
-	WAVEEXPORT	Controller();
-	WAVEEXPORT Controller(const unsigned int& entityID);
-	WAVEEXPORT ~Controller();
+	inline Controller();
+	inline Controller(const unsigned int& entityID);
+	inline ~Controller();
 
-	WAVEEXPORT virtual void Update(const float& deltaTime) = 0;
+	inline virtual void Update(const float& deltaTime) = 0;
 
-	WAVEEXPORT void SetEntityID(const unsigned int& entityID);
-	WAVEEXPORT const unsigned int GetEntityID();
+	template<ControllerStandar... T>
+	void AddEntityID(const T&... entityIDs);
+
+	template<ControllerStandar... T>
+	void RemoveEntityIDs(const T&... entityIDs);
+
+	inline void RemoveEntityID(const unsigned int& entityID);
+
+	inline const std::vector<unsigned int>& GetEntityIDs();
 };
 
+#include "Controller.tpp"
