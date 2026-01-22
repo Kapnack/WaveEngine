@@ -6,11 +6,17 @@
 #include "Renderer/Renderer.h"
 #include "VertexData.h"
 
+class EntityFactory;
+class EntityManager;
+
 WAVEEXPORT class Entity
 {
 private:
 
 	unsigned int ID = 0;
+
+	friend class EntityFactory;
+	friend class EntityManager;
 
 protected:
 
@@ -40,10 +46,12 @@ protected:
 
 	Renderer* GetRenderer() const;
 
-public:
-
 	WAVEEXPORT	Entity();
 	WAVEEXPORT virtual ~Entity();
+
+public:
+
+	static const unsigned int NULL_ENTITY = 0;
 
 	WAVEEXPORT void SetMaterial(const unsigned int materialID);
 	WAVEEXPORT const unsigned int GetMaterial() const;

@@ -15,7 +15,10 @@ Entity::~Entity()
 	delete[] vertex;
 	delete[] indices;
 
-	ServiceProvider::Instance().Get<MaterialManager>()->RemoveListener(this);
+	MaterialManager* materialManager = ServiceProvider::Instance().TryGet<MaterialManager>();
+
+	if (materialManager != nullptr)
+		materialManager->RemoveListener(this);
 }
 
 void Entity::SetMaterial(const unsigned int materialID)
