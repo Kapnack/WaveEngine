@@ -26,7 +26,7 @@ T* ServiceProvider::TryGet()
 {
 	unordered_map<type_index, Service*>::iterator it = services.find(typeid(T));
 
-	return (it != services.end()) ? static_cast<T*>(it->second) : nullptr;
+	return (it != services.end() && it->second != nullptr) ? static_cast<T*>(it->second) : nullptr;
 }
 
 template<ServiceStandard T>
