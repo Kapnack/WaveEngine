@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Window::Window(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share)
+Window::Window(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share) : Service()
 {
 	this->width = width;
 	this->height = height;
