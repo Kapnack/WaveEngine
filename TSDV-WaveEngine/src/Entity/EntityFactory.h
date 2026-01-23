@@ -2,6 +2,8 @@
 
 #include "Entity/EntityManager.h"
 #include "ServiceProvider/Service.h"
+#include "ImGuiClass/ImGuiClass.h"
+#include "Material/MaterialManager.h"
 #include "ServiceProvider/ServiceProvider.h"
 
 #include "Export.h"
@@ -13,10 +15,12 @@ class BaseGame;
 private:
 
 	EntityManager* entityManager;
+	ImGuiClass* imGuiClass;
+	MaterialManager* materialManager;
 
 	unsigned int currentEntityID = Entity::NULL_ENTITY;
 
-	inline EntityFactory(EntityManager* entityManager);
+	inline EntityFactory(EntityManager* entityManager, ImGuiClass* imGuiClass, MaterialManager* materialManager);
 	inline ~EntityFactory();
 
 	friend class ServiceProvider;
