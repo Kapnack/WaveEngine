@@ -13,13 +13,15 @@
 
 #include "Export.h"
 
+#include "Material/MaterialManager.h"
+
 class BaseGame;
 class EntityFactory;
 
 using namespace std;
 
 template<typename T>
-concept EntityManagerStandar = is_base_of_v<Entity, T>;
+concept EntityManagerStandar = derived_from<T, Entity>;
 
 class EntityManager final : public Service
 {
