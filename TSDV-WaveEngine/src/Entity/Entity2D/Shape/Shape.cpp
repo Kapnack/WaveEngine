@@ -3,7 +3,7 @@
 #include "ServiceProvider/ServiceProvider.h"
 #include "Material/MaterialManager.h"
 
-Shape::Shape() : Entity2D()
+Shape::Shape(const unsigned int& ID) : Entity2D(ID)
 {
 	materialID = ServiceProvider::Instance().Get<MaterialManager>()->GetMaterial("basicShapeMaterial");
 }

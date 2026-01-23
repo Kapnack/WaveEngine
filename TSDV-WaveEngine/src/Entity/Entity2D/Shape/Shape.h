@@ -8,7 +8,7 @@ protected:
 
 public:
 
-	WAVEEXPORT Shape();
+	WAVEEXPORT Shape(const unsigned int& ID);
 	WAVEEXPORT virtual ~Shape();
 
 	WAVEEXPORT void Draw() override;
