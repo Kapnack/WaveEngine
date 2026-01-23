@@ -3,6 +3,8 @@
 #include "../Entity2D.h"
 #include "Entity/Entity2D/Animation/Animation.h"
 
+class EntityFactory;
+
 class Sprite : public Entity2D
 {
 private:
@@ -13,6 +15,8 @@ private:
 	Vector2 UV;
 
 	void Init(const Vector4& color);
+
+	friend class EntityFactory;
 
 public:
 
