@@ -16,7 +16,7 @@ private:
 
 public:
 
-	WAVEEXPORT Sprite();
+	WAVEEXPORT Sprite(const unsigned int& ID);
 	WAVEEXPORT virtual ~Sprite();
 
 	WAVEEXPORT void SetUVCordinates(const Vector2& cord1, const Vector2& cord2);
