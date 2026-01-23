@@ -4,9 +4,8 @@
 
 #include "Export.h"
 #include "Renderer/Renderer.h"
+#include "ServiceProvider/ServiceProvider.h"
 #include "VertexData.h"
-
-#include "ImGuiClass/ImGuiClass.h"
 
 class EntityFactory;
 class EntityManager;
@@ -17,7 +16,7 @@ private:
 
 	unsigned int ID = 0;
 
-	ImGuiClass* GetImGuiClass();
+	void SilentUpdate();
 
 	friend class EntityFactory;
 	friend class EntityManager;
@@ -50,7 +49,7 @@ protected:
 
 	Renderer* GetRenderer() const;
 
-	WAVEEXPORT	Entity();
+	WAVEEXPORT	Entity(const unsigned int& ID);
 	WAVEEXPORT virtual ~Entity();
 
 public:

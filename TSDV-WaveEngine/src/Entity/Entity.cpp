@@ -1,26 +1,20 @@
 #include "Entity.h"
 
-#include "ServiceProvider/ServiceProvider.h"
 #include "Material/MaterialManager.h"
+#include "ImGuiClass/ImGuiClass.h"
+#include "Entity/EntityManager.h"
 
-Entity::Entity()
+Entity::Entity(const unsigned int& ID)
 {
+	this->ID = ID;
+
 	SetTRS();
-
-	GetImGuiClass()->CreateVec3Editor("Postion", position, -100, 100);
-
-	ServiceProvider::Instance().Get<MaterialManager>()->AddListener(this);
 }
 
 Entity::~Entity()
 {
 	delete[] vertex;
 	delete[] indices;
-
-	MaterialManager* materialManager = ServiceProvider::Instance().TryGet<MaterialManager>();
-
-	if (materialManager != nullptr)
-		materialManager->RemoveListener(this);
 }
 
 void Entity::SetMaterial(const unsigned int materialID)
@@ -250,9 +244,9 @@ void Entity::FlipZ()
 	SetScale(scale.x, scale.y, -scale.z);
 }
 
-ImGuiClass* Entity::GetImGuiClass()
+void Entity::SilentUpdate()
 {
-	return ServiceProvider::Instance().Get<ImGuiClass>();
+	SetTRS();
 }
 
 void Entity::SetTRS()
