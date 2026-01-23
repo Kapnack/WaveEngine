@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Entity2D.h"
+#include "Entity/Entity2D/Entity2D.h"
 #include "Entity/Entity2D/Animation/Animation.h"
 
 class EntityFactory;
