@@ -19,6 +19,9 @@ private:
 	int width = 0;
 	int height = 0;
 
+	int baseWidth = 0;
+	int baseHeight = 0;
+
 	const char* title;
 	GLFWmonitor* monitor;
 	GLFWwindow* share;
@@ -39,6 +42,8 @@ public:
 	GLFWwindow* GetGLFWindow();
 	WAVEEXPORT int GetWidth();
 	WAVEEXPORT int GetHeight();
+	WAVEEXPORT int GetBaseWidth();
+	WAVEEXPORT int GetBaseHeight();
 
 	WAVEEXPORT void SwapBuffer();
 	WAVEEXPORT void HandleInput();

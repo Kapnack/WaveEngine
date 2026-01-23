@@ -12,6 +12,9 @@ Window::Window(int width, int height, const char* title, GLFWmonitor* monitor, G
 	this->monitor = monitor;
 	this->share = share;
 
+	baseWidth = width;
+	baseHeight = height;
+
 	Init();
 }
 
@@ -61,6 +64,16 @@ int Window::GetWidth()
 int Window::GetHeight()
 {
 	return height;
+}
+
+int Window::GetBaseWidth()
+{
+	return baseWidth;
+}
+
+int Window::GetBaseHeight()
+{
+	return baseHeight;
 }
 
 void Window::SwapBuffer()
