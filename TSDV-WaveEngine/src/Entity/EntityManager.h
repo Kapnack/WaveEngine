@@ -27,6 +27,8 @@ class EntityManager final : public Service
 {
 private:
 
+	MaterialManager* materialManager;
+
 	unordered_map<unsigned int, Entity*> entitiesByID;
 
 	unordered_map<type_index, vector<unsigned int>> entitiesIDByType;
