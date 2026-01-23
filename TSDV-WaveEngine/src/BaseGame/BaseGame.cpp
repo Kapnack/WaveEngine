@@ -21,8 +21,8 @@ void BaseGame::Init(int width, int height)
 	ServiceProvider::Instance().Register(new ImGuiClass());
 	ServiceProvider::Instance().Register(new MaterialManager());
 	ServiceProvider::Instance().Register(new MaterialFactory());
-	ServiceProvider::Instance().Register(new EntityManager());
-	ServiceProvider::Instance().Register(new EntityFactory(GetEntityManager()));
+	ServiceProvider::Instance().Register(new EntityManager(GetMaterialManager()));
+	ServiceProvider::Instance().Register(new EntityFactory(GetEntityManager(), GetImGuiClass(), GetMaterialManager()));
 	ServiceProvider::Instance().Register(new Renderer());
 	ServiceProvider::Instance().Register(new Input());
 	ServiceProvider::Instance().Register(new Time());
@@ -103,6 +103,8 @@ void BaseGame::Run()
 			GetImGuiClass()->Update();
 
 			Update();
+
+			GetEntityManager()->UpdateEntities();
 
 			Draw();
 
