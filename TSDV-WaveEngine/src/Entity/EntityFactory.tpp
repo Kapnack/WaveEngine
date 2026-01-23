@@ -6,9 +6,13 @@
 #include "ServiceProvider/ServiceProvider.h"
 #include"Entity/EntityManager.h"
 
-EntityFactory::EntityFactory(EntityManager* entityManager) : Service()
+#include "Entity/Entity2D/Sprite/Sprite.h"
+
+EntityFactory::EntityFactory(EntityManager* entityManager, ImGuiClass* imGuiClass, MaterialManager* materialManager) : Service()
 {
 	this->entityManager = entityManager;
+	this->imGuiClass = imGuiClass;
+	this->materialManager = materialManager;
 }
 
 EntityFactory::~EntityFactory()
