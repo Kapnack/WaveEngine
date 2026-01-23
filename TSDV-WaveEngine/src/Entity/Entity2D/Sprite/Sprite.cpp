@@ -3,7 +3,7 @@
 #include "Material/MaterialManager.h"
 #include "ServiceProvider/ServiceProvider.h"
 
-Sprite::Sprite() : Entity2D()
+Sprite::Sprite(const unsigned int& ID) : Entity2D(ID)
 {
 	Init(Vector4{ 1,1,1,1 });
 
