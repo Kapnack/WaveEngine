@@ -39,6 +39,9 @@ private:
 	inline void DrawEntities();
 
 	inline EntityManager();
+	inline void UpdateEntities();
+
+	inline EntityManager(MaterialManager* materialManager);
 	inline ~EntityManager();
 
 	friend class ServiceProvider;
