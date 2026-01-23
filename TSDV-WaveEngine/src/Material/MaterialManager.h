@@ -12,6 +12,8 @@
 
 class Renderer;
 class MaterialFactory;
+class EntityFactory;
+class EntityManager;
 class BaseGame;
 
 using namespace std;
@@ -32,6 +34,8 @@ private:
 
 	friend class Renderer;
 	friend class MaterialFactory;
+	friend class EntityFactory;
+	friend class EntityManager;
 	friend class BaseGame;
 	friend class ServiceProvider;
 
@@ -46,11 +50,10 @@ public:
 
 	WAVEEXPORT void DeleteMaterial(const unsigned int id);
 
-	void AddListener(Entity* entity);
+	WAVEEXPORT void AddListener(Entity* entity);
 
-	void OnDeleteMaterial(Material& material);
+	WAVEEXPORT void OnDeleteMaterial(Material& material);
 
-	void RemoveListener(Entity* entity);
-
+	WAVEEXPORT void RemoveListener(Entity* entity);
 };
 
