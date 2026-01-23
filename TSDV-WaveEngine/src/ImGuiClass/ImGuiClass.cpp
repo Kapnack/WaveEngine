@@ -27,25 +27,29 @@ void ImGuiClass::Update()
 
 	ImGui::Begin("Epic Window");
 
-	string label;
+	string text;
 
 	for (vector<ImGuiClassData>::iterator it = dataToDraw.begin(); it != dataToDraw.end(); ++it)
 	{
+		text = "EntityID: " + to_string(it->id);
+
+		ImGui::Text(text.c_str());
+
 		if (it->position != nullptr)
 		{
-			label = to_string(it->id) + ": Pos. ";
-			ImGui::InputFloat3(label.c_str(), &it->position->x);
+			text = "ID: " + to_string(it->id) + ". Position. ";
+			ImGui::InputFloat3(text.c_str(), &it->position->x);
 		}
 
 		if (it->rotation != nullptr)
 		{
-			label = to_string(it->id) + ": Rot. ";
-			ImGui::InputFloat3(label.c_str(), &it->rotation->x);
+			text = "ID: " + to_string(it->id) + ". Rotation.";
+			ImGui::InputFloat3(text.c_str(), &it->rotation->x);
 		}
 
 		if (it->textureID != nullptr)
 		{
-			ImGui::Image((ImTextureID)(intptr_t)it->textureID, ImVec2(256, 256));
+			ImGui::Image(*it->textureID, ImVec2(256, 256), ImVec2(0, 1), ImVec2(1, 0));
 		}
 	}
 
