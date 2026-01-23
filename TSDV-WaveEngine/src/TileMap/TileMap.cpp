@@ -126,7 +126,7 @@ void TileMap::ImportTileMap(const string& filePath)
 			tile->SetTexture(texture);
 
 			tile->SetSpriteSheetID(spriteSheetID);
-			tile->SetID(id);
+			tile->SetTileID(id);
 
 			tile->SetCollide(layerHasCollision);
 
