@@ -12,7 +12,7 @@ protected:
 
 public:
 
-	WAVEEXPORT Entity2D();
+	WAVEEXPORT Entity2D(const unsigned int& ID);
 	WAVEEXPORT virtual ~Entity2D();
 
 	WAVEEXPORT Collider GetCollider() const;

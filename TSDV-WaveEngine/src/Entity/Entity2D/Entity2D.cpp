@@ -1,6 +1,6 @@
 #include "Entity2D.h"
 
-Entity2D::Entity2D() : Entity()
+Entity2D::Entity2D(const unsigned int& ID) : Entity(ID)
 {
 	UpdateCollider();
 }
