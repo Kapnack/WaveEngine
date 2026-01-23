@@ -22,12 +22,20 @@ EntityFactory::~EntityFactory()
 template<EntityManagerStandar T>
 unsigned int EntityFactory::Create()
 {
-	T* newEntity = new T();
-
 	++currentEntityID;
-	newEntity->ID = currentEntityID;
 
-	entityManager->SaveEntity(currentEntityID, newEntity);
+	T* newEntity = new T(currentEntityID);
+
+	Entity* newEntityAsEntity = newEntity;
+
+	entityManager->SaveEntity(currentEntityID, newEntityAsEntity);
+
+	materialManager->AddListener(newEntityAsEntity);
+
+	if(Sprite* sprite = dynamic_cast<Sprite*>(newEntity))
+	imGuiClass->CreateEditor(currentEntityID, newEntityAsEntity->position, newEntityAsEntity->rotation, &sprite->textureID);
+	else
+	imGuiClass->CreateEditor(currentEntityID, newEntityAsEntity->position, newEntityAsEntity->rotation);
 
 	return currentEntityID;
 }
