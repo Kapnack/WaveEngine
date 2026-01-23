@@ -6,8 +6,7 @@ WAVEEXPORT class Triangle : public Shape
 {
 public:
 
-	WAVEEXPORT Triangle();
-	WAVEEXPORT Triangle(Vector4 color);
+	WAVEEXPORT Triangle(const unsigned int& ID);
 	WAVEEXPORT ~Triangle();
 };
 
