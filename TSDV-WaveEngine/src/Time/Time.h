@@ -1,9 +1,12 @@
 #pragma once
 
 #include "ServiceProvider/Service.h"
+#include "ServiceProvider/ServiceProvider.h"
 
 #include "Export.h"
 #include "Window/Window.h"
+
+class BaseGame;
 
 WAVEEXPORT class Time : public Service
 {
@@ -14,10 +17,13 @@ private:
 
 	Window* GetWindow();
 
-public:
-
 	Time();
 	~Time();
+
+	friend class BaseGame;
+	friend class ServiceProvider;
+
+public:
 
 	void SetDeltaTime();
 	WAVEEXPORT float GetDeltaTime();

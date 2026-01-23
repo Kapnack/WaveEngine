@@ -1,8 +1,6 @@
 #include "Time.h"
 
-#include "ServiceProvider/ServiceProvider.h"
-
-Time::Time()
+Time::Time() : Service()
 {
 }
 

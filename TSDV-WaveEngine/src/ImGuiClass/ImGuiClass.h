@@ -2,30 +2,46 @@
 
 #include "ServiceProvider/Service.h"
 
-#include <GLFW/glfw3.h>
+#include "ServiceProvider/ServiceProvider.h"
+#include "Window/Window.h"
+#include "Vector3.h"
+
+#include<string>
+
+#include <vector>
+
+using namespace std;
 
 class BaseGame;
-class ServiceProvider;
 
-namespace WaveEngine::ImGuiClass
+struct ImGuiClassData
 {
-	class ImGuiClass : public Service
-	{
-	private:
+	string label;
+	Vector3* vector;
+	float min;
+	float max;
+};
 
-		ImGuiClass(GLFWwindow* window);
-		~ImGuiClass();
+class ImGuiClass : public Service
+{
+private:
 
-		void Init(GLFWwindow* window);
-		void Update();
-		void Unload();
+	vector<ImGuiClassData> dataToDraw;
 
-		friend class BaseGame;
-		friend class ServiceProvider;
+	Window* GetWindow();
 
-	public:
+	void Init();
+	void Update();
+	void Draw();
+	void Unload();
 
+	friend class BaseGame;
+	friend class ServiceProvider;
 
-	};
-}
+public:
 
+	void CreateVec3Editor(const string& paramName, Vector3& vector, float min, float max);
+
+	ImGuiClass();
+	~ImGuiClass();
+};

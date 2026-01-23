@@ -29,10 +29,15 @@ void Game::Init(int width, int height)
 	otherThing->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
 	otherThing->SetPosition(Vector3{ 0,0,0 });*/
 
+	EntityFactory* factory = GetEntityFactory();
+
+	unsigned int player = factory->Create<Sprite>();
+	unsigned int player2 = factory->Create<Sprite>();
+
 	const string json = "Sprites/map.json";
 	const string spriteSheet = "Sprites/spritesheet.png";
 
-	tileMap = new TileMap(json, spriteSheet, Vector2{ 128, 160 });
+	tileMap = new TileMap(json, spriteSheet, Vector2{ 128, 48 });
 
 	TextureImporter textureImporter;
 
@@ -42,18 +47,13 @@ void Game::Init(int width, int height)
 
 	GetEntityManager();
 
-	EntityFactory* factory = GetEntityFactory();
-
-	unsigned int player = factory->Create<Sprite>();
-	unsigned int player2 = factory->Create<Sprite>();
-
 	entityController = new EntityController();
 
 	GetEntityManager()->Get<Sprite>(player)->SetTexture(textureImporter.GetLoadedTexture());
 	GetEntityManager()->Get<Sprite>(player)->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
 	GetEntityManager()->Get<Sprite>(player)->SetPosition(Vector3{ 100,100,0 });
 
-	for (int i = 1; i < 90; i++)
+	for (int i = 1; i < 100; i++)
 		entityController->AddEntityID(i);
 
 	GetEntityManager()->Get<Sprite>(player2)->SetTexture(textureImporter.GetLoadedTexture());
@@ -70,6 +70,8 @@ void Game::Update()
 void Game::Draw()
 {
 	tileMap->Draw();
+	GetEntityManager()->Get<Sprite>(1)->Draw();
+	GetEntityManager()->Get<Sprite>(2)->Draw();
 }
 
 void Game::Unload()

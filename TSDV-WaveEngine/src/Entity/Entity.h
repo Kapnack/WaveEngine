@@ -6,6 +6,8 @@
 #include "Renderer/Renderer.h"
 #include "VertexData.h"
 
+#include "ImGuiClass/ImGuiClass.h"
+
 class EntityFactory;
 class EntityManager;
 
@@ -14,6 +16,8 @@ WAVEEXPORT class Entity
 private:
 
 	unsigned int ID = 0;
+
+	ImGuiClass* GetImGuiClass();
 
 	friend class EntityFactory;
 	friend class EntityManager;

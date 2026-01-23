@@ -2,16 +2,13 @@
 
 #include "Export.h"
 #include "Window/Window.h"
+#include "ImGuiClass/ImGuiClass.h"
 #include "Renderer/Renderer.h"
 #include "Time/Time.h"
 #include "Input/Input.h"
 #include "Material/MaterialManager.h"
 #include "Entity/EntityManager.h"
 #include "Entity/EntityFactory.h"
-
-#include "ImGuiClass/ImGuiClass.h"
-
-using namespace WaveEngine::ImGuiClass;
 
 WAVEEXPORT class BaseGame
 {
@@ -44,8 +41,8 @@ protected:
 
 public:
 
-	WAVEEXPORT	BaseGame(int width, int height);
-	WAVEEXPORT	virtual ~BaseGame();
+	WAVEEXPORT BaseGame(int width, int height);
+	WAVEEXPORT virtual ~BaseGame();
 
 	WAVEEXPORT	void Run();
 };

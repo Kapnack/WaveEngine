@@ -7,6 +7,8 @@ Entity::Entity()
 {
 	SetTRS();
 
+	GetImGuiClass()->CreateVec3Editor("Postion", position, -100, 100);
+
 	ServiceProvider::Instance().Get<MaterialManager>()->AddListener(this);
 }
 
@@ -246,6 +248,11 @@ void Entity::FlipY()
 void Entity::FlipZ()
 {
 	SetScale(scale.x, scale.y, -scale.z);
+}
+
+ImGuiClass* Entity::GetImGuiClass()
+{
+	return ServiceProvider::Instance().Get<ImGuiClass>();
 }
 
 void Entity::SetTRS()

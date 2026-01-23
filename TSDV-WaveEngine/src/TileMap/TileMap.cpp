@@ -161,7 +161,7 @@ void TileMap::UpdateTilesPositions()
 				Tile* tile = _tileMapGrid[layer][row][col];
 				if (!tile) continue;
 
-				tile->SetScale({ _worldTileWidth, _worldTileHeight, -1 });
+				tile->SetScale({ _worldTileWidth, _worldTileHeight, 1 });
 
 				float posX = (_worldTileWidth * 0.5f) + (_worldTileWidth * col);
 				float posY = windowHeight - (_worldTileHeight * 0.5f) - (_worldTileHeight * row);

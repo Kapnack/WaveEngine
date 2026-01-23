@@ -20,6 +20,9 @@ void EntityController::Update(const float& deltaTime)
 	{
 		entity = GetEntityManager()->Get<Entity>(*it);
 
+		if (entity == nullptr)
+			continue;
+
 		if (GetInput()->IsKeyPressed(Keys::W))
 			entity->Translate(Vector3::Up() * deltaTime * 100);
 
@@ -31,7 +34,5 @@ void EntityController::Update(const float& deltaTime)
 
 		if (GetInput()->IsKeyPressed(Keys::D))
 			entity->Translate(Vector3::Right() * deltaTime * 100);
-
-		entity->Draw();
 	}
 }

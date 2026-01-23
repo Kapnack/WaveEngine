@@ -18,7 +18,7 @@ void BaseGame::Init(int width, int height)
 		exit(-1);
 
 	ServiceProvider::Instance().Register(new Window(width, height, "WaveEngine", nullptr, nullptr));
-	ServiceProvider::Instance().Register(new WaveEngine::ImGuiClass::ImGuiClass(GetWindow()->GetGLFWindow()));
+	ServiceProvider::Instance().Register(new ImGuiClass());
 	ServiceProvider::Instance().Register(new MaterialManager());
 	ServiceProvider::Instance().Register(new MaterialFactory());
 	ServiceProvider::Instance().Register(new EntityManager());
@@ -36,6 +36,7 @@ void BaseGame::EndEngine()
 
 void BaseGame::EngineDraw()
 {
+	GetImGuiClass()->Draw();
 	//GetEntityManager()->DrawEntities();
 }
 
@@ -56,7 +57,7 @@ ImGuiClass* BaseGame::GetImGuiClass()
 
 float BaseGame::GetDeltaTime()
 {
-	return ServiceProvider::Instance().Get<Time>()->GetDeltaTime();
+	return GetTime()->GetDeltaTime();
 }
 
 Window* BaseGame::GetWindow()
@@ -99,13 +100,13 @@ void BaseGame::Run()
 
 			GetRenderer()->Clear();
 
-			Update();
-
 			GetImGuiClass()->Update();
 
-			EngineDraw();
+			Update();
 
 			Draw();
+
+			EngineDraw();
 
 			GetWindow()->SwapBuffer();
 			GetWindow()->HandleInput();
