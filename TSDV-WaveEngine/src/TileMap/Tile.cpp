@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-Tile::Tile() : Sprite()
+Tile::Tile(const unsigned int& ID) : Sprite(ID)
 {
 }
 
@@ -18,14 +18,14 @@ bool Tile::CanCollide()
 	return collide;
 }
 
-void Tile::SetID(unsigned int id)
+void Tile::SetTileID(unsigned int id)
 {
-	this->id = id;
+	this->tileID = id;
 }
 
 unsigned int Tile::GetID()
 {
-	return id;
+	return tileID;
 }
 
 void Tile::SetSpriteSheetID(int id)

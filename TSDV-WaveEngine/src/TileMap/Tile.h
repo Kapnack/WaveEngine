@@ -11,10 +11,10 @@ class Tile : public Sprite
 private:
 
 	int spriteSheetID = -1;
-	unsigned int id = 0;
+	unsigned int tileID = 0;
 	bool collide = false;
 
-	Tile();
+	Tile(const unsigned int& ID);
 	~Tile();
 
 	friend class TileMap;
@@ -26,7 +26,7 @@ public:
 	bool CanCollide();
 	void SetCollide(bool walkable);
 
-	void SetID(unsigned int id);
+	void SetTileID(unsigned int id);
 	unsigned int GetID();
 
 	void SetSpriteSheetID(int id);
