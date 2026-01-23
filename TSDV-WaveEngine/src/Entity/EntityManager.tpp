@@ -2,10 +2,13 @@
 #define ENTITYMANAGER
 
 #include "EntityManager.h"
+#include "Material/MaterialManager.h"
 #include "TileMap/Tile.h"
 
 EntityManager::EntityManager() : Service()
+EntityManager::EntityManager(MaterialManager* materialManager) : Service()
 {
+	this->materialManager = materialManager;
 }
 
 EntityManager::~EntityManager()
