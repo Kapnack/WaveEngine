@@ -84,6 +84,8 @@ void ImGuiClass::Update()
 	if (ImGui::Button("Previous Page", ImVec2(100, 25)))
 		GoToPreviousState();
 
+	ImGui::SameLine();
+
 	if (ImGui::Button("Next Page", ImVec2(100, 25)))
 		GoToNextState();
 
@@ -110,6 +112,10 @@ void ImGuiClass::Update()
 
 			text = "ID: " + to_string(it.second->ID) + ". Rotation.";
 			if (ImGui::InputFloat3(text.c_str(), &it.second->rotation.x))
+				it.second->SetTRS();
+
+			text = "ID: " + to_string(it.second->ID) + ". Scale.";
+			if (ImGui::InputFloat3(text.c_str(), &it.second->scale.x))
 				it.second->SetTRS();
 		}
 
