@@ -183,6 +183,9 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClCompile Include="src\Renderer\Renderer.cpp" />
     <ClCompile Include="src\ServiceProvider\Service.cpp" />
     <ClCompile Include="src\ServiceProvider\ServiceProvider.tpp" />
+    <ClCompile Include="src\TextureImporter\Texture.cpp" />
+    <ClCompile Include="src\TextureImporter\TextureManager.cpp" />
+    <ClCompile Include="src\Vector2.cpp" />
     <ClCompile Include="src\Vector3.cpp" />
     <ClCompile Include="src\Vector4.cpp" />
     <ClCompile Include="src\VertexData.cpp" />
@@ -221,6 +224,9 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClInclude Include="src\ServiceProvider\Service.h" />
     <ClInclude Include="src\ServiceProvider\ServiceProvider.h" />
     <ClInclude Include="src\Singleton\Singleton.h" />
+    <ClInclude Include="src\TextureImporter\Texture.h" />
+    <ClInclude Include="src\TextureImporter\TextureManager.h" />
+    <ClInclude Include="src\Vector2.h" />
     <ClInclude Include="src\Vector4.h" />
     <ClInclude Include="src\VertexData.h" />
     <ClInclude Include="src\Export.h" />
