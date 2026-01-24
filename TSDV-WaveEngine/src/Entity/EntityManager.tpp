@@ -19,6 +19,11 @@ EntityManager::~EntityManager()
 	entitiesIDByType.clear();
 }
 
+unordered_map<unsigned int, Entity*>& EntityManager::GetEntities()
+{
+	return entitiesByID;
+}
+
 inline void EntityManager::DrawEntities()
 {
 	for (unordered_map<const unsigned int, Entity*>::iterator service = entitiesByID.begin(); service != entitiesByID.end(); ++service)
