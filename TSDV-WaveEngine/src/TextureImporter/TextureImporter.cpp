@@ -7,7 +7,20 @@
 #include <iostream>
 #include <filesystem>
 
-void TextureImporter::LoadTexture(string filePath)
+TextureImporter::TextureImporter() : Service()
+{
+}
+
+TextureImporter::~TextureImporter()
+{
+}
+
+TextureManager* TextureImporter::GetTextureManager()
+{
+	return ServiceProvider::Instance().Get<TextureManager>();
+}
+
+unsigned int TextureImporter::LoadTexture(string filePath)
 {
 	string absolutePath = std::filesystem::absolute(filePath).lexically_normal().string();
 
@@ -23,8 +36,10 @@ void TextureImporter::LoadTexture(string filePath)
 	if (!data)
 	{
 		std::cout << "Failed to load texture: " << absolutePath << std::endl;
-		return;
+		return 0;
 	}
+
+	unsigned int texture = 0;
 
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
@@ -39,12 +54,15 @@ void TextureImporter::LoadTexture(string filePath)
 	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
+	++currentTextureID;
+
+	Texture* newTexture = new Texture(currentTextureID, texture, width, height);
+
+	GetTextureManager()->Save(currentTextureID, newTexture);
+
 	stbi_image_free(data);
 
 	std::cout << "Loaded texture: " << absolutePath << " (" << width << "x" << height << ")" << std::endl;
-}
 
-unsigned int TextureImporter::GetLoadedTexture()
-{
-	return texture;
+	return currentTextureID;
 }
