@@ -3,6 +3,9 @@
 #include "ServiceProvider/Service.h"
 
 #include "ServiceProvider/ServiceProvider.h"
+#include "TextureImporter/TextureManager.h"
+#include "TextureImporter/Texture.h"
+#include "Entity/EntityManager.h"
 #include "Window/Window.h"
 #include "Vector3.h"
 #include "Vector4.h"
@@ -27,9 +30,12 @@ class ImGuiClass : public Service
 {
 private:
 
-	vector<ImGuiClassData> dataToDraw;
+	vector<ImGuiClassData*> dataToDraw;
 
 	Window* GetWindow();
+
+	TextureManager* GetTextureManager();
+	EntityManager* GetEntityManager();
 
 	void Init();
 	void Update();
