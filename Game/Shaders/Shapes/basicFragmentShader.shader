@@ -2,9 +2,11 @@
 
 	in vec4 vertexColor;
 
+	uniform vec4 uColor;
+
 	out vec4 FragColor;
 
 	void main()
 	{
-		FragColor = vec4(vertexColor.x, vertexColor.y, vertexColor.z, vertexColor.w);
+		FragColor = vertexColor * uColor;
 	};
