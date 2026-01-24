@@ -63,6 +63,9 @@ void Game::Init(int width, int height)
 void Game::Update()
 {
 	entityController->Update(GetDeltaTime());
+
+	if (GetInput()->IsKeyPressed(Keys::Q))
+		GetMaterialManager()->DeleteMaterial(GetEntityManager()->Get<Entity>(2)->GetMaterial());
 }
 
 void Game::Draw()
