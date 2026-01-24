@@ -2,11 +2,17 @@
 
 #include "../Shape.h"
 
+class EntityFactory;
+class EntityManager;
+
 WAVEEXPORT class Square : public Shape
 {
-public:
+private:
 
 	WAVEEXPORT Square(const unsigned int& ID);
 	WAVEEXPORT ~Square();
+
+	friend class EntityFactory;
+	friend class EntityManager;
 };
 
