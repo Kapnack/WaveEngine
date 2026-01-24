@@ -30,6 +30,8 @@ private:
 
 	MaterialManager* GetMaterialManager();
 
+	void DrawElement2D(const glm::mat4& model, const unsigned int& materialID, const int& indicesSize, const unsigned int& VAO);
+
 public:
 
 	Renderer();
