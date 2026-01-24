@@ -4,6 +4,7 @@
 
 #include "ServiceProvider/ServiceProvider.h"
 #include "TextureImporter/TextureManager.h"
+#include "Material/MaterialManager.h"
 #include "TextureImporter/Texture.h"
 #include "Entity/EntityManager.h"
 #include "Window/Window.h"
@@ -36,6 +37,7 @@ private:
 
 	TextureManager* GetTextureManager();
 	EntityManager* GetEntityManager();
+	MaterialManager* GetMaterialManager();
 
 	void Init();
 	void Update();
