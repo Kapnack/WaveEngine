@@ -29,9 +29,19 @@ const string Material::GetName()
 	return name;
 }
 
+Vector4 Material::GetColor()
+{
+	return color;
+}
+
 unsigned int Material::GetProgram()
 {
 	return program;
+}
+
+unsigned int Material::GetUColor()
+{
+	return uColor;
 }
 
 unsigned int Material::GetUModel()
@@ -59,6 +69,11 @@ void Material::SetProgram(const unsigned int& program)
 	this->program = program;
 }
 
+void Material::SetUColor(const unsigned int& color)
+{
+	this->uColor = color;
+}
+
 void Material::SetUModel(const unsigned int& model)
 {
 	uModel = model;
@@ -82,6 +97,11 @@ void Material::SetOurTexture(const unsigned int& ourTexture)
 unsigned int Material::GetOurTexture()
 {
 	return ourTexture;
+}
+
+void Material::SetColor(const Vector4& color)
+{
+	this->color = color;
 }
 
 void Material::Bind()
