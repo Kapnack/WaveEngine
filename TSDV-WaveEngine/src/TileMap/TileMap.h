@@ -4,6 +4,7 @@
 #include "Tile.h"
 
 #include "Window/Window.h"
+#include "Vector2.h"
 
 #include <vector>
 #include <string>
@@ -18,7 +19,7 @@ WAVEEXPORT class TileMap final
 {
 public:
 
-	WAVEEXPORT TileMap(const string& mapFilePath, const string& texturePath, const Vector2& textureSize);
+	WAVEEXPORT TileMap(const string& mapFilePath, const string& texturePath);
 	WAVEEXPORT ~TileMap();
 
 	WAVEEXPORT void Draw();

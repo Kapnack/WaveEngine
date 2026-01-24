@@ -1,21 +1,20 @@
 #include "TileMap.h"
 
-#include "FileReader/FileReader.h"
-#include "TextureImporter/TextureImporter.h"
 #include "ServiceProvider/ServiceProvider.h"
+#include "TextureImporter/TextureImporter.h"
+#include "FileReader/FileReader.h"
+#include "TextureImporter/Texture.h"
 #include "Entity/EntityFactory.h"
 #include "Entity/EntityManager.h"
 #include "Window/Window.h"
 
 #include <iostream>
 
-TileMap::TileMap(const string& mapFilePath, const string& texturePath, const Vector2& textureSize)
+TileMap::TileMap(const string& mapFilePath, const string& texturePath)
 {
-	TextureImporter textureImporter;
-	textureImporter.LoadTexture(texturePath);
-	texture = textureImporter.GetLoadedTexture();
+	texture = ServiceProvider::Instance().Get<TextureImporter>()->LoadTexture(texturePath);
 
-	this->textureSize = textureSize;
+	this->textureSize = ServiceProvider::Instance().Get<TextureManager>()->GetTexture(texture)->GetRes();
 
 	ImportTileMap(mapFilePath);
 }
