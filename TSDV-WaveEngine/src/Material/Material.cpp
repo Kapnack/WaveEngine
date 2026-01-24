@@ -15,8 +15,9 @@ using namespace std;
 
 const unsigned int Material::NULL_MATERIAL = 0;
 
-Material::Material()
+Material::Material(const unsigned int& ID)
 {
+	this->ID = ID;
 }
 
 Material::~Material()
@@ -32,6 +33,11 @@ const string Material::GetName()
 Vector4 Material::GetColor()
 {
 	return color;
+}
+
+unsigned int Material::GetID()
+{
+	return ID;
 }
 
 unsigned int Material::GetProgram()
