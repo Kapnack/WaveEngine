@@ -15,6 +15,7 @@ class MaterialFactory;
 class EntityFactory;
 class EntityManager;
 class BaseGame;
+class ImGuiClass;
 
 using namespace std;
 
@@ -30,7 +31,7 @@ private:
 
 	vector<Entity*> listeners;
 
-	Material& GetMaterial(const unsigned int id);
+	Material* GetMaterial(const unsigned int id);
 
 	friend class Renderer;
 	friend class MaterialFactory;
@@ -38,6 +39,7 @@ private:
 	friend class EntityManager;
 	friend class BaseGame;
 	friend class ServiceProvider;
+	friend class ImGuiClass;
 
 	MaterialManager();
 	~MaterialManager();

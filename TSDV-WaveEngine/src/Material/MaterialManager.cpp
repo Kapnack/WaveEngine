@@ -36,9 +36,9 @@ void MaterialManager::SaveMaterial(const unsigned int id, Material* material)
 	materials[id] = material;
 }
 
-Material& MaterialManager::GetMaterial(const unsigned int id)
+Material* MaterialManager::GetMaterial(const unsigned int id)
 {
-	return *materials[id];
+	return materials[id];
 }
 
 void MaterialManager::DeleteMaterial(const string name)
