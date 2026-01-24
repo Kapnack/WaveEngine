@@ -38,6 +38,8 @@ protected:
 	WAVEEXPORT Time* GetTime();
 	WAVEEXPORT EntityManager* GetEntityManager();
 	WAVEEXPORT EntityFactory* GetEntityFactory();
+	WAVEEXPORT TextureManager* GetTextureManager();
+	WAVEEXPORT TextureImporter* GetTextureImporter();
 
 public:
 

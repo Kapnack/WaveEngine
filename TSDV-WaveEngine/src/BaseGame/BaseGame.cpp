@@ -3,6 +3,8 @@
 #include "Input/Input.h"
 #include "ServiceProvider/ServiceProvider.h"
 #include "Material/MaterialFactory.h"
+#include "TextureImporter/TextureImporter.h"
+#include "TextureImporter/TextureManager.h"
 
 BaseGame::BaseGame(int width, int height)
 {
@@ -21,6 +23,8 @@ void BaseGame::Init(int width, int height)
 	ServiceProvider::Instance().Register(new ImGuiClass());
 	ServiceProvider::Instance().Register(new MaterialManager());
 	ServiceProvider::Instance().Register(new MaterialFactory());
+	ServiceProvider::Instance().Register(new TextureManager());
+	ServiceProvider::Instance().Register(new TextureImporter());
 	ServiceProvider::Instance().Register(new EntityManager(GetMaterialManager()));
 	ServiceProvider::Instance().Register(new EntityFactory(GetEntityManager(), GetImGuiClass(), GetMaterialManager()));
 	ServiceProvider::Instance().Register(new Renderer());
@@ -90,6 +94,16 @@ EntityFactory* BaseGame::GetEntityFactory()
 	return ServiceProvider::Instance().Get<EntityFactory>();
 }
 
+TextureManager* BaseGame::GetTextureManager()
+{
+	return ServiceProvider::Instance().Get<TextureManager>();
+}
+
+TextureImporter* BaseGame::GetTextureImporter()
+{
+	return ServiceProvider::Instance().Get<TextureImporter>();
+}
+
 void BaseGame::Run()
 {
 	try
@@ -103,8 +117,6 @@ void BaseGame::Run()
 			GetImGuiClass()->Update();
 
 			Update();
-
-			GetEntityManager()->UpdateEntities();
 
 			Draw();
 
