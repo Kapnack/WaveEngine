@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 
+#include "Vector4.h"
+
 class MaterialManager;
 class MaterialFactory;
 
@@ -14,8 +16,11 @@ private:
 
 	string name;
 
+	Vector4 color = Vector4(1, 1, 1, 1);
+
 	unsigned int program = 0;
 
+	int uColor = 0;
 	int uModel = 0;
 	int uView = 0;
 	int uProj = 0;
@@ -26,6 +31,7 @@ private:
 
 	void SetName(const string& name);
 	void SetProgram(const unsigned int& program);
+	void SetUColor(const unsigned int& color);
 	void SetUModel(const unsigned int& model);
 	void SetUView(const unsigned int& view);
 	void SetUProj(const unsigned int& projection);
@@ -40,12 +46,17 @@ public:
 	const static unsigned int NULL_MATERIAL;
 
 	const string GetName();
+
+	Vector4 GetColor();
 	unsigned int GetProgram();
+	unsigned int GetUColor();
 	unsigned int GetUModel();
 	unsigned int GetUView();
 	unsigned int GetUProj();
 
 	unsigned int GetOurTexture();
+
+	void SetColor(const Vector4& color);
 
 	void Bind();
 	void UnBind();
