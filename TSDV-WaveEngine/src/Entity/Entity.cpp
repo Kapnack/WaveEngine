@@ -244,11 +244,6 @@ void Entity::FlipZ()
 	SetScale(scale.x, scale.y, -scale.z);
 }
 
-void Entity::SilentUpdate()
-{
-	SetTRS();
-}
-
 void Entity::SetTRS()
 {
 	model = glm::mat4(1.0f);                    // Identity
