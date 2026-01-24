@@ -10,7 +10,6 @@
 
 class TextureImporter;
 class BaseGame;
-class ServiceProvider;
 class ImGuiClass;
 class TileMap;
 
@@ -31,6 +30,7 @@ private:
 
 	friend class BaseGame;
 	friend class TextureImporter;
+	friend class ServiceProvider;
 	friend class ImGuiClass;
 	friend class TileMap;
 
