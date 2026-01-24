@@ -9,6 +9,7 @@
 
 class EntityFactory;
 class EntityManager;
+class ImGuiClass;
 
 WAVEEXPORT class Entity
 {
@@ -16,10 +17,9 @@ private:
 
 	unsigned int ID = 0;
 
-	void SilentUpdate();
-
 	friend class EntityFactory;
 	friend class EntityManager;
+	friend class ImGuiClass;;
 
 protected:
 
