@@ -4,6 +4,8 @@
 #include <ImGui/imgui_impl_opengl3.h>
 #include <ImGui/imgui_impl_glfw.h>
 
+#include "Material/Material.h"
+
 ImGuiClass::ImGuiClass() : Service()
 {
 	Init();
@@ -94,6 +96,12 @@ void ImGuiClass::Update()
 
 			ImGui::Image(*(*it)->textureID, ImVec2(texture->GetWidth() / 3, texture->GetHeight() / 3), ImVec2(0, 1), ImVec2(1, 0));
 		}
+
+		Material* material = GetMaterialManager()->GetMaterial(entity->GetMaterial());
+
+		text = "ID: " + to_string((*it)->id) + ". Material ID: " + to_string(entity->GetMaterial()) + ".";
+
+		ImGui::InputFloat4(text.c_str(), &material->color.x);
 	}
 
 	ImGui::End();
