@@ -117,6 +117,8 @@ void ImGuiClass::Update()
 			text = "ID: " + to_string(it.second->ID) + ". Scale.";
 			if (ImGui::InputFloat3(text.c_str(), &it.second->scale.x))
 				it.second->SetTRS();
+
+			ImGui::Separator();
 		}
 
 		break;
@@ -129,6 +131,7 @@ void ImGuiClass::Update()
 				continue;
 
 			ImGui::Image(it.second->GetTextureID(), ImVec2(it.second->GetWidth() / 3, it.second->GetHeight() / 3), ImVec2(0, 1), ImVec2(1, 0));
+			ImGui::Separator();
 		}
 
 		break;
@@ -142,7 +145,8 @@ void ImGuiClass::Update()
 
 			text = "Name: " + it.second->GetName() + ". Material ID: " + to_string(it.second->GetProgram()) + ".";
 
-			ImGui::SliderFloat4(text.c_str(), &it.second->color.x, 0, 1);
+			ImGui::ColorEdit4(text.c_str(), &it.second->color.x);
+			ImGui::Separator();
 		}
 
 		break;
