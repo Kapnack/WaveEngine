@@ -49,6 +49,11 @@ EntityManager* ImGuiClass::GetEntityManager()
 	return ServiceProvider::Instance().Get<EntityManager>();
 }
 
+MaterialManager* ImGuiClass::GetMaterialManager()
+{
+	return ServiceProvider::Instance().Get<MaterialManager>();
+}
+
 void ImGuiClass::Update()
 {
 	ImGui_ImplOpenGL3_NewFrame();
