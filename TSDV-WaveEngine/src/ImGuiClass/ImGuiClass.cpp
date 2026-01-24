@@ -36,6 +36,22 @@ void ImGuiClass::Unload()
 	ImGui::DestroyContext();
 }
 
+void ImGuiClass::GoToPreviousState()
+{
+	if ((static_cast<ImGuiClassStates>(currentState - 1)) == ImGuiClassStates::Begin)
+		return;
+
+	--currentState;
+}
+
+void ImGuiClass::GoToNextState()
+{
+	if ((static_cast<ImGuiClassStates>(currentState + 1)) == ImGuiClassStates::End)
+		return;
+
+	++currentState;
+}
+
 Window* ImGuiClass::GetWindow()
 {
 	return ServiceProvider::Instance().Get<Window>();
@@ -65,43 +81,68 @@ void ImGuiClass::Update()
 	ImGui::Begin("WaveEngine Debug Window");
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 
+	if (ImGui::Button("Previous Page", ImVec2(100, 25)))
+		GoToPreviousState();
+
+	if (ImGui::Button("Next Page", ImVec2(100, 25)))
+		GoToNextState();
+
 	string text;
+	Material* material;
 
-	for (vector<ImGuiClassData*>::iterator it = dataToDraw.begin(); it != dataToDraw.end(); ++it)
+	switch (static_cast<ImGuiClassStates>(currentState))
 	{
-		text = "EntityID: " + to_string((*it)->id);
+	case ImGuiClassStates::ShowEntities:
 
-		ImGui::Text(text.c_str());
-
-		Entity* entity = GetEntityManager()->Get((*it)->id);
-
-		if ((*it)->position != nullptr)
+		for (auto it : GetEntityManager()->GetEntities())
 		{
-			text = "ID: " + to_string((*it)->id) + ". Position. ";
-			if (ImGui::InputFloat3(text.c_str(), &(*it)->position->x))
-				entity->SetTRS();
+			if (it.second == nullptr)
+				continue;
+
+			text = "EntityID: " + to_string(it.second->ID);
+
+			ImGui::Text(text.c_str());
+
+			text = "ID: " + to_string(it.second->ID) + ". Position. ";
+			if (ImGui::InputFloat3(text.c_str(), &it.second->position.x))
+				it.second->SetTRS();
+
+
+			text = "ID: " + to_string(it.second->ID) + ". Rotation.";
+			if (ImGui::InputFloat3(text.c_str(), &it.second->rotation.x))
+				it.second->SetTRS();
 		}
 
-		if ((*it)->rotation != nullptr)
+		break;
+
+	case ImGuiClassStates::ShowTextures:
+
+		for (auto it : GetTextureManager()->GetTextures())
 		{
-			text = "ID: " + to_string((*it)->id) + ". Rotation.";
-			if (ImGui::InputFloat3(text.c_str(), &(*it)->rotation->x))
-				entity->SetTRS();
+			if (it.second == nullptr)
+				continue;
+
+			ImGui::Image(it.second->GetTextureID(), ImVec2(it.second->GetWidth() / 3, it.second->GetHeight() / 3), ImVec2(0, 1), ImVec2(1, 0));
 		}
 
+		break;
 
-		if ((*it)->textureID != nullptr)
+	case ImGuiClassStates::ShowMaterials:
+
+		for (auto it : GetMaterialManager()->GetMaterials())
 		{
-			Texture* texture = GetTextureManager()->GetTexture(*(*it)->textureID);
+			if (it.second == nullptr)
+				continue;
 
-			ImGui::Image(*(*it)->textureID, ImVec2(texture->GetWidth() / 3, texture->GetHeight() / 3), ImVec2(0, 1), ImVec2(1, 0));
+			text = "Name: " + it.second->GetName() + ". Material ID: " + to_string(it.second->GetProgram()) + ".";
+
+			ImGui::SliderFloat4(text.c_str(), &it.second->color.x, 0, 1);
 		}
 
-		Material* material = GetMaterialManager()->GetMaterial(entity->GetMaterial());
+		break;
 
-		text = "ID: " + to_string((*it)->id) + ". Material ID: " + to_string(entity->GetMaterial()) + ".";
-
-		ImGui::InputFloat4(text.c_str(), &material->color.x);
+	default:
+		break;
 	}
 
 	ImGui::End();
