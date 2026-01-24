@@ -149,7 +149,7 @@ void Renderer::DrawElementSprite(glm::mat4& model, unsigned int materialID, int 
 
 void Renderer::DrawElement2D(const glm::mat4& model, const unsigned int& materialID, const int& indicesSize, const unsigned int& VAO)
 {
-	Material* materialToUse = &GetMaterialManager()->GetMaterial(ReturnWorkingMaterial(materialID, spriteShaders));
+	Material* materialToUse = GetMaterialManager()->GetMaterial(ReturnWorkingMaterial(materialID, spriteShaders));
 
 	materialToUse->Bind();
 
