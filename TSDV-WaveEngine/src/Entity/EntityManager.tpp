@@ -25,12 +25,6 @@ inline void EntityManager::DrawEntities()
 		service->second->Draw();
 }
 
-inline void EntityManager::UpdateEntities()
-{
-	for (unordered_map<const unsigned int, Entity*>::iterator service = entitiesByID.begin(); service != entitiesByID.end(); ++service)
-		service->second->SilentUpdate();
-}
-
 template<EntityManagerStandar T>
 void EntityManager::SaveEntity(const unsigned int& ID, T* entity)
 {
