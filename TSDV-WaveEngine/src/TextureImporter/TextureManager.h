@@ -28,6 +28,8 @@ private:
 
 	Texture* GetTexture(const unsigned int& ID);
 
+	unordered_map<unsigned int, Texture*>& GetTextures();
+
 	friend class BaseGame;
 	friend class TextureImporter;
 	friend class ServiceProvider;

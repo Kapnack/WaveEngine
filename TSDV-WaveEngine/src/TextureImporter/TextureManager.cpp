@@ -22,6 +22,11 @@ Texture* TextureManager::GetTexture(const unsigned int& ID)
 	return textures[ID];
 }
 
+unordered_map<unsigned int, Texture*>& TextureManager::GetTextures()
+{
+	return textures;
+}
+
 void TextureManager::DeleteTexture(const unsigned int& ID)
 {
 	if (textures[ID] == nullptr)
