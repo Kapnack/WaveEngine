@@ -27,6 +27,15 @@ struct ImGuiClassData
 	unsigned int* textureID = nullptr;
 };
 
+enum class ImGuiClassStates
+{
+	Begin,
+	ShowEntities,
+	ShowTextures,
+	ShowMaterials,
+	End
+};
+
 class ImGuiClass : public Service
 {
 private:
@@ -39,10 +48,15 @@ private:
 	EntityManager* GetEntityManager();
 	MaterialManager* GetMaterialManager();
 
+	short currentState = (short)ImGuiClassStates::ShowEntities;
+
 	void Init();
 	void Update();
 	void Draw();
 	void Unload();
+
+	void GoToPreviousState();
+	void GoToNextState();
 
 	ImGuiClass();
 	~ImGuiClass();
