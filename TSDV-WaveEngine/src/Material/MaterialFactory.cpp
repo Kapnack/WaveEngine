@@ -47,7 +47,9 @@ unsigned int MaterialFactory::CreateMaterial(const string name, const string ver
 	glDeleteShader(vs);
 	glDeleteShader(fs);
 
-	Material* newMaterial = new Material();
+	++currentMaterialID;
+
+	Material* newMaterial = new Material(currentMaterialID);
 
 	newMaterial->SetProgram(program);
 
@@ -62,8 +64,6 @@ unsigned int MaterialFactory::CreateMaterial(const string name, const string ver
 	newMaterial->SetOurTexture(glGetUniformLocation(program, "ourTexture"));
 
 	newMaterial->SetName(name);
-
-	++currentMaterialID;
 
 	GetMaterialManager()->SaveMaterial(currentMaterialID, newMaterial);
 
