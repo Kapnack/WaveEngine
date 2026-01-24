@@ -33,6 +33,8 @@ private:
 
 	Material* GetMaterial(const unsigned int id);
 
+	unordered_map<unsigned int, Material*>& GetMaterials();
+
 	friend class Renderer;
 	friend class MaterialFactory;
 	friend class EntityFactory;

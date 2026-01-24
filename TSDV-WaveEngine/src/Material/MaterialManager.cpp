@@ -41,6 +41,11 @@ Material* MaterialManager::GetMaterial(const unsigned int id)
 	return materials[id];
 }
 
+unordered_map<unsigned int, Material*>& MaterialManager::GetMaterials()
+{
+	return materials;
+}
+
 void MaterialManager::DeleteMaterial(const string name)
 {
 	unordered_map<unsigned int, Material*>::iterator it = find_if(materials.begin(), materials.end(),
@@ -60,15 +65,18 @@ void MaterialManager::DeleteMaterial(const string name)
 
 void MaterialManager::DeleteMaterial(const unsigned int id)
 {
-	unordered_map<unsigned, Material*>::iterator it = materials.find(id);
+	//if (id == Material::NULL_MATERIAL)
+	//	return;
 
-	if (it == materials.end())
+	Material* it = materials[id];
+
+	if (it == nullptr)
 		return;
 
-	OnDeleteMaterial(*it->second);
+	OnDeleteMaterial(*it);
 
-	delete it->second;
-	materials.erase(it);
+	delete it;
+	materials.erase(id);
 }
 
 void MaterialManager::AddListener(Entity* entity)
@@ -79,7 +87,7 @@ void MaterialManager::AddListener(Entity* entity)
 void MaterialManager::OnDeleteMaterial(Material& material)
 {
 	for (Entity* entity : listeners)
-		if (entity->GetMaterial() == material.GetProgram())
+		if (entity->GetMaterial() == material.GetID())
 			entity->SetMaterial(Material::NULL_MATERIAL);
 }
 
