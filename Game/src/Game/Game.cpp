@@ -37,11 +37,9 @@ void Game::Init(int width, int height)
 	const string json = "Sprites/map.json";
 	const string spriteSheet = "Sprites/spritesheet.png";
 
-	tileMap = new TileMap(json, spriteSheet, Vector2{ 128, 48 });
+	tileMap = new TileMap(json, spriteSheet);
 
-	TextureImporter textureImporter;
-
-	textureImporter.LoadTexture("Sprites/Samus Aran Sprite Sheet.png");
+	unsigned int samusTexture = GetTextureImporter()->LoadTexture("Sprites/Samus Aran Sprite Sheet.png");
 
 	Vector2 textureSize = Vector2(860, 762);
 
@@ -49,14 +47,14 @@ void Game::Init(int width, int height)
 
 	entityController = new EntityController();
 
-	GetEntityManager()->Get<Sprite>(player)->SetTexture(textureImporter.GetLoadedTexture());
+	GetEntityManager()->Get<Sprite>(player)->SetTexture(samusTexture);
 	GetEntityManager()->Get<Sprite>(player)->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
 	GetEntityManager()->Get<Sprite>(player)->SetPosition(Vector3{ 100,100,0 });
 
 	for (int i = 1; i < 100; i++)
 		entityController->AddEntityID(i);
 
-	GetEntityManager()->Get<Sprite>(player2)->SetTexture(textureImporter.GetLoadedTexture());
+	GetEntityManager()->Get<Sprite>(player2)->SetTexture(samusTexture);
 	GetEntityManager()->Get<Sprite>(player2)->SetColor(Vector4{ 1,0,0,1 });
 	GetEntityManager()->Get<Sprite>(player2)->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
 	GetEntityManager()->Get<Sprite>(player2)->SetPosition(Vector3{ (float)GetWindow()->GetWidth() / 2 - 100, (float)GetWindow()->GetHeight() / 2 - 100,0 });
