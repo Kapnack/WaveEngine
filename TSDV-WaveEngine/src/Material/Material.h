@@ -19,6 +19,8 @@ private:
 
 	Vector4 color = Vector4(1, 1, 1, 1);
 
+	unsigned int ID = 0;
+
 	unsigned int program = 0;
 
 	int uColor = 0;
@@ -27,7 +29,7 @@ private:
 	int uProj = 0;
 	int ourTexture = 0;
 
-	Material();
+	Material(const unsigned int& ID);
 	~Material();
 
 	void SetName(const string& name);
@@ -50,6 +52,7 @@ public:
 	const string GetName();
 
 	Vector4 GetColor();
+	unsigned int GetID();
 	unsigned int GetProgram();
 	unsigned int GetUColor();
 	unsigned int GetUModel();
