@@ -51,6 +51,8 @@ unsigned int MaterialFactory::CreateMaterial(const string name, const string ver
 
 	newMaterial->SetProgram(program);
 
+	newMaterial->SetUColor(glGetUniformLocation(program, "uColor"));
+
 	newMaterial->SetUModel(glGetUniformLocation(program, "uModel"));
 
 	newMaterial->SetUView(glGetUniformLocation(program, "uView"));
