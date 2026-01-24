@@ -145,6 +145,8 @@ void Renderer::DrawElementSprite(glm::mat4& model, unsigned int materialID, int 
 	glBindTexture(GL_TEXTURE_2D, texture);
 
 	DrawElement2D(model, materialID, indicesSize, VAO);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Renderer::DrawElement2D(const glm::mat4& model, const unsigned int& materialID, const int& indicesSize, const unsigned int& VAO)
@@ -163,8 +165,6 @@ void Renderer::DrawElement2D(const glm::mat4& model, const unsigned int& materia
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*)0);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Renderer::Unload()
