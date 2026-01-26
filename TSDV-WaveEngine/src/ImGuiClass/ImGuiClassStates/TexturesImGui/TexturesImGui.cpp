@@ -34,6 +34,22 @@ void TexturesImGui::Update()
 		else
 			GetTextureImporter()->LoadTexture(fileTexurePath);
 
+	ImGui::Separator();
+
+	ImGui::Checkbox("Delete By Name", &deleteByName);
+
+	if (!deleteByName)
+		ImGui::InputInt("Input Texture ID.", &textureID);
+	else
+		ImGui::InputText("Input Texture Name.", textureName.data(), textureName.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &textureName);
+
+	if (ImGui::Button("Delete Texture"))
+		if (!deleteByName)
+			GetTextureManager()->DeleteTexture(textureID);
+		else
+			GetTextureManager()->DeleteTexture(textureName);
+	
+
 	for (auto it : GetTextureManager()->GetTextures())
 	{
 		if (it.second == nullptr)
