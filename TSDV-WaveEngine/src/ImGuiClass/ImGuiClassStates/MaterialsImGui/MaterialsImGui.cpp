@@ -36,9 +36,24 @@ void MaterialsImGui::Update()
 	if(!importMaterial)
 		ImGui::Checkbox("Show Material Creator", &createMaterial);
 
-	ImGui::InputTextMultiline("Vertex Shader",
-		vertexShader.data(), vertexShader.capacity() + 1,
-		textBoxSize, ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CallbackResize, ResizeCallback, &vertexShader);
+	if (createMaterial && !importMaterial)
+	{
+		text = "Create Material";
+		ImGui::Text(text.c_str());
+
+		ImGui::InputText("Material Name", newMaterialName.data(), newMaterialName.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &newMaterialName);
+
+		ImGui::InputTextMultiline("Vertex Shader",
+			vertexShader.data(), vertexShader.capacity() + 1,
+			textBoxSize, ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CallbackResize, ResizeCallback, &vertexShader);
+
+		ImGui::InputTextMultiline("Fragment Shader",
+			fragmentShader.data(), fragmentShader.capacity() + 1,
+			textBoxSize, ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CallbackResize, ResizeCallback, &fragmentShader);
+
+		if (ImGui::Button("Create Material"))
+			GetMaterialFactory()->CreateMaterial(newMaterialName, vertexShader, fragmentShader);
+	}
 
 	ImGui::InputTextMultiline("Fragment Shader",
 		fragmentShader.data(), fragmentShader.capacity() + 1,
