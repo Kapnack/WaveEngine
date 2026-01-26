@@ -20,22 +20,27 @@ TextureManager* TextureImporter::GetTextureManager()
 	return ServiceProvider::Instance().Get<TextureManager>();
 }
 
-unsigned int TextureImporter::LoadTexture(string filePath)
+unsigned int TextureImporter::LoadTextureAbsolutePath(string filePath)
 {
 	string absolutePath = std::filesystem::absolute(filePath).lexically_normal().string();
 
+	return LoadTexture(absolutePath);
+}
+
+unsigned int TextureImporter::LoadTexture(string filePath)
+{
 	int width;
 	int height;
 	int nrChannels;
 
 	stbi_set_flip_vertically_on_load(true);
-	unsigned char* data = stbi_load(absolutePath.c_str(), &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
 
 	GLenum format = (nrChannels == 4) ? GL_RGBA : GL_RGB;
 
 	if (!data)
 	{
-		std::cout << "Failed to load texture: " << absolutePath << std::endl;
+		std::cout << "Failed to load texture: " << filePath << std::endl;
 		return 0;
 	}
 
@@ -62,7 +67,7 @@ unsigned int TextureImporter::LoadTexture(string filePath)
 
 	stbi_image_free(data);
 
-	std::cout << "Loaded texture: " << absolutePath << " (" << width << "x" << height << ")" << std::endl;
+	std::cout << "Loaded texture: " << filePath << " (" << width << "x" << height << ")" << std::endl;
 
 	return currentTextureID;
 }
