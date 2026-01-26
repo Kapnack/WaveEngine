@@ -34,6 +34,11 @@ TextureManager* Renderer::GetTextureManager()
 	return ServiceProvider::Instance().Get<TextureManager>();
 }
 
+Texture* Renderer::ChooseTextureToUse(const unsigned int& ID)
+{
+	return GetTextureManager()->GetTexture(ID) ? GetTextureManager()->GetTexture(ID) : GetTextureManager()->GetTexture(defualtTextureID);
+}
+
 void Renderer::Init()
 {
 	defualtTextureID = ServiceProvider::Instance().Get<TextureImporter>()->LoadTextureAbsolutePath("Sprites/whiteImage.png");
