@@ -26,7 +26,7 @@ void BaseGame::Init(int width, int height)
 	ServiceProvider::Instance().Register(new TextureManager());
 	ServiceProvider::Instance().Register(new TextureImporter());
 	ServiceProvider::Instance().Register(new EntityManager(GetMaterialManager()));
-	ServiceProvider::Instance().Register(new EntityFactory(GetEntityManager(), GetImGuiClass(), GetMaterialManager()));
+	ServiceProvider::Instance().Register(new EntityFactory(GetEntityManager(), GetMaterialManager()));
 	ServiceProvider::Instance().Register(new Renderer());
 	ServiceProvider::Instance().Register(new Input());
 	ServiceProvider::Instance().Register(new Time());
