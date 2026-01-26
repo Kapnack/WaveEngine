@@ -37,6 +37,9 @@ unsigned int MaterialFactory::CreateMaterial(const string name, const string ver
 	unsigned int vs = CompileShader(vertexShader, GL_VERTEX_SHADER);
 	unsigned int fs = CompileShader(fragmentShader, GL_FRAGMENT_SHADER);
 
+	if (vs == 0 || fs == 0)
+		return 0;
+
 	unsigned int program = glCreateProgram();
 
 	glAttachShader(program, vs);
