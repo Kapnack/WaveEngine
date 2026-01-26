@@ -154,12 +154,10 @@ void Renderer::DrawElement(glm::mat4& model, unsigned int materialID, int indice
 
 void Renderer::DrawElementSprite(glm::mat4& model, unsigned int materialID, int indicesSize, unsigned int VAO, unsigned int textureID)
 {
-	Texture* texture = GetTextureManager()->GetTexture(textureID);
+	Texture* texture = ChooseTextureToUse(textureID);
 
-	if (texture == nullptr)
-		texture = GetTextureManager()->GetTexture(defualtTextureID);
-
-	glBindTexture(GL_TEXTURE_2D, texture->GetTextureID());
+	if (texture)
+		glBindTexture(GL_TEXTURE_2D, texture->GetTextureID());
 
 	DrawElement2D(model, materialID, indicesSize, VAO);
 
