@@ -54,13 +54,33 @@ void MaterialsImGui::Update()
 		if (ImGui::Button("Create Material"))
 			GetMaterialFactory()->CreateMaterial(newMaterialName, vertexShader, fragmentShader);
 	}
+	else if (importMaterial && !createMaterial)
+	{
+		text = "Import Material";
+		ImGui::Text(text.c_str());
 
-	ImGui::InputTextMultiline("Fragment Shader",
-		fragmentShader.data(), fragmentShader.capacity() + 1,
-		textBoxSize, ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CallbackResize, ResizeCallback, &fragmentShader);
+		ImGui::InputText("Material Name", newMaterialName.data(), newMaterialName.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &newMaterialName);
 
-	if (ImGui::Button("Create Material"))
-		GetMaterialFactory()->CreateMaterial(newMaterialName, vertexShader, fragmentShader);
+		ImGui::Checkbox("Vertex Add Absolute Path", &addAbsoluteToVertexPath);
+		ImGui::SameLine();
+		ImGui::InputText("Vertex Shader", vertexShaderPath.data(), vertexShaderPath.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &vertexShaderPath);
+
+		ImGui::Checkbox("Fragment Add Absolute Path", &addAbsoluteToFragmentPath);
+		ImGui::SameLine();
+		ImGui::InputText("Fragment Shader", fragmentShaderPath.data(), fragmentShaderPath.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &fragmentShaderPath);
+
+		if (ImGui::Button("Import Material"))
+		{
+			string fileVertexShader;
+			string fileFragmentShader;
+
+			fileVertexShader = addAbsoluteToVertexPath ? GetFileReader()->ReadFileAbsolutePath(vertexShaderPath) : GetFileReader()->ReadFile(vertexShaderPath);
+			fileFragmentShader = addAbsoluteToFragmentPath ? GetFileReader()->ReadFileAbsolutePath(fragmentShaderPath) : GetFileReader()->ReadFile(fragmentShaderPath);
+
+			GetMaterialFactory()->CreateMaterial(newMaterialName, fileVertexShader, fileFragmentShader);
+		}
+
+	}
 
 	ImGui::Separator();
 
