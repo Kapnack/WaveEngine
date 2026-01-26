@@ -32,7 +32,7 @@ void TexturesImGui::Update()
 		if (withAbsolutePath)
 			GetTextureImporter()->LoadTextureAbsolutePath(fileTexurePath);
 		else
-			GetTextureImporter()->LoadTexture(string(buf));
+			GetTextureImporter()->LoadTexture(fileTexurePath);
 
 	for (auto it : GetTextureManager()->GetTextures())
 	{
