@@ -27,7 +27,7 @@ public:
 	WAVEEXPORT void SetAnimation(Animation* animation);
 	WAVEEXPORT void Update();
 	WAVEEXPORT void SetTexture(const unsigned int& textureID);
-
+	WAVEEXPORT unsigned int GetTexture();
 	WAVEEXPORT void Draw() override;
 };
 
