@@ -17,6 +17,16 @@ Entity::~Entity()
 	delete[] indices;
 }
 
+void Entity::SetIsActive(const bool& setActive)
+{
+	isActive = setActive;
+}
+
+bool Entity::GetIsActive()
+{
+	return isActive;
+}
+
 void Entity::SetMaterial(const unsigned int materialID)
 {
 	this->materialID = materialID;
@@ -217,7 +227,7 @@ void Entity::SetColor(const Vector4& color)
 	for (int i = 0; i < vertexSize; i++)
 		vertex[i].SetColor(color);
 
-	GetRenderer()->UpdateBuffer(vertex, vertexSize, VBO);
+	UpdateVertexBuffer();
 }
 
 void Entity::SetVertexColor(const int& index, const Vector4& color)
@@ -226,7 +236,7 @@ void Entity::SetVertexColor(const int& index, const Vector4& color)
 		return;
 
 	vertex[index].SetColor(color);
-	GetRenderer()->UpdateBuffer(vertex, vertexSize, VBO);
+	UpdateVertexBuffer();
 }
 
 void Entity::FlipX()
@@ -242,6 +252,11 @@ void Entity::FlipY()
 void Entity::FlipZ()
 {
 	SetScale(scale.x, scale.y, -scale.z);
+}
+
+void Entity::UpdateVertexBuffer()
+{
+	GetRenderer()->UpdateBuffer(vertex, vertexSize, VBO);
 }
 
 void Entity::SetTRS()
