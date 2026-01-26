@@ -63,6 +63,10 @@ unsigned int TextureImporter::LoadTexture(string filePath)
 
 	Texture* newTexture = new Texture(currentTextureID, texture, width, height);
 
+	std::filesystem::path path = filePath;
+
+	newTexture->name = path.filename().string();
+
 	GetTextureManager()->Save(currentTextureID, newTexture);
 
 	stbi_image_free(data);
