@@ -21,6 +21,7 @@ void BaseGame::Init(int width, int height)
 
 	ServiceProvider::Instance().Register(new Window(width, height, "WaveEngine", nullptr, nullptr));
 	ServiceProvider::Instance().Register(new ImGuiClass());
+	ServiceProvider::Instance().Register(new FileReader());
 	ServiceProvider::Instance().Register(new MaterialManager());
 	ServiceProvider::Instance().Register(new MaterialFactory());
 	ServiceProvider::Instance().Register(new TextureManager());
