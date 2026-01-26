@@ -6,6 +6,14 @@
 #include <sstream>
 #include <fstream>
 
+FileReader::FileReader() : Service()
+{
+}
+
+FileReader::~FileReader()
+{
+}
+
 string FileReader::GetAbsoluteFilePath(const string& filePath) const
 {
 	return filesystem::absolute(filePath).lexically_normal().string();
