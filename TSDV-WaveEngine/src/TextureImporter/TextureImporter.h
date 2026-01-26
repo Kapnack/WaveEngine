@@ -28,5 +28,6 @@ private:
 
 public:
 
+	WAVEEXPORT unsigned int  LoadTextureAbsolutePath(string filePath);
 	WAVEEXPORT unsigned int  LoadTexture(string filePath);
 };
