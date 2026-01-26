@@ -73,9 +73,9 @@ void TileMap::ImportTileMap(const string& filePath)
 	const string tileName = "tiles";
 	const string colliderName = "collider";
 
-	FileReader fileReader;
+	FileReader* fileReader = ServiceProvider::Instance().Get<FileReader>();
 
-	const string jsonString = fileReader.ReadFile(filePath);
+	const string jsonString = fileReader->ReadFile(filePath);
 
 	if (jsonString == "")
 		return;
