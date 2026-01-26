@@ -7,7 +7,8 @@
 
 class MaterialManager;
 class MaterialFactory;
-class ImGuiClass;
+class EntitiesImGui;
+class MaterialsImGui;
 
 using namespace std;
 
@@ -43,7 +44,8 @@ private:
 
 	friend class MaterialManager;
 	friend class MaterialFactory;
-	friend class ImGuiClass;
+	friend class EntitiesImGui;
+	friend class MaterialsImGui;
 
 public:
 
