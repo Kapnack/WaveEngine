@@ -19,10 +19,15 @@ string FileReader::GetAbsoluteFilePath(const string& filePath) const
 	return filesystem::absolute(filePath).lexically_normal().string();
 }
 
-string FileReader::ReadFile(string filePath)
+string FileReader::ReadFileAbsolutePath(const string& filePath)
 {
-	filePath = GetAbsoluteFilePath(filePath);
+	string absoluteFilePath = GetAbsoluteFilePath(filePath);
 
+	return ReadFile(absoluteFilePath);
+}
+
+string FileReader::ReadFile(const string& filePath)
+{
 	ifstream inStream;
 
 	stringstream buffer;
