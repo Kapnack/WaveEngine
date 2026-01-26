@@ -10,8 +10,10 @@
 
 class TextureImporter;
 class BaseGame;
-class ImGuiClass;
+class EntitiesImGui;
+class TexturesImGui;
 class TileMap;
+class Renderer;
 
 using namespace std;
 
@@ -33,8 +35,10 @@ private:
 	friend class BaseGame;
 	friend class TextureImporter;
 	friend class ServiceProvider;
-	friend class ImGuiClass;
+	friend class EntitiesImGui;
+	friend class TexturesImGui;
 	friend class TileMap;
+	friend class Renderer;
 
 public:
 
