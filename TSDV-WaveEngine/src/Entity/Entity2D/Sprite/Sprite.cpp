@@ -88,6 +88,9 @@ unsigned int Sprite::GetTexture()
 
 void Sprite::Draw()
 {
+	if (!GetIsActive())
+		return;
+
 	if (animation)
 	{
 		Frame frame = this->animation->GetCurrentFrame();

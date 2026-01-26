@@ -14,5 +14,8 @@ Shape::~Shape()
 
 void Shape::Draw()
 {
+	if (!GetIsActive())
+		return;
+
 	GetRenderer()->DrawElement(model, materialID, indexSize, VAO);
 }
