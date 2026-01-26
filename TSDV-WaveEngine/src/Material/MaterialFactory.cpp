@@ -34,11 +34,14 @@ MaterialManager* MaterialFactory::GetMaterialManager()
 
 unsigned int MaterialFactory::CreateMaterial(const string name, const string vertexShader, const string fragmentShader)
 {
+	if (name == "" || vertexShader == "" || fragmentShader == "")
+		return Material::NULL_MATERIAL;
+
 	unsigned int vs = CompileShader(vertexShader, GL_VERTEX_SHADER);
 	unsigned int fs = CompileShader(fragmentShader, GL_FRAGMENT_SHADER);
 
 	if (vs == 0 || fs == 0)
-		return 0;
+		return Material::NULL_MATERIAL;
 
 	unsigned int program = glCreateProgram();
 
@@ -65,7 +68,7 @@ unsigned int MaterialFactory::CreateMaterial(const string name, const string ver
 	newMaterial->SetUProj(glGetUniformLocation(program, "uProj"));
 
 	newMaterial->SetOurTexture(glGetUniformLocation(program, "ourTexture"));
-	
+
 	int i = 0;
 
 	string selectedName = name;
