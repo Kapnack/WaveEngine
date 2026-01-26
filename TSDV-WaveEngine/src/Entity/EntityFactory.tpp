@@ -8,10 +8,9 @@
 
 #include "Entity/Entity2D/Sprite/Sprite.h"
 
-EntityFactory::EntityFactory(EntityManager* entityManager, ImGuiClass* imGuiClass, MaterialManager* materialManager) : Service()
+EntityFactory::EntityFactory(EntityManager* entityManager, MaterialManager* materialManager) : Service()
 {
 	this->entityManager = entityManager;
-	this->imGuiClass = imGuiClass;
 	this->materialManager = materialManager;
 }
 
@@ -31,11 +30,6 @@ unsigned int EntityFactory::Create()
 	entityManager->SaveEntity(currentEntityID, newEntityAsEntity);
 
 	materialManager->AddListener(newEntityAsEntity);
-
-	if(Sprite* sprite = dynamic_cast<Sprite*>(newEntity))
-	imGuiClass->CreateEditor(currentEntityID, newEntityAsEntity->position, newEntityAsEntity->rotation, &sprite->textureID);
-	else
-	imGuiClass->CreateEditor(currentEntityID, newEntityAsEntity->position, newEntityAsEntity->rotation);
 
 	return currentEntityID;
 }
