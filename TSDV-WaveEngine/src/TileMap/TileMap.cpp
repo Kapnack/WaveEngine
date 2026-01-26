@@ -12,7 +12,7 @@
 
 TileMap::TileMap(const string& mapFilePath, const string& texturePath)
 {
-	texture = ServiceProvider::Instance().Get<TextureImporter>()->LoadTexture(texturePath);
+	texture = ServiceProvider::Instance().Get<TextureImporter>()->LoadTextureAbsolutePath(texturePath);
 
 	this->textureSize = ServiceProvider::Instance().Get<TextureManager>()->GetTexture(texture)->GetRes();
 
