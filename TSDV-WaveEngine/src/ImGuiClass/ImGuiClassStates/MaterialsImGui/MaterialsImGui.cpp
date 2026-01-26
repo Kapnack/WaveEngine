@@ -113,7 +113,7 @@ void MaterialsImGui::Update()
 		if (it.second == nullptr)
 			continue;
 
-		text = "Name: " + it.second->GetName() + ". Program ID: " + to_string(it.second->GetProgram()) + ".";
+		text = "Name: " + it.second->GetName() + ". ID: " + to_string(it.first) + ". Program ID: " + to_string(it.second->GetProgram()) + ".";
 
 		ImGui::ColorEdit4(text.c_str(), &it.second->color.x);
 		ImGui::Separator();
