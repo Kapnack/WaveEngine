@@ -30,10 +30,11 @@ FileReader* MaterialsImGui::GetFileReader()
 
 void MaterialsImGui::Update()
 {
-	text = "Create Material";
-	ImGui::Text(text.c_str());
+	if (!createMaterial)
+		ImGui::Checkbox("Show Material Importer", &importMaterial);
 
-	ImGui::InputText("Material Name", newMaterialName.data(), newMaterialName.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &newMaterialName);
+	if(!importMaterial)
+		ImGui::Checkbox("Show Material Creator", &createMaterial);
 
 	ImGui::InputTextMultiline("Vertex Shader",
 		vertexShader.data(), vertexShader.capacity() + 1,
