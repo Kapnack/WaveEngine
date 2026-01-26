@@ -81,6 +81,11 @@ void Sprite::SetTexture(const unsigned int& textureID)
 	this->textureID = textureID;
 }
 
+unsigned int Sprite::GetTexture()
+{
+	return textureID;
+}
+
 void Sprite::Draw()
 {
 	if (animation)
