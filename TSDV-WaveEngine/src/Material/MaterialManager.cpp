@@ -38,7 +38,7 @@ void MaterialManager::SaveMaterial(const unsigned int id, Material* material)
 
 Material* MaterialManager::GetMaterial(const unsigned int id)
 {
-	return materials[id];
+	return id != Material::NULL_MATERIAL ? materials[id] : nullptr;
 }
 
 unordered_map<unsigned int, Material*>& MaterialManager::GetMaterials()
