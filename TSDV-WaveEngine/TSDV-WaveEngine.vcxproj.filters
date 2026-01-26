@@ -135,6 +135,21 @@
     <ClCompile Include="src\Vector2.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\ImGuiClass\ImGuiClassStates\EntitiesImGui\EntitiesImGui.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGuiClass\ImGuiClassStates\ImGuiClassState.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGuiClass\ImGuiClassStates\TexturesImGui\TexturesImGui.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGuiClass\ImGuiClassStates\MaterialsImGui\MaterialsImGui.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ImGuiClass\ImGuiClassStates\MeshImGui\MeshImGui.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Window\Window.h">
@@ -270,6 +285,21 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\Vector2.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGuiClass\ImGuiClassStates\EntitiesImGui\EntitiesImGui.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGuiClass\ImGuiClassStates\ImGuiClassState.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGuiClass\ImGuiClassStates\TexturesImGui\TexturesImGui.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGuiClass\ImGuiClassStates\MaterialsImGui\MaterialsImGui.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGuiClass\ImGuiClassStates\MeshImGui\MeshImGui.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
