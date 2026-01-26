@@ -149,23 +149,6 @@ Vector3 Renderer::GetRes()
 
 void Renderer::DrawElement(glm::mat4& model, unsigned int materialID, int indicesSize, unsigned int VAO)
 {
-	DrawElement2D(model, materialID, indicesSize, VAO);
-}
-
-void Renderer::DrawElementSprite(glm::mat4& model, unsigned int materialID, int indicesSize, unsigned int VAO, unsigned int textureID)
-{
-	Texture* texture = ChooseTextureToUse(textureID);
-
-	if (texture)
-		glBindTexture(GL_TEXTURE_2D, texture->GetTextureID());
-
-	DrawElement2D(model, materialID, indicesSize, VAO);
-
-	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void Renderer::DrawElement2D(const glm::mat4& model, const unsigned int& materialID, const int& indicesSize, const unsigned int& VAO)
-{
 	Material* materialToUse = GetMaterialManager()->GetMaterial(ReturnWorkingMaterial(materialID, spriteShaders));
 
 	if (!materialToUse)
@@ -183,6 +166,18 @@ void Renderer::DrawElement2D(const glm::mat4& model, const unsigned int& materia
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*)0);
+}
+
+void Renderer::DrawElementSprite(glm::mat4& model, unsigned int materialID, int indicesSize, unsigned int VAO, unsigned int textureID)
+{
+	Texture* texture = ChooseTextureToUse(textureID);
+
+	if (texture)
+		glBindTexture(GL_TEXTURE_2D, texture->GetTextureID());
+
+	DrawElement(model, materialID, indicesSize, VAO);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Renderer::Unload()

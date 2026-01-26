@@ -36,8 +36,6 @@ private:
 
 	Texture* ChooseTextureToUse(const unsigned int& ID);
 
-	void DrawElement2D(const glm::mat4& model, const unsigned int& materialID, const int& indicesSize, const unsigned int& VAO);
-
 public:
 
 	Renderer();
