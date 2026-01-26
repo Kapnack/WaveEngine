@@ -15,7 +15,8 @@ class MaterialFactory;
 class EntityFactory;
 class EntityManager;
 class BaseGame;
-class ImGuiClass;
+class EntitiesImGui;
+class MaterialsImGui;
 
 using namespace std;
 
@@ -41,7 +42,8 @@ private:
 	friend class EntityManager;
 	friend class BaseGame;
 	friend class ServiceProvider;
-	friend class ImGuiClass;
+	friend class EntitiesImGui;
+	friend class MaterialsImGui;
 
 	MaterialManager();
 	~MaterialManager();
