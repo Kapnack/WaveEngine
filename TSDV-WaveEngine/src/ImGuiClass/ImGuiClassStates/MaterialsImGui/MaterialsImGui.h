@@ -15,8 +15,12 @@ private:
 
 	bool deleteByName = false;
 
-	bool createMaterial = false;
-	bool importMaterial = false;
+	const char* items[3] =
+	{
+		"None", "Import", "Create"
+	};
+
+	int current = 0;
 
 	bool addAbsoluteToVertexPath = false;
 	bool addAbsoluteToFragmentPath = false;

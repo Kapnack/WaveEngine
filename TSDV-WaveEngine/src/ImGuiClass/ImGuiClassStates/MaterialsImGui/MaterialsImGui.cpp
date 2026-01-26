@@ -30,31 +30,11 @@ FileReader* MaterialsImGui::GetFileReader()
 
 void MaterialsImGui::Update()
 {
-	if (!createMaterial)
-		ImGui::Checkbox("Show Material Importer", &importMaterial);
 
-	if(!importMaterial)
-		ImGui::Checkbox("Show Material Creator", &createMaterial);
+	ImGui::Combo("Material Creation Method", &current, items, IM_ARRAYSIZE(items));
 
-	if (createMaterial && !importMaterial)
-	{
-		text = "Create Material";
-		ImGui::Text(text.c_str());
 
-		ImGui::InputText("Material Name", newMaterialName.data(), newMaterialName.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &newMaterialName);
-
-		ImGui::InputTextMultiline("Vertex Shader",
-			vertexShader.data(), vertexShader.capacity() + 1,
-			textBoxSize, ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CallbackResize, ResizeCallback, &vertexShader);
-
-		ImGui::InputTextMultiline("Fragment Shader",
-			fragmentShader.data(), fragmentShader.capacity() + 1,
-			textBoxSize, ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CallbackResize, ResizeCallback, &fragmentShader);
-
-		if (ImGui::Button("Create Material"))
-			GetMaterialFactory()->CreateMaterial(newMaterialName, vertexShader, fragmentShader);
-	}
-	else if (importMaterial && !createMaterial)
+	if (current == 1)
 	{
 		text = "Import Material";
 		ImGui::Text(text.c_str());
@@ -80,6 +60,24 @@ void MaterialsImGui::Update()
 			GetMaterialFactory()->CreateMaterial(newMaterialName, fileVertexShader, fileFragmentShader);
 		}
 
+	}
+	else if(current == 2)
+	{
+		text = "Create Material";
+		ImGui::Text(text.c_str());
+
+		ImGui::InputText("Material Name", newMaterialName.data(), newMaterialName.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &newMaterialName);
+
+		ImGui::InputTextMultiline("Vertex Shader",
+			vertexShader.data(), vertexShader.capacity() + 1,
+			textBoxSize, ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CallbackResize, ResizeCallback, &vertexShader);
+
+		ImGui::InputTextMultiline("Fragment Shader",
+			fragmentShader.data(), fragmentShader.capacity() + 1,
+			textBoxSize, ImGuiInputTextFlags_AllowTabInput | ImGuiInputTextFlags_CallbackResize, ResizeCallback, &fragmentShader);
+
+		if (ImGui::Button("Create Material"))
+			GetMaterialFactory()->CreateMaterial(newMaterialName, vertexShader, fragmentShader);
 	}
 
 	ImGui::Separator();
