@@ -9,7 +9,8 @@
 
 class EntityFactory;
 class EntityManager;
-class ImGuiClass;
+class EntitiesImGui;
+class MeshImGui;
 
 WAVEEXPORT class Entity
 {
@@ -17,9 +18,14 @@ private:
 
 	unsigned int ID = 0;
 
+	bool isActive = true;
+
 	friend class EntityFactory;
 	friend class EntityManager;
-	friend class ImGuiClass;;
+	friend class EntitiesImGui;
+	friend class MeshImGui;
+
+	void UpdateVertexBuffer();
 
 protected:
 
@@ -55,6 +61,9 @@ protected:
 public:
 
 	static const unsigned int NULL_ENTITY = 0;
+
+	WAVEEXPORT void SetIsActive(const bool& setActive);
+	WAVEEXPORT bool GetIsActive();
 
 	WAVEEXPORT void SetMaterial(const unsigned int materialID);
 	WAVEEXPORT const unsigned int GetMaterial() const;
