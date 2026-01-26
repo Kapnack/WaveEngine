@@ -26,7 +26,7 @@ void TexturesImGui::Update()
 {
 	ImGui::Checkbox("Use Absolute Path", &withAbsolutePath);
 
-	ImGui::InputText("Texture Path", buf, sizeof(buf));
+	ImGui::InputText("Texture Path", fileTexurePath.data(), fileTexurePath.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &fileTexurePath);
 
 	if (ImGui::Button("Import Texture"))
 		if (withAbsolutePath)
