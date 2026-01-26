@@ -39,7 +39,7 @@ void Game::Init(int width, int height)
 
 	tileMap = new TileMap(json, spriteSheet);
 
-	unsigned int samusTexture = GetTextureImporter()->LoadTexture("Sprites/Samus Aran Sprite Sheet.png");
+	unsigned int samusTexture = GetTextureImporter()->LoadTextureAbsolutePath("Sprites/Samus Aran Sprite Sheet.png");
 
 	Vector2 textureSize = Vector2(860, 762);
 
@@ -51,8 +51,7 @@ void Game::Init(int width, int height)
 	GetEntityManager()->Get<Sprite>(player)->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
 	GetEntityManager()->Get<Sprite>(player)->SetPosition(Vector3{ 100,100,0 });
 
-	for (int i = 1; i < 100; i++)
-		entityController->AddEntityID(i);
+	entityController->AddEntityID(1);
 
 	GetEntityManager()->Get<Sprite>(player2)->SetTexture(samusTexture);
 	GetEntityManager()->Get<Sprite>(player2)->SetColor(Vector4{ 1,0,0,1 });
