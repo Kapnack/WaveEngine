@@ -8,7 +8,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Window/Window.h"
-
+#include "TextureImporter/TextureImporter.h"
 #include "VertexData.h"
 #include "Material/Material.h"
 
@@ -22,6 +22,8 @@ private:
 	void Init();
 	void Unload();
 
+	unsigned int defualtTextureID = 0;
+
 	Vector3 res;
 
 	const unsigned int ReturnWorkingMaterial(const unsigned int& materialIDToTry, const unsigned int& materialIDfallBack);
@@ -29,6 +31,8 @@ private:
 	Window* GetWindow();
 
 	MaterialManager* GetMaterialManager();
+
+	TextureManager* GetTextureManager();
 
 	void DrawElement2D(const glm::mat4& model, const unsigned int& materialID, const int& indicesSize, const unsigned int& VAO);
 
