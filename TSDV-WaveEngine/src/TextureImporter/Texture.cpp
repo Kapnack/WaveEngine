@@ -27,6 +27,11 @@ Vector2 Texture::GetRes()
 	return Vector2(width, height);
 }
 
+string Texture::GetName()
+{
+	return name;
+}
+
 unsigned int Texture::GetTextureID()
 {
 	return textureID;
