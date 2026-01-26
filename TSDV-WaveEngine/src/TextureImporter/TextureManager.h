@@ -43,4 +43,5 @@ private:
 public:
 
 	WAVEEXPORT void DeleteTexture(const unsigned int& ID);
+	WAVEEXPORT void DeleteTexture(const string& name);
 };
