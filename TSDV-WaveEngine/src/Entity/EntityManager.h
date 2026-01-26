@@ -17,7 +17,6 @@
 
 class BaseGame;
 class EntityFactory;
-class ImGuiClass;
 
 using namespace std;
 
@@ -34,7 +33,6 @@ private:
 
 	unordered_map<type_index, vector<unsigned int>> entitiesIDByType;
 
-	inline unordered_map<unsigned int, Entity*>& GetEntities();
 
 	template<EntityManagerStandar T>
 	void SaveEntity(const unsigned int& ID, T* entity);
@@ -47,9 +45,10 @@ private:
 	friend class ServiceProvider;
 	friend class EntityFactory;
 	friend class BaseGame;
-	friend class ImGuiClass;
 
 public:
+
+	inline unordered_map<unsigned int, Entity*>& GetEntities();
 
 	template<EntityManagerStandar T>
 	T* Get(const unsigned int& ID);
