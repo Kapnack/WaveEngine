@@ -52,17 +52,17 @@ void Renderer::Init()
 	view = new glm::mat4(1.0f);
 	proj = new glm::mat4(glm::ortho(0.0f, res.x, 0.0f, res.y, -1.0f, 1.0f));
 
-	FileReader fileReader;
+	FileReader* fileReader = ServiceProvider::Instance().Get<FileReader>();
 
-	string vertexShader = fileReader.ReadFile("Shaders/Shapes/basicVertexShader.shader");
+	string vertexShader = fileReader->ReadFileAbsolutePath("Shaders/Shapes/basicVertexShader.shader");
 
-	string fragmentShader = fileReader.ReadFile("Shaders/Shapes/defaultFragmentShader.shader");
+	string fragmentShader = fileReader->ReadFileAbsolutePath("Shaders/Shapes/defaultFragmentShader.shader");
 
 	shapeShaders = ServiceProvider::Instance().Get<MaterialFactory>()->CreateMaterial("defaultShapeShader", vertexShader, fragmentShader);
 
-	vertexShader = fileReader.ReadFile("Shaders/Sprites/basicVertexShader.shader");
+	vertexShader = fileReader->ReadFileAbsolutePath("Shaders/Sprites/basicVertexShader.shader");
 
-	fragmentShader = fileReader.ReadFile("Shaders/Sprites/defaultFragmentShader.shader");
+	fragmentShader = fileReader->ReadFileAbsolutePath("Shaders/Sprites/defaultFragmentShader.shader");
 
 	spriteShaders = ServiceProvider::Instance().Get<MaterialFactory>()->CreateMaterial("defaultSpriteShader", vertexShader, fragmentShader);
 }
