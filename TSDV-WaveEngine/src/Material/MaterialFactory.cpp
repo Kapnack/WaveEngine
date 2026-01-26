@@ -65,8 +65,18 @@ unsigned int MaterialFactory::CreateMaterial(const string name, const string ver
 	newMaterial->SetUProj(glGetUniformLocation(program, "uProj"));
 
 	newMaterial->SetOurTexture(glGetUniformLocation(program, "ourTexture"));
+	
+	int i = 0;
 
-	newMaterial->SetName(name);
+	string selectedName = name;
+
+	while (GetMaterialManager()->GetMaterial(selectedName))
+	{
+		++i;
+		selectedName = name + " (" + to_string(i) + ")";
+	}
+
+	newMaterial->SetName(selectedName);
 
 	GetMaterialManager()->SaveMaterial(currentMaterialID, newMaterial);
 
