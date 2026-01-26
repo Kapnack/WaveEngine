@@ -1,16 +1,20 @@
 #pragma once
 
 #include "Vector2.h"
-
 #include "Export.h"
+
+#include <string>
 
 class TextureManager;
 class TextureImporter;
+
+using namespace std;
 
 class Texture final
 {
 private:
 
+	string name;
 	unsigned int ID = 0;
 	unsigned int textureID = 0;
 
@@ -28,10 +32,11 @@ public:
 	static const int NULL_TEXTURE = 0;
 
 	int GetWidth();
-	 int GetHeight();
+	int GetHeight();
+	string GetName();
 
-	 Vector2 GetRes();
+	Vector2 GetRes();
 
-	 unsigned int GetTextureID();
-	 unsigned int GetID();
+	unsigned int GetTextureID();
+	unsigned int GetID();
 };
