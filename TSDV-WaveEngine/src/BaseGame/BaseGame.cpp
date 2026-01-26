@@ -105,6 +105,11 @@ TextureImporter* BaseGame::GetTextureImporter()
 	return ServiceProvider::Instance().Get<TextureImporter>();
 }
 
+FileReader* BaseGame::GetFileReader()
+{
+	return ServiceProvider::Instance().Get<FileReader>();
+}
+
 void BaseGame::Run()
 {
 	try
