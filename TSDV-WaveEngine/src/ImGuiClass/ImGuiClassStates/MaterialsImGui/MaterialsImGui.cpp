@@ -23,6 +23,11 @@ MaterialFactory* MaterialsImGui::GetMaterialFactory()
 	return ServiceProvider::Instance().Get<MaterialFactory>();
 }
 
+FileReader* MaterialsImGui::GetFileReader()
+{
+	return ServiceProvider::Instance().Get<FileReader>();
+}
+
 void MaterialsImGui::Update()
 {
 	text = "Create Material";
