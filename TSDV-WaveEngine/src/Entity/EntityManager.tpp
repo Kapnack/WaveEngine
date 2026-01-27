@@ -38,7 +38,7 @@ template<EntityManagerStandar T>
 void EntityManager::SaveEntity(const unsigned int& ID, T* entity)
 {
 	entitiesByID[ID] = entity;
-	entitiesIDByType[typeid(T)].push_back(ID);
+	entitiesIDByType[typeid(*entity)].push_back(ID);
 }
 
 template<EntityManagerStandar T>
