@@ -67,6 +67,14 @@ void EntitiesImGui::Update()
 
 	ImGui::Separator();
 
+	ImGui::Text("Delete Entity by ID");
+	ImGui::InputInt("Input Entity ID", &entityToDelete);
+
+	if (ImGui::Button("Delete Entity"))
+		GetEntityManager()->DeleteEntity(entityToDelete);
+
+	ImGui::Separator();
+
 	text = "Show Entities Materials";
 	ImGui::Checkbox(text.c_str(), &showMaterials);
 
