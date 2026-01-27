@@ -57,6 +57,11 @@ public:
 
 	template<EntityManagerStandar T>
 	vector<T*> GetAllOfType();
+
+	void DeleteEntity(const unsigned int& ID);
+
+	template<EntityManagerStandar T>
+	void DeleteAllOfType();
 };
 
 #include "EntityManager.tpp"
