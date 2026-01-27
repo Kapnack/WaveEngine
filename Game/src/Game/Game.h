@@ -2,6 +2,7 @@
 
 #include "BaseGame/BaseGame.h"
 #include "TileMap/TileMap.h"
+#include "CollisionManager/CollisionManager.h"
 #include "Entity/Controller/EntityController/EntityController.h"
 
 class Game : public BaseGame
@@ -9,7 +10,7 @@ class Game : public BaseGame
 private:
 
 	EntityController* entityController;
-
+	CollisionManager* collisionManager;
 	TileMap* tileMap;
 
 protected:

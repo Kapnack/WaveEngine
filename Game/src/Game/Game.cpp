@@ -29,6 +29,8 @@ void Game::Init(int width, int height)
 	otherThing->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
 	otherThing->SetPosition(Vector3{ 0,0,0 });*/
 
+	collisionManager = new CollisionManager();
+
 	EntityFactory* factory = GetEntityFactory();
 
 	unsigned int player = factory->Create<Sprite>();
@@ -65,6 +67,10 @@ void Game::Update()
 
 	if (GetInput()->IsKeyPressed(Keys::Q))
 		GetMaterialManager()->DeleteMaterial(GetEntityManager()->Get<Entity>(2)->GetMaterial());
+	Entity2D* entity = GetEntityManager()->Get<Entity2D>(1);
+
+	if (collisionManager->CheckCollision(*entity, *tileMap))
+		cout << "IT WORKS!!!";
 }
 
 void Game::Draw()
@@ -76,4 +82,5 @@ void Game::Unload()
 {
 	delete entityController;
 	delete tileMap;
+	delete collisionManager;
 }
