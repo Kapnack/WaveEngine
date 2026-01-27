@@ -21,6 +21,7 @@ private:
 
 	bool showMaterials = false;
 	bool showTextures = false;
+	bool showInReverseOrder = false;
 
 	const char* creationOptions[4] =
 	{
@@ -44,6 +45,23 @@ private:
 	void ShowEntityData(Entity* it);
 	void ShowMaterial(Entity* entity);
 	void ShowTexture(Sprite* sprite);
+
+	template<EntityManagerStandar T>
+	void ShowAllOfType(bool reverse)
+	{
+		auto& vec = GetEntityManager()->GetAllOfType<T>();
+
+		if (!reverse)
+		{
+			for (auto id : vec)
+				ShowEntity(GetEntityManager()->Get(id));
+		}
+		else
+		{
+			for (auto it = vec.rbegin(); it != vec.rend(); ++it)
+				ShowEntity(GetEntityManager()->Get(*it));
+		}
+	}
 
 public:
 
