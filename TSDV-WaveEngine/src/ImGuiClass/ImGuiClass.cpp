@@ -4,8 +4,6 @@
 #include <ImGui/imgui_impl_opengl3.h>
 #include <ImGui/imgui_impl_glfw.h>
 
-#include "Material/Material.h"
-
 ImGuiClass::ImGuiClass() : Service()
 {
 	Init();
