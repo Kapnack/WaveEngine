@@ -27,7 +27,7 @@ public:
 	void SetCollide(bool walkable);
 
 	void SetTileID(unsigned int id);
-	unsigned int GetID();
+	unsigned int GetTileID();
 
 	void SetSpriteSheetID(int id);
 	unsigned int GetSpriteSheetID();

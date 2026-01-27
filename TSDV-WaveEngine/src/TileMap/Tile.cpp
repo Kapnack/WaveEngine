@@ -23,7 +23,7 @@ void Tile::SetTileID(unsigned int id)
 	this->tileID = id;
 }
 
-unsigned int Tile::GetID()
+unsigned int Tile::GetTileID()
 {
 	return tileID;
 }
