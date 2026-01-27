@@ -1,7 +1,6 @@
 #pragma once
 
 #include "ServiceProvider/Service.h"
-#include "ServiceProvider/ServiceProvider.h"
 
 #include <unordered_map>
 #include <typeindex>
@@ -10,8 +9,6 @@
 
 #include <concepts>
 #include <vector>
-
-#include "Export.h"
 
 #include "Material/MaterialManager.h"
 
@@ -58,7 +55,7 @@ public:
 	template<EntityManagerStandar T>
 	vector<T*> GetAllOfType();
 
-	void DeleteEntity(const unsigned int& ID);
+	inline void DeleteEntity(const unsigned int& ID);
 
 	template<EntityManagerStandar T>
 	void DeleteAllOfType();
