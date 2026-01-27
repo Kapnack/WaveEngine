@@ -62,6 +62,8 @@ public:
 
 	static const unsigned int NULL_ENTITY = 0;
 
+	WAVEEXPORT unsigned int GetID() const;
+
 	WAVEEXPORT void SetIsActive(const bool& setActive);
 	WAVEEXPORT bool GetIsActive();
 

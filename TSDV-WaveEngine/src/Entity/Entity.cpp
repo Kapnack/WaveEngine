@@ -17,6 +17,11 @@ Entity::~Entity()
 	delete[] indices;
 }
 
+unsigned int Entity::GetID() const
+{
+	return ID;
+}
+
 void Entity::SetIsActive(const bool& setActive)
 {
 	isActive = setActive;
