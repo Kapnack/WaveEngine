@@ -26,8 +26,12 @@ unordered_map<unsigned int, Entity*>& EntityManager::GetEntities()
 
 inline void EntityManager::DrawEntities()
 {
+	Tile* tile = nullptr;
 	for (unordered_map<const unsigned int, Entity*>::iterator service = entitiesByID.begin(); service != entitiesByID.end(); ++service)
-		service->second->Draw();
+		if (tile = dynamic_cast<Tile*>(service->second))
+			continue;
+		else
+			service->second->Draw();
 }
 
 template<EntityManagerStandar T>
