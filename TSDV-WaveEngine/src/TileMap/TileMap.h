@@ -32,11 +32,11 @@ public:
 
 	WAVEEXPORT int GetLayerCount() const;
 
-	WAVEEXPORT Tile* GetTileAt(const int& layer, const int& col, const int& row) const;
+	WAVEEXPORT unsigned int GetTileAt(const int& layer, const int& col, const int& row) const;
 
 private:
 
-	Tile**** _tileMapGrid = nullptr;
+	unsigned int*** _tileMapGrid = nullptr;
 
 	int layersAmount = 0;
 	int rowAmount = 0;
