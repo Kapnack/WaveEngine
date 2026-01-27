@@ -45,9 +45,9 @@ void ImGuiClass::Init()
 
 void ImGuiClass::Unload()
 {
-	delete showEntitiesState;
 	delete showTexturesState;
 	delete showMaterialsState;
+	delete showEntitiesState;
 	delete showMeshState;
 
 	ImGui_ImplOpenGL3_Shutdown();
