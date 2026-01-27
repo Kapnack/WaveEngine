@@ -2,6 +2,7 @@
 
 #include "Entity/EntityManager.h"
 #include "ServiceProvider/Service.h"
+#include "Window/Window.h"
 #include "Material/MaterialManager.h"
 #include "ServiceProvider/ServiceProvider.h"
 
@@ -15,10 +16,11 @@ private:
 
 	EntityManager* entityManager;
 	MaterialManager* materialManager;
+	Window* window;
 
 	unsigned int currentEntityID = Entity::NULL_ENTITY;
 
-	inline EntityFactory(EntityManager* entityManager, MaterialManager* materialManager);
+	inline EntityFactory(EntityManager* entityManager, MaterialManager* materialManager, Window* window);
 	inline ~EntityFactory();
 
 	friend class ServiceProvider;
