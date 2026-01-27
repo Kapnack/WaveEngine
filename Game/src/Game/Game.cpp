@@ -70,7 +70,7 @@ void Game::Update()
 
 	Entity2D* entity = GetEntityManager()->Get<Entity2D>(1);
 
-	if (collisionManager->CheckCollision(*entity, *tileMap))
+	if (collisionManager->CheckCollision(entity, *tileMap))
 		cout << "IT WORKS!!!";
 }
 
