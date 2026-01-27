@@ -65,6 +65,15 @@ inline void EntityManager::DeleteEntity(const unsigned int& ID)
 		ids.erase(remove(ids.begin(), ids.end(), ID), ids.end());
 }
 
+inline void EntityManager::DeleteAll()
+{
+	for (unordered_map<unsigned int, Entity*>::iterator it = entitiesByID.begin(); it != entitiesByID.end(); ++it)
+		delete it->second;
+
+	entitiesByID.clear();
+	entitiesIDByType.clear();
+}
+
 template<EntityManagerStandar T>
 vector<unsigned int>& EntityManager::GetAllOfType()
 {
