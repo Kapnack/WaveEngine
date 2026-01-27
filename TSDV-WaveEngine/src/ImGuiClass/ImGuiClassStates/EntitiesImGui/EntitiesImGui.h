@@ -32,10 +32,17 @@ private:
 
 	const char* filters[5] =
 	{
-		"All Entities", "Sprites", "Squares", "Triangles", "Tiles"
+		"Entities", "Sprites", "Squares", "Triangles", "Tiles"
 	};
 
 	int currentFilter = 0;
+
+	const char* delitionFilters[6] =
+	{
+		"By ID", "All Entities", "All Sprites", "All Squares", "All Triangles", "All Tiles"
+	};
+
+	int currentDeletionFilter = 0;
 
 	int textureID = 0;
 	int materialID = 0;
