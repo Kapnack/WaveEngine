@@ -66,14 +66,9 @@ inline void EntityManager::DeleteEntity(const unsigned int& ID)
 }
 
 template<EntityManagerStandar T>
-vector<T*> EntityManager::GetAllOfType()
+vector<unsigned int>& EntityManager::GetAllOfType()
 {
-	vector<T*> entitiesOfType;
-
-	for (vector<unsigned int>::iterator it = entitiesIDByType[typeid(T)].begin(); it != entitiesIDByType[typeid(T)].end(); it++)
-		entitiesOfType.push_back(Get<T>(*it));
-
-	return entitiesOfType;
+	return entitiesIDByType[typeid(T)];
 }
 
 
