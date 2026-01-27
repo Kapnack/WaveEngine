@@ -1,6 +1,9 @@
 ﻿#include "CollisionManager.h"
 #include "Collider.h"
 
+#include "ServiceProvider/ServiceProvider.h"
+#include "Entity/EntityManager.h"
+
 CollisionManager::CollisionManager() : Service()
 {
 }
@@ -9,11 +12,22 @@ CollisionManager::~CollisionManager()
 {
 }
 
-bool CollisionManager::CheckCollision(const Entity2D& anEntity, const Entity2D& otherEntity) const noexcept
+bool CollisionManager::CheckCollision(const unsigned int& anEntity, const unsigned int& otherEntity) const
 {
+	Entity* entityA = ServiceProvider::Instance().Get<EntityManager>()->Get<Entity>(otherEntity);
+	Entity* entityB = ServiceProvider::Instance().Get<EntityManager>()->Get<Entity>(otherEntity);
 
-	Collider entityCollider = anEntity.GetCollider();
-	Collider otherCollider = otherEntity.GetCollider();
+	if (!entityA || !entityB)
+		return false;
+
+	Entity2D* entity2Da = dynamic_cast<Entity2D*>(entityA);
+	Entity2D* entity2Db = dynamic_cast<Entity2D*>(entityB);
+
+	if (!entity2Da || !entity2Db)
+		return false;
+
+	Collider entityCollider = entity2Da->GetCollider();
+	Collider otherCollider = entity2Db->GetCollider();
 
 	return entityCollider.x < otherCollider.x + otherCollider.width &&
 		entityCollider.x + entityCollider.width > otherCollider.x &&
@@ -55,12 +69,22 @@ bool CollisionManager::CheckCollision(const Entity2D& entity, const TileMap& til
 		{
 			for (int layer = 0; layer < tileMap.GetLayerCount(); ++layer)
 			{
-				Tile* tile = tileMap.GetTileAt(layer, row, col);
+				unsigned int tileID = tileMap.GetTileAt(layer, row, col);
 
-				if (!tile || !tile->CanCollide())
+				if (tileID == Entity::NULL_ENTITY)
 					continue;
 
-				if (CheckCollision(entity, *tile))
+				Entity2D* tile = ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(tileID);
+
+				if (!tile)
+					continue;
+
+				if (!ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(tileID)->CanCollide())
+					continue;
+
+				unsigned int entityID = entity.GetID();
+
+				if (CheckCollision(entityID, tileID))
 					return true;
 			}
 		}
