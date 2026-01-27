@@ -37,7 +37,15 @@ TextureManager* EntitiesImGui::GetTextureManager()
 
 void EntitiesImGui::Update()
 {
+	EntityCreator();
 
+	EntityDeleter();
+
+	EntityDisplayer();
+}
+
+void EntitiesImGui::EntityCreator()
+{
 	ImGui::Combo("Entity Factory", &currentCreationOption, creationOptions, IM_ARRAYSIZE(creationOptions));
 
 	if (currentCreationOption > 0)
@@ -67,7 +75,10 @@ void EntitiesImGui::Update()
 	}
 
 	ImGui::Separator();
+}
 
+void EntitiesImGui::EntityDeleter()
+{
 	ImGui::Text("Delete Entity by ID");
 	ImGui::InputInt("Input Entity ID", &entityToDelete);
 
@@ -75,7 +86,10 @@ void EntitiesImGui::Update()
 		GetEntityManager()->DeleteEntity(entityToDelete);
 
 	ImGui::Separator();
+}
 
+void EntitiesImGui::EntityDisplayer()
+{
 	ImGui::Combo("Filter", &currentFilter, filters, IM_ARRAYSIZE(filters));
 
 	text = "Display in Reverse";
@@ -94,12 +108,11 @@ void EntitiesImGui::Update()
 			ShowEntity(entity);
 		break;
 
-	case 1: ShowAllOfType<Sprite>(showInReverseOrder);   break;
-	case 2: ShowAllOfType<Square>(showInReverseOrder);   break;
-	case 3: ShowAllOfType<Triangle>(showInReverseOrder); break;
-	case 4: ShowAllOfType<Tile>(showInReverseOrder);     break;
+	case 1: ShowAllOfType<Sprite>();   break;
+	case 2: ShowAllOfType<Square>();   break;
+	case 3: ShowAllOfType<Triangle>(); break;
+	case 4: ShowAllOfType<Tile>();     break;
 	}
-
 }
 
 void EntitiesImGui::ShowEntity(Entity* entity)

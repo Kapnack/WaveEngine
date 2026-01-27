@@ -41,6 +41,10 @@ private:
 	int materialID = 0;
 	int entityToDelete = 0;
 
+	void EntityCreator();
+	void EntityDeleter();
+
+	void EntityDisplayer();
 	void ShowEntity(Entity* entity);
 	void ShowEntityData(Entity* it);
 	void ShowMaterial(Entity* entity);
