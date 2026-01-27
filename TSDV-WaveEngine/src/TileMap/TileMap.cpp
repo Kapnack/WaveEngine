@@ -44,10 +44,12 @@ Window* TileMap::GetWindow() const
 
 Tile* TileMap::GetTile(const unsigned int id) const
 {
-	for (auto& it : ServiceProvider::Instance().Get<EntityManager>()->GetAllOfType<Tile>())
+	for (auto it : ServiceProvider::Instance().Get<EntityManager>()->GetAllOfType<Tile>())
 	{
-		if (it->GetTileID() == id)
-			return it;
+		Tile* tile = ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(it);
+
+		if (tile->GetTileID() == id)
+			return tile;
 	}
 
 	return nullptr;
