@@ -67,4 +67,20 @@ vector<T*> EntityManager::GetAllOfType()
 	return entitiesOfType;
 }
 
+void EntityManager::DeleteEntity(const unsigned int& ID)
+{
+	delete entitiesByID[ID];
+	entitiesByID.erase(ID);
+
+	for (auto& [type, ids] : entitiesIDByType)
+		ids.erase(remove(ids.begin(), ids.end(), ID), ids.end());
+}
+
+template<EntityManagerStandar T>
+void EntityManager::DeleteAllOfType()
+{
+	for (unsigned int& ID : entitiesIDByType[typeid(T)])
+		DeleteEntity(ID);
+}
+
 #endif
