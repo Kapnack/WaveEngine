@@ -48,6 +48,9 @@ bool CollisionManager::CheckCollision(const Entity2D* entity, const TileMap& til
 	const int mapW = tileMap.GetMapWidth();
 	const int mapH = tileMap.GetMapHeight();
 
+	if (tileW == 0 || tileH == 0 || mapH == 0 || mapW == 0)
+		return false;
+
 	const float windowH = tileMap.GetMapHeight() * tileH;
 
 	const float left = c.x;
