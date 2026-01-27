@@ -47,11 +47,11 @@ private:
 	void ShowTexture(Sprite* sprite);
 
 	template<EntityManagerStandar T>
-	void ShowAllOfType(bool reverse)
+	void ShowAllOfType()
 	{
 		auto& vec = GetEntityManager()->GetAllOfType<T>();
 
-		if (!reverse)
+		if (!showInReverseOrder)
 		{
 			for (auto id : vec)
 				ShowEntity(GetEntityManager()->Get(id));
