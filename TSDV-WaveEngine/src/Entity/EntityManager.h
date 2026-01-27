@@ -59,6 +59,8 @@ public:
 
 	template<EntityManagerStandar T>
 	void DeleteAllOfType();
+
+	inline void DeleteAll();
 };
 
 #include "EntityManager.tpp"
