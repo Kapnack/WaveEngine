@@ -78,6 +78,9 @@ void EntitiesImGui::Update()
 
 	ImGui::Combo("Filter", &currentFilter, filters, IM_ARRAYSIZE(filters));
 
+	text = "Display in Reverse";
+	ImGui::Checkbox(text.c_str(), &showInReverseOrder);
+
 	text = "Show Entities Materials";
 	ImGui::Checkbox(text.c_str(), &showMaterials);
 
@@ -87,43 +90,16 @@ void EntitiesImGui::Update()
 	switch (currentFilter)
 	{
 	case 0:
-
-		for (auto it : GetEntityManager()->GetEntities())
-			ShowEntity(it.second);
-
+		for (auto& [id, entity] : GetEntityManager()->GetEntities())
+			ShowEntity(entity);
 		break;
 
-	case 1:
-
-		for (auto it : GetEntityManager()->GetAllOfType<Sprite>())
-			ShowEntity(it);
-
-		break;
-
-	case 2:
-
-		for (auto it : GetEntityManager()->GetAllOfType<Square>())
-			ShowEntity(it);
-
-		break;
-
-	case 3:
-
-		for (auto it : GetEntityManager()->GetAllOfType<Triangle>())
-			ShowEntity(it);
-
-		break;
-
-	case 4:
-
-		for (auto it : GetEntityManager()->GetAllOfType<Tile>())
-			ShowEntity(it);
-
-		break;
-
-	default:
-		break;
+	case 1: ShowAllOfType<Sprite>(showInReverseOrder);   break;
+	case 2: ShowAllOfType<Square>(showInReverseOrder);   break;
+	case 3: ShowAllOfType<Triangle>(showInReverseOrder); break;
+	case 4: ShowAllOfType<Tile>(showInReverseOrder);     break;
 	}
+
 }
 
 void EntitiesImGui::ShowEntity(Entity* entity)
