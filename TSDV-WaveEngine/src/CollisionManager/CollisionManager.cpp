@@ -35,9 +35,12 @@ bool CollisionManager::CheckCollision(const unsigned int& anEntity, const unsign
 		entityCollider.y + entityCollider.height > otherCollider.y;
 }
 
-bool CollisionManager::CheckCollision(const Entity2D& entity, const TileMap& tileMap) const
+bool CollisionManager::CheckCollision(const Entity2D* entity, const TileMap& tileMap) const
 {
-	Collider c = entity.GetCollider();
+	if (entity == nullptr)
+		return false;
+
+	Collider c = entity->GetCollider();
 
 	const float tileW = tileMap.GetTileWidth();
 	const float tileH = tileMap.GetTileHeight();
@@ -82,7 +85,7 @@ bool CollisionManager::CheckCollision(const Entity2D& entity, const TileMap& til
 				if (!ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(tileID)->CanCollide())
 					continue;
 
-				unsigned int entityID = entity.GetID();
+				unsigned int entityID = entity->GetID();
 
 				if (CheckCollision(entityID, tileID))
 					return true;
