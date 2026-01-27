@@ -79,11 +79,30 @@ void EntitiesImGui::EntityCreator()
 
 void EntitiesImGui::EntityDeleter()
 {
-	ImGui::Text("Delete Entity by ID");
-	ImGui::InputInt("Input Entity ID", &entityToDelete);
+	ImGui::Combo("Choose Delete form", &currentDeletionFilter, delitionFilters, IM_ARRAYSIZE(delitionFilters));
 
-	if (ImGui::Button("Delete Entity"))
-		GetEntityManager()->DeleteEntity(entityToDelete);
+
+	if (currentDeletionFilter == 0)
+	{
+		ImGui::Text("Delete Entity by ID");
+		ImGui::InputInt("Input Entity ID", &entityToDelete);
+	}
+
+
+	if (ImGui::Button("Delete"))
+		switch (currentDeletionFilter)
+		{
+		case 0: GetEntityManager()->DeleteEntity(entityToDelete); break;
+		
+		case 1: GetEntityManager()->DeleteAll(); break;
+		case 2: GetEntityManager()->DeleteAllOfType<Sprite>(); break;
+		case 3: GetEntityManager()->DeleteAllOfType<Square>(); break;
+		case 4: GetEntityManager()->DeleteAllOfType<Triangle>(); break;
+		case 5: GetEntityManager()->DeleteAllOfType<Tile>(); break;
+
+		default:
+			break;
+		}
 
 	ImGui::Separator();
 }
