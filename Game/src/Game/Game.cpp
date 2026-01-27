@@ -70,8 +70,6 @@ void Game::Update()
 void Game::Draw()
 {
 	tileMap->Draw();
-	GetEntityManager()->Get<Sprite>(1)->Draw();
-	GetEntityManager()->Get<Sprite>(2)->Draw();
 }
 
 void Game::Unload()
