@@ -44,11 +44,11 @@ Window* TileMap::GetWindow() const
 
 Tile* TileMap::GetTile(const unsigned int id) const
 {
-	for (int layer = 0; layer < layersAmount; ++layer)
-		for (int y = 0; y < rowAmount; ++y)
-			for (int x = 0; x < columnsAmount; ++x)
-				if (_tileMapGrid[layer][y][x]->GetID() == id)
-					return _tileMapGrid[layer][y][x];
+	for (auto& it : ServiceProvider::Instance().Get<EntityManager>()->GetAllOfType<Tile>())
+	{
+		if (it->GetTileID() == id)
+			return it;
+	}
 
 	return nullptr;
 }
@@ -95,7 +95,7 @@ void TileMap::ImportTileMap(const string& filePath)
 	_tilePixelSize = tileSize;
 
 	layersAmount = data[LayersName].size();
-	_tileMapGrid = new Tile * **[layersAmount](nullptr);
+	_tileMapGrid = new unsigned int** [layersAmount](nullptr);
 
 	unsigned int id = 0;
 
@@ -103,11 +103,11 @@ void TileMap::ImportTileMap(const string& filePath)
 	{
 		bool layerHasCollision = data[LayersName][layer][colliderName];
 
-		_tileMapGrid[layer] = new Tile * *[columnsAmount](nullptr);
+		_tileMapGrid[layer] = new unsigned int* [columnsAmount](0);
 
 		for (size_t row = 0; row < columnsAmount; ++row)
 		{
-			_tileMapGrid[layer][row] = new Tile * [rowAmount](nullptr);
+			_tileMapGrid[layer][row] = new unsigned int[rowAmount]();
 		}
 
 		// FILL ONLY DEFINED TILES FROM JSON
@@ -131,7 +131,7 @@ void TileMap::ImportTileMap(const string& filePath)
 
 			SetTileUV(*tile, spriteSheetID);
 
-			_tileMapGrid[layer][row][col] = tile;
+			_tileMapGrid[layer][row][col] = newTile;
 
 			++id;
 		}
@@ -157,8 +157,10 @@ void TileMap::UpdateTilesPositions()
 		{
 			for (unsigned int col = 0; col < rowAmount; ++col)
 			{
-				Tile* tile = _tileMapGrid[layer][row][col];
-				if (!tile) continue;
+				Tile* tile = ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(_tileMapGrid[layer][row][col]);
+
+				if (!tile)
+					continue;
 
 				tile->SetScale({ _worldTileWidth, _worldTileHeight, 1 });
 
@@ -207,7 +209,9 @@ void TileMap::Draw()
 		{
 			for (unsigned int col = 0; col < rowAmount; ++col)
 			{
-				Tile* tile = _tileMapGrid[layer][row][col];
+				unsigned int tileID = _tileMapGrid[layer][row][col];
+
+				Tile* tile = ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(tileID);
 
 				if (tile == nullptr)
 					continue;
@@ -243,16 +247,16 @@ int TileMap::GetLayerCount() const
 	return layersAmount;
 }
 
-Tile* TileMap::GetTileAt(const int& layer, const int& row, const int& col) const
+unsigned int TileMap::GetTileAt(const int& layer, const int& row, const int& col) const
 {
 	if (layer < 0 || layer >= layersAmount)
-		return nullptr;
+		return Entity::NULL_ENTITY;
 
-	if (row < 0 || row >= columnsAmount) // Y / height
-		return nullptr;
+	if (row < 0 || row >= columnsAmount)
+		return Entity::NULL_ENTITY;
 
-	if (col < 0 || col >= rowAmount)     // X / width
-		return nullptr;
+	if (col < 0 || col >= rowAmount)
+		return Entity::NULL_ENTITY;
 
 	return _tileMapGrid[layer][row][col];
 }
