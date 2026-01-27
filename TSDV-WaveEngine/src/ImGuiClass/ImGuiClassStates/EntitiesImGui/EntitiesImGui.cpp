@@ -6,6 +6,7 @@
 #include <Entity/Entity2D/Shape/Square/Square.h>
 #include <Entity/Entity2D/Shape/Triangle/Triangle.h>
 
+
 EntitiesImGui::EntitiesImGui() : ImGuiClassState()
 {
 }
@@ -75,75 +76,127 @@ void EntitiesImGui::Update()
 
 	ImGui::Separator();
 
+	ImGui::Combo("Filter", &currentFilter, filters, IM_ARRAYSIZE(filters));
+
 	text = "Show Entities Materials";
 	ImGui::Checkbox(text.c_str(), &showMaterials);
 
 	text = "Show Entities Textures";
 	ImGui::Checkbox(text.c_str(), &showTextures);
 
-	for (auto it : GetEntityManager()->GetEntities())
+	switch (currentFilter)
 	{
-		if (it.second == nullptr)
-			continue;
+	case 0:
 
-		text = "EntityID: " + to_string(it.second->ID);
+		for (auto it : GetEntityManager()->GetEntities())
+			ShowEntity(it.second);
 
-		ImGui::Text(text.c_str());
+		break;
 
-		text = "ID: " + to_string(it.second->ID) + ". Position. ";
-		if (ImGui::DragFloat3(text.c_str(), &it.second->position.x))
-			it.second->SetTRS();
+	case 1:
 
-		text = "ID: " + to_string(it.second->ID) + ". Rotation.";
-		if (ImGui::DragFloat3(text.c_str(), &it.second->rotation.x))
-			it.second->SetTRS();
+		for (auto it : GetEntityManager()->GetAllOfType<Sprite>())
+			ShowEntity(it);
 
-		text = "ID: " + to_string(it.second->ID) + ". Scale.";
-		if (ImGui::DragFloat3(text.c_str(), &it.second->scale.x))
-			it.second->SetTRS();
+		break;
 
-		text = "ID: " + to_string(it.second->ID) + ". IsActive.";
-		ImGui::Checkbox(text.c_str(), &it.second->isActive);
+	case 2:
 
-		if (showMaterials)
-		{
-			text = "ID: " + to_string(it.second->ID) + ". Input Material ID. ";
-			ImGui::InputInt(text.c_str(), &materialID);
+		for (auto it : GetEntityManager()->GetAllOfType<Square>())
+			ShowEntity(it);
 
-			text = "Set Material ##xx ID: " + to_string(it.second->ID);
+		break;
 
-			if (ImGui::Button(text.c_str()))
-				it.second->SetMaterial(materialID);
+	case 3:
 
-			Material* material = GetMaterialManager()->GetMaterial(it.second->GetMaterial());
+		for (auto it : GetEntityManager()->GetAllOfType<Triangle>())
+			ShowEntity(it);
 
-			if (material != nullptr)
-			{
-				text = "##xx Name: " + material->GetName() + ". Program ID: " + to_string(material->GetProgram()) + "." + "ID: " + to_string(it.second->ID);
+		break;
 
-				ImGui::ColorEdit4(text.c_str(), &material->color.x);
-			}
-		}
+	case 4:
 
-		if (showTextures)
-		{
-			if (Sprite* sprite = dynamic_cast<Sprite*>(it.second))
-			{
-				text = "ID: " + to_string(it.second->ID) + ". Position. ";
-				ImGui::InputInt(text.c_str(), &textureID);
+		for (auto it : GetEntityManager()->GetAllOfType<Tile>())
+			ShowEntity(it);
 
-				text = "Set Texture ##xx ID: " + to_string(it.second->ID);
+		break;
 
-				if (ImGui::Button(text.c_str()))
-					sprite->SetTexture(textureID);
-
-				Texture* texture = GetTextureManager()->GetTexture(sprite->GetTexture());
-
-				if (texture != nullptr)
-					ImGui::Image(texture->GetTextureID(), ImVec2(texture->GetWidth() / 3, texture->GetHeight() / 3), ImVec2(0, 1), ImVec2(1, 0));
-			}
-		}
-
-		ImGui::Separator();
+	default:
+		break;
 	}
+}
+
+void EntitiesImGui::ShowEntity(Entity* entity)
+{
+	ShowEntityData(entity);
+
+	if (showMaterials)
+		ShowMaterial(entity);
+
+	if (showTextures && (currentFilter == 4 || currentFilter == 2))
+		if (Sprite* sprite = dynamic_cast<Sprite*>(entity))
+			ShowTexture(sprite);
+
+	ImGui::Separator();
+}
+
+void EntitiesImGui::ShowEntityData(Entity* it)
+{
+	if (it == nullptr)
+		return;
+
+	text = "EntityID: " + to_string(it->ID);
+
+	ImGui::Text(text.c_str());
+
+	text = "ID: " + to_string(it->ID) + ". Position. ";
+	if (ImGui::DragFloat3(text.c_str(), &it->position.x))
+		it->SetTRS();
+
+	text = "ID: " + to_string(it->ID) + ". Rotation.";
+	if (ImGui::DragFloat3(text.c_str(), &it->rotation.x))
+		it->SetTRS();
+
+	text = "ID: " + to_string(it->ID) + ". Scale.";
+	if (ImGui::DragFloat3(text.c_str(), &it->scale.x))
+		it->SetTRS();
+
+	text = "ID: " + to_string(it->ID) + ". IsActive.";
+	ImGui::Checkbox(text.c_str(), &it->isActive);
+}
+
+void EntitiesImGui::ShowMaterial(Entity* entity)
+{
+	text = "ID: " + to_string(entity->ID) + ". Input Material ID. ";
+	ImGui::InputInt(text.c_str(), &materialID);
+
+	text = "Set Material ##xx ID: " + to_string(entity->ID);
+
+	if (ImGui::Button(text.c_str()))
+		entity->SetMaterial(materialID);
+
+	Material* material = GetMaterialManager()->GetMaterial(entity->GetMaterial());
+
+	if (material != nullptr)
+	{
+		text = "##xx Name: " + material->GetName() + ". Program ID: " + to_string(material->GetProgram()) + "." + "ID: " + to_string(entity->ID);
+
+		ImGui::ColorEdit4(text.c_str(), &material->color.x);
+	}
+}
+
+void EntitiesImGui::ShowTexture(Sprite* sprite)
+{
+	text = "ID: " + to_string(sprite->ID) + ". Position. ";
+	ImGui::InputInt(text.c_str(), &textureID);
+
+	text = "Set Texture ##xx ID: " + to_string(sprite->ID);
+
+	if (ImGui::Button(text.c_str()))
+		sprite->SetTexture(textureID);
+
+	Texture* texture = GetTextureManager()->GetTexture(sprite->GetTexture());
+
+	if (texture != nullptr)
+		ImGui::Image(texture->GetTextureID(), ImVec2(texture->GetWidth() / 3, texture->GetHeight() / 3), ImVec2(0, 1), ImVec2(1, 0));
 }
