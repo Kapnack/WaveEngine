@@ -2,7 +2,7 @@
 #define ENTITYMANAGER
 
 #include "EntityManager.h"
-#include "Material/MaterialManager.h"
+
 #include "TileMap/Tile.h"
 
 EntityManager::EntityManager(MaterialManager* materialManager) : Service()
@@ -56,6 +56,15 @@ Entity* EntityManager::Get(const unsigned int& ID)
 	return Get<Entity>(ID);
 }
 
+inline void EntityManager::DeleteEntity(const unsigned int& ID)
+{
+	delete entitiesByID[ID];
+	entitiesByID.erase(ID);
+
+	for (auto& [type, ids] : entitiesIDByType)
+		ids.erase(remove(ids.begin(), ids.end(), ID), ids.end());
+}
+
 template<EntityManagerStandar T>
 vector<T*> EntityManager::GetAllOfType()
 {
@@ -67,14 +76,6 @@ vector<T*> EntityManager::GetAllOfType()
 	return entitiesOfType;
 }
 
-void EntityManager::DeleteEntity(const unsigned int& ID)
-{
-	delete entitiesByID[ID];
-	entitiesByID.erase(ID);
-
-	for (auto& [type, ids] : entitiesIDByType)
-		ids.erase(remove(ids.begin(), ids.end(), ID), ids.end());
-}
 
 template<EntityManagerStandar T>
 void EntityManager::DeleteAllOfType()
