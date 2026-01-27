@@ -53,7 +53,7 @@ public:
 	inline Entity* Get(const unsigned int& ID);
 
 	template<EntityManagerStandar T>
-	vector<T*> GetAllOfType();
+	vector<unsigned int>& GetAllOfType();
 
 	inline void DeleteEntity(const unsigned int& ID);
 
