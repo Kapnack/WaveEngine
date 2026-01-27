@@ -67,6 +67,7 @@ void Game::Update()
 
 	if (GetInput()->IsKeyPressed(Keys::Q))
 		GetMaterialManager()->DeleteMaterial(GetEntityManager()->Get<Entity>(2)->GetMaterial());
+
 	Entity2D* entity = GetEntityManager()->Get<Entity2D>(1);
 
 	if (collisionManager->CheckCollision(*entity, *tileMap))
