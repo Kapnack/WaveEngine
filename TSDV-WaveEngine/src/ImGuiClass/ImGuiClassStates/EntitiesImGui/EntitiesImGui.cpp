@@ -3,6 +3,8 @@
 #include <ImGui/imgui.h>
 
 #include "ServiceProvider/ServiceProvider.h"
+#include <Entity/Entity2D/Shape/Square/Square.h>
+#include <Entity/Entity2D/Shape/Triangle/Triangle.h>
 
 EntitiesImGui::EntitiesImGui() : ImGuiClassState()
 {
@@ -17,6 +19,11 @@ EntityManager* EntitiesImGui::GetEntityManager()
 	return ServiceProvider::Instance().Get<EntityManager>();
 }
 
+EntityFactory* EntitiesImGui::GetEntityFactory()
+{
+	return ServiceProvider::Instance().Get<EntityFactory>();
+}
+
 MaterialManager* EntitiesImGui::GetMaterialManager()
 {
 	return ServiceProvider::Instance().Get<MaterialManager>();
@@ -29,6 +36,37 @@ TextureManager* EntitiesImGui::GetTextureManager()
 
 void EntitiesImGui::Update()
 {
+
+	ImGui::Combo("Entity Factory", &currentCreationOption, creationOptions, IM_ARRAYSIZE(creationOptions));
+
+	if (currentCreationOption > 0)
+	{
+		text = "Spawn Entity";
+		if (ImGui::Button(text.c_str()))
+			switch (currentCreationOption)
+			{
+			case 1:
+
+				GetEntityFactory()->Create<Sprite>();
+				break;
+
+			case 2:
+
+				GetEntityFactory()->Create<Square>();
+				break;
+
+			case 3:
+
+				GetEntityFactory()->Create<Triangle>();
+				break;
+
+			default:
+				break;
+			}
+	}
+
+	ImGui::Separator();
+
 	text = "Show Entities Materials";
 	ImGui::Checkbox(text.c_str(), &showMaterials);
 
