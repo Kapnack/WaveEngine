@@ -84,8 +84,17 @@ vector<unsigned int>& EntityManager::GetAllOfType()
 template<EntityManagerStandar T>
 void EntityManager::DeleteAllOfType()
 {
-	for (unsigned int& ID : entitiesIDByType[typeid(T)])
-		DeleteEntity(ID);
+	for (unsigned int id : entitiesIDByType[typeid(T)])
+	{
+		auto it = entitiesByID.find(id);
+		if (it != entitiesByID.end())
+		{
+			delete it->second;
+			entitiesByID.erase(it);
+		}
+	}
+
+	entitiesIDByType[typeid(T)].clear();
 }
 
 #endif
