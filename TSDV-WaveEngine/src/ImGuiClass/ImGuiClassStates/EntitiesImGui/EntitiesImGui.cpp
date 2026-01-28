@@ -54,20 +54,9 @@ void EntitiesImGui::EntityCreator()
 		if (ImGui::Button(text.c_str()))
 			switch (currentCreationOption)
 			{
-			case 1:
-
-				GetEntityFactory()->Create<Sprite>();
-				break;
-
-			case 2:
-
-				GetEntityFactory()->Create<Square>();
-				break;
-
-			case 3:
-
-				GetEntityFactory()->Create<Triangle>();
-				break;
+			case 1: GetEntityFactory()->Create<Sprite>(); break;
+			case 2: GetEntityFactory()->Create<Square>(); break;
+			case 3: GetEntityFactory()->Create<Triangle>(); break;
 
 			default:
 				break;
@@ -93,7 +82,7 @@ void EntitiesImGui::EntityDeleter()
 		switch (currentDeletionFilter)
 		{
 		case 0: GetEntityManager()->DeleteEntity(entityToDelete); break;
-		
+
 		case 1: GetEntityManager()->DeleteAll(); break;
 		case 2: GetEntityManager()->DeleteAllOfType<Sprite>(); break;
 		case 3: GetEntityManager()->DeleteAllOfType<Square>(); break;
@@ -123,8 +112,12 @@ void EntitiesImGui::EntityDisplayer()
 	switch (currentFilter)
 	{
 	case 0:
-		for (auto& [id, entity] : GetEntityManager()->GetEntities())
-			ShowEntity(entity);
+		if (!showInReverseOrder)
+			for (auto& [id, entity] : GetEntityManager()->GetEntities())
+				ShowEntity(entity);
+		else
+			for (map<unsigned int, Entity*>::reverse_iterator it = GetEntityManager()->GetEntities().rbegin(); it != GetEntityManager()->GetEntities().rend(); ++it)
+				ShowEntity(it->second);
 		break;
 
 	case 1: ShowAllOfType<Sprite>();   break;
