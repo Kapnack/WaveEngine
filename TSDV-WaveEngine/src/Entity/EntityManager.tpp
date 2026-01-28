@@ -12,14 +12,14 @@ EntityManager::EntityManager(MaterialManager* materialManager) : Service()
 
 EntityManager::~EntityManager()
 {
-	for (unordered_map<const unsigned int, Entity*>::iterator service = entitiesByID.begin(); service != entitiesByID.end(); ++service)
+	for (map<const unsigned int, Entity*>::iterator service = entitiesByID.begin(); service != entitiesByID.end(); ++service)
 		delete service->second;
 
 	entitiesByID.clear();
 	entitiesIDByType.clear();
 }
 
-unordered_map<unsigned int, Entity*>& EntityManager::GetEntities()
+map<unsigned int, Entity*>& EntityManager::GetEntities()
 {
 	return entitiesByID;
 }
@@ -27,7 +27,7 @@ unordered_map<unsigned int, Entity*>& EntityManager::GetEntities()
 inline void EntityManager::DrawEntities()
 {
 	Tile* tile = nullptr;
-	for (unordered_map<const unsigned int, Entity*>::iterator service = entitiesByID.begin(); service != entitiesByID.end(); ++service)
+	for (map<const unsigned int, Entity*>::iterator service = entitiesByID.begin(); service != entitiesByID.end(); ++service)
 		if (tile = dynamic_cast<Tile*>(service->second))
 			continue;
 		else
@@ -67,7 +67,7 @@ inline void EntityManager::DeleteEntity(const unsigned int& ID)
 
 inline void EntityManager::DeleteAll()
 {
-	for (unordered_map<unsigned int, Entity*>::iterator it = entitiesByID.begin(); it != entitiesByID.end(); ++it)
+	for (map<unsigned int, Entity*>::iterator it = entitiesByID.begin(); it != entitiesByID.end(); ++it)
 		delete it->second;
 
 	entitiesByID.clear();

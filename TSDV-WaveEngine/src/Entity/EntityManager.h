@@ -2,7 +2,7 @@
 
 #include "ServiceProvider/Service.h"
 
-#include <unordered_map>
+#include <map>
 #include <typeindex>
 
 #include "Entity.h"
@@ -26,7 +26,7 @@ private:
 
 	MaterialManager* materialManager;
 
-	unordered_map<unsigned int, Entity*> entitiesByID;
+	map<unsigned int, Entity*> entitiesByID;
 
 	unordered_map<type_index, vector<unsigned int>> entitiesIDByType;
 
@@ -45,7 +45,7 @@ private:
 
 public:
 
-	inline unordered_map<unsigned int, Entity*>& GetEntities();
+	inline map<unsigned int, Entity*>& GetEntities();
 
 	template<EntityManagerStandar T>
 	T* Get(const unsigned int& ID);
