@@ -69,4 +69,6 @@ private:
 	void UpdateTilesPositions();
 
 	Window* GetWindow() const;
+
+	EntityManager* GetEntityManager() const;
 };
