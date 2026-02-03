@@ -25,6 +25,9 @@ unsigned int Entity::GetID() const
 void Entity::SetIsActive(const bool& setActive)
 {
 	isActive = setActive;
+
+	if (isActive)
+		SetTRS();
 }
 
 bool Entity::GetIsActive()
@@ -266,6 +269,9 @@ void Entity::UpdateVertexBuffer()
 
 void Entity::SetTRS()
 {
+	if (!isActive)
+		return;
+
 	model = glm::mat4(1.0f);                    // Identity
 	model = glm::translate(model, glm::vec3(position.x, position.y, position.z)); // Translate
 	model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1, 0, 0));// Rotate X
