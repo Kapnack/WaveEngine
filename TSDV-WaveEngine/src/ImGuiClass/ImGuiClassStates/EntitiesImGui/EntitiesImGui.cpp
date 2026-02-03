@@ -113,8 +113,8 @@ void EntitiesImGui::EntityDisplayer()
 	{
 	case 0:
 		if (!showInReverseOrder)
-			for (auto& [id, entity] : GetEntityManager()->GetEntities())
-				ShowEntity(entity);
+			for (map<unsigned int, Entity*>::iterator it = GetEntityManager()->GetEntities().begin();  it != GetEntityManager()->GetEntities().end(); ++it)
+				ShowEntity(it->second);
 		else
 			for (map<unsigned int, Entity*>::reverse_iterator it = GetEntityManager()->GetEntities().rbegin(); it != GetEntityManager()->GetEntities().rend(); ++it)
 				ShowEntity(it->second);
