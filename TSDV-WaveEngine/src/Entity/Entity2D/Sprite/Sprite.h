@@ -4,6 +4,7 @@
 #include "Entity/Entity2D/Animation/Animation.h"
 
 class EntityFactory;
+class EntitiesImGui;
 
 class Sprite : public Entity2D
 {
@@ -15,6 +16,7 @@ private:
 	void Init(const Vector4& color);
 
 	friend class EntityFactory;
+	friend class EntitiesImGui;
 
 public:
 
