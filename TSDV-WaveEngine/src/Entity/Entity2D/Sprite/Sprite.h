@@ -12,8 +12,6 @@ private:
 	unsigned int textureID = 0;
 	Animation* animation = nullptr;
 
-	Vector2 UV;
-
 	void Init(const Vector4& color);
 
 	friend class EntityFactory;
