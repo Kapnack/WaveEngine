@@ -113,7 +113,7 @@ void EntitiesImGui::EntityDisplayer()
 	{
 	case 0:
 		if (!showInReverseOrder)
-			for (map<unsigned int, Entity*>::iterator it = GetEntityManager()->GetEntities().begin();  it != GetEntityManager()->GetEntities().end(); ++it)
+			for (map<unsigned int, Entity*>::iterator it = GetEntityManager()->GetEntities().begin(); it != GetEntityManager()->GetEntities().end(); ++it)
 				ShowEntity(it->second);
 		else
 			for (map<unsigned int, Entity*>::reverse_iterator it = GetEntityManager()->GetEntities().rbegin(); it != GetEntityManager()->GetEntities().rend(); ++it)
@@ -163,7 +163,8 @@ void EntitiesImGui::ShowEntityData(Entity* it)
 		it->SetTRS();
 
 	text = "ID: " + to_string(it->ID) + ". IsActive.";
-	ImGui::Checkbox(text.c_str(), &it->isActive);
+	if (ImGui::Checkbox(text.c_str(), &it->isActive))
+		it->SetIsActive(it->isActive);
 }
 
 void EntitiesImGui::ShowMaterial(Entity* entity)
