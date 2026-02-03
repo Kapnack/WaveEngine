@@ -42,11 +42,16 @@ Window* TileMap::GetWindow() const
 	return ServiceProvider::Instance().Get<Window>();
 }
 
+EntityManager* TileMap::GetEntityManager() const
+{
+	return ServiceProvider::Instance().Get<EntityManager>();
+}
+
 Tile* TileMap::GetTile(const unsigned int id) const
 {
-	for (auto it : ServiceProvider::Instance().Get<EntityManager>()->GetAllOfType<Tile>())
+	for (vector<unsigned int>::iterator it = GetEntityManager()->GetAllOfType<Tile>().begin(); it != GetEntityManager()->GetAllOfType<Tile>().end(); ++it)
 	{
-		Tile* tile = ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(it);
+		Tile* tile = GetEntityManager()->Get<Tile>(*it);
 
 		if (tile->GetTileID() == id)
 			return tile;
@@ -101,20 +106,20 @@ void TileMap::ImportTileMap(const string& filePath)
 
 	unsigned int id = 0;
 
-	for (size_t layer = 0; layer < layersAmount; ++layer)
+	for (int layer = 0; layer < layersAmount; ++layer)
 	{
 		bool layerHasCollision = data[LayersName][layer][colliderName];
 
 		_tileMapGrid[layer] = new unsigned int* [columnsAmount](0);
 
-		for (size_t row = 0; row < columnsAmount; ++row)
+		for (int row = 0; row < columnsAmount; ++row)
 		{
 			_tileMapGrid[layer][row] = new unsigned int[rowAmount]();
 		}
 
 		// FILL ONLY DEFINED TILES FROM JSON
-		const auto& tilesJson = data[LayersName][layer][tileName];
-		for (const auto& tileJson : tilesJson)
+		const basic_json<>::value_type tilesJson = data[LayersName][layer][tileName];
+		for (const basic_json<>::value_type& tileJson : tilesJson)
 		{
 			unsigned int spriteSheetID = stoi(tileJson[IdName].get<string>());
 			unsigned int col = tileJson[ColName];
