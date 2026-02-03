@@ -40,9 +40,9 @@ void TextureManager::DeleteTexture(const unsigned int& ID)
 void TextureManager::DeleteTexture(const string& name)
 {
 	unordered_map<unsigned int, Texture*>::iterator it = find_if(textures.begin(), textures.end(),
-		[&name](const auto& pair)
+		[&name](const pair<const unsigned int, Texture*>& it)
 		{
-			return pair.second && pair.second->GetName() == name;
+			return it.second && it.second->GetName() == name;
 		});
 
 	if (it == textures.end())
