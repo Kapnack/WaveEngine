@@ -44,7 +44,7 @@ void EntityManager::SaveEntity(const unsigned int& ID, T* entity)
 template<EntityManagerStandar T>
 T* EntityManager::Get(const unsigned int& ID)
 {
-	auto it = entitiesByID.find(ID);
+	map<unsigned int, Entity*>::iterator it = entitiesByID.find(ID);
 	if (it == entitiesByID.end())
 		return nullptr;
 
@@ -61,8 +61,8 @@ inline void EntityManager::DeleteEntity(const unsigned int& ID)
 	delete entitiesByID[ID];
 	entitiesByID.erase(ID);
 
-	for (auto& [type, ids] : entitiesIDByType)
-		ids.erase(remove(ids.begin(), ids.end(), ID), ids.end());
+	for (unordered_map<type_index, vector<unsigned int>>::iterator it = entitiesIDByType.begin(); it != entitiesIDByType.end(); ++it)
+		it->second.erase(remove(it->second.begin(), it->second.end(), ID), it->second.end());
 }
 
 inline void EntityManager::DeleteAll()
@@ -86,7 +86,7 @@ void EntityManager::DeleteAllOfType()
 {
 	for (unsigned int id : entitiesIDByType[typeid(T)])
 	{
-		auto it = entitiesByID.find(id);
+		map<unsigned int, Entity*>::iterator it = entitiesByID.find(id);
 		if (it != entitiesByID.end())
 		{
 			delete it->second;
