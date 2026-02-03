@@ -50,15 +50,15 @@ void TexturesImGui::Update()
 			GetTextureManager()->DeleteTexture(textureName);
 	
 
-	for (auto it : GetTextureManager()->GetTextures())
+	for (unordered_map<unsigned int, Texture*>::iterator it = GetTextureManager()->GetTextures().begin(); it != GetTextureManager()->GetTextures().end(); ++it)
 	{
-		if (it.second == nullptr)
+		if (it->second == nullptr)
 			continue;
 		
-		const string text = "Name:" + it.second->GetName() + ". ID: " + to_string(it.second->GetID()) + ". Texture ID: " + to_string(it.second->GetTextureID()) + ".";
+		const string text = "Name:" + it->second->GetName() + ". ID: " + to_string(it->second->GetID()) + ". Texture ID: " + to_string(it->second->GetTextureID()) + ".";
 
 		ImGui::Text(text.c_str());
-		ImGui::Image(it.second->GetTextureID(), ImVec2(it.second->GetWidth() / 5, it.second->GetHeight() / 5), ImVec2(0, 1), ImVec2(1, 0));
+		ImGui::Image(it->second->GetTextureID(), ImVec2(it->second->GetWidth() / 5, it->second->GetHeight() / 5), ImVec2(0, 1), ImVec2(1, 0));
 		ImGui::Separator();
 	}
 }
