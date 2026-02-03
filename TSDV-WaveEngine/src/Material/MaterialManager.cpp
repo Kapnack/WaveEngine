@@ -20,9 +20,10 @@ MaterialManager::~MaterialManager()
 unsigned int MaterialManager::GetMaterial(const string name)
 {
 	unordered_map<unsigned int, Material*>::iterator it = find_if(materials.begin(), materials.end(),
-		[&name](const auto& pair)
+		[&name](const pair<const unsigned int, Material*>& entry)
 		{
-			return pair.second && pair.second->GetName() == name;
+			return entry.second &&
+				entry.second->GetName() == name;
 		});
 
 	if (it == materials.end())
@@ -49,10 +50,12 @@ unordered_map<unsigned int, Material*>& MaterialManager::GetMaterials()
 void MaterialManager::DeleteMaterial(const string name)
 {
 	unordered_map<unsigned int, Material*>::iterator it = find_if(materials.begin(), materials.end(),
-		[&name](const auto& pair)
+		[&name](const pair<const unsigned int, Material*>& entry)
 		{
-			return pair.second && pair.second->GetName() == name;
+			return entry.second &&
+				entry.second->GetName() == name;
 		});
+
 
 	if (it == materials.end())
 		return;
@@ -65,8 +68,8 @@ void MaterialManager::DeleteMaterial(const string name)
 
 void MaterialManager::DeleteMaterial(const unsigned int id)
 {
-	//if (id == Material::NULL_MATERIAL)
-	//	return;
+	if (id == Material::NULL_MATERIAL)
+		return;
 
 	Material* it = materials[id];
 
