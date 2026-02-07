@@ -134,7 +134,7 @@ void EntitiesImGui::ShowEntity(Entity* entity)
 	if (showMaterials)
 		ShowMaterial(entity);
 
-	if (showTextures && (currentFilter == 4 || currentFilter == 2))
+	if (showTextures)
 		if (Sprite* sprite = dynamic_cast<Sprite*>(entity))
 			ShowTexture(sprite);
 
