@@ -155,6 +155,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ImGuiClass\ImGuiClassStates\EntityControllerImGui\EntityControllerImGui.cpp" />
     <ClCompile Include="src\ImGuiClass\ImGuiClassStates\MeshImGui\MeshImGui.cpp" />
     <ClCompile Include="src\ImGuiClass\ImGuiClassStates\MaterialsImGui\MaterialsImGui.cpp" />
     <ClCompile Include="src\ImGuiClass\ImGuiClassStates\ImGuiClassState.cpp" />
@@ -202,6 +203,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
     <ClCompile Include="src\ImGuiClass\ImGuiClassStates\TexturesImGui\TexturesImGui.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ImGuiClass\ImGuiClassStates\EntityControllerImGui\EntityControllerImGui.h" />
     <ClInclude Include="src\ImGuiClass\ImGuiClassStates\MeshImGui\MeshImGui.h" />
     <ClInclude Include="src\ImGuiClass\ImGuiClassStates\MaterialsImGui\MaterialsImGui.h" />
     <ClInclude Include="src\ImGuiClass\ImGuiClassStates\ImGuiClassState.h" />
