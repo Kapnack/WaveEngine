@@ -39,6 +39,18 @@ void BaseGame::EndEngine()
 	ServiceProvider::Instance().Clear();
 }
 
+void BaseGame::EngineUpdate()
+{
+	GetTime()->SetDeltaTime();
+
+	GetRenderer()->Clear();
+
+	GetImGuiClass()->Update();
+
+	if (ServiceProvider::Instance().TryGet<EntityController>())
+		ServiceProvider::Instance().Get<EntityController>()->Update(GetDeltaTime());
+}
+
 void BaseGame::EngineDraw()
 {
 	GetEntityManager()->DrawEntities();
@@ -116,11 +128,7 @@ void BaseGame::Run()
 	{
 		while (!glfwWindowShouldClose(GetWindow()->GetGLFWindow()))
 		{
-			GetTime()->SetDeltaTime();
-
-			GetRenderer()->Clear();
-
-			GetImGuiClass()->Update();
+			EngineUpdate();
 
 			Update();
 

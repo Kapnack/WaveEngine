@@ -17,6 +17,8 @@ private:
 
 	void EndEngine();
 
+	void EngineUpdate();
+
 	void EngineDraw();
 
 	Renderer* GetRenderer();
