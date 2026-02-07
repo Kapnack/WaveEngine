@@ -9,7 +9,6 @@ class Game : public BaseGame
 {
 private:
 
-	EntityController* entityController;
 	CollisionManager* collisionManager;
 	TileMap* tileMap;
 
