@@ -13,7 +13,7 @@ using namespace std;
 template<typename T>
 concept ControllerStandar = is_same_v<T, unsigned int> || is_integral_v<T>;
 
-class Controller
+class Controller : public Service
 {
 protected:
 
@@ -31,7 +31,9 @@ public:
 	inline virtual void Update(const float& deltaTime) = 0;
 
 	template<ControllerStandar... T>
-	void AddEntityID(const T&... entityIDs);
+	void AddEntityIDs(const T&... entityIDs);
+
+	inline void AddEntityID(const unsigned int& entityID);
 
 	template<ControllerStandar... T>
 	void RemoveEntityIDs(const T&... entityIDs);

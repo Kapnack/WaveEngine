@@ -3,7 +3,7 @@
 
 #include "Controller.h"
 
-Controller::Controller()
+Controller::Controller() : Service()
 {
 }
 
@@ -27,9 +27,9 @@ Controller::Controller(const unsigned int& entityID)
 }
 
 template<ControllerStandar... T>
-void Controller::AddEntityID(const T&... entityIDs)
+void Controller::AddEntityIDs(const T&... entityIDs)
 {
-	(entitiesIDs.push_back(entityIDs), ...);
+	(AddEntityID(entityIDs), ...);
 }
 
 template<ControllerStandar... T>
@@ -46,6 +46,15 @@ void Controller::RemoveEntityID(const unsigned int& entityID)
 const std::vector<unsigned int>& Controller::GetEntityIDs()
 {
 	return entitiesIDs;
+}
+
+void Controller::AddEntityID(const unsigned int& entityID)
+{
+	for (vector<unsigned int>::iterator it = entitiesIDs.begin(); it != entitiesIDs.end(); ++it)
+		if (*it == entityID)
+			return;
+
+	entitiesIDs.push_back(entityID);
 }
 
 #endif
