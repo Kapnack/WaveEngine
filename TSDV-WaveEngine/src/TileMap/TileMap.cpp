@@ -27,9 +27,7 @@ TileMap::~TileMap()
 	for (int layer = 0; layer < layersAmount; ++layer)
 	{
 		for (int y = 0; y < columnsAmount; ++y)
-		{
 			delete[] _tileMapGrid[layer][y];
-		}
 
 		delete[] _tileMapGrid[layer];
 	}
