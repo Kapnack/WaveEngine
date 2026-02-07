@@ -60,16 +60,16 @@ private:
 	template<EntityManagerStandar T>
 	void ShowAllOfType()
 	{
-		auto& vec = GetEntityManager()->GetAllOfType<T>();
+		vector<unsigned int>& vec = GetEntityManager()->GetAllOfType<T>();
 
 		if (!showInReverseOrder)
 		{
-			for (auto id : vec)
+			for (unsigned int id : vec)
 				ShowEntity(GetEntityManager()->Get(id));
 		}
 		else
 		{
-			for (auto it = vec.rbegin(); it != vec.rend(); ++it)
+			for (vector<unsigned int>::reverse_iterator it = vec.rbegin(); it != vec.rend(); ++it)
 				ShowEntity(GetEntityManager()->Get(*it));
 		}
 	}
