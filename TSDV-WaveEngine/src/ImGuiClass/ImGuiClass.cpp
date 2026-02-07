@@ -30,6 +30,7 @@ void ImGuiClass::Init()
 	showTexturesState = new TexturesImGui();
 	showMaterialsState = new MaterialsImGui();
 	showMeshState = new MeshImGui();
+	showEntityController = new EntityControllerImGui();
 
 	state = showEntitiesState;
 
@@ -47,6 +48,7 @@ void ImGuiClass::Unload()
 	delete showMaterialsState;
 	delete showEntitiesState;
 	delete showMeshState;
+	delete showEntityController;
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
@@ -79,6 +81,11 @@ void ImGuiClass::Update()
 
 	if (ImGui::Button("Meshes", ImVec2(100, 25)))
 		state = showMeshState;
+
+	ImGui::SameLine();
+
+	if (ImGui::Button("Entity Controller", ImVec2(100, 25)))
+		state = showEntityController;
 
 	ImGui::Separator();
 

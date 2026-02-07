@@ -8,6 +8,7 @@
 #include "ImGuiClassStates/TexturesImGui/TexturesImGui.h"
 #include "ImGuiClassStates/EntitiesImGui/EntitiesImGui.h"
 #include "ImGuiClassStates/MaterialsImGui/MaterialsImGui.h"
+#include "ImGuiClassStates/EntityControllerImGui/EntityControllerImGui.h"
 #include "ImGuiClassStates/MeshImGui/MeshImGui.h"
 #include "Vector3.h"
 #include "Vector4.h"
@@ -27,6 +28,7 @@ private:
 	TexturesImGui* showTexturesState;
 	MaterialsImGui* showMaterialsState;
 	MeshImGui* showMeshState;
+	EntityControllerImGui* showEntityController;
 
 	ImGuiClassState* state;
 
