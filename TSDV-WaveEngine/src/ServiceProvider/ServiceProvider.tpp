@@ -6,7 +6,7 @@
 template<ServiceStandard T>
 void ServiceProvider::Register(T* service)
 {
-	if (services.contains(typeid(T)))
+	if (services.contains(typeid(T)) && services[typeid(T)] != nullptr)
 	{
 		delete service;
 		return;
@@ -37,13 +37,9 @@ void ServiceProvider::UnRegister()
 	if (it == services.end())
 		return;
 
-	if (it->second == nullptr)
-	{
-		services.erase(it);
-		return;
-	}
+	if (it->second != nullptr)
+		delete it->second;
 
-	delete it->second;
 	services.erase(it);
 }
 
