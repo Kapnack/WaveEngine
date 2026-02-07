@@ -4,12 +4,12 @@
 
 class ServiceProvider;
 
-class Service
+WAVEEXPORT class Service
 {
 protected:
 
-	Service();
-	virtual ~Service();
+	WAVEEXPORT Service();
+	WAVEEXPORT virtual ~Service();
 
 	friend class ServiceProvider;
 };
