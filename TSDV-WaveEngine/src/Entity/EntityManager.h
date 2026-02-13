@@ -30,6 +30,7 @@ private:
 
 	unordered_map<type_index, vector<unsigned int>> entitiesIDByType;
 
+	map<int, list<unsigned int>> entityByLayer;
 
 	template<EntityManagerStandar T>
 	void SaveEntity(const unsigned int& ID, T* entity);
