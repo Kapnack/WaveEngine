@@ -2,6 +2,7 @@
 
 Tile::Tile(const unsigned int& ID) : Sprite(ID)
 {
+	layer = -1;
 }
 
 Tile::~Tile()
