@@ -22,6 +22,17 @@ unsigned int Entity::GetID() const
 	return ID;
 }
 
+void Entity::SetLayer(const int& layer)
+{
+	ServiceProvider::Instance().Get<EntityManager>()->OnEntityChangeLayer(ID, this->layer, layer);
+	this->layer = layer;
+}
+
+int Entity::GetLayer() const
+{
+	return layer;
+}
+
 void Entity::SetIsActive(const bool& setActive)
 {
 	isActive = setActive;
