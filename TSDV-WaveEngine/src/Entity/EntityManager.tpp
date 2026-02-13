@@ -70,6 +70,7 @@ Entity* EntityManager::Get(const unsigned int& ID)
 
 inline void EntityManager::DeleteEntity(const unsigned int& ID)
 {
+	OnEntityDestroy(ID);
 	delete entitiesByID[ID];
 	entitiesByID.erase(ID);
 
@@ -84,6 +85,7 @@ inline void EntityManager::DeleteAll()
 
 	entitiesByID.clear();
 	entitiesIDByType.clear();
+	entityByLayer.clear();
 }
 
 template<EntityManagerStandar T>
@@ -101,6 +103,7 @@ void EntityManager::DeleteAllOfType()
 		map<unsigned int, Entity*>::iterator it = entitiesByID.find(id);
 		if (it != entitiesByID.end())
 		{
+			OnEntityDestroy(it->first);
 			delete it->second;
 			entitiesByID.erase(it);
 		}
