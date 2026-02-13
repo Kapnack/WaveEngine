@@ -60,7 +60,6 @@ void Game::Update()
 
 void Game::Draw()
 {
-	tileMap->Draw();
 }
 
 void Game::Unload()
