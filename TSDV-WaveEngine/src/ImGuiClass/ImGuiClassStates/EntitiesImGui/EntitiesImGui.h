@@ -46,6 +46,7 @@ private:
 
 	int textureID = 0;
 	int materialID = 0;
+	int layer = 0;
 	int entityToDelete = 0;
 
 	void EntityCreator();
