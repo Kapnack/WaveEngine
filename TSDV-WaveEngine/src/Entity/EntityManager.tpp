@@ -19,6 +19,11 @@ EntityManager::~EntityManager()
 	entitiesIDByType.clear();
 }
 
+void EntityManager::OnEntityChangeLayer(const unsigned int& id, const int& oldLayer, const int& newLayer)
+{
+	entityByLayer[oldLayer].remove(id);
+	entityByLayer[newLayer].push_back(id);
+}
 map<unsigned int, Entity*>& EntityManager::GetEntities()
 {
 	return entitiesByID;
