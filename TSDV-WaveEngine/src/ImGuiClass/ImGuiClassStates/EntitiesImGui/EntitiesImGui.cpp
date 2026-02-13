@@ -165,6 +165,14 @@ void EntitiesImGui::ShowEntityData(Entity* it)
 	text = "ID: " + to_string(it->ID) + ". IsActive.";
 	if (ImGui::Checkbox(text.c_str(), &it->isActive))
 		it->SetIsActive(it->isActive);
+
+	text = "Current Layer : " + to_string(it->layer) + "##xx ID: " + to_string(it->ID);
+	ImGui::InputInt(text.c_str(), &layer);
+
+	text = "Change Layer ##xx ID: " + to_string(it->ID);
+	if (ImGui::Button(text.c_str()))
+		it->SetLayer(layer);
+
 }
 
 void EntitiesImGui::ShowMaterial(Entity* entity)
