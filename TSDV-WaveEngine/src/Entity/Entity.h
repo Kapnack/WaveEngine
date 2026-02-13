@@ -41,6 +41,8 @@ protected:
 	unsigned int VBO;
 	unsigned int EBO;
 
+	unsigned int layer = 0;
+
 	VertexData* vertex;
 	int vertexSize;
 
@@ -63,6 +65,9 @@ public:
 	static const unsigned int NULL_ENTITY = 0;
 
 	WAVEEXPORT unsigned int GetID() const;
+
+	WAVEEXPORT void SetLayer(const int& layer);
+	WAVEEXPORT int GetLayer() const;
 
 	WAVEEXPORT void SetIsActive(const bool& setActive);
 	WAVEEXPORT bool GetIsActive();
