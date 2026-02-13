@@ -24,6 +24,13 @@ void EntityManager::OnEntityChangeLayer(const unsigned int& id, const int& oldLa
 	entityByLayer[oldLayer].remove(id);
 	entityByLayer[newLayer].push_back(id);
 }
+
+inline void EntityManager::OnEntityDestroy(const unsigned int& id)
+{
+	for (map<int, list<unsigned int>>::iterator layer = entityByLayer.begin(); layer != entityByLayer.end(); ++layer)
+		layer->second.remove(id);
+}
+
 map<unsigned int, Entity*>& EntityManager::GetEntities()
 {
 	return entitiesByID;
