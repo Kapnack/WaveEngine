@@ -131,6 +131,7 @@ void TileMap::ImportTileMap(const string& filePath)
 
 			tile->SetSpriteSheetID(spriteSheetID);
 			tile->SetTileID(id);
+			tile->SetLayer(-1.0f - layer);
 
 			tile->SetCollide(layerHasCollision);
 
