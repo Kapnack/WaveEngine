@@ -27,7 +27,6 @@ private:
 	MaterialManager* materialManager;
 
 	map<unsigned int, Entity*> entitiesByID;
-
 	unordered_map<type_index, vector<unsigned int>> entitiesIDByType;
 
 	map<int, list<unsigned int>> entityByLayer;
@@ -40,6 +39,10 @@ private:
 	inline EntityManager(MaterialManager* materialManager);
 	inline ~EntityManager();
 
+	inline void OnEntityChangeLayer(const unsigned int& id, const int& oldLayer, const int& newLayer);
+	inline void OnEntityDestroy(const unsigned int& id);
+
+	friend class Entity;
 	friend class ServiceProvider;
 	friend class EntityFactory;
 	friend class BaseGame;
