@@ -38,12 +38,9 @@ map<unsigned int, Entity*>& EntityManager::GetEntities()
 
 inline void EntityManager::DrawEntities()
 {
-	Tile* tile = nullptr;
-	for (map<const unsigned int, Entity*>::iterator service = entitiesByID.begin(); service != entitiesByID.end(); ++service)
-		if (tile = dynamic_cast<Tile*>(service->second))
-			continue;
-		else
-			service->second->Draw();
+	for (map<int, list<unsigned int>>::iterator layer = entityByLayer.begin(); layer != entityByLayer.end(); ++layer)
+		for (unsigned int enitityID : layer->second)
+			Get(enitityID)->Draw();
 }
 
 template<EntityManagerStandar T>
