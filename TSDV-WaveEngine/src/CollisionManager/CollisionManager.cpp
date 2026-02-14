@@ -12,35 +12,36 @@ CollisionManager::~CollisionManager()
 {
 }
 
-bool CollisionManager::CheckCollision(const unsigned int& anEntity, const unsigned int& otherEntity) const
+EntityManager* CollisionManager::GetEntityManager() const
 {
-	Entity* entityA = ServiceProvider::Instance().Get<EntityManager>()->Get<Entity>(otherEntity);
-	Entity* entityB = ServiceProvider::Instance().Get<EntityManager>()->Get<Entity>(otherEntity);
-
-	if (!entityA || !entityB)
-		return false;
-
-	Entity2D* entity2Da = dynamic_cast<Entity2D*>(entityA);
-	Entity2D* entity2Db = dynamic_cast<Entity2D*>(entityB);
-
-	if (!entity2Da || !entity2Db)
-		return false;
-
-	Collider entityCollider = entity2Da->GetCollider();
-	Collider otherCollider = entity2Db->GetCollider();
-
-	return entityCollider.x < otherCollider.x + otherCollider.width &&
-		entityCollider.x + entityCollider.width > otherCollider.x &&
-		entityCollider.y < otherCollider.y + otherCollider.height &&
-		entityCollider.y + entityCollider.height > otherCollider.y;
+	return ServiceProvider::Instance().Get<EntityManager>();
 }
 
-bool CollisionManager::CheckCollision(const Entity2D* entity, const TileMap& tileMap) const
+bool CollisionManager::AreColliding(const Collider& a, const Collider& b) const
 {
-	if (entity == nullptr)
+	return a.x < b.x + b.width &&
+		a.x + a.width > b.x &&
+		a.y < b.y + b.height &&
+		a.y + a.height > b.y;
+}
+
+bool CollisionManager::CheckCollision(const unsigned int& anEntity, const unsigned int& otherEntity) const
+{
+	if (!GetEntityManager()->Get<Entity2D>(anEntity) || !GetEntityManager()->Get<Entity2D>(otherEntity))
 		return false;
 
-	Collider c = entity->GetCollider();
+	Collider entityCollider = GetEntityManager()->Get<Entity2D>(anEntity)->GetCollider();
+	Collider otherCollider = GetEntityManager()->Get<Entity2D>(otherEntity)->GetCollider();
+
+	return AreColliding(entityCollider, otherCollider);
+}
+
+bool CollisionManager::CheckCollision(const unsigned int& entityID, const TileMap& tileMap) const
+{
+	if (!GetEntityManager()->Get<Entity2D>(entityID))
+		return false;
+	
+	Collider entityCollider = GetEntityManager()->Get<Entity2D>(entityID)->GetCollider();
 
 	const float tileW = tileMap.GetTileWidth();
 	const float tileH = tileMap.GetTileHeight();
@@ -53,10 +54,10 @@ bool CollisionManager::CheckCollision(const Entity2D* entity, const TileMap& til
 
 	const float windowH = tileMap.GetMapHeight() * tileH;
 
-	const float left = c.x;
-	const float right = c.x + c.width;
-	const float bottom = c.y;
-	const float top = c.y + c.height;
+	const float left = entityCollider.x;
+	const float right = entityCollider.x + entityCollider.width;
+	const float bottom = entityCollider.y;
+	const float top = entityCollider.y + entityCollider.height;
 
 	int leftTile = int(floor(left / tileW));
 	int rightTile = int(floor((right - 0.001f) / tileW));
@@ -80,17 +81,17 @@ bool CollisionManager::CheckCollision(const Entity2D* entity, const TileMap& til
 				if (tileID == Entity::NULL_ENTITY)
 					continue;
 
-				Entity2D* tile = ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(tileID);
+				Tile* tile = GetEntityManager()->Get<Tile>(tileID);
 
 				if (!tile)
 					continue;
 
-				if (!ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(tileID)->CanCollide())
+				if (!tile->CanCollide())
 					continue;
 
-				unsigned int entityID = entity->GetID();
+				Collider tileCollider = tile->GetCollider();
 
-				if (CheckCollision(entityID, tileID))
+				if (AreColliding(entityCollider, tileCollider))
 					return true;
 			}
 		}
