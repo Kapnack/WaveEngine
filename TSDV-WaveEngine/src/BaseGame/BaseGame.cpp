@@ -31,8 +31,6 @@ void BaseGame::Init(int width, int height)
 	ServiceProvider::Instance().Register(new Renderer());
 	ServiceProvider::Instance().Register(new Input());
 	ServiceProvider::Instance().Register(new Time());
-	ServiceProvider::Instance().Register(new CollisionManager());
-
 }
 
 void BaseGame::EndEngine()
@@ -126,6 +124,16 @@ FileReader* BaseGame::GetFileReader()
 CollisionManager* BaseGame::GetCollsionManager()
 {
 	return ServiceProvider::Instance().Get<CollisionManager>();
+}
+
+void BaseGame::CreateCollisionManager()
+{
+	ServiceProvider::Instance().Register(new CollisionManager);
+}
+
+void BaseGame::DestroyCollisionManager()
+{
+	ServiceProvider::Instance().UnRegister<CollisionManager>();
 }
 
 void BaseGame::Run()
