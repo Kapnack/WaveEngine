@@ -50,6 +50,9 @@ const std::vector<unsigned int>& Controller::GetEntityIDs()
 
 void Controller::AddEntityID(const unsigned int& entityID)
 {
+	if (entityID == Entity::NULL_ENTITY)
+		return;
+
 	for (vector<unsigned int>::iterator it = entitiesIDs.begin(); it != entitiesIDs.end(); ++it)
 		if (*it == entityID)
 			return;
