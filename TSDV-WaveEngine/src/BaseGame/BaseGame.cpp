@@ -31,6 +31,7 @@ void BaseGame::Init(int width, int height)
 	ServiceProvider::Instance().Register(new Renderer());
 	ServiceProvider::Instance().Register(new Input());
 	ServiceProvider::Instance().Register(new Time());
+	ServiceProvider::Instance().Register(new CollisionManager());
 
 }
 
@@ -120,6 +121,11 @@ TextureImporter* BaseGame::GetTextureImporter()
 FileReader* BaseGame::GetFileReader()
 {
 	return ServiceProvider::Instance().Get<FileReader>();
+}
+
+CollisionManager* BaseGame::GetCollsionManager()
+{
+	return ServiceProvider::Instance().Get<CollisionManager>();
 }
 
 void BaseGame::Run()

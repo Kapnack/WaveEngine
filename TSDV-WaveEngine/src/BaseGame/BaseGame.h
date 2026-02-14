@@ -7,6 +7,7 @@
 #include "Time/Time.h"
 #include "Input/Input.h"
 #include "Material/MaterialManager.h"
+#include "CollisionManager/CollisionManager.h"
 #include "FileReader/FileReader.h"
 #include "Entity/EntityManager.h"
 #include "Entity/EntityFactory.h"
@@ -44,6 +45,7 @@ protected:
 	WAVEEXPORT TextureManager* GetTextureManager();
 	WAVEEXPORT TextureImporter* GetTextureImporter();
 	WAVEEXPORT FileReader* GetFileReader();
+	WAVEEXPORT CollisionManager* GetCollsionManager();
 
 public:
 
