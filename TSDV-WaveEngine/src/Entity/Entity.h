@@ -70,7 +70,7 @@ public:
 	WAVEEXPORT int GetLayer() const;
 
 	WAVEEXPORT void SetIsActive(const bool& setActive);
-	WAVEEXPORT bool GetIsActive();
+	WAVEEXPORT bool GetIsActive() const;
 
 	WAVEEXPORT void SetMaterial(const unsigned int materialID);
 	WAVEEXPORT const unsigned int GetMaterial() const;

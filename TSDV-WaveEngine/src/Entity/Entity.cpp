@@ -41,7 +41,7 @@ void Entity::SetIsActive(const bool& setActive)
 		SetTRS();
 }
 
-bool Entity::GetIsActive()
+bool Entity::GetIsActive() const
 {
 	return isActive;
 }
