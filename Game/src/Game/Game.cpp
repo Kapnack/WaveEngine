@@ -21,8 +21,6 @@ void Game::Init(int width, int height)
 {
 	BaseGame::Init(width, height);
 
-	collisionManager = new CollisionManager();
-
 	unsigned int player = GetEntityFactory()->Create<Sprite>();
 	unsigned int player2 = GetEntityFactory()->Create<Sprite>();
 
@@ -54,7 +52,7 @@ void Game::Update()
 
 	Entity2D* entity = GetEntityManager()->Get<Entity2D>(1);
 
-	if (collisionManager->CheckCollision(entity, *tileMap))
+	if (GetCollsionManager()->CheckCollision(entity, *tileMap))
 		cout << "IT WORKS!!!";
 }
 
@@ -65,5 +63,4 @@ void Game::Draw()
 void Game::Unload()
 {
 	delete tileMap;
-	delete collisionManager;
 }

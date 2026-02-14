@@ -9,7 +9,6 @@ class Game : public BaseGame
 {
 private:
 
-	CollisionManager* collisionManager;
 	TileMap* tileMap;
 
 protected:
