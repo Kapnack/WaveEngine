@@ -30,6 +30,9 @@ bool CollisionManager::CheckCollision(const unsigned int& anEntity, const unsign
 	if (!GetEntityManager()->Get<Entity2D>(anEntity) || !GetEntityManager()->Get<Entity2D>(otherEntity))
 		return false;
 
+	if (!GetEntityManager()->Get<Entity2D>(anEntity)->GetIsActive() || !GetEntityManager()->Get<Entity2D>(otherEntity)->GetIsActive())
+		return false;
+
 	Collider entityCollider = GetEntityManager()->Get<Entity2D>(anEntity)->GetCollider();
 	Collider otherCollider = GetEntityManager()->Get<Entity2D>(otherEntity)->GetCollider();
 
@@ -41,6 +44,9 @@ bool CollisionManager::CheckCollision(const unsigned int& entityID, const TileMa
 	if (!GetEntityManager()->Get<Entity2D>(entityID))
 		return false;
 	
+	if (!GetEntityManager()->Get<Entity2D>(entityID)->GetIsActive())
+		return false;
+
 	Collider entityCollider = GetEntityManager()->Get<Entity2D>(entityID)->GetCollider();
 
 	const float tileW = tileMap.GetTileWidth();
