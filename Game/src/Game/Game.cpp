@@ -20,6 +20,7 @@ Game::~Game()
 void Game::Init(int width, int height)
 {
 	BaseGame::Init(width, height);
+	CreateCollisionManager();
 
 	unsigned int player = GetEntityFactory()->Create<Sprite>();
 	unsigned int player2 = GetEntityFactory()->Create<Sprite>();
