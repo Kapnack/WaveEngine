@@ -47,6 +47,9 @@ protected:
 	WAVEEXPORT FileReader* GetFileReader();
 	WAVEEXPORT CollisionManager* GetCollsionManager();
 
+	WAVEEXPORT void CreateCollisionManager();
+	WAVEEXPORT void DestroyCollisionManager();
+
 public:
 
 	WAVEEXPORT BaseGame(int width, int height);
