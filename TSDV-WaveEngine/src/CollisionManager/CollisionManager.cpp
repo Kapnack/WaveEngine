@@ -27,7 +27,7 @@ bool CollisionManager::AreColliding(const Collider& a, const Collider& b) const
 
 bool CollisionManager::CheckCollision(const unsigned int& anEntity, const unsigned int& otherEntity) const
 {
-	if (!GetEntityManager()->Get<Entity2D>(anEntity) || !GetEntityManager()->Get<Entity2D>(otherEntity))
+	if (!GetEntityManager()->TryGet<Entity2D>(anEntity) || !GetEntityManager()->TryGet<Entity2D>(otherEntity))
 		return false;
 
 	if (!GetEntityManager()->Get<Entity2D>(anEntity)->GetIsActive() || !GetEntityManager()->Get<Entity2D>(otherEntity)->GetIsActive())
@@ -41,7 +41,7 @@ bool CollisionManager::CheckCollision(const unsigned int& anEntity, const unsign
 
 bool CollisionManager::CheckCollision(const unsigned int& entityID, const TileMap& tileMap) const
 {
-	if (!GetEntityManager()->Get<Entity2D>(entityID))
+	if (!GetEntityManager()->TryGet<Entity2D>(entityID))
 		return false;
 	
 	if (!GetEntityManager()->Get<Entity2D>(entityID)->GetIsActive())
@@ -87,15 +87,13 @@ bool CollisionManager::CheckCollision(const unsigned int& entityID, const TileMa
 				if (tileID == Entity::NULL_ENTITY)
 					continue;
 
-				Tile* tile = GetEntityManager()->Get<Tile>(tileID);
-
-				if (!tile)
+				if (!GetEntityManager()->TryGet<Tile>(tileID))
 					continue;
 
-				if (!tile->CanCollide())
+				if (!GetEntityManager()->Get<Tile>(tileID)->CanCollide())
 					continue;
 
-				Collider tileCollider = tile->GetCollider();
+				Collider tileCollider = GetEntityManager()->Get<Tile>(tileID)->GetCollider();
 
 				if (AreColliding(entityCollider, tileCollider))
 					return true;
