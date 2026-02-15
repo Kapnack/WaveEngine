@@ -29,7 +29,9 @@ unordered_map<unsigned int, Texture*>& TextureManager::GetTextures()
 
 void TextureManager::DeleteTexture(const unsigned int& ID)
 {
-	if (textures[ID] == nullptr)
+	unordered_map<unsigned int, Texture*>::iterator texture = textures.find(ID);
+
+	if (texture == textures.end() || texture->second == nullptr)
 		return;
 
 	glDeleteTextures(textures[ID]->textureID, &textures[ID]->textureID);
