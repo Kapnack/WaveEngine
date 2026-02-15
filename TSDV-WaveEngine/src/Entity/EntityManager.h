@@ -24,8 +24,6 @@ class EntityManager final : public Service
 {
 private:
 
-	MaterialManager* materialManager;
-
 	map<unsigned int, Entity*> entitiesByID;
 	unordered_map<type_index, vector<unsigned int>> entitiesIDByType;
 
@@ -36,7 +34,7 @@ private:
 
 	inline void DrawEntities();
 
-	inline EntityManager(MaterialManager* materialManager);
+	inline EntityManager();
 	inline ~EntityManager();
 
 	inline void OnEntityChangeLayer(const unsigned int& id, const int& oldLayer, const int& newLayer);

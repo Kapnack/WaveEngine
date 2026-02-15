@@ -5,9 +5,8 @@
 
 #include "TileMap/Tile.h"
 
-EntityManager::EntityManager(MaterialManager* materialManager) : Service()
+EntityManager::EntityManager() : Service()
 {
-	this->materialManager = materialManager;
 }
 
 EntityManager::~EntityManager()
