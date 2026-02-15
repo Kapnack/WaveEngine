@@ -163,7 +163,7 @@ void TileMap::UpdateTilesPositions()
 		{
 			for (unsigned int col = 0; col < rowAmount; ++col)
 			{
-				Tile* tile = ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(_tileMapGrid[layer][row][col]);
+				Tile* tile = ServiceProvider::Instance().Get<EntityManager>()->TryGet<Tile>(_tileMapGrid[layer][row][col]);
 
 				if (!tile)
 					continue;
