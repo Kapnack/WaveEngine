@@ -9,6 +9,8 @@ WAVEEXPORT class EntityController : public Controller
 {
 private:
 
+	Entity* currentEntity;
+
 public:
 
 	WAVEEXPORT EntityController();
