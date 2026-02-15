@@ -53,13 +53,24 @@ void EntityManager::SaveEntity(const unsigned int& ID, T* entity)
 }
 
 template<EntityManagerStandar T>
-T* EntityManager::Get(const unsigned int& ID)
+T* EntityManager::TryGet(const unsigned int& ID)
 {
 	map<unsigned int, Entity*>::iterator it = entitiesByID.find(ID);
 	if (it == entitiesByID.end())
 		return nullptr;
 
 	return dynamic_cast<T*>(it->second);
+}
+
+Entity* EntityManager::TryGet(const unsigned int& ID)
+{
+	return TryGet<Entity>(ID);
+}
+
+template<EntityManagerStandar T>
+T* EntityManager::Get(const unsigned int& ID)
+{
+	return static_cast<T*>(entitiesByID.at(ID));
 }
 
 Entity* EntityManager::Get(const unsigned int& ID)

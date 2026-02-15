@@ -52,6 +52,11 @@ public:
 	inline map<unsigned int, Entity*>& GetEntities();
 
 	template<EntityManagerStandar T>
+	T* TryGet(const unsigned int& ID);
+
+	inline Entity* TryGet(const unsigned int& ID);
+
+	template<EntityManagerStandar T>
 	T* Get(const unsigned int& ID);
 
 	inline Entity* Get(const unsigned int& ID);
