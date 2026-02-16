@@ -7,8 +7,6 @@
 Entity::Entity(const unsigned int& ID)
 {
 	this->ID = ID;
-
-	SetTRS();
 }
 
 Entity::~Entity()
