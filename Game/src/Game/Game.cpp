@@ -15,11 +15,11 @@ Game::Game(int width, int height) : BaseGame(width, height)
 
 Game::~Game()
 {
+	Unload();
 }
 
-void Game::Init(int width, int height)
+void Game::Init(const int& width, const int& height)
 {
-	BaseGame::Init(width, height);
 	CreateCollisionManager();
 
 	unsigned int player = GetEntityFactory()->Create<Sprite>();

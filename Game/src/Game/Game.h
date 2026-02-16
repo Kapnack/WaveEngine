@@ -13,7 +13,7 @@ private:
 
 protected:
 
-	void Init(int width, int height) override;
+	void Init(const int& width, const int& height) override;
 	void Update() override;
 	void Draw() override;
 	void Unload() override;
