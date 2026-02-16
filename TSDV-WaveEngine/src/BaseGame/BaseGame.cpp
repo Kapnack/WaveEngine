@@ -6,15 +6,17 @@
 #include "TextureImporter/TextureImporter.h"
 #include "TextureImporter/TextureManager.h"
 
-BaseGame::BaseGame(int width, int height)
+BaseGame::BaseGame(const int& width, const int& height)
 {
+	InitEngine(width, height);
 }
 
 BaseGame::~BaseGame()
 {
+	EndEngine();
 }
 
-void BaseGame::Init(int width, int height)
+void BaseGame::InitEngine(const int& width, const int& height)
 {
 	if (!glfwInit())
 		exit(-1);
@@ -162,6 +164,4 @@ void BaseGame::Run()
 	{
 		cerr << "WAVEENGINE: Unknow Error detected.";
 	}
-
-	EndEngine();
 }

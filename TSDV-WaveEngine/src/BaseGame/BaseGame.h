@@ -16,6 +16,8 @@ WAVEEXPORT class BaseGame
 {
 private:
 
+	void InitEngine(const int& width, const int& height);
+
 	void EndEngine();
 
 	void EngineUpdate();
@@ -28,7 +30,7 @@ private:
 
 protected:
 
-	WAVEEXPORT	virtual void Init(int width, int height);
+	WAVEEXPORT	virtual void Init(const int& width, const int& height) = 0;
 	WAVEEXPORT	virtual void Update() = 0;
 	WAVEEXPORT	virtual void Draw() = 0;
 	WAVEEXPORT	virtual void Unload() = 0;
@@ -52,7 +54,7 @@ protected:
 
 public:
 
-	WAVEEXPORT BaseGame(int width, int height);
+	WAVEEXPORT BaseGame(const int& width, const int& height);
 	WAVEEXPORT virtual ~BaseGame();
 
 	WAVEEXPORT	void Run();
