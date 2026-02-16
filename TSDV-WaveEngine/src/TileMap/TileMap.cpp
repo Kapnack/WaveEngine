@@ -157,13 +157,15 @@ void TileMap::UpdateTilesPositions()
 	_worldTileWidth = windowWidth / rowAmount;
 	_worldTileHeight = windowHeight / columnsAmount;
 
+	Tile* tile;
+
 	for (unsigned int layer = 0; layer < layersAmount; ++layer)
 	{
 		for (unsigned int row = 0; row < columnsAmount; ++row)
 		{
 			for (unsigned int col = 0; col < rowAmount; ++col)
 			{
-				Tile* tile = ServiceProvider::Instance().Get<EntityManager>()->TryGet<Tile>(_tileMapGrid[layer][row][col]);
+				tile = ServiceProvider::Instance().Get<EntityManager>()->TryGet<Tile>(_tileMapGrid[layer][row][col]);
 
 				if (!tile)
 					continue;
