@@ -28,7 +28,7 @@ void Game::Init(int width, int height)
 	const string json = "Sprites/map.json";
 	const string spriteSheet = "Sprites/spritesheet.png";
 
-	tileMap = new TileMap(json, spriteSheet);
+	tileMap = new TileMap(json, true, spriteSheet, true);
 
 	unsigned int samusTexture = GetTextureImporter()->LoadTextureAbsolutePath("Sprites/Samus Aran Sprite Sheet.png");
 

@@ -21,7 +21,7 @@ WAVEEXPORT class TileMap final : public Entity2D
 {
 public:
 
-	WAVEEXPORT TileMap(const string& mapFilePath, const string& texturePath);
+	WAVEEXPORT TileMap(const string& mapFilePath, const bool& mapFileAddAbsolutePath, const string& texturePath, const bool& texturePathAddAbsolutePath);
 	WAVEEXPORT ~TileMap();
 
 	WAVEEXPORT void Draw() override;
@@ -64,7 +64,7 @@ private:
 
 	void SetTexture(const unsigned int texture) noexcept;
 
-	void ImportTileMap(const string& filePath);
+	void ImportTileMap(const string& filePath, const bool& addAbsolutePath);
 
 	void SetTileUV(Tile& tile, unsigned int id) const;
 

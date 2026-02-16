@@ -10,16 +10,17 @@
 
 #include <iostream>
 
-TileMap::TileMap(const string& mapFilePath, const string& texturePath) : Entity2D(Entity::NULL_ENTITY)
+TileMap::TileMap(const string& mapFilePath, const bool& mapFileAddAbsolutePath, const string& texturePath, const bool& texturePathAddAbsolutePath) : Entity2D(Entity::NULL_ENTITY)
 {
-	texture = ServiceProvider::Instance().Get<TextureImporter>()->LoadTextureAbsolutePath(texturePath);
+	texture = texturePathAddAbsolutePath ? ServiceProvider::Instance().Get<TextureImporter>()->LoadTextureAbsolutePath(texturePath)
+		: ServiceProvider::Instance().Get<TextureImporter>()->LoadTexture(texturePath);
 
 	if (!ServiceProvider::Instance().Get<TextureManager>()->GetTexture(texture))
 		return;
 
 	this->textureSize = ServiceProvider::Instance().Get<TextureManager>()->GetTexture(texture)->GetRes();
 
-	ImportTileMap(mapFilePath);
+	ImportTileMap(mapFilePath, mapFileAddAbsolutePath);
 }
 
 TileMap::~TileMap()
@@ -69,7 +70,7 @@ void TileMap::SetTexture(unsigned int texture) noexcept
 	this->texture = texture;
 }
 
-void TileMap::ImportTileMap(const string& filePath)
+void TileMap::ImportTileMap(const string& filePath, const bool& addAbsolutePath)
 {
 	const string TileSizeName = "tileSize";
 	const string MapWidthName = "mapWidth";
@@ -81,9 +82,8 @@ void TileMap::ImportTileMap(const string& filePath)
 	const string tileName = "tiles";
 	const string colliderName = "collider";
 
-	FileReader* fileReader = ServiceProvider::Instance().Get<FileReader>();
-
-	const string jsonString = fileReader->ReadFile(filePath);
+	const string jsonString = addAbsolutePath ? ServiceProvider::Instance().Get<FileReader>()->ReadFileAbsolutePath(filePath)
+		: ServiceProvider::Instance().Get<FileReader>()->ReadFile(filePath);
 
 	if (jsonString == "")
 		return;
