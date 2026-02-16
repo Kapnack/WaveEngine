@@ -10,7 +10,7 @@
 
 #include <iostream>
 
-TileMap::TileMap(const string& mapFilePath, const string& texturePath)
+TileMap::TileMap(const string& mapFilePath, const string& texturePath) : Entity2D(Entity::NULL_ENTITY)
 {
 	texture = ServiceProvider::Instance().Get<TextureImporter>()->LoadTextureAbsolutePath(texturePath);
 

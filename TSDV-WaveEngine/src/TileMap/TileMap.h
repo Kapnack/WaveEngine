@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Entity/Entity2D/Entity2D.h"
+
 #include "Export.h"
 #include "Tile.h"
 
@@ -15,14 +17,14 @@ using namespace std;
 
 using namespace nlohmann;
 
-WAVEEXPORT class TileMap final
+WAVEEXPORT class TileMap final : public Entity2D
 {
 public:
 
 	WAVEEXPORT TileMap(const string& mapFilePath, const string& texturePath);
 	WAVEEXPORT ~TileMap();
 
-	WAVEEXPORT void Draw();
+	WAVEEXPORT void Draw() override;
 
 	WAVEEXPORT float GetMapWidth() const;
 	WAVEEXPORT float GetMapHeight() const;
