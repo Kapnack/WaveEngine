@@ -18,6 +18,10 @@ private:
 	friend class EntityFactory;
 	friend class EntitiesImGui;
 
+protected:
+
+	WAVEEXPORT void Draw() override;
+
 public:
 
 	WAVEEXPORT Sprite(const unsigned int& ID);
@@ -28,6 +32,5 @@ public:
 	WAVEEXPORT void Update();
 	WAVEEXPORT void SetTexture(const unsigned int& textureID);
 	WAVEEXPORT unsigned int GetTexture();
-	WAVEEXPORT void Draw() override;
 };
 
