@@ -6,11 +6,12 @@ WAVEEXPORT class Shape : public Entity2D
 {
 protected:
 
+	WAVEEXPORT void Draw() override;
+
 public:
 
 	WAVEEXPORT Shape(const unsigned int& ID);
 	WAVEEXPORT virtual ~Shape();
 
-	WAVEEXPORT void Draw() override;
 };
 
