@@ -11,11 +11,7 @@ EntityManager::EntityManager() : Service()
 
 EntityManager::~EntityManager()
 {
-	for (map<const unsigned int, Entity*>::iterator service = entitiesByID.begin(); service != entitiesByID.end(); ++service)
-		delete service->second;
-
-	entitiesByID.clear();
-	entitiesIDByType.clear();
+	DeleteAll();
 }
 
 void EntityManager::OnEntityChangeLayer(const unsigned int& id, const int& oldLayer, const int& newLayer)
