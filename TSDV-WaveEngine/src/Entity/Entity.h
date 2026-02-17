@@ -60,6 +60,8 @@ protected:
 	WAVEEXPORT	Entity(const unsigned int& ID);
 	WAVEEXPORT virtual ~Entity();
 
+	WAVEEXPORT virtual void Draw() = 0;
+
 public:
 
 	static const unsigned int NULL_ENTITY = 0;
@@ -118,6 +120,4 @@ public:
 	WAVEEXPORT void FlipX();
 	WAVEEXPORT void FlipY();
 	WAVEEXPORT void FlipZ();
-
-	WAVEEXPORT virtual void Draw() = 0;
 };
