@@ -16,13 +16,13 @@ EntityManager::~EntityManager()
 
 void EntityManager::OnEntityChangeLayer(const unsigned int& id, const int& oldLayer, const int& newLayer)
 {
-	entityByLayer[oldLayer].remove(id);
-	entityByLayer[newLayer].push_back(id);
+	drawableByLayer[oldLayer].remove(id);
+	drawableByLayer[newLayer].push_back(id);
 }
 
 inline void EntityManager::OnEntityDestroy(const unsigned int& id)
 {
-	for (map<int, list<unsigned int>>::iterator layer = entityByLayer.begin(); layer != entityByLayer.end(); ++layer)
+	for (map<int, list<unsigned int>>::iterator layer = drawableByLayer.begin(); layer != drawableByLayer.end(); ++layer)
 		layer->second.remove(id);
 }
 
@@ -33,9 +33,9 @@ map<unsigned int, Entity*>& EntityManager::GetEntities()
 
 inline void EntityManager::DrawEntities()
 {
-	for (map<int, list<unsigned int>>::iterator layer = entityByLayer.begin(); layer != entityByLayer.end(); ++layer)
-		for (unsigned int enitityID : layer->second)
-			Get(enitityID)->Draw();
+	for (map<int, list<unsigned int>>::iterator layer = drawableByLayer.begin(); layer != drawableByLayer.end(); ++layer)
+		for (unsigned int entityID : layer->second)
+			drawableByID.at(entityID)->Draw();
 }
 
 template<EntityManagerStandar T>
@@ -90,7 +90,7 @@ inline void EntityManager::DeleteAll()
 
 	entitiesByID.clear();
 	entitiesIDByType.clear();
-	entityByLayer.clear();
+	drawableByLayer.clear();
 }
 
 template<EntityManagerStandar T>
