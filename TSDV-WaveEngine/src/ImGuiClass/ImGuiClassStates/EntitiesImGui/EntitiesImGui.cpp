@@ -166,12 +166,17 @@ void EntitiesImGui::ShowEntityData(Entity* it)
 	if (ImGui::Checkbox(text.c_str(), &it->isActive))
 		it->SetIsActive(it->isActive);
 
-	text = "Current Layer : " + to_string(it->layer) + "##xx ID: " + to_string(it->ID);
-	ImGui::InputInt(text.c_str(), &layer);
+	drawableIT = GetEntityManager()->GetDrawables().find(it->ID);
 
-	text = "Change Layer ##xx ID: " + to_string(it->ID);
-	if (ImGui::Button(text.c_str()))
-		it->SetLayer(layer);
+	if (drawableIT != GetEntityManager()->GetDrawables().end() && drawableIT->second)
+	{
+		text = "Current Layer : " + to_string(drawableIT->second->GetLayer()) + "##xx ID: " + to_string(it->ID);
+		ImGui::InputInt(text.c_str(), &layer);
+
+		text = "Change Layer ##xx ID: " + to_string(it->ID);
+		if (ImGui::Button(text.c_str()))
+			drawableIT->second->SetLayer(layer);
+	}
 
 }
 
@@ -197,10 +202,10 @@ void EntitiesImGui::ShowMaterial(Entity* entity)
 
 void EntitiesImGui::ShowTexture(Sprite* sprite)
 {
-	text = "ID: " + to_string(sprite->ID) + ". Position. ";
+	text = "ID: " + to_string(sprite->GetID()) + ". Position. ";
 	ImGui::InputInt(text.c_str(), &textureID);
 
-	text = "Set Texture ##xx ID: " + to_string(sprite->ID);
+	text = "Set Texture ##xx ID: " + to_string(sprite->GetID());
 
 	if (ImGui::Button(text.c_str()))
 		sprite->SetTexture(textureID);
