@@ -49,9 +49,14 @@ template<EntityManagerStandar T>
 void EntityManager::SaveEntity(const unsigned int& ID, T* entity)
 {
 	entitiesByID[ID] = entity;
+
 	entitiesIDByType[typeid(*entity)].push_back(ID);
 
-	entityByLayer[static_cast<Entity*>(entity)->GetLayer()].push_back(ID);
+	if (Drawable* drawable = dynamic_cast<Drawable*>(entity))
+	{
+		drawableByID[ID] = drawable;
+		drawableByLayer[drawable->GetLayer()].push_back(ID);
+	}
 }
 
 template<EntityManagerStandar T>
