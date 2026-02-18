@@ -4,6 +4,8 @@
 
 #include "ImGuiClass/ImGuiClass.h"
 
+#include "Entity/Drawable/Drawable.h"
+
 #include "Material/MaterialManager.h"
 #include "TextureImporter/TextureManager.h"
 #include "Entity/EntityManager.h"
@@ -49,6 +51,8 @@ private:
 	int layer = 0;
 	int entityToDelete = 0;
 
+	map<unsigned int, Drawable*>::iterator drawableIT;
+
 	void EntityCreator();
 	void EntityDeleter();
 
@@ -57,6 +61,7 @@ private:
 	void ShowEntityData(Entity* it);
 	void ShowMaterial(Entity* entity);
 	void ShowTexture(Sprite* sprite);
+
 
 	template<EntityManagerStandar T>
 	void ShowAllOfType()
