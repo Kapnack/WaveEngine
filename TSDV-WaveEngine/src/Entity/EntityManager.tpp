@@ -25,6 +25,10 @@ inline void EntityManager::OnEntityDestroy(const unsigned int& id)
 	for (map<int, list<unsigned int>>::iterator layer = drawableByLayer.begin(); layer != drawableByLayer.end(); ++layer)
 		layer->second.remove(id);
 }
+inline map<unsigned int, Drawable*>& EntityManager::GetDrawables()
+{
+	return drawableByID;
+}
 
 map<unsigned int, Entity*>& EntityManager::GetEntities()
 {
