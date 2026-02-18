@@ -17,7 +17,7 @@ EntityManager* MeshImGui::GetEntityManager()
 
 void MeshImGui::Update()
 {
-	for (map<unsigned int, Entity*>::iterator it = GetEntityManager()->GetEntities().begin(); it != GetEntityManager()->GetEntities().end(); ++it)
+	for (map<unsigned int, Drawable*>::iterator it = GetEntityManager()->GetDrawables().begin(); it != GetEntityManager()->GetDrawables().end(); ++it)
 	{
 		text = "Entity ID: " + to_string(it->first);
 		ImGui::Text(text.c_str());
