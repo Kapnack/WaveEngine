@@ -25,8 +25,6 @@ private:
 	friend class EntitiesImGui;
 	friend class MeshImGui;
 
-	void UpdateVertexBuffer();
-
 protected:
 
 	unsigned int materialID;
@@ -37,39 +35,20 @@ protected:
 	Vector3 scale = Vector3(1.0f, 1.0f, 1.0f);
 	Vector3 rotation;
 
-	unsigned int VAO;
-	unsigned int VBO;
-	unsigned int EBO;
-
-	unsigned int layer = 0;
-
-	VertexData* vertex;
-	int vertexSize;
-
-	int* indices;
-	int indexSize;
-
 	glm::mat4 model;
 
 	void SetTRS();
 
 	virtual void UpdateCollider() = 0;
 
-	Renderer* GetRenderer() const;
-
 	WAVEEXPORT	Entity(const unsigned int& ID);
 	WAVEEXPORT virtual ~Entity();
-
-	WAVEEXPORT virtual void Draw() = 0;
 
 public:
 
 	static const unsigned int NULL_ENTITY = 0;
 
 	WAVEEXPORT unsigned int GetID() const;
-
-	WAVEEXPORT void SetLayer(const int& layer);
-	WAVEEXPORT int GetLayer() const;
 
 	WAVEEXPORT void SetIsActive(const bool& setActive);
 	WAVEEXPORT bool GetIsActive() const;
@@ -113,9 +92,6 @@ public:
 	WAVEEXPORT void Rotate(const Vector2& vector);
 	WAVEEXPORT void Rotate(const float& x, const float& y);
 	WAVEEXPORT virtual void Rotate(const float& x, const float& y, const float& z);
-
-	WAVEEXPORT void SetColor(const Vector4& color);
-	WAVEEXPORT void SetVertexColor(const int& index, const Vector4& color);
 
 	WAVEEXPORT void FlipX();
 	WAVEEXPORT void FlipY();
