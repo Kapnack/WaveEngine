@@ -1,12 +1,13 @@
 #pragma once
 
 #include "Entity/Entity2D/Entity2D.h"
+#include "Entity/Drawable/Drawable.h"
 #include "Entity/Entity2D/Animation/Animation.h"
 
 class EntityFactory;
 class EntitiesImGui;
 
-class Sprite : public Entity2D
+class Sprite : public Entity2D, public Drawable
 {
 private:
 
