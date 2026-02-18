@@ -31,7 +31,7 @@ unsigned int EntityFactory::Create()
 	newEntityAsEntity->SetPosition(window->GetBaseWidth() * 0.5, window->GetBaseHeight() * 0.5);
 	newEntityAsEntity->SetScale(window->GetBaseWidth() * 0.5, window->GetBaseHeight() * 0.5);
 
-	entityManager->SaveEntity(currentEntityID, newEntityAsEntity);
+	entityManager->SaveEntity(currentEntityID, newEntity);
 
 	materialManager->AddListener(newEntityAsEntity);
 
