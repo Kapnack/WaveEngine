@@ -43,6 +43,8 @@ private:
 	inline void OnEntityChangeLayer(const unsigned int& id, const int& oldLayer, const int& newLayer);
 	inline void OnEntityDestroy(const unsigned int& id);
 
+	inline map<unsigned int, Drawable*>& GetDrawables();
+
 	friend class Entity;
 	friend class EntitiesImGui;
 	friend class MeshImGui;
