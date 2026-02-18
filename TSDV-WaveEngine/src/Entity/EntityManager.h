@@ -10,6 +10,7 @@
 #include <concepts>
 #include <vector>
 
+#include "Entity/Drawable/Drawable.h"
 #include "Material/MaterialManager.h"
 
 class BaseGame;
@@ -25,6 +26,8 @@ class EntityManager final : public Service
 private:
 
 	map<unsigned int, Entity*> entitiesByID;
+	map<unsigned int, Drawable*> drawableByID;
+
 	unordered_map<type_index, vector<unsigned int>> entitiesIDByType;
 
 	map<int, list<unsigned int>> entityByLayer;
@@ -41,6 +44,9 @@ private:
 	inline void OnEntityDestroy(const unsigned int& id);
 
 	friend class Entity;
+	friend class EntitiesImGui;
+	friend class MeshImGui;
+	friend class Drawable;
 	friend class ServiceProvider;
 	friend class EntityFactory;
 	friend class BaseGame;
