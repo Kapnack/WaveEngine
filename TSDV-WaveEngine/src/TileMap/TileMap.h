@@ -24,8 +24,6 @@ public:
 	WAVEEXPORT TileMap(const string& mapFilePath, const bool& mapFileAddAbsolutePath, const string& texturePath, const bool& texturePathAddAbsolutePath);
 	WAVEEXPORT ~TileMap();
 
-	WAVEEXPORT void Draw() override;
-
 	WAVEEXPORT float GetMapWidth() const;
 	WAVEEXPORT float GetMapHeight() const;
 
