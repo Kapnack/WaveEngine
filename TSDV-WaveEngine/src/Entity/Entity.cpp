@@ -11,24 +11,11 @@ Entity::Entity(const unsigned int& ID)
 
 Entity::~Entity()
 {
-	delete[] vertex;
-	delete[] indices;
 }
 
 unsigned int Entity::GetID() const
 {
 	return ID;
-}
-
-void Entity::SetLayer(const int& layer)
-{
-	ServiceProvider::Instance().Get<EntityManager>()->OnEntityChangeLayer(ID, this->layer, layer);
-	this->layer = layer;
-}
-
-int Entity::GetLayer() const
-{
-	return layer;
 }
 
 void Entity::SetIsActive(const bool& setActive)
@@ -239,23 +226,6 @@ void Entity::Rotate(const float& x, const float& y, const float& z)
 	UpdateCollider();
 }
 
-void Entity::SetColor(const Vector4& color)
-{
-	for (int i = 0; i < vertexSize; i++)
-		vertex[i].SetColor(color);
-
-	UpdateVertexBuffer();
-}
-
-void Entity::SetVertexColor(const int& index, const Vector4& color)
-{
-	if (index < 0 || index >= vertexSize)
-		return;
-
-	vertex[index].SetColor(color);
-	UpdateVertexBuffer();
-}
-
 void Entity::FlipX()
 {
 	SetScale(-scale.x, scale.y, scale.z);
@@ -271,11 +241,6 @@ void Entity::FlipZ()
 	SetScale(scale.x, scale.y, -scale.z);
 }
 
-void Entity::UpdateVertexBuffer()
-{
-	GetRenderer()->UpdateBuffer(vertex, vertexSize, VBO);
-}
-
 void Entity::SetTRS()
 {
 	if (!isActive)
@@ -287,9 +252,4 @@ void Entity::SetTRS()
 	model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0, 1, 0));// Rotate Y
 	model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0, 0, 1)); // Rotate Z
 	model = glm::scale(model, glm::vec3(scale.x, scale.y, scale.z)); // Scale
-}
-
-Renderer* Entity::GetRenderer() const
-{
-	return ServiceProvider::Instance().Get<Renderer>();
 }
