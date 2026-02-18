@@ -206,30 +206,6 @@ void TileMap::SetTileUV(Tile& tile, unsigned int id) const
 	tile.SetUVCordinates({ u0, v1 }, { u1, v0 });
 }
 
-void TileMap::Draw()
-{
-	Window* window = GetWindow();
-	if (!window) return;
-
-	for (int layer = layersAmount - 1; layer >= 0; --layer)
-	{
-		for (unsigned int row = 0; row < columnsAmount; ++row)
-		{
-			for (unsigned int col = 0; col < rowAmount; ++col)
-			{
-				unsigned int tileID = _tileMapGrid[layer][row][col];
-
-				Tile* tile = ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(tileID);
-
-				if (tile == nullptr)
-					continue;
-
-				tile->Draw();
-			}
-		}
-	}
-}
-
 float TileMap::GetMapWidth() const
 {
 	return rowAmount;
