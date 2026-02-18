@@ -10,7 +10,7 @@
 
 class BaseGame;
 
- class EntityFactory final : public Service
+class EntityFactory final : public Service
 {
 private:
 
@@ -29,7 +29,7 @@ private:
 public:
 
 	template<EntityManagerStandar T>
-	 unsigned int Create();
+	unsigned int Create();
 };
 
 #include "EntityFactory.tpp"
