@@ -96,6 +96,9 @@ Entity* EntityManager::Get(const unsigned int& ID)
 
 inline void EntityManager::DeleteEntity(const unsigned int& ID)
 {
+	if (ID == Entity::NULL_ENTITY || !entitiesByID.contains(ID))
+		return;
+
 	OnEntityDestroy(ID);
 	delete entitiesByID[ID];
 	entitiesByID.erase(ID);
