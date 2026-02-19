@@ -8,6 +8,8 @@
 
 #include "Entity/Entity2D/Sprite/Sprite.h"
 
+#include "TileMap/TileMap.h"
+
 EntityFactory::EntityFactory(EntityManager* entityManager, MaterialManager* materialManager, Window* window) : Service()
 {
 	this->entityManager = entityManager;
@@ -38,5 +40,15 @@ unsigned int EntityFactory::Create()
 	return currentEntityID;
 }
 
+unsigned int EntityFactory::CreateTileMap(const string& mapFilePath, const bool& mapFileAddAbsolutePath, const string& texturePath, const bool& texturePathAddAbsolutePath)
+{
+	++currentEntityID;
+
+	TileMap* newEntity = new TileMap(mapFilePath, mapFileAddAbsolutePath, texturePath, texturePathAddAbsolutePath, currentEntityID);
+
+	entityManager->SaveEntity(currentEntityID, newEntity);
+
+	return currentEntityID;
+}
 
 #endif
