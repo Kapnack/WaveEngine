@@ -27,6 +27,7 @@ private:
 
 	unordered_map<unsigned int, Material*> materials;
 
+	void SaveMaterial(const unsigned int id, Material* material);
 
 	vector<Drawable*> listeners;
 
@@ -46,6 +47,11 @@ private:
 	friend class ServiceProvider;
 	friend class EntitiesImGui;
 	friend class MaterialsImGui;
+
+	void OnDeleteMaterial(Material& material);
+
+	MaterialManager();
+	~MaterialManager();
 
 public:
 
