@@ -36,9 +36,13 @@ private:
 
 	unordered_map<unsigned int, Material*>& GetMaterials();
 
+	void ClearListeners();
+
+	MaterialManager();
+	~MaterialManager();
+
 	friend class Renderer;
 	friend class MaterialFactory;
-	friend class EntityFactory;
 	friend class EntityManager;
 	friend class BaseGame;
 	friend class ServiceProvider;
