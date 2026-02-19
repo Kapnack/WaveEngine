@@ -131,12 +131,24 @@ void EntitiesImGui::ShowEntity(Entity* entity)
 {
 	ShowEntityData(entity);
 
-	if (showMaterials)
-		ShowMaterial(entity);
+	drawableIT = GetEntityManager()->GetDrawables().find(entity->GetID());
 
-	if (showTextures)
-		if (Sprite* sprite = dynamic_cast<Sprite*>(entity))
-			ShowTexture(sprite);
+	if (drawableIT != GetEntityManager()->GetDrawables().end() && drawableIT->second)
+	{
+		text = "Current Layer : " + to_string(drawableIT->second->GetLayer()) + "##xx ID: " + to_string(drawableIT->first);
+		ImGui::InputInt(text.c_str(), &layer);
+
+		text = "Change Layer ##xx ID: " + to_string(drawableIT->first);
+		if (ImGui::Button(text.c_str()))
+			drawableIT->second->SetLayer(layer);
+
+		if (showMaterials)
+			ShowMaterial(drawableIT->first, drawableIT->second);
+
+		if (showTextures)
+			if (Sprite* sprite = dynamic_cast<Sprite*>(entity))
+				ShowTexture(sprite);
+	}
 
 	ImGui::Separator();
 }
@@ -165,36 +177,25 @@ void EntitiesImGui::ShowEntityData(Entity* it)
 	text = "ID: " + to_string(it->ID) + ". IsActive.";
 	if (ImGui::Checkbox(text.c_str(), &it->isActive))
 		it->SetIsActive(it->isActive);
-
-	drawableIT = GetEntityManager()->GetDrawables().find(it->ID);
-
-	if (drawableIT != GetEntityManager()->GetDrawables().end() && drawableIT->second)
-	{
-		text = "Current Layer : " + to_string(drawableIT->second->GetLayer()) + "##xx ID: " + to_string(it->ID);
-		ImGui::InputInt(text.c_str(), &layer);
-
-		text = "Change Layer ##xx ID: " + to_string(it->ID);
-		if (ImGui::Button(text.c_str()))
-			drawableIT->second->SetLayer(layer);
-	}
-
 }
 
-void EntitiesImGui::ShowMaterial(Entity* entity)
+void EntitiesImGui::ShowMaterial(const unsigned int& ID, Drawable* drawable)
 {
-	text = "ID: " + to_string(entity->ID) + ". Input Material ID. ";
+	text = "ID: " + to_string(ID) + ". Input Material ID. ";
 	ImGui::InputInt(text.c_str(), &materialID);
 
-	text = "Set Material ##xx ID: " + to_string(entity->ID);
+	text = "Set Material ##xx ID: " + to_string(ID);
+
+	drawableIT = GetEntityManager()->GetDrawables().find(ID);
 
 	if (ImGui::Button(text.c_str()))
-		entity->SetMaterial(materialID);
+		drawable->SetMaterial(materialID);
 
-	Material* material = GetMaterialManager()->GetMaterial(entity->GetMaterial());
+	Material* material = GetMaterialManager()->GetMaterial(drawable->GetMaterial());
 
 	if (material != nullptr)
 	{
-		text = "##xx Name: " + material->GetName() + ". Program ID: " + to_string(material->GetProgram()) + "." + "ID: " + to_string(entity->ID);
+		text = "##xx Name: " + material->GetName() + ". Program ID: " + to_string(material->GetProgram()) + "." + "ID: " + to_string(ID);
 
 		ImGui::ColorEdit4(text.c_str(), &material->color.x);
 	}
