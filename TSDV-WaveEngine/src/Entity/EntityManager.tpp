@@ -52,8 +52,7 @@ inline void EntityManager::DrawEntities()
 			drawableByID.at(entityID)->Draw();
 }
 
-template<EntityManagerStandar T>
-void EntityManager::SaveEntity(const unsigned int& ID, T* entity)
+void EntityManager::SaveEntity(const unsigned int& ID, Entity* entity)
 {
 	entitiesByID[ID] = entity;
 
@@ -64,10 +63,12 @@ void EntityManager::SaveEntity(const unsigned int& ID, T* entity)
 		drawableByID[ID] = drawable;
 		drawableByLayer[drawable->GetLayer()].push_back(ID);
 		materialManager->AddListener(drawable);
+
+		entitiesIDByType[typeid(Drawable)].push_back(ID);
 	}
 }
 
-template<EntityManagerStandar T>
+template<EntityManagerGetStandar T>
 T* EntityManager::TryGet(const unsigned int& ID)
 {
 	map<unsigned int, Entity*>::iterator it = entitiesByID.find(ID);
@@ -82,7 +83,7 @@ Entity* EntityManager::TryGet(const unsigned int& ID)
 	return TryGet<Entity>(ID);
 }
 
-template<EntityManagerStandar T>
+template<EntityManagerGetStandar T>
 T* EntityManager::Get(const unsigned int& ID)
 {
 	return static_cast<T*>(entitiesByID.at(ID));
@@ -111,16 +112,17 @@ inline void EntityManager::DeleteAll()
 	entitiesByID.clear();
 	entitiesIDByType.clear();
 	drawableByLayer.clear();
+	materialManager->ClearListeners();
 }
 
-template<EntityManagerStandar T>
+template<EntityManagerGetStandar T>
 vector<unsigned int>& EntityManager::GetAllOfType()
 {
 	return entitiesIDByType[typeid(T)];
 }
 
 
-template<EntityManagerStandar T>
+template<EntityManagerGetStandar T>
 void EntityManager::DeleteAllOfType()
 {
 	for (unsigned int id : entitiesIDByType[typeid(T)])
