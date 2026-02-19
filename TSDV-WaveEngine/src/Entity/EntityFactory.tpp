@@ -10,10 +10,9 @@
 
 #include "TileMap/TileMap.h"
 
-EntityFactory::EntityFactory(EntityManager* entityManager, MaterialManager* materialManager, Window* window) : Service()
+EntityFactory::EntityFactory(EntityManager* entityManager, Window* window) : Service()
 {
 	this->entityManager = entityManager;
-	this->materialManager = materialManager;
 	this->window = window;
 }
 
@@ -34,8 +33,6 @@ unsigned int EntityFactory::Create()
 	newEntityAsEntity->SetScale(window->GetBaseWidth() * 0.5, window->GetBaseHeight() * 0.5);
 
 	entityManager->SaveEntity(currentEntityID, newEntity);
-
-	materialManager->AddListener(newEntityAsEntity);
 
 	return currentEntityID;
 }

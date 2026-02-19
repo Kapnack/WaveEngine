@@ -15,12 +15,11 @@ class EntityFactory final : public Service
 private:
 
 	EntityManager* entityManager;
-	MaterialManager* materialManager;
 	Window* window;
 
 	unsigned int currentEntityID = Entity::NULL_ENTITY;
 
-	inline EntityFactory(EntityManager* entityManager, MaterialManager* materialManager, Window* window);
+	inline EntityFactory(EntityManager* entityManager, Window* window);
 	inline ~EntityFactory();
 
 	friend class ServiceProvider;
