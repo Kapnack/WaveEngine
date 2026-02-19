@@ -28,6 +28,10 @@ inline void EntityManager::OnEntityDestroy(const unsigned int& id)
 
 	if (!drawableByID.contains(id))
 		return;
+
+	if (drawableByID[id])
+		materialManager->RemoveListener(drawableByID[id]);
+
 	drawableByID.erase(id);
 }
 
@@ -59,6 +63,7 @@ void EntityManager::SaveEntity(const unsigned int& ID, T* entity)
 	{
 		drawableByID[ID] = drawable;
 		drawableByLayer[drawable->GetLayer()].push_back(ID);
+		materialManager->AddListener(drawable);
 	}
 }
 
