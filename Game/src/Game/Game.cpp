@@ -49,7 +49,7 @@ void Game::Init(const int& width, const int& height)
 void Game::Update()
 {
 	if (GetInput()->IsKeyPressed(Keys::Q))
-		GetMaterialManager()->DeleteMaterial(GetEntityManager()->Get<Entity>(2)->GetMaterial());
+		GetMaterialManager()->DeleteMaterial(GetEntityManager()->Get<Sprite>(2)->GetMaterial());
 
 
 
