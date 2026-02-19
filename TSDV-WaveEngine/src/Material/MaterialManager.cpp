@@ -82,21 +82,21 @@ void MaterialManager::DeleteMaterial(const unsigned int id)
 	materials.erase(id);
 }
 
-void MaterialManager::AddListener(Entity* entity)
+void MaterialManager::AddListener(Drawable* entity)
 {
 	listeners.push_back(entity);
 }
 
 void MaterialManager::OnDeleteMaterial(Material& material)
 {
-	for (Entity* entity : listeners)
+	for (Drawable* entity : listeners)
 		if (entity->GetMaterial() == material.GetID())
 			entity->SetMaterial(Material::NULL_MATERIAL);
 }
 
-void MaterialManager::RemoveListener(Entity* entity)
+void MaterialManager::RemoveListener(Drawable* entity)
 {
-	for (vector<Entity*>::iterator it = listeners.begin(); it != listeners.end(); ++it)
+	for (vector<Drawable*>::iterator it = listeners.begin(); it != listeners.end(); ++it)
 		if (*it == entity)
 		{
 			listeners.erase(it);
