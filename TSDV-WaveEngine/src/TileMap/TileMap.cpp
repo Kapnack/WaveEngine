@@ -28,7 +28,13 @@ TileMap::~TileMap()
 	for (int layer = 0; layer < layersAmount; ++layer)
 	{
 		for (int y = 0; y < columnsAmount; ++y)
+		{
+			for (int x = 0; x < rowAmount; ++x)
+				GetEntityManager()->DeleteEntity(_tileMapGrid[layer][y][x]);
+
 			delete[] _tileMapGrid[layer][y];
+		}
+
 
 		delete[] _tileMapGrid[layer];
 	}
