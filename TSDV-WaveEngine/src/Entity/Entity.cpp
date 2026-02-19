@@ -31,16 +31,6 @@ bool Entity::GetIsActive() const
 	return isActive;
 }
 
-void Entity::SetMaterial(const unsigned int materialID)
-{
-	this->materialID = materialID;
-}
-
-const unsigned int Entity::GetMaterial() const
-{
-	return materialID;
-}
-
 Vector3 Entity::GetPosition() const
 {
 	return position;

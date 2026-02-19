@@ -27,8 +27,6 @@ private:
 
 protected:
 
-	unsigned int materialID;
-
 	Vector3 previousPosition;
 	Vector3 position;
 
@@ -52,9 +50,6 @@ public:
 
 	WAVEEXPORT void SetIsActive(const bool& setActive);
 	WAVEEXPORT bool GetIsActive() const;
-
-	WAVEEXPORT void SetMaterial(const unsigned int materialID);
-	WAVEEXPORT const unsigned int GetMaterial() const;
 
 	WAVEEXPORT Vector3 GetPosition() const;
 	WAVEEXPORT Vector3 GetScale() const;
