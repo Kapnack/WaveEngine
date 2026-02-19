@@ -59,7 +59,7 @@ private:
 	void EntityDisplayer();
 	void ShowEntity(Entity* entity);
 	void ShowEntityData(Entity* it);
-	void ShowMaterial(Entity* entity);
+	void ShowMaterial(const unsigned int& ID, Drawable* entity);
 	void ShowTexture(Sprite* sprite);
 
 
