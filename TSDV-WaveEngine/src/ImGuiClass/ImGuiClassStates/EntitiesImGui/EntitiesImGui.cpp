@@ -89,6 +89,7 @@ void EntitiesImGui::EntityDeleter()
 		case 4: GetEntityManager()->DeleteAllOfType<Triangle>(); break;
 		case 5: GetEntityManager()->DeleteAllOfType<Tile>(); break;
 		case 6: GetEntityManager()->DeleteAllOfType<Drawable>(); break;
+		case 7: GetEntityManager()->DeleteAllOfType<TileMap>(); break;
 
 		default:
 			break;
@@ -126,6 +127,7 @@ void EntitiesImGui::EntityDisplayer()
 	case 3: ShowAllOfType<Triangle>(); break;
 	case 4: ShowAllOfType<Tile>();     break;
 	case 5: ShowAllOfType<Drawable>();     break;
+	case 6: ShowAllOfType<TileMap>();     break;
 	}
 }
 
