@@ -43,7 +43,7 @@ unsigned int EntityFactory::CreateTileMap(const string& mapFilePath, const bool&
 
 	TileMap* newEntity = new TileMap(mapFilePath, mapFileAddAbsolutePath, texturePath, texturePathAddAbsolutePath, currentEntityID);
 
-	entityManager->SaveEntity(currentEntityID, newEntity);
+	entityManager->SaveEntity(newEntity->GetID(), newEntity);
 
 	return currentEntityID;
 }
