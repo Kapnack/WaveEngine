@@ -32,16 +32,16 @@ private:
 
 	int currentCreationOption = 0;
 
-	const char* filters[6] =
+	const char* filters[7] =
 	{
-		"Entities", "Sprites", "Squares", "Triangles", "Tiles", "Drawables"
+		"Entities", "Sprites", "Squares", "Triangles", "Tiles", "Drawables", "TileMaps"
 	};
 
 	int currentFilter = 0;
 
-	const char* delitionFilters[7] =
+	const char* delitionFilters[8] =
 	{
-		"By ID", "All Entities", "All Sprites", "All Squares", "All Triangles", "All Tiles", "All Drawables"
+		"By ID", "All Entities", "All Sprites", "All Squares", "All Triangles", "All Tiles", "All Drawables", "All TileMaps"
 	};
 
 	int currentDeletionFilter = 0;
