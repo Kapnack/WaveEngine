@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "Export.h"
-#include "Entity/Entity.h"
+#include "Entity/Drawable/Drawable.h"
 #include "Material/Material.h"
 #include "ServiceProvider/ServiceProvider.h"
 
@@ -30,7 +30,7 @@ private:
 
 	void SaveMaterial(const unsigned int id, Material* material);
 
-	vector<Entity*> listeners;
+	vector<Drawable*> listeners;
 
 	Material* GetMaterial(const unsigned int id);
 
@@ -45,6 +45,8 @@ private:
 	friend class EntitiesImGui;
 	friend class MaterialsImGui;
 
+	void OnDeleteMaterial(Material& material);
+
 	MaterialManager();
 	~MaterialManager();
 
@@ -56,10 +58,8 @@ public:
 
 	WAVEEXPORT void DeleteMaterial(const unsigned int id);
 
-	WAVEEXPORT void AddListener(Entity* entity);
+	WAVEEXPORT void AddListener(Drawable* entity);
 
-	WAVEEXPORT void OnDeleteMaterial(Material& material);
-
-	WAVEEXPORT void RemoveListener(Entity* entity);
+	WAVEEXPORT void RemoveListener(Drawable* entity);
 };
 
