@@ -32,16 +32,16 @@ private:
 
 	int currentCreationOption = 0;
 
-	const char* filters[5] =
+	const char* filters[6] =
 	{
-		"Entities", "Sprites", "Squares", "Triangles", "Tiles"
+		"Entities", "Sprites", "Squares", "Triangles", "Tiles", "Drawables"
 	};
 
 	int currentFilter = 0;
 
-	const char* delitionFilters[6] =
+	const char* delitionFilters[7] =
 	{
-		"By ID", "All Entities", "All Sprites", "All Squares", "All Triangles", "All Tiles"
+		"By ID", "All Entities", "All Sprites", "All Squares", "All Triangles", "All Tiles", "All Drawables"
 	};
 
 	int currentDeletionFilter = 0;
@@ -63,7 +63,7 @@ private:
 	void ShowTexture(Sprite* sprite);
 
 
-	template<EntityManagerStandar T>
+	template<EntityManagerGetStandar T>
 	void ShowAllOfType()
 	{
 		vector<unsigned int>& vec = GetEntityManager()->GetAllOfType<T>();
