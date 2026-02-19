@@ -14,21 +14,25 @@ private:
 
 	friend class MeshImGui;
 
-protected:
-
 	unsigned int ID;
+
+	unsigned int layer;
+
+protected:
 
 	unsigned int VAO;
 	unsigned int VBO;
 	unsigned int EBO;
 
-	unsigned int layer = 0;
+	unsigned int materialID;
 
 	VertexData* vertex;
 	int vertexSize;
 
 	int* indices;
 	int indexSize;
+
+	MaterialManager* GetMaterialManager();
 
 	Renderer* GetRenderer() const;
 
@@ -39,6 +43,9 @@ public:
 
 	WAVEEXPORT void SetLayer(const int& layer);
 	WAVEEXPORT int GetLayer() const;
+
+	WAVEEXPORT void SetMaterial(unsigned int materialID);
+	WAVEEXPORT const unsigned int GetMaterial() const;
 
 	WAVEEXPORT void SetColor(const Vector4& color);
 	WAVEEXPORT void SetVertexColor(const int& index, const Vector4& color);

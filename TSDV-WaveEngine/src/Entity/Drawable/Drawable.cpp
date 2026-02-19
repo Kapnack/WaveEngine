@@ -14,6 +14,11 @@ Drawable::~Drawable()
 	delete[] indices;
 }
 
+MaterialManager* Drawable::GetMaterialManager()
+{
+	return ServiceProvider::Instance().Get<MaterialManager>();
+}
+
 Renderer* Drawable::GetRenderer() const
 {
 	return ServiceProvider::Instance().Get<Renderer>();
@@ -28,6 +33,16 @@ void Drawable::SetLayer(const int& layer)
 int Drawable::GetLayer() const
 {
 	return layer;
+}
+
+void Drawable::SetMaterial(unsigned int materialID)
+{
+	this->materialID = materialID;
+}
+
+const unsigned int Drawable::GetMaterial() const
+{
+	return materialID;
 }
 
 void Drawable::SetColor(const Vector4& color)
