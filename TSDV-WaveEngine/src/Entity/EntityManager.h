@@ -32,12 +32,14 @@ private:
 
 	map<int, list<unsigned int>> drawableByLayer;
 
+	MaterialManager* materialManager;
+
 	template<EntityManagerStandar T>
 	void SaveEntity(const unsigned int& ID, T* entity);
 
 	inline void DrawEntities();
 
-	inline EntityManager();
+	inline EntityManager(MaterialManager* materialManager);
 	inline ~EntityManager();
 
 	inline void OnEntityChangeLayer(const unsigned int& id, const int& oldLayer, const int& newLayer);
