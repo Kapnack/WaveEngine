@@ -48,13 +48,13 @@ void Game::Init(const int& width, const int& height)
 
 void Game::Update()
 {
-	if (GetInput()->IsKeyPressed(Keys::Q))
+	if (GetInput()->IsKeyPressed(Keys::Q) && GetEntityManager()->TryGet<Sprite>(2)->GetMaterial())
 		GetMaterialManager()->DeleteMaterial(GetEntityManager()->Get<Sprite>(2)->GetMaterial());
 
 
-
-	if (GetCollsionManager()->CheckCollision(1, *GetEntityManager()->Get<TileMap>(tileMap)))
-		cout << "IT WORKS!!!";
+	if (GetEntityManager()->TryGet<TileMap>(tileMap))
+		if (GetCollsionManager()->CheckCollision(1, *GetEntityManager()->Get<TileMap>(tileMap)))
+			cout << "IT WORKS!!!";
 }
 
 void Game::Draw()
