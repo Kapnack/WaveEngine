@@ -50,9 +50,6 @@ private:
 
 	void OnDeleteMaterial(Material& material);
 
-	MaterialManager();
-	~MaterialManager();
-
 public:
 
 	WAVEEXPORT unsigned int GetMaterial(const string name);

@@ -103,3 +103,8 @@ void MaterialManager::RemoveListener(Drawable* entity)
 			break;
 		}
 }
+
+void MaterialManager::ClearListeners()
+{
+	listeners.clear();
+}
