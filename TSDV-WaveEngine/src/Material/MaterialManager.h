@@ -12,7 +12,6 @@
 
 class Renderer;
 class MaterialFactory;
-class EntityFactory;
 class EntityManager;
 class BaseGame;
 class EntitiesImGui;
