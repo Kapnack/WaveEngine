@@ -28,7 +28,7 @@ void Game::Init(const int& width, const int& height)
 	const string json = "Sprites/map.json";
 	const string spriteSheet = "Sprites/spritesheet.png";
 
-	tileMap = new TileMap(json, true, spriteSheet, true);
+	tileMap = GetEntityFactory()->CreateTileMap(json, true, spriteSheet, true);
 
 	unsigned int samusTexture = GetTextureImporter()->LoadTextureAbsolutePath("Sprites/Samus Aran Sprite Sheet.png");
 
@@ -53,7 +53,7 @@ void Game::Update()
 
 
 
-	if (GetCollsionManager()->CheckCollision(1, *tileMap))
+	if (GetCollsionManager()->CheckCollision(1, *GetEntityManager()->Get<TileMap>(tileMap)))
 		cout << "IT WORKS!!!";
 }
 
@@ -63,5 +63,4 @@ void Game::Draw()
 
 void Game::Unload()
 {
-	delete tileMap;
 }

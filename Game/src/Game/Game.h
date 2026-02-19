@@ -9,7 +9,7 @@ class Game : public BaseGame
 {
 private:
 
-	TileMap* tileMap;
+	unsigned int tileMap;
 
 protected:
 
