@@ -45,6 +45,10 @@ unsigned int EntityFactory::CreateTileMap(const string& mapFilePath, const bool&
 
 	entityManager->SaveEntity(newEntity->GetID(), newEntity);
 
+	newEntity->SetScale(Vector3::One());
+
+	newEntity->ImportTileMap(mapFilePath, mapFileAddAbsolutePath);
+
 	return currentEntityID;
 }
 
