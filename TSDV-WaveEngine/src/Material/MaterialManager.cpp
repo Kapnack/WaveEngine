@@ -96,6 +96,9 @@ void MaterialManager::OnDeleteMaterial(Material& material)
 
 void MaterialManager::RemoveListener(Drawable* entity)
 {
+	if (listeners.size() == 0)
+		return;
+
 	for (vector<Drawable*>::iterator it = listeners.begin(); it != listeners.end(); ++it)
 		if (*it == entity)
 		{
