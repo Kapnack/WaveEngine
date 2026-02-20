@@ -276,6 +276,9 @@ void Entity::FlipZ()
 
 bool Entity::ContainsChild(const unsigned int& ID) const
 {
+	if (childsIDs.size() == 0)
+		return false;
+
 	for (vector<unsigned int>::const_iterator childID = childsIDs.begin(); childID != childsIDs.end(); ++childID)
 		if (*childID == ID)
 			return true;
