@@ -21,7 +21,7 @@ Square::Square(const unsigned int& ID) : Shape(ID)
 				1, 2, 3    // second triangle
 		};
 
-	SetTRS();
+	CalculateTRS();
 
 	GetRenderer()->CreateBuffers(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO);
 }

@@ -29,7 +29,7 @@ void Sprite::Init(const Vector4& color)
 				1, 2, 3    // second triangle
 		};
 
-	SetTRS();
+	CalculateTRS();
 
 	this->textureID = textureID;
 
