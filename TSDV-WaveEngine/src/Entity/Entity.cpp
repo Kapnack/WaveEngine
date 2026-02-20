@@ -20,11 +20,6 @@ void Entity::Update()
 {
 	if (!isActive)
 		return;
-
-	SetTRS();
-
-	for (vector<unsigned int>::const_iterator childID = childsIDs.begin(); childID != childsIDs.end(); childID++)
-		ServiceProvider::Instance().Get<EntityManager>()->Get(*childID)->Update();
 }
 
 unsigned int Entity::GetID() const
@@ -91,6 +86,8 @@ void Entity::SetPosition(const float& x, const float& y, const float& z)
 	previousPosition = position;
 
 	UpdateCollider();
+
+	SetUpdateTRS();
 }
 
 void Entity::Translate(const Vector3& translation)
@@ -117,6 +114,8 @@ void Entity::Translate(const float& x, const float& y, const float& z)
 	position.z += z;
 
 	UpdateCollider();
+
+	SetUpdateTRS();
 }
 
 void Entity::SetScale(const Vector3& vector)
@@ -141,6 +140,8 @@ void Entity::SetScale(const float& x, const float& y, const float& z)
 	scale.z = z;
 
 	UpdateCollider();
+
+	SetUpdateTRS();
 }
 
 void Entity::Scale(const Vector3& vector)
@@ -165,6 +166,8 @@ void Entity::Scale(const float& x, const float& y, const float& z)
 	scale.z += z;
 
 	UpdateCollider();
+
+	SetUpdateTRS();
 }
 
 void Entity::SetRotation(const Vector3& vector)
@@ -189,6 +192,8 @@ void Entity::SetRotation(const float& x, const float& y, const float& z)
 	rotation.z = z;
 
 	UpdateCollider();
+
+	SetUpdateTRS();
 }
 
 void Entity::Rotate(const Vector3& vector)
@@ -213,6 +218,8 @@ void Entity::Rotate(const float& x, const float& y, const float& z)
 	rotation.z += z;
 
 	UpdateCollider();
+
+	SetUpdateTRS();
 }
 
 void Entity::SetParent(const unsigned int& parentID)
@@ -286,7 +293,20 @@ bool Entity::ContainsChild(const unsigned int& ID) const
 	return false;
 }
 
-void Entity::SetTRS()
+void Entity::SetUpdateTRS()
+{
+	shouldUpdateTRS = true;
+}
+
+void Entity::UpdateTRS()
+{
+	if (!isActive || !shouldUpdateTRS)
+		return;
+
+	CalculateTRS();
+}
+
+void Entity::CalculateTRS()
 {
 	if (!isActive)
 		return;
@@ -300,4 +320,7 @@ void Entity::SetTRS()
 
 	if (parentID != Entity::NULL_ENTITY)
 		model = ServiceProvider::Instance().Get<EntityManager>()->Get(parentID)->model * model;
+
+	for (vector<unsigned int>::const_iterator childID = childsIDs.begin(); childID != childsIDs.end(); childID++)
+		ServiceProvider::Instance().Get<EntityManager>()->Get(*childID)->CalculateTRS();
 }
