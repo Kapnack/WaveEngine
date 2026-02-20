@@ -23,6 +23,11 @@ void EntityManager::OnEntityChangeLayer(const unsigned int& id, const int& oldLa
 
 inline void EntityManager::OnEntityDestroy(const unsigned int& id)
 {
+	Get(id)->SetParent(Entity::NULL_ENTITY);
+
+	for (vector<unsigned int>::const_iterator childsIt = Get(id)->childsIDs.begin(); childsIt != Get(id)->childsIDs.begin(); ++childsIt)
+		DeleteEntity(*childsIt);
+
 	for (map<int, list<unsigned int>>::iterator layer = drawableByLayer.begin(); layer != drawableByLayer.end(); ++layer)
 		layer->second.remove(id);
 
@@ -100,6 +105,7 @@ inline void EntityManager::DeleteEntity(const unsigned int& ID)
 		return;
 
 	OnEntityDestroy(ID);
+
 	delete entitiesByID[ID];
 	entitiesByID.erase(ID);
 
@@ -107,15 +113,27 @@ inline void EntityManager::DeleteEntity(const unsigned int& ID)
 		it->second.erase(remove(it->second.begin(), it->second.end(), ID), it->second.end());
 }
 
+inline void EntityManager::UpdateEntities()
+{
+	for (map<unsigned int, Entity*>::iterator it = entitiesByID.begin(); it != entitiesByID.end(); ++it)
+	{
+		if (it->second->GetParent() == Entity::NULL_ENTITY)
+			it->second->Update();
+	}
+
+}
+
 inline void EntityManager::DeleteAll()
 {
 	for (map<unsigned int, Entity*>::iterator it = entitiesByID.begin(); it != entitiesByID.end(); ++it)
+	{
+		OnEntityDestroy(it->first);
 		delete it->second;
+	}
 
 	entitiesByID.clear();
 	entitiesIDByType.clear();
 	drawableByLayer.clear();
-	materialManager->ClearListeners();
 }
 
 template<EntityManagerGetStandar T>
