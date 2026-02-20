@@ -33,6 +33,8 @@ private:
 	bool ContainsChild(const unsigned int& ID) const;
 	void SetUpdateTRS();
 
+	void SetLocalFromMatrix(glm::mat4 matrix);
+
 	void UpdateTRS();
 
 protected:
