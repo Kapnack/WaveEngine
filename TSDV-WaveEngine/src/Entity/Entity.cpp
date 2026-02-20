@@ -4,6 +4,9 @@
 #include "ImGuiClass/ImGuiClass.h"
 #include "Entity/EntityManager.h"
 
+#include "ServiceProvider/ServiceProvider.h"
+#include "Entity/EntityManager.h"
+
 Entity::Entity(const unsigned int& ID)
 {
 	this->ID = ID;
@@ -11,6 +14,21 @@ Entity::Entity(const unsigned int& ID)
 
 Entity::~Entity()
 {
+	//SetParent(Entity::NULL_ENTITY);
+	//
+	//for (vector<unsigned int>::const_iterator childsIT = childsIDs.begin(); childsIT != childsIDs.end(); ++childsIT)
+	//	ServiceProvider::Instance().Get<EntityManager>()->DeleteEntity(*childsIT);
+}
+
+void Entity::Update()
+{
+	if (!isActive)
+		return;
+
+	SetTRS();
+
+	for (vector<unsigned int>::const_iterator childID = childsIDs.begin(); childID != childsIDs.end(); childID++)
+		ServiceProvider::Instance().Get<EntityManager>()->Get(*childID)->Update();
 }
 
 unsigned int Entity::GetID() const
@@ -21,9 +39,6 @@ unsigned int Entity::GetID() const
 void Entity::SetIsActive(const bool& setActive)
 {
 	isActive = setActive;
-
-	if (isActive)
-		SetTRS();
 }
 
 bool Entity::GetIsActive() const
@@ -79,8 +94,6 @@ void Entity::SetPosition(const float& x, const float& y, const float& z)
 
 	previousPosition = position;
 
-	SetTRS();
-
 	UpdateCollider();
 }
 
@@ -107,8 +120,6 @@ void Entity::Translate(const float& x, const float& y, const float& z)
 	position.y += y;
 	position.z += z;
 
-	SetTRS();
-
 	UpdateCollider();
 }
 
@@ -132,8 +143,6 @@ void Entity::SetScale(const float& x, const float& y, const float& z)
 	scale.x = x;
 	scale.y = y;
 	scale.z = z;
-
-	SetTRS();
 
 	UpdateCollider();
 }
@@ -159,8 +168,6 @@ void Entity::Scale(const float& x, const float& y, const float& z)
 	scale.y += y;
 	scale.z += z;
 
-	SetTRS();
-
 	UpdateCollider();
 }
 
@@ -184,8 +191,6 @@ void Entity::SetRotation(const float& x, const float& y, const float& z)
 	rotation.x = x;
 	rotation.y = y;
 	rotation.z = z;
-
-	SetTRS();
 
 	UpdateCollider();
 }
@@ -211,9 +216,51 @@ void Entity::Rotate(const float& x, const float& y, const float& z)
 	rotation.y += y;
 	rotation.z += z;
 
-	SetTRS();
-
 	UpdateCollider();
+}
+
+void Entity::SetParent(const unsigned int& parentID)
+{
+	if (this->parentID == parentID || parentID == ID)
+		return;
+
+	if (this->parentID != Entity::NULL_ENTITY)
+		ServiceProvider::Instance().Get<EntityManager>()->Get(this->parentID)->RemoveChild(ID);
+
+	this->parentID = parentID;
+
+	if (parentID != Entity::NULL_ENTITY)
+		ServiceProvider::Instance().Get<EntityManager>()->Get(parentID)->AddChild(ID);
+}
+
+unsigned int Entity::GetParent() const
+{
+	return parentID;
+}
+
+void Entity::AddChild(const unsigned int& childID)
+{
+	if (ContainsChild(childID))
+		return;
+
+	childsIDs.push_back(childID);
+
+	ServiceProvider::Instance().Get<EntityManager>()->Get(childID)->SetParent(ID);
+}
+
+unsigned int Entity::GetChild(const unsigned int& index) const
+{
+	return childsIDs[index];
+}
+
+void Entity::RemoveChild(const unsigned int& childID)
+{
+	if (childID == Entity::NULL_ENTITY || !ContainsChild(childID))
+		return;
+
+	childsIDs.erase(remove(childsIDs.begin(), childsIDs.end(), childID));
+
+	ServiceProvider::Instance().Get<EntityManager>()->Get(childID)->SetParent(Entity::NULL_ENTITY);
 }
 
 void Entity::FlipX()
@@ -231,6 +278,15 @@ void Entity::FlipZ()
 	SetScale(scale.x, scale.y, -scale.z);
 }
 
+bool Entity::ContainsChild(const unsigned int& ID) const
+{
+	for (vector<unsigned int>::const_iterator childID = childsIDs.begin(); childID != childsIDs.end(); ++childID)
+		if (*childID == ID)
+			return true;
+
+	return false;
+}
+
 void Entity::SetTRS()
 {
 	if (!isActive)
@@ -242,4 +298,7 @@ void Entity::SetTRS()
 	model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0, 1, 0));// Rotate Y
 	model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0, 0, 1)); // Rotate Z
 	model = glm::scale(model, glm::vec3(scale.x, scale.y, scale.z)); // Scale
+
+	if (parentID != Entity::NULL_ENTITY)
+		model = ServiceProvider::Instance().Get<EntityManager>()->Get(parentID)->model * model;
 }
