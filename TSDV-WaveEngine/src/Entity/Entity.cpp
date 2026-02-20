@@ -304,17 +304,17 @@ void Entity::SetLocalFromMatrix(glm::mat4 matrix)
 
 	position = Vector3(newPosition.x, newPosition.y, newPosition.z);
 
-	scale.x = glm::length(glm::vec3(model[0]));
-	scale.y = glm::length(glm::vec3(model[1]));
-	scale.z = glm::length(glm::vec3(model[2]));
+	scale.x = glm::length(glm::vec3(matrix[0]));
+	scale.y = glm::length(glm::vec3(matrix[1]));
+	scale.z = glm::length(glm::vec3(matrix[2]));
 
 	if (scale.x == 0 || scale.y == 0 || scale.z == 0)
 		return;
 
 	glm::mat3 rotMat;
-	rotMat[0] = glm::vec3(model[0]) / scale.x;
-	rotMat[1] = glm::vec3(model[1]) / scale.y;
-	rotMat[2] = glm::vec3(model[2]) / scale.z;
+	rotMat[0] = glm::vec3(matrix[0]) / scale.x;
+	rotMat[1] = glm::vec3(matrix[1]) / scale.y;
+	rotMat[2] = glm::vec3(matrix[2]) / scale.z;
 
 	glm::quat q = glm::quat_cast(rotMat);
 	q = glm::normalize(q);
