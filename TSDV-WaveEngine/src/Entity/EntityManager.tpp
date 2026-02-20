@@ -118,7 +118,7 @@ inline void EntityManager::UpdateEntities()
 	for (map<unsigned int, Entity*>::iterator it = entitiesByID.begin(); it != entitiesByID.end(); ++it)
 	{
 		if (it->second->GetParent() == Entity::NULL_ENTITY)
-			it->second->Update();
+			it->second->UpdateTRS();
 	}
 
 }
