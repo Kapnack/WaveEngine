@@ -19,8 +19,6 @@ TileMap::TileMap(const string& mapFilePath, const bool& mapFileAddAbsolutePath, 
 		return;
 
 	this->textureSize = ServiceProvider::Instance().Get<TextureManager>()->GetTexture(texture)->GetRes();
-
-	ImportTileMap(mapFilePath, mapFileAddAbsolutePath);
 }
 
 TileMap::~TileMap()
@@ -34,7 +32,6 @@ TileMap::~TileMap()
 
 			delete[] _tileMapGrid[layer][y];
 		}
-
 
 		delete[] _tileMapGrid[layer];
 	}
@@ -132,6 +129,8 @@ void TileMap::ImportTileMap(const string& filePath, const bool& addAbsolutePath)
 			unsigned int newTile = ServiceProvider::Instance().Get<EntityFactory>()->Create<Tile>();
 
 			Tile* tile = ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(newTile);
+
+			tile->SetParent(GetID());
 
 			tile->SetTexture(texture);
 
