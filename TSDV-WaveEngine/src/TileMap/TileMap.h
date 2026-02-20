@@ -34,6 +34,8 @@ public:
 
 	WAVEEXPORT unsigned int GetTileAt(const int& layer, const int& col, const int& row) const;
 
+	WAVEEXPORT void ImportTileMap(const string& filePath, const bool& addAbsolutePath);
+
 private:
 
 	unsigned int*** _tileMapGrid = nullptr;
@@ -61,8 +63,6 @@ private:
 	void SetTileDimensions(float tileWidth, float tileHeigth) noexcept;
 
 	void SetTexture(const unsigned int texture) noexcept;
-
-	void ImportTileMap(const string& filePath, const bool& addAbsolutePath);
 
 	void SetTileUV(Tile& tile, unsigned int id) const;
 
