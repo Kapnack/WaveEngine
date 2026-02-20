@@ -167,13 +167,16 @@ void EntitiesImGui::ShowEntityData(Entity* it)
 	ImGui::Text(text.c_str());
 
 	text = "ID: " + to_string(it->ID) + ". Position. ";
-	ImGui::DragFloat3(text.c_str(), &it->position.x);
+	if (ImGui::DragFloat3(text.c_str(), &it->position.x))
+		it->SetTRS();
 
 	text = "ID: " + to_string(it->ID) + ". Rotation.";
-	ImGui::DragFloat3(text.c_str(), &it->rotation.x);
+	if (ImGui::DragFloat3(text.c_str(), &it->rotation.x))
+		it->SetTRS();
 
 	text = "ID: " + to_string(it->ID) + ". Scale.";
-	ImGui::DragFloat3(text.c_str(), &it->scale.x);
+	if (ImGui::DragFloat3(text.c_str(), &it->scale.x))
+		it->SetTRS();
 
 	text = "ID: " + to_string(it->ID) + ". IsActive.";
 	if (ImGui::Checkbox(text.c_str(), &it->isActive))
