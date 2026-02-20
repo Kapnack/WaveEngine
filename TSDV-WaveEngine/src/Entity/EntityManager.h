@@ -79,6 +79,8 @@ public:
 	template<EntityManagerGetStandar T>
 	void DeleteAllOfType();
 
+	inline void UpdateEntities();
+
 	inline void DeleteAll();
 };
 
