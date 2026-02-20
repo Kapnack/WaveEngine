@@ -148,6 +148,8 @@ void BaseGame::Run()
 
 			Update();
 
+			GetEntityManager()->UpdateEntities();
+
 			Draw();
 
 			EngineDraw();
