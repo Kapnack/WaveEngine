@@ -21,6 +21,7 @@ private:
 	unsigned int parentID = Entity::NULL_ENTITY;
 
 	bool isActive = true;
+	bool shouldUpdateTRS = false;
 
 	friend class EntityFactory;
 	friend class EntityManager;
@@ -30,6 +31,9 @@ private:
 	vector<unsigned int> childsIDs;
 
 	bool ContainsChild(const unsigned int& ID) const;
+	void SetUpdateTRS();
+
+	void UpdateTRS();
 
 protected:
 
@@ -41,7 +45,7 @@ protected:
 
 	glm::mat4 model;
 
-	void SetTRS();
+	void CalculateTRS();
 
 	virtual void UpdateCollider() = 0;
 
