@@ -14,10 +14,6 @@ Entity::Entity(const unsigned int& ID)
 
 Entity::~Entity()
 {
-	//SetParent(Entity::NULL_ENTITY);
-	//
-	//for (vector<unsigned int>::const_iterator childsIT = childsIDs.begin(); childsIT != childsIDs.end(); ++childsIT)
-	//	ServiceProvider::Instance().Get<EntityManager>()->DeleteEntity(*childsIT);
 }
 
 void Entity::Update()
