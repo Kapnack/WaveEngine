@@ -298,32 +298,6 @@ void Entity::SetUpdateTRS()
 	shouldUpdateTRS = true;
 }
 
-void Entity::SetLocalFromMatrix(glm::mat4 matrix)
-{
-	glm::vec3 newPosition = glm::vec3(model[3]);
-
-	position = Vector3(newPosition.x, newPosition.y, newPosition.z);
-
-	scale.x = glm::length(glm::vec3(model[0]));
-	scale.y = glm::length(glm::vec3(model[1]));
-	scale.z = glm::length(glm::vec3(model[2]));
-
-	if (scale.x == 0 || scale.y == 0 || scale.z == 0)
-		return;
-
-	glm::mat3 rotMat;
-	rotMat[0] = glm::vec3(model[0]) / scale.x;
-	rotMat[1] = glm::vec3(model[1]) / scale.y;
-	rotMat[2] = glm::vec3(model[2]) / scale.z;
-
-	glm::quat q = glm::quat_cast(rotMat);
-	q = glm::normalize(q);
-
-	glm::highp_vec3 newRot = glm::degrees(glm::eulerAngles(q));
-
-	rotation = Vector3(newRot.x, newRot.y, newRot.z);
-}
-
 void Entity::UpdateTRS()
 {
 	if (!isActive || !shouldUpdateTRS)
