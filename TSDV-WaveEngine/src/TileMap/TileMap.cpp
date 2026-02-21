@@ -130,8 +130,6 @@ void TileMap::ImportTileMap(const string& filePath, const bool& addAbsolutePath)
 
 			Tile* tile = ServiceProvider::Instance().Get<EntityManager>()->Get<Tile>(newTile);
 
-			tile->SetParent(GetID());
-
 			tile->SetTexture(texture);
 
 			tile->SetSpriteSheetID(spriteSheetID);

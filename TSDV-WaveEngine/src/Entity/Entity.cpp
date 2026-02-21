@@ -5,7 +5,6 @@
 #include "Entity/EntityManager.h"
 
 #include "ServiceProvider/ServiceProvider.h"
-#include "Entity/EntityManager.h"
 
 Entity::Entity(const unsigned int& ID)
 {
@@ -14,12 +13,6 @@ Entity::Entity(const unsigned int& ID)
 
 Entity::~Entity()
 {
-}
-
-void Entity::Update()
-{
-	if (!isActive)
-		return;
 }
 
 unsigned int Entity::GetID() const
@@ -87,7 +80,7 @@ void Entity::SetPosition(const float& x, const float& y, const float& z)
 
 	UpdateCollider();
 
-	SetUpdateTRS();
+	CalculateTRS();
 }
 
 void Entity::Translate(const Vector3& translation)
@@ -115,7 +108,7 @@ void Entity::Translate(const float& x, const float& y, const float& z)
 
 	UpdateCollider();
 
-	SetUpdateTRS();
+	CalculateTRS();
 }
 
 void Entity::SetScale(const Vector3& vector)
@@ -141,7 +134,7 @@ void Entity::SetScale(const float& x, const float& y, const float& z)
 
 	UpdateCollider();
 
-	SetUpdateTRS();
+	CalculateTRS();
 }
 
 void Entity::Scale(const Vector3& vector)
@@ -167,7 +160,7 @@ void Entity::Scale(const float& x, const float& y, const float& z)
 
 	UpdateCollider();
 
-	SetUpdateTRS();
+	CalculateTRS();
 }
 
 void Entity::SetRotation(const Vector3& vector)
@@ -193,7 +186,7 @@ void Entity::SetRotation(const float& x, const float& y, const float& z)
 
 	UpdateCollider();
 
-	SetUpdateTRS();
+	CalculateTRS();
 }
 
 void Entity::Rotate(const Vector3& vector)
@@ -219,51 +212,7 @@ void Entity::Rotate(const float& x, const float& y, const float& z)
 
 	UpdateCollider();
 
-	SetUpdateTRS();
-}
-
-void Entity::SetParent(const unsigned int& parentID)
-{
-	if (this->parentID == parentID || parentID == ID)
-		return;
-
-	if (this->parentID != Entity::NULL_ENTITY)
-		ServiceProvider::Instance().Get<EntityManager>()->Get(this->parentID)->RemoveChild(ID);
-
-	this->parentID = parentID;
-
-	if (parentID != Entity::NULL_ENTITY)
-		ServiceProvider::Instance().Get<EntityManager>()->Get(parentID)->AddChild(ID);
-}
-
-unsigned int Entity::GetParent() const
-{
-	return parentID;
-}
-
-void Entity::AddChild(const unsigned int& childID)
-{
-	if (ContainsChild(childID))
-		return;
-
-	childsIDs.push_back(childID);
-
-	ServiceProvider::Instance().Get<EntityManager>()->Get(childID)->SetParent(ID);
-}
-
-unsigned int Entity::GetChild(const unsigned int& index) const
-{
-	return childsIDs[index];
-}
-
-void Entity::RemoveChild(const unsigned int& childID)
-{
-	if (childID == Entity::NULL_ENTITY || !ContainsChild(childID))
-		return;
-
-	childsIDs.erase(remove(childsIDs.begin(), childsIDs.end(), childID));
-
-	ServiceProvider::Instance().Get<EntityManager>()->Get(childID)->SetParent(Entity::NULL_ENTITY);
+	CalculateTRS();
 }
 
 void Entity::FlipX()
@@ -281,31 +230,6 @@ void Entity::FlipZ()
 	SetScale(scale.x, scale.y, -scale.z);
 }
 
-bool Entity::ContainsChild(const unsigned int& ID) const
-{
-	if (childsIDs.size() == 0)
-		return false;
-
-	for (vector<unsigned int>::const_iterator childID = childsIDs.begin(); childID != childsIDs.end(); ++childID)
-		if (*childID == ID)
-			return true;
-
-	return false;
-}
-
-void Entity::SetUpdateTRS()
-{
-	shouldUpdateTRS = true;
-}
-
-void Entity::UpdateTRS()
-{
-	if (!isActive || !shouldUpdateTRS)
-		return;
-
-	CalculateTRS();
-}
-
 void Entity::CalculateTRS()
 {
 	if (!isActive)
@@ -317,10 +241,4 @@ void Entity::CalculateTRS()
 	model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0, 1, 0));// Rotate Y
 	model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0, 0, 1)); // Rotate Z
 	model = glm::scale(model, glm::vec3(scale.x, scale.y, scale.z)); // Scale
-
-	if (parentID != Entity::NULL_ENTITY)
-		model = ServiceProvider::Instance().Get<EntityManager>()->Get(parentID)->model * model;
-
-	for (vector<unsigned int>::const_iterator childID = childsIDs.begin(); childID != childsIDs.end(); childID++)
-		ServiceProvider::Instance().Get<EntityManager>()->Get(*childID)->CalculateTRS();
 }

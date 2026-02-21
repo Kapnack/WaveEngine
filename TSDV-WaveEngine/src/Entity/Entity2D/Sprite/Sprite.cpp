@@ -72,8 +72,6 @@ void Sprite::SetAnimation(Animation* animation)
 
 void Sprite::Update()
 {
-	Entity::Update();
-
 	if (animation)
 		animation->Update();
 }

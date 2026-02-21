@@ -16,9 +16,7 @@ WAVEEXPORT class Entity
 {
 private:
 
-	unsigned int ID = Entity::NULL_ENTITY;
-
-	unsigned int parentID = Entity::NULL_ENTITY;
+	unsigned int ID = 0;
 
 	bool isActive = true;
 	bool shouldUpdateTRS = false;
@@ -27,13 +25,6 @@ private:
 	friend class EntityManager;
 	friend class EntitiesImGui;
 	friend class MeshImGui;
-
-	vector<unsigned int> childsIDs;
-
-	bool ContainsChild(const unsigned int& ID) const;
-	void SetUpdateTRS();
-
-	void UpdateTRS();
 
 protected:
 
@@ -51,8 +42,6 @@ protected:
 
 	WAVEEXPORT	Entity(const unsigned int& ID);
 	WAVEEXPORT virtual ~Entity();
-
-	WAVEEXPORT virtual void Update();
 
 public:
 
@@ -100,17 +89,7 @@ public:
 	WAVEEXPORT void Rotate(const float& x, const float& y);
 	WAVEEXPORT virtual void Rotate(const float& x, const float& y, const float& z);
 
-	WAVEEXPORT void SetParent(const unsigned int& parentID);
-	WAVEEXPORT unsigned int GetParent() const;
-
-	WAVEEXPORT void AddChild(const unsigned int& childID);
-	WAVEEXPORT unsigned int GetChild(const unsigned int& index) const;
-
-	WAVEEXPORT void RemoveChild(const unsigned int& childID);
-
 	WAVEEXPORT void FlipX();
 	WAVEEXPORT void FlipY();
 	WAVEEXPORT void FlipZ();
-
-	friend class Entity;
 };
