@@ -87,7 +87,7 @@ void Entity::SetPosition(const float& x, const float& y, const float& z)
 
 	UpdateCollider();
 
-	SetUpdateTRS();
+	MarkDirty();
 }
 
 void Entity::Translate(const Vector3& translation)
@@ -115,7 +115,7 @@ void Entity::Translate(const float& x, const float& y, const float& z)
 
 	UpdateCollider();
 
-	SetUpdateTRS();
+	MarkDirty();
 }
 
 void Entity::SetScale(const Vector3& vector)
@@ -141,7 +141,7 @@ void Entity::SetScale(const float& x, const float& y, const float& z)
 
 	UpdateCollider();
 
-	SetUpdateTRS();
+	MarkDirty();
 }
 
 void Entity::Scale(const Vector3& vector)
@@ -167,7 +167,7 @@ void Entity::Scale(const float& x, const float& y, const float& z)
 
 	UpdateCollider();
 
-	SetUpdateTRS();
+	MarkDirty();
 }
 
 void Entity::SetRotation(const Vector3& vector)
@@ -193,7 +193,7 @@ void Entity::SetRotation(const float& x, const float& y, const float& z)
 
 	UpdateCollider();
 
-	SetUpdateTRS();
+	MarkDirty();
 }
 
 void Entity::Rotate(const Vector3& vector)
@@ -219,7 +219,7 @@ void Entity::Rotate(const float& x, const float& y, const float& z)
 
 	UpdateCollider();
 
-	SetUpdateTRS();
+	MarkDirty();
 }
 
 void Entity::SetParent(const unsigned int& parentID)
@@ -231,6 +231,8 @@ void Entity::SetParent(const unsigned int& parentID)
 		ServiceProvider::Instance().Get<EntityManager>()->Get(this->parentID)->RemoveChild(ID);
 
 	this->parentID = parentID;
+
+	shouldAdaptTRS = true;
 
 	if (parentID != Entity::NULL_ENTITY)
 		ServiceProvider::Instance().Get<EntityManager>()->Get(parentID)->AddChild(ID);
@@ -293,14 +295,20 @@ bool Entity::ContainsChild(const unsigned int& ID) const
 	return false;
 }
 
-void Entity::SetUpdateTRS()
+void Entity::MarkDirty()
 {
+	if (shouldUpdateTRS)
+		return;
+
 	shouldUpdateTRS = true;
+
+	for (auto id : childsIDs)
+		ServiceProvider::Instance().Get<EntityManager>()->Get(id)->MarkDirty();
 }
 
-void Entity::SetLocalFromMatrix(glm::mat4 matrix)
+void Entity::SetLocalFromMatrix(const glm::mat4& matrix)
 {
-	glm::vec3 newPosition = glm::vec3(model[3]);
+	glm::vec3 newPosition = glm::vec3(matrix[3]);
 
 	position = Vector3(newPosition.x, newPosition.y, newPosition.z);
 
@@ -326,10 +334,36 @@ void Entity::SetLocalFromMatrix(glm::mat4 matrix)
 
 void Entity::UpdateTRS()
 {
-	if (!isActive || !shouldUpdateTRS)
+	if (!isActive)
 		return;
 
-	CalculateTRS();
+	if (shouldUpdateTRS)
+	{
+		CalculateTRS();
+
+		if (shouldAdaptTRS)
+		{
+			glm::mat4 parentMatrix(1.0f);
+			glm::mat4 newLocal = model;
+
+			if (parentID != NULL_ENTITY)
+			{
+				parentMatrix = ServiceProvider::Instance()
+					.Get<EntityManager>()
+					->Get(parentID)->model;
+			}
+
+			SetLocalFromMatrix(glm::inverse(parentMatrix) * model);
+			CalculateTRS();
+
+			shouldAdaptTRS = false;
+		}
+
+		shouldUpdateTRS = false;
+	}
+
+	for (auto id : childsIDs)
+		ServiceProvider::Instance().Get<EntityManager>()->Get(id)->UpdateTRS();
 }
 
 void Entity::CalculateTRS()
@@ -346,7 +380,4 @@ void Entity::CalculateTRS()
 
 	if (parentID != Entity::NULL_ENTITY)
 		model = ServiceProvider::Instance().Get<EntityManager>()->Get(parentID)->model * model;
-
-	for (vector<unsigned int>::const_iterator childID = childsIDs.begin(); childID != childsIDs.end(); childID++)
-		ServiceProvider::Instance().Get<EntityManager>()->Get(*childID)->CalculateTRS();
 }

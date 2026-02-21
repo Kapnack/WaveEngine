@@ -31,9 +31,9 @@ private:
 	vector<unsigned int> childsIDs;
 
 	bool ContainsChild(const unsigned int& ID) const;
-	void SetUpdateTRS();
+	void MarkDirty();
 
-	void SetLocalFromMatrix(glm::mat4 matrix);
+	void SetLocalFromMatrix(const glm::mat4& matrix);
 
 	void UpdateTRS();
 
@@ -46,6 +46,7 @@ protected:
 	Vector3 rotation;
 
 	glm::mat4 model;
+	glm::mat4 cachedWorldBeforeParentChange;
 
 	void CalculateTRS();
 

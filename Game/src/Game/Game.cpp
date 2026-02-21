@@ -45,13 +45,15 @@ void Game::Init(const int& width, const int& height)
 	GetEntityManager()->Get<Sprite>(player2)->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
 	GetEntityManager()->Get<Sprite>(player2)->SetPosition(Vector3{ (float)GetWindow()->GetWidth() / 2 - 100, (float)GetWindow()->GetHeight() / 2 - 100,0 });
 
-	GetEntityManager()->Get<Sprite>(player2)->SetParent(player);
 }
 
 void Game::Update()
 {
-	if (GetInput()->IsKeyPressed(Keys::Q) && GetEntityManager()->TryGet<Sprite>(2)->GetMaterial())
-		GetMaterialManager()->DeleteMaterial(GetEntityManager()->Get<Sprite>(2)->GetMaterial());
+	if (GetInput()->IsKeyPressed(Keys::Q))
+		GetEntityManager()->Get<Sprite>(2)->SetParent(1);
+
+	if (GetInput()->IsKeyPressed(Keys::E))
+		GetEntityManager()->Get<Sprite>(2)->SetParent(0);
 
 
 	if (GetEntityManager()->TryGet<TileMap>(tileMap))
