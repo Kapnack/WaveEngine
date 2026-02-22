@@ -147,7 +147,7 @@ Vector3 Renderer::GetRes()
 	return res;
 }
 
-void Renderer::DrawElement(glm::mat4& model, unsigned int materialID, int indicesSize, unsigned int VAO)
+void Renderer::DrawElement(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO)
 {
 	Material* materialToUse = GetMaterialManager()->GetMaterial(ReturnWorkingMaterial(materialID, spriteShaders));
 
@@ -168,7 +168,7 @@ void Renderer::DrawElement(glm::mat4& model, unsigned int materialID, int indice
 	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*)0);
 }
 
-void Renderer::DrawElementSprite(glm::mat4& model, unsigned int materialID, int indicesSize, unsigned int VAO, unsigned int textureID)
+void Renderer::DrawElementSprite(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO, const unsigned int& textureID)
 {
 	Texture* texture = ChooseTextureToUse(textureID);
 

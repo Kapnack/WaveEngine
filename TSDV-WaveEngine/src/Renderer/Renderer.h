@@ -55,7 +55,7 @@ public:
 
 	static float GetGLTime();
 
-	void DrawElement(glm::mat4& model, unsigned int materialID, int indicesSize, unsigned int VAO);
-	void DrawElementSprite(glm::mat4& model, unsigned int materialID, int indicesSize, unsigned int VAO, unsigned int texture);
+	void DrawElement(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO);
+	void DrawElementSprite(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO, const unsigned int& texture);
 };
 
