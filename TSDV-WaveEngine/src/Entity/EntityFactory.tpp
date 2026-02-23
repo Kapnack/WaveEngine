@@ -49,7 +49,7 @@ unsigned int EntityFactory::CreateTileMap(const string& mapFilePath, const bool&
 
 	newEntity->ImportTileMap(mapFilePath, mapFileAddAbsolutePath);
 
-	return currentEntityID;
+	return newEntity->GetID();
 }
 
 #endif
