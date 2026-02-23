@@ -84,18 +84,13 @@ bool CollisionManager::CheckCollision(const unsigned int& entityID, const TileMa
 			{
 				unsigned int tileID = tileMap.GetTileAt(layer, row, col);
 
-				if (tileID == Entity::NULL_ENTITY)
-					continue;
-
 				if (!GetEntityManager()->TryGet<Tile>(tileID))
 					continue;
 
 				if (!GetEntityManager()->Get<Tile>(tileID)->CanCollide())
 					continue;
 
-				Collider tileCollider = GetEntityManager()->Get<Tile>(tileID)->GetCollider();
-
-				if (AreColliding(entityCollider, tileCollider))
+				if (AreColliding(entityCollider, GetEntityManager()->Get<Tile>(tileID)->GetCollider()))
 					return true;
 			}
 		}
