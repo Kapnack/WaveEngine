@@ -159,23 +159,21 @@ void EntitiesImGui::ShowEntity(Entity* entity)
 
 void EntitiesImGui::ShowEntityData(Entity* it)
 {
-	if (it == nullptr)
-		return;
-
 	text = "EntityID: " + to_string(it->ID);
-
 	ImGui::Text(text.c_str());
 
+	changedEntityTRS = false;
+
 	text = "ID: " + to_string(it->ID) + ". Position. ";
-	if (ImGui::DragFloat3(text.c_str(), &it->position.x))
-		it->CalculateTRS();
+	changedEntityTRS |= ImGui::DragFloat3(text.c_str(), &it->position.x);
 
 	text = "ID: " + to_string(it->ID) + ". Rotation.";
-	if (ImGui::DragFloat3(text.c_str(), &it->rotation.x))
-		it->CalculateTRS();
+	changedEntityTRS |= ImGui::DragFloat3(text.c_str(), &it->rotation.x);
 
 	text = "ID: " + to_string(it->ID) + ". Scale.";
-	if (ImGui::DragFloat3(text.c_str(), &it->scale.x))
+	changedEntityTRS |= ImGui::DragFloat3(text.c_str(), &it->scale.x);
+
+	if (changedEntityTRS)
 		it->CalculateTRS();
 
 	text = "ID: " + to_string(it->ID) + ". IsActive.";
