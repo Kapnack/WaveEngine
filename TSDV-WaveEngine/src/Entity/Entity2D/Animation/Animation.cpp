@@ -4,11 +4,11 @@
 #include "ServiceProvider/ServiceProvider.h"
 
 Animation::Animation(
-	Vector2 startCoords,
-	Vector2 frameArea,
-	Vector2 textureArea,
-	int framesQuantity,
-	float animationTime
+	const Vector2& startCoords,
+	const Vector2& frameArea,
+	const Vector2& textureArea,
+	const int& framesQuantity,
+	const float& animationTime
 )
 {
 	this->currentFrame = 0;

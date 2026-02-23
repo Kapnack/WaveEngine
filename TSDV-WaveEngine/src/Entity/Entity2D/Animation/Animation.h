@@ -33,7 +33,12 @@ public:
 	std::vector<Frame> frames;
 	unsigned int currentFrame;
 
-	WAVEEXPORT Animation(Vector2 startCoords, Vector2 frameArea, Vector2 textureArea, int framesQuantity, float animationTime);
+	WAVEEXPORT Animation(const Vector2& startCoords,
+		const Vector2& frameArea,
+		const Vector2& textureArea,
+		const int& framesQuantity,
+		const float& animationTime);
+
 	WAVEEXPORT ~Animation();
 	WAVEEXPORT void Update();
 	WAVEEXPORT void NextFrame();
