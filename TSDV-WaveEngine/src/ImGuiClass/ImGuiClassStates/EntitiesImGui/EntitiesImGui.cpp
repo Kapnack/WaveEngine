@@ -116,10 +116,10 @@ void EntitiesImGui::EntityDisplayer()
 	case 0:
 		if (!showInReverseOrder)
 			for (map<unsigned int, Entity*>::iterator it = GetEntityManager()->GetEntities().begin(); it != GetEntityManager()->GetEntities().end(); ++it)
-				ShowEntity(it->second);
+				ShowEntity(*it->second);
 		else
 			for (map<unsigned int, Entity*>::reverse_iterator it = GetEntityManager()->GetEntities().rbegin(); it != GetEntityManager()->GetEntities().rend(); ++it)
-				ShowEntity(it->second);
+				ShowEntity(*it->second);
 		break;
 
 	case 1: ShowAllOfType<Sprite>();   break;
@@ -131,11 +131,11 @@ void EntitiesImGui::EntityDisplayer()
 	}
 }
 
-void EntitiesImGui::ShowEntity(Entity* entity)
+void EntitiesImGui::ShowEntity(Entity& entity)
 {
 	ShowEntityData(entity);
 
-	drawableIT = GetEntityManager()->GetDrawables().find(entity->GetID());
+	drawableIT = GetEntityManager()->GetDrawables().find(entity.ID);
 
 	if (drawableIT != GetEntityManager()->GetDrawables().end() && drawableIT->second)
 	{
@@ -147,41 +147,41 @@ void EntitiesImGui::ShowEntity(Entity* entity)
 			drawableIT->second->SetLayer(layer);
 
 		if (showMaterials)
-			ShowMaterial(drawableIT->first, drawableIT->second);
+			ShowMaterial(drawableIT->first, *drawableIT->second);
 
 		if (showTextures)
-			if (Sprite* sprite = dynamic_cast<Sprite*>(entity))
-				ShowTexture(sprite);
+			if (Sprite* sprite = GetEntityManager()->TryGet<Sprite>(entity.ID))
+				ShowTexture(*sprite);
 	}
 
 	ImGui::Separator();
 }
 
-void EntitiesImGui::ShowEntityData(Entity* it)
+void EntitiesImGui::ShowEntityData(Entity& entity)
 {
-	text = "EntityID: " + to_string(it->ID);
+	text = "EntityID: " + to_string(entity.ID);
 	ImGui::Text(text.c_str());
 
 	changedEntityTRS = false;
 
-	text = "ID: " + to_string(it->ID) + ". Position. ";
-	changedEntityTRS |= ImGui::DragFloat3(text.c_str(), &it->position.x);
+	text = "ID: " + to_string(entity.ID) + ". Position. ";
+	changedEntityTRS |= ImGui::DragFloat3(text.c_str(), &entity.position.x);
 
-	text = "ID: " + to_string(it->ID) + ". Rotation.";
-	changedEntityTRS |= ImGui::DragFloat3(text.c_str(), &it->rotation.x);
+	text = "ID: " + to_string(entity.ID) + ". Rotation.";
+	changedEntityTRS |= ImGui::DragFloat3(text.c_str(), &entity.rotation.x);
 
-	text = "ID: " + to_string(it->ID) + ". Scale.";
-	changedEntityTRS |= ImGui::DragFloat3(text.c_str(), &it->scale.x);
+	text = "ID: " + to_string(entity.ID) + ". Scale.";
+	changedEntityTRS |= ImGui::DragFloat3(text.c_str(), &entity.scale.x);
 
 	if (changedEntityTRS)
-		it->CalculateTRS();
+		entity.CalculateTRS();
 
-	text = "ID: " + to_string(it->ID) + ". IsActive.";
-	if (ImGui::Checkbox(text.c_str(), &it->isActive))
-		it->SetIsActive(it->isActive);
+	text = "ID: " + to_string(entity.ID) + ". IsActive.";
+	if (ImGui::Checkbox(text.c_str(), &entity.isActive))
+		entity.SetIsActive(entity.isActive);
 }
 
-void EntitiesImGui::ShowMaterial(const unsigned int& ID, Drawable* drawable)
+void EntitiesImGui::ShowMaterial(const unsigned int& ID, Drawable& drawable)
 {
 	text = "ID: " + to_string(ID) + ". Input Material ID. ";
 	ImGui::InputInt(text.c_str(), &materialID);
@@ -191,9 +191,9 @@ void EntitiesImGui::ShowMaterial(const unsigned int& ID, Drawable* drawable)
 	drawableIT = GetEntityManager()->GetDrawables().find(ID);
 
 	if (ImGui::Button(text.c_str()))
-		drawable->SetMaterial(materialID);
+		drawable.SetMaterial(materialID);
 
-	Material* material = GetMaterialManager()->GetMaterial(drawable->GetMaterial());
+	Material* material = GetMaterialManager()->GetMaterial(drawable.GetMaterial());
 
 	if (material != nullptr)
 	{
@@ -203,17 +203,17 @@ void EntitiesImGui::ShowMaterial(const unsigned int& ID, Drawable* drawable)
 	}
 }
 
-void EntitiesImGui::ShowTexture(Sprite* sprite)
+void EntitiesImGui::ShowTexture(Sprite& sprite)
 {
-	text = "ID: " + to_string(sprite->GetID()) + ". Position. ";
+	text = "ID: " + to_string(sprite.GetID()) + ". Position. ";
 	ImGui::InputInt(text.c_str(), &textureID);
 
-	text = "Set Texture ##xx ID: " + to_string(sprite->GetID());
+	text = "Set Texture ##xx ID: " + to_string(sprite.GetID());
 
 	if (ImGui::Button(text.c_str()))
-		sprite->SetTexture(textureID);
+		sprite.SetTexture(textureID);
 
-	Texture* texture = GetTextureManager()->GetTexture(sprite->GetTexture());
+	Texture* texture = GetTextureManager()->GetTexture(sprite.GetTexture());
 
 	if (texture != nullptr)
 		ImGui::Image(texture->GetTextureID(), ImVec2(texture->GetWidth() / 3, texture->GetHeight() / 3), ImVec2(0, 1), ImVec2(1, 0));

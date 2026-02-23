@@ -58,10 +58,10 @@ private:
 	void EntityDeleter();
 
 	void EntityDisplayer();
-	void ShowEntity(Entity* entity);
-	void ShowEntityData(Entity* it);
-	void ShowMaterial(const unsigned int& ID, Drawable* entity);
-	void ShowTexture(Sprite* sprite);
+	void ShowEntity(Entity& entity);
+	void ShowEntityData(Entity& it);
+	void ShowMaterial(const unsigned int& ID, Drawable& entity);
+	void ShowTexture(Sprite& sprite);
 
 
 	template<EntityManagerGetStandar T>
@@ -69,15 +69,18 @@ private:
 	{
 		vector<unsigned int>& vec = GetEntityManager()->GetAllOfType<T>();
 
+		unsigned int* data = vec.data();
+		size_t size = vec.size();
+
 		if (!showInReverseOrder)
 		{
-			for (unsigned int id : vec)
-				ShowEntity(GetEntityManager()->Get(id));
+			for (unsigned int* it = data; it != data + size; ++it)
+				ShowEntity(*GetEntityManager()->Get(*it));
 		}
 		else
 		{
-			for (vector<unsigned int>::reverse_iterator it = vec.rbegin(); it != vec.rend(); ++it)
-				ShowEntity(GetEntityManager()->Get(*it));
+			for (unsigned int* it = data + size; it != data;)
+				ShowEntity(*GetEntityManager()->Get(*--it));
 		}
 	}
 
