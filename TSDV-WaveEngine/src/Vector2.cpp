@@ -8,7 +8,8 @@ Vector2::Vector2()
 
 Vector2::Vector2(const Vector2& other)
 {
-	Vector2(other.x, other.y);
+	x = other.x;
+	y = other.y;
 }
 
 Vector2::Vector2(const Vector3& vector3)
