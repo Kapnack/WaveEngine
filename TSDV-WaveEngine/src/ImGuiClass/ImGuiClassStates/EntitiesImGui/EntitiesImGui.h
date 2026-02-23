@@ -24,6 +24,7 @@ private:
 	bool showMaterials = false;
 	bool showTextures = false;
 	bool showInReverseOrder = false;
+	bool changedEntityTRS = false;
 
 	const char* creationOptions[4] =
 	{
