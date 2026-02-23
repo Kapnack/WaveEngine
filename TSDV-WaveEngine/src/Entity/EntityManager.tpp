@@ -71,6 +71,9 @@ void EntityManager::SaveEntity(const unsigned int& ID, Entity* entity)
 template<EntityManagerGetStandar T>
 T* EntityManager::TryGet(const unsigned int& ID)
 {
+	if (ID == Entity::NULL_ENTITY)
+		return nullptr;
+
 	map<unsigned int, Entity*>::iterator it = entitiesByID.find(ID);
 	if (it == entitiesByID.end())
 		return nullptr;
