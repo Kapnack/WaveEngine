@@ -11,6 +11,11 @@ private:
 
 	unsigned int tileMap;
 
+	unsigned int player;
+	unsigned int player2;
+
+	Animation* walkingLeft;
+
 protected:
 
 	void Init(const int& width, const int& height) override;
