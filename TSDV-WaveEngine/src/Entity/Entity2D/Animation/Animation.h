@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+
 #include "Export.h"
 #include "Vector2.h"
 
@@ -24,13 +24,14 @@ WAVEEXPORT class Animation
 {
 private:
 
-	float currentTime;
-	float animationTime;
-	float frameTime;
+	float currentTime = 0;
+	float animationTime = 0;
+	float frameTime = 0;
+	int framesQuantity = 0;
 
 public:
 
-	std::vector<Frame> frames;
+	Frame* frames;
 	unsigned int currentFrame;
 
 	WAVEEXPORT Animation(const Vector2& startCoords,

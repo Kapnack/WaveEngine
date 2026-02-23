@@ -14,16 +14,20 @@ Animation::Animation(
 	this->currentFrame = 0;
 	this->currentTime = 0.0f;
 	this->animationTime = animationTime;
+	this->framesQuantity = framesQuantity;
 
-	float frameWidthFloat = static_cast<float>(frameArea.x);
-	float frameHeightFloat = static_cast<float>(frameArea.y);
-	float textureWidth = static_cast<float>(textureArea.x);
-	float textureHeight = static_cast<float>(textureArea.y);
+	float frameWidthFloat = frameArea.x;
+	float frameHeightFloat = frameArea.y;
+	float textureWidth = textureArea.x;
+	float textureHeight = textureArea.y;
 
-	Vector2 startUVCoords = {
+	Vector2 startUVCoords = 
+	{
 		startCoords.x / textureWidth,
 		startCoords.y / textureHeight
 	};
+
+	frames = new Frame[framesQuantity];
 
 	for (int i = 0; i < framesQuantity; i++)
 	{
@@ -39,7 +43,7 @@ Animation::Animation(
 			startUVCoords.y - (frameHeightFloat / textureHeight)
 		};
 
-		frames.push_back(Frame(leftTopUVCoords, rightBottomUVCoords));
+		frames[i] = Frame(leftTopUVCoords, rightBottomUVCoords);
 	}
 
 	frameTime = animationTime / framesQuantity;
@@ -47,12 +51,12 @@ Animation::Animation(
 
 Animation::~Animation()
 {
-	frames.clear();
+	delete[] frames;
 }
 
 Frame Animation::GetCurrentFrame()
 {
-	return frames.at(currentFrame);
+	return frames[currentFrame];
 }
 
 void Animation::Update()
@@ -68,7 +72,7 @@ void Animation::Update()
 void Animation::NextFrame()
 {
 	this->currentFrame++;
-	if (this->currentFrame >= this->frames.size())
+	if (this->currentFrame >= framesQuantity)
 	{
 		this->currentFrame = 0;
 	}
@@ -76,5 +80,5 @@ void Animation::NextFrame()
 
 void Animation::ResetTime()
 {
-	this->currentTime = 0;
+	currentTime = 0;
 }
