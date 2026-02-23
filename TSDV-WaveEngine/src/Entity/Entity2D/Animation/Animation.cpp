@@ -39,10 +39,10 @@ Animation::Animation(
 			startUVCoords.y - (frameHeightFloat / textureHeight)
 		};
 
-		this->frames.push_back(Frame(leftTopUVCoords, rightBottomUVCoords));
+		frames.push_back(Frame(leftTopUVCoords, rightBottomUVCoords));
 	}
 
-	this->frameTime = this->animationTime / static_cast<float>(this->frames.size());
+	frameTime = animationTime / framesQuantity;
 }
 
 Animation::~Animation()
@@ -52,17 +52,17 @@ Animation::~Animation()
 
 Frame Animation::GetCurrentFrame()
 {
-	return this->frames[this->currentFrame];
+	return frames[currentFrame];
 }
 
 void Animation::Update()
 {
-	this->currentTime += ServiceProvider::Instance().Get<Time>()->GetDeltaTime();
+	currentTime += ServiceProvider::Instance().Get<Time>()->GetDeltaTime();
 
-	while (this->currentTime >= this->animationTime)
-		this->currentTime -= this->animationTime;
+	while (currentTime >= animationTime)
+		currentTime -= animationTime;
 
-	this->currentFrame = static_cast<int>(this->currentTime / this->frameTime);
+	currentFrame = static_cast<int>(currentTime / frameTime);
 }
 
 void Animation::NextFrame()
