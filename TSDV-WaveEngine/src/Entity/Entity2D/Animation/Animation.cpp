@@ -52,7 +52,7 @@ Animation::~Animation()
 
 Frame Animation::GetCurrentFrame()
 {
-	return frames[currentFrame];
+	return frames.at(currentFrame);
 }
 
 void Animation::Update()
