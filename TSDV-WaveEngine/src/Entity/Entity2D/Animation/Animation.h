@@ -13,7 +13,7 @@ public:
 	Frame()
 	{}
 
-	Frame(Vector2 topLeft, Vector2 bottomRight)
+	Frame(const Vector2& topLeft, const Vector2& bottomRight)
 	{
 		this->topLeft = topLeft;
 		this->bottomRight = bottomRight;
