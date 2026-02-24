@@ -93,7 +93,7 @@ void Sprite::Draw()
 
 	if (animation)
 	{
-		Frame frame = this->animation->GetCurrentFrame();
+		Frame frame = animation->GetCurrentFrame();
 		SetUVCordinates(frame.topLeft, frame.bottomRight);
 	}
 
