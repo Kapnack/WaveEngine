@@ -23,45 +23,65 @@ void Game::Init(const int& width, const int& height)
 	CreateCollisionManager();
 
 	player = GetEntityFactory()->Create<Sprite>();
-	player2 = GetEntityFactory()->Create<Sprite>();
 
 	const string json = "Sprites/map.json";
 	const string spriteSheet = "Sprites/spritesheet.png";
 
 	tileMap = GetEntityFactory()->CreateTileMap(json, true, spriteSheet, true);
 
-	unsigned int samusTexture = GetTextureImporter()->LoadTextureAbsolutePath("Sprites/Samus Aran Sprite Sheet.png");
+	unsigned int samusTexture = GetTextureImporter()->LoadTextureAbsolutePath("Sprites/battlecity_general.png");
 
-	Vector2 textureSize = Vector2(860, 762);
 
 	GetEntityManager();
 
 	GetEntityManager()->Get<Sprite>(player)->SetTexture(samusTexture);
-	GetEntityManager()->Get<Sprite>(player)->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
-	GetEntityManager()->Get<Sprite>(player)->SetPosition(Vector3{ 100,100,0 });
+	GetEntityManager()->Get(player)->SetScale(Vector2(32, 32));
 
-	Vector2 frameArea = Vector2(68, 65);
+	Vector2 frameArea = Vector2(16, 15);
+	Vector2 textureSize = Vector2(400, 256);
+	float timeAnimation = 0.5f;
+	int amountOfFrames = 2;
 
-	walkingLeft = new Animation(Vector2(20, textureSize.y - 215), frameArea, textureSize, 5, 1);
+	walkingUp = new Animation(Vector2(0, textureSize.y), frameArea, textureSize, amountOfFrames, timeAnimation);
+	walkingLeft = new Animation(Vector2(33, textureSize.y), frameArea, textureSize, amountOfFrames, timeAnimation);
+	walkingDown = new Animation(Vector2(64, textureSize.y), frameArea, textureSize, amountOfFrames, timeAnimation);
+	walkingRight = new Animation(Vector2(96, textureSize.y), frameArea, textureSize, amountOfFrames, timeAnimation);
 
 	GetEntityManager()->Get<Sprite>(player)->SetAnimation(walkingLeft);
-
-	GetEntityManager()->Get<Sprite>(player2)->SetTexture(samusTexture);
-	GetEntityManager()->Get<Sprite>(player2)->SetColor(Vector4{ 1,0,0,1 });
-	GetEntityManager()->Get<Sprite>(player2)->SetScale(Vector3{ (float)GetWindow()->GetWidth() / 2, (float)GetWindow()->GetHeight() / 2, 0 });
-	GetEntityManager()->Get<Sprite>(player2)->SetPosition(Vector3{ (float)GetWindow()->GetWidth() / 2 - 100, (float)GetWindow()->GetHeight() / 2 - 100,0 });
+	GetEntityManager()->Get<Sprite>(player)->SetLayer(-3);
 }
 
 void Game::Update()
 {
-	GetEntityManager()->Get<Sprite>(player)->Update();
+	if (!GetEntityManager()->TryGet(player))
+		return;
 
-	if (GetInput()->IsKeyPressed(Keys::Q) && GetEntityManager()->TryGet<Sprite>(2)->GetMaterial())
-		GetMaterialManager()->DeleteMaterial(GetEntityManager()->Get<Sprite>(2)->GetMaterial());
+	if (GetInput()->IsKeyPressed(Keys::W))
+	{
+		GetEntityManager()->Get<Sprite>(player)->SetAnimation(walkingUp);
+		GetEntityManager()->Get(player)->Translate(Vector2::Up() * playerVelocity * GetDeltaTime());
+	}
+	else if (GetInput()->IsKeyPressed(Keys::A))
+	{
+		GetEntityManager()->Get<Sprite>(player)->SetAnimation(walkingLeft);
+		GetEntityManager()->Get(player)->Translate(Vector2::Left() * playerVelocity * GetDeltaTime());
+	}
+	else if (GetInput()->IsKeyPressed(Keys::S))
+	{
+		GetEntityManager()->Get<Sprite>(player)->SetAnimation(walkingDown);
+		GetEntityManager()->Get(player)->Translate(Vector2::Down() * playerVelocity * GetDeltaTime());
+	}
+	else if (GetInput()->IsKeyPressed(Keys::D))
+	{
+		GetEntityManager()->Get<Sprite>(player)->SetAnimation(walkingRight);
+		GetEntityManager()->Get(player)->Translate(Vector2::Right() * playerVelocity * GetDeltaTime());
+	}
+
+	GetEntityManager()->Get<Sprite>(player)->Update();
 
 	if (GetEntityManager()->TryGet<TileMap>(tileMap))
 		if (GetCollsionManager()->CheckCollision(player, *GetEntityManager()->Get<TileMap>(tileMap)))
-			cout << "IT WORKS!!!";
+			GetEntityManager()->Get(player)->GoToPreviousPos();
 
 }
 
@@ -72,4 +92,7 @@ void Game::Draw()
 void Game::Unload()
 {
 	delete walkingLeft;
+	delete walkingUp;
+	delete walkingDown;
+	delete walkingRight;
 }
