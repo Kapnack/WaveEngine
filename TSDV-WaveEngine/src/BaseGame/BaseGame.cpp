@@ -40,6 +40,21 @@ void BaseGame::EndEngine()
 	ServiceProvider::Instance().Clear();
 }
 
+void BaseGame::Run()
+{
+	while (!glfwWindowShouldClose(GetWindow()->GetGLFWindow()))
+	{
+		EngineUpdate();
+
+		Update();
+
+		EngineDraw();
+
+		GetWindow()->SwapBuffer();
+		GetWindow()->HandleInput();
+	}
+}
+
 void BaseGame::EngineUpdate()
 {
 	GetTime()->SetDeltaTime();
@@ -136,32 +151,4 @@ void BaseGame::CreateCollisionManager()
 void BaseGame::DestroyCollisionManager()
 {
 	ServiceProvider::Instance().UnRegister<CollisionManager>();
-}
-
-void BaseGame::Run()
-{
-	try
-	{
-		while (!glfwWindowShouldClose(GetWindow()->GetGLFWindow()))
-		{
-			EngineUpdate();
-
-			Update();
-
-			Draw();
-
-			EngineDraw();
-
-			GetWindow()->SwapBuffer();
-			GetWindow()->HandleInput();
-		}
-	}
-	catch (exception& e)
-	{
-		cerr << e.what();
-	}
-	catch (...)
-	{
-		cerr << "WAVEENGINE: Unknow Error detected.";
-	}
 }

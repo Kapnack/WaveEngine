@@ -32,7 +32,6 @@ protected:
 
 	WAVEEXPORT	virtual void Init(const int& width, const int& height) = 0;
 	WAVEEXPORT	virtual void Update() = 0;
-	WAVEEXPORT	virtual void Draw() = 0;
 	WAVEEXPORT	virtual void Unload() = 0;
 
 	WAVEEXPORT float GetDeltaTime();

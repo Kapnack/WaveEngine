@@ -85,10 +85,6 @@ void Game::Update()
 
 }
 
-void Game::Draw()
-{
-}
-
 void Game::Unload()
 {
 	delete walkingLeft;
