@@ -12,9 +12,13 @@ private:
 	unsigned int tileMap;
 
 	unsigned int player;
-	unsigned int player2;
+
+	int playerVelocity = 100;
 
 	Animation* walkingLeft;
+	Animation* walkingUp;
+	Animation* walkingDown;
+	Animation* walkingRight;
 
 protected:
 
