@@ -47,9 +47,7 @@ void Renderer::Init()
 	res.y = GetWindow()->GetHeight();
 	res.z = 1.0f;
 
-	//This tells OpenGL from were in the window it is able to draw
-	glViewport(0, 0, res.x, res.y); // 0,0 = inferior left corner of the window.
-	//Some drivers might automatically create a viewport. But not all of them do that. That is why it is important to create one.
+	glViewport(0, 0, res.x, res.y);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -79,26 +77,21 @@ const unsigned int Renderer::ReturnWorkingMaterial(const unsigned int& materialI
 
 void Renderer::CreateBuffers(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const
 {
-	//VAO = Vertex Array Object: It's the object were VBO & EBO store.
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
 
 	glBindVertexArray(VAO);
 
-	//VBO = Vertex Buffer Object: It contains the data of the vertex.
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, vertexSize * sizeof(VertexData), vertex, GL_DYNAMIC_DRAW);
 
-	// EBO = Element Buffer Object: It contains the order in which the VBO vertices will be used, by specifying their indices.
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize * sizeof(int), indices, GL_DYNAMIC_DRAW);
 
-	//Sets layout 0, Vertex.
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexData), (void*)offsetof(VertexData, position));
 	glEnableVertexAttribArray(0);
 
-	//Sets layout 1, RGBA.
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(VertexData), (void*)offsetof(VertexData, color));
 	glEnableVertexAttribArray(1);
 
