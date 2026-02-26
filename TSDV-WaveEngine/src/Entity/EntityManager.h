@@ -4,12 +4,10 @@
 
 #include <map>
 #include <typeindex>
-
-#include "Entity.h"
-
 #include <concepts>
 #include <vector>
 
+#include "Entity.h"
 #include "Entity/Drawable/Drawable.h"
 #include "Material/MaterialManager.h"
 
