@@ -65,7 +65,7 @@ unsigned int Material::GetUProj() const
 	return uProj;
 }
 
-void Material::SetName(const string& name)
+void Material::SetName(const string_view name)
 {
 	this->name = name;
 }

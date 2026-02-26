@@ -37,7 +37,7 @@ unsigned int EntityFactory::Create()
 	return currentEntityID;
 }
 
-unsigned int EntityFactory::CreateTileMap(const string& mapFilePath, const bool& mapFileAddAbsolutePath, const string& texturePath, const bool& texturePathAddAbsolutePath)
+unsigned int EntityFactory::CreateTileMap(const string_view mapFilePath, const bool& mapFileAddAbsolutePath, const string_view texturePath, const bool& texturePathAddAbsolutePath)
 {
 	++currentEntityID;
 

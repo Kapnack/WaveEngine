@@ -30,7 +30,7 @@ public:
 	template<EntityManagerStandar T>
 	unsigned int Create();
 
-	inline unsigned int CreateTileMap(const string& mapFilePath, const bool& mapFileAddAbsolutePath, const string& texturePath, const bool& texturePathAddAbsolutePath);
+	inline unsigned int CreateTileMap(const string_view mapFilePath, const bool& mapFileAddAbsolutePath, const string_view texturePath, const bool& texturePathAddAbsolutePath);
 };
 
 #include "EntityFactory.tpp"

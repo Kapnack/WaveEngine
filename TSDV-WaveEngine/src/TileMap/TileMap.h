@@ -21,7 +21,7 @@ WAVEEXPORT class TileMap final : public Entity2D
 {
 public:
 
-	WAVEEXPORT TileMap(const string& mapFilePath, const bool& mapFileAddAbsolutePath, const string& texturePath, const bool& texturePathAddAbsolutePath, const unsigned int& ID);
+	WAVEEXPORT TileMap(const string_view mapFilePath, const bool& mapFileAddAbsolutePath, const string_view texturePath, const bool& texturePathAddAbsolutePath, const unsigned int& ID);
 	WAVEEXPORT ~TileMap();
 
 	WAVEEXPORT float GetMapWidth() const;
@@ -34,7 +34,7 @@ public:
 
 	WAVEEXPORT unsigned int GetTileAt(const int& layer, const int& col, const int& row) const;
 
-	WAVEEXPORT void ImportTileMap(const string& filePath, const bool& addAbsolutePath);
+	WAVEEXPORT void ImportTileMap(const string_view filePath, const bool& addAbsolutePath);
 
 private:
 

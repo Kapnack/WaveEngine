@@ -52,9 +52,9 @@ private:
 
 public:
 
-	WAVEEXPORT unsigned int GetMaterial(const string& name);
+	WAVEEXPORT unsigned int GetMaterial(const string_view name);
 
-	WAVEEXPORT void DeleteMaterial(const string& name);
+	WAVEEXPORT void DeleteMaterial(const string_view name);
 
 	WAVEEXPORT void DeleteMaterial(const unsigned int& ID);
 

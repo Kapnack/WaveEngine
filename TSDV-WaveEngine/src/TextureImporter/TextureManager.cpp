@@ -39,7 +39,7 @@ void TextureManager::DeleteTexture(const unsigned int& ID)
 	textures.erase(ID);
 }
 
-void TextureManager::DeleteTexture(const string& name)
+void TextureManager::DeleteTexture(const string_view name)
 {
 	unordered_map<unsigned int, Texture*>::iterator it = find_if(textures.begin(), textures.end(),
 		[&name](const pair<const unsigned int, Texture*>& it)

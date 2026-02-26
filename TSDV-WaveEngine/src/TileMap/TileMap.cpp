@@ -10,7 +10,7 @@
 
 #include <iostream>
 
-TileMap::TileMap(const string& mapFilePath, const bool& mapFileAddAbsolutePath, const string& texturePath, const bool& texturePathAddAbsolutePath, const unsigned int& ID) : Entity2D(ID)
+TileMap::TileMap( const string_view mapFilePath, const bool& mapFileAddAbsolutePath, const string_view texturePath, const bool& texturePathAddAbsolutePath, const unsigned int& ID) : Entity2D(ID)
 {
 	texture = texturePathAddAbsolutePath ? ServiceProvider::Instance().Get<TextureImporter>()->LoadTextureAbsolutePath(texturePath)
 		: ServiceProvider::Instance().Get<TextureImporter>()->LoadTexture(texturePath);
@@ -73,7 +73,7 @@ void TileMap::SetTexture(unsigned int texture) noexcept
 	this->texture = texture;
 }
 
-void TileMap::ImportTileMap(const string& filePath, const bool& addAbsolutePath)
+void TileMap::ImportTileMap(const string_view filePath, const bool& addAbsolutePath)
 {
 	const string TileSizeName = "tileSize";
 	const string MapWidthName = "mapWidth";

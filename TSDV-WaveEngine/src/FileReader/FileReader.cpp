@@ -14,19 +14,19 @@ FileReader::~FileReader()
 {
 }
 
-string FileReader::GetAbsoluteFilePath(const string& filePath) const
+string FileReader::GetAbsoluteFilePath(const string_view filePath) const
 {
 	return filesystem::absolute(filePath).lexically_normal().string();
 }
 
-string FileReader::ReadFileAbsolutePath(const string& filePath)
+string FileReader::ReadFileAbsolutePath(const string_view filePath)
 {
 	string absoluteFilePath = GetAbsoluteFilePath(filePath);
 
 	return ReadFile(absoluteFilePath);
 }
 
-string FileReader::ReadFile(const string& filePath)
+string FileReader::ReadFile(const string_view filePath)
 {
 	ifstream inStream;
 
@@ -37,12 +37,12 @@ string FileReader::ReadFile(const string& filePath)
 		inStream.open(filePath, ios::in);
 
 		if (!inStream.is_open())
-			throw runtime_error("FilePath; " + filePath + " wasn't found.\n");
+			throw runtime_error("FilePath; " + string(filePath) + " wasn't found.\n");
 
 		buffer << inStream.rdbuf();
 
 	}
-	catch (runtime_error& e)
+	catch (const runtime_error& e)
 	{
 		cerr << e.what() << "\n";
 	}

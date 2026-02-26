@@ -20,21 +20,21 @@ TextureManager* TextureImporter::GetTextureManager()
 	return ServiceProvider::Instance().Get<TextureManager>();
 }
 
-unsigned int TextureImporter::LoadTextureAbsolutePath(string filePath)
+unsigned int TextureImporter::LoadTextureAbsolutePath(const string_view filePath)
 {
 	string absolutePath = std::filesystem::absolute(filePath).lexically_normal().string();
 
 	return LoadTexture(absolutePath);
 }
 
-unsigned int TextureImporter::LoadTexture(string filePath)
+unsigned int TextureImporter::LoadTexture(const string_view filePath)
 {
 	int width;
 	int height;
 	int nrChannels;
 
 	stbi_set_flip_vertically_on_load(true);
-	unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(filePath.data(), &width, &height, &nrChannels, 0);
 
 	GLenum format = (nrChannels == 4) ? GL_RGBA : GL_RGB;
 

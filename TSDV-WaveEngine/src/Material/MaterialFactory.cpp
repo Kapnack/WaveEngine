@@ -32,7 +32,7 @@ MaterialManager* MaterialFactory::GetMaterialManager()
 	return ServiceProvider::Instance().Get<MaterialManager>();
 }
 
-unsigned int MaterialFactory::CreateMaterial(const string name, const string vertexShader, const string fragmentShader)
+unsigned int MaterialFactory::CreateMaterial(const string_view name, const string_view vertexShader, const string_view fragmentShader)
 {
 	if (name == "" || vertexShader == "" || fragmentShader == "")
 		return Material::NULL_MATERIAL;
@@ -71,12 +71,12 @@ unsigned int MaterialFactory::CreateMaterial(const string name, const string ver
 
 	int i = 0;
 
-	string selectedName = name;
+	string selectedName = name.data();
 
 	while (GetMaterialManager()->GetMaterial(selectedName))
 	{
 		++i;
-		selectedName = name + " (" + to_string(i) + ")";
+		selectedName = string(name) + " (" + to_string(i).c_str() + ")";
 	}
 
 	newMaterial->SetName(selectedName);
@@ -86,11 +86,11 @@ unsigned int MaterialFactory::CreateMaterial(const string name, const string ver
 	return currentMaterialID;
 }
 
-unsigned int MaterialFactory::CompileShader(const string& source, unsigned int type)
+unsigned int MaterialFactory::CompileShader(const string_view source, unsigned int type)
 {
 	unsigned int id = glCreateShader(type);
 
-	const char* src = source.c_str();
+	const char* src = source.data();
 
 	glShaderSource(id, 1, &src, nullptr);
 	glCompileShader(id);

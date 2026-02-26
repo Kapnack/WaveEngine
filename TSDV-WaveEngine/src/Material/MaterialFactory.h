@@ -18,7 +18,7 @@ private:
 
 	MaterialManager* GetMaterialManager();
 
-	unsigned int CompileShader(const string& source, const unsigned int type);
+	unsigned int CompileShader(const string_view source, const unsigned int type);
 
 	MaterialFactory();
 	~MaterialFactory();
@@ -28,6 +28,6 @@ private:
 
 public:
 
-	unsigned int CreateMaterial(const string name, const string vertexShader, const string fragmentShader);
+	unsigned int CreateMaterial(const string_view name, const string_view vertexShader, const string_view fragmentShader);
 };
 

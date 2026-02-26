@@ -33,7 +33,7 @@ private:
 	Material(const unsigned int& ID);
 	~Material();
 
-	void SetName(const string& name);
+	void SetName(const string_view name);
 	void SetProgram(const unsigned int& program);
 	void SetUColor(const unsigned int& color);
 	void SetUModel(const unsigned int& model);

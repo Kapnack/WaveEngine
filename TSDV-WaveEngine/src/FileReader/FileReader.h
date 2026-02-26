@@ -13,7 +13,7 @@ WAVEEXPORT class FileReader : public Service
 {
 private:
 
-	string GetAbsoluteFilePath(const string& filePath) const;
+	string GetAbsoluteFilePath(const string_view filePath) const;
 
 	FileReader();
 	~FileReader();
@@ -23,7 +23,7 @@ private:
 
 public:
 
-	WAVEEXPORT string ReadFileAbsolutePath(const string& filePath);
-	WAVEEXPORT string ReadFile(const string& filePath);
+	WAVEEXPORT string ReadFileAbsolutePath(const string_view filePath);
+	WAVEEXPORT string ReadFile(const string_view filePath);
 };
 
