@@ -1,10 +1,7 @@
 #pragma once
 
-#include <vector>
-
 #include "Export.h"
 #include "Renderer/Renderer.h"
-#include "ServiceProvider/ServiceProvider.h"
 #include "VertexData.h"
 
 class EntityFactory;
