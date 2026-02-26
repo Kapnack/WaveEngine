@@ -40,7 +40,7 @@ private:
 	void SetUView(const unsigned int& view);
 	void SetUProj(const unsigned int& projection);
 	void SetOurTexture(const unsigned int& ourTexture);
-	void Unload();
+	void Unload() const;
 
 	friend class MaterialManager;
 	friend class MaterialFactory;
@@ -53,19 +53,19 @@ public:
 
 	const string GetName();
 
-	Vector4 GetColor();
-	unsigned int GetID();
-	unsigned int GetProgram();
-	unsigned int GetUColor();
-	unsigned int GetUModel();
-	unsigned int GetUView();
-	unsigned int GetUProj();
+	Vector4 GetColor() const;
+	unsigned int GetID() const;
+	unsigned int GetProgram() const;
+	unsigned int GetUColor() const;
+	unsigned int GetUModel() const;
+	unsigned int GetUView() const;
+	unsigned int GetUProj() const;
 
-	unsigned int GetOurTexture();
+	unsigned int GetOurTexture() const;
 
 	void SetColor(const Vector4& color);
 
-	void Bind();
-	void UnBind();
+	void Bind() const;
+	void UnBind() const;
 };
 

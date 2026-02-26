@@ -30,37 +30,37 @@ const string Material::GetName()
 	return name;
 }
 
-Vector4 Material::GetColor()
+Vector4 Material::GetColor() const
 {
 	return color;
 }
 
-unsigned int Material::GetID()
+unsigned int Material::GetID() const
 {
 	return ID;
 }
 
-unsigned int Material::GetProgram()
+unsigned int Material::GetProgram() const
 {
 	return program;
 }
 
-unsigned int Material::GetUColor()
+unsigned int Material::GetUColor() const
 {
 	return uColor;
 }
 
-unsigned int Material::GetUModel()
+unsigned int Material::GetUModel() const
 {
 	return uModel;
 }
 
-unsigned int Material::GetUView()
+unsigned int Material::GetUView() const
 {
 	return uView;
 }
 
-unsigned int Material::GetUProj()
+unsigned int Material::GetUProj() const
 {
 	return uProj;
 }
@@ -100,7 +100,7 @@ void Material::SetOurTexture(const unsigned int& ourTexture)
 	this->ourTexture = ourTexture;
 }
 
-unsigned int Material::GetOurTexture()
+unsigned int Material::GetOurTexture() const
 {
 	return ourTexture;
 }
@@ -110,17 +110,17 @@ void Material::SetColor(const Vector4& color)
 	this->color = color;
 }
 
-void Material::Bind()
+void Material::Bind() const
 {
 	glUseProgram(program);
 }
 
-void Material::UnBind()
+void Material::UnBind() const
 {
 	glUseProgram(0);
 }
 
-void Material::Unload()
+void Material::Unload() const
 {
 	glDeleteProgram(program);
 }
