@@ -32,6 +32,7 @@ public:
 	WAVEEXPORT void SetAnimation(Animation* animation);
 	WAVEEXPORT void Update();
 	WAVEEXPORT void SetTexture(const unsigned int& textureID);
+	WAVEEXPORT Animation* GetAnimation();
 	WAVEEXPORT unsigned int GetTexture();
 };
 

@@ -81,6 +81,11 @@ void Sprite::SetTexture(const unsigned int& textureID)
 	this->textureID = textureID;
 }
 
+Animation* Sprite::GetAnimation()
+{
+	return animation;
+}
+
 unsigned int Sprite::GetTexture()
 {
 	return textureID;
