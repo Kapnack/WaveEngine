@@ -3,6 +3,8 @@
 
 #include "ServiceProvider/ServiceProvider.h"
 
+const float Animation::DEFAULT_SPEED = 1;
+
 Animation::Animation(
 	const Vector2& startCoords,
 	const Vector2& frameArea,
@@ -21,7 +23,7 @@ Animation::Animation(
 	float textureWidth = textureArea.x;
 	float textureHeight = textureArea.y;
 
-	Vector2 startUVCoords = 
+	Vector2 startUVCoords =
 	{
 		startCoords.x / textureWidth,
 		startCoords.y / textureHeight
@@ -46,7 +48,7 @@ Animation::Animation(
 		frames[i] = Frame(leftTopUVCoords, rightBottomUVCoords);
 	}
 
-	frameTime = animationTime / framesQuantity;
+	timePerFrame = animationTime / framesQuantity;
 }
 
 Animation::~Animation()
@@ -54,31 +56,94 @@ Animation::~Animation()
 	delete[] frames;
 }
 
-Frame Animation::GetCurrentFrame()
+void Animation::KeepTimerInBounds()
+{
+	while (currentTime >= animationTime)
+		currentTime -= animationTime;
+}
+
+void Animation::SetCurrentFrame()
+{
+	currentFrame = static_cast<int>(currentTime / timePerFrame);
+}
+
+void Animation::AddToTimer(const float& addition)
+{
+	currentTime += addition;
+
+	KeepTimerInBounds();
+
+	SetCurrentFrame();
+}
+
+Frame Animation::GetCurrentFrame() const
 {
 	return frames[currentFrame];
 }
 
-void Animation::Update()
+Frame Animation::GetFrame(int index) const
 {
-	currentTime += ServiceProvider::Instance().Get<Time>()->GetDeltaTime();
-
-	while (currentTime >= animationTime)
-		currentTime -= animationTime;
-
-	currentFrame = static_cast<int>(currentTime / frameTime);
+	index = index % framesQuantity;
+	return frames[index];
 }
 
-void Animation::NextFrame()
+void Animation::Update()
 {
-	this->currentFrame++;
-	if (this->currentFrame >= framesQuantity)
-	{
-		this->currentFrame = 0;
-	}
+	if (paused)
+		return;
+
+	AddToTimer(animationSpeed * ServiceProvider::Instance().Get<Time>()->GetDeltaTime());
+}
+
+void Animation::MoveToNextFrame()
+{
+	AddToTimer(timePerFrame);
+}
+
+void Animation::MoveToPreviousFrame()
+{
+	AddToTimer(-timePerFrame);
+}
+
+void Animation::GoToFrame(const int& index)
+{
+	ResetTime();
+
+	for (int i = 0; i < index; ++i)
+		AddToTimer(timePerFrame);
 }
 
 void Animation::ResetTime()
 {
 	currentTime = 0;
+}
+
+void Animation::Pause()
+{
+	paused = true;
+}
+
+void Animation::UnPause()
+{
+	paused = false;
+}
+
+void Animation::SetPause(const bool& paused)
+{
+	this->paused = paused;
+}
+
+void Animation::SwitchPauseState()
+{
+	paused = !paused;
+}
+
+bool Animation::GetPause()
+{
+	return paused;
+}
+
+void Animation::SetSpeed(const float& speed)
+{
+	animationSpeed = speed;
 }
