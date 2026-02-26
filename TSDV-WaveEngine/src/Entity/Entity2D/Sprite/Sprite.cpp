@@ -25,8 +25,8 @@ void Sprite::Init(const Vector4& color)
 	indexSize = 6;
 	indices = new int[indexSize]
 		{
-			0, 1, 3,   // first triangle
-				1, 2, 3    // second triangle
+			0, 1, 3,
+				1, 2, 3
 		};
 
 	CalculateTRS();
