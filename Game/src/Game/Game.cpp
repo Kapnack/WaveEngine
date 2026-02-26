@@ -77,6 +77,12 @@ void Game::Update()
 		GetEntityManager()->Get(player)->Translate(Vector2::Right() * playerVelocity * GetDeltaTime());
 	}
 
+	if (GetInput()->IsKeyPressed(Keys::P))
+		GetEntityManager()->Get<Sprite>(player)->GetAnimation()->SwitchPauseState();
+
+	if (GetInput()->IsKeyPressed(Keys::RIGHT))
+		GetEntityManager()->Get<Sprite>(player)->GetAnimation()->MoveToNextFrame();
+
 	GetEntityManager()->Get<Sprite>(player)->Update();
 
 	if (GetEntityManager()->TryGet<TileMap>(tileMap))
