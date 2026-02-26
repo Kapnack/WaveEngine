@@ -27,7 +27,7 @@ private:
 
 	unordered_map<unsigned int, Material*> materials;
 
-	void SaveMaterial(const unsigned int id, Material* material);
+	void SaveMaterial(const unsigned int& ID, Material* material);
 
 	vector<Drawable*> listeners;
 
@@ -48,15 +48,15 @@ private:
 	friend class EntitiesImGui;
 	friend class MaterialsImGui;
 
-	void OnDeleteMaterial(Material& material);
+	void OnDeleteMaterial(const Material& material);
 
 public:
 
-	WAVEEXPORT unsigned int GetMaterial(const string name);
+	WAVEEXPORT unsigned int GetMaterial(const string& name);
 
-	WAVEEXPORT void DeleteMaterial(const string name);
+	WAVEEXPORT void DeleteMaterial(const string& name);
 
-	WAVEEXPORT void DeleteMaterial(const unsigned int id);
+	WAVEEXPORT void DeleteMaterial(const unsigned int& ID);
 
 	WAVEEXPORT void AddListener(Drawable* entity);
 

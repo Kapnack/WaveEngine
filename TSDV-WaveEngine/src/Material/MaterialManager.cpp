@@ -17,7 +17,7 @@ MaterialManager::~MaterialManager()
 	materials.clear();
 }
 
-unsigned int MaterialManager::GetMaterial(const string name)
+unsigned int MaterialManager::GetMaterial(const string& name)
 {
 	unordered_map<unsigned int, Material*>::iterator it = find_if(materials.begin(), materials.end(),
 		[&name](const pair<const unsigned int, Material*>& entry)
@@ -32,9 +32,9 @@ unsigned int MaterialManager::GetMaterial(const string name)
 	return it->first;
 }
 
-void MaterialManager::SaveMaterial(const unsigned int id, Material* material)
+void MaterialManager::SaveMaterial(const unsigned int& ID, Material* material)
 {
-	materials[id] = material;
+	materials[ID] = material;
 }
 
 Material* MaterialManager::GetMaterial(const unsigned int id)
@@ -47,7 +47,7 @@ unordered_map<unsigned int, Material*>& MaterialManager::GetMaterials()
 	return materials;
 }
 
-void MaterialManager::DeleteMaterial(const string name)
+void MaterialManager::DeleteMaterial(const string& name)
 {
 	unordered_map<unsigned int, Material*>::iterator it = find_if(materials.begin(), materials.end(),
 		[&name](const pair<const unsigned int, Material*>& entry)
@@ -66,12 +66,12 @@ void MaterialManager::DeleteMaterial(const string name)
 	materials.erase(it);
 }
 
-void MaterialManager::DeleteMaterial(const unsigned int id)
+void MaterialManager::DeleteMaterial(const unsigned int& ID)
 {
-	if (id == Material::NULL_MATERIAL)
+	if (ID == Material::NULL_MATERIAL)
 		return;
 
-	Material* it = materials[id];
+	Material* it = materials[ID];
 
 	if (it == nullptr)
 		return;
@@ -79,7 +79,7 @@ void MaterialManager::DeleteMaterial(const unsigned int id)
 	OnDeleteMaterial(*it);
 
 	delete it;
-	materials.erase(id);
+	materials.erase(ID);
 }
 
 void MaterialManager::AddListener(Drawable* entity)
@@ -87,7 +87,7 @@ void MaterialManager::AddListener(Drawable* entity)
 	listeners.push_back(entity);
 }
 
-void MaterialManager::OnDeleteMaterial(Material& material)
+void MaterialManager::OnDeleteMaterial(const Material& material)
 {
 	for (Drawable* entity : listeners)
 		if (entity->GetMaterial() == material.GetID())
