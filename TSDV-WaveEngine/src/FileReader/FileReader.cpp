@@ -21,9 +21,7 @@ string FileReader::GetAbsoluteFilePath(const string_view filePath) const
 
 string FileReader::ReadFileAbsolutePath(const string_view filePath)
 {
-	string absoluteFilePath = GetAbsoluteFilePath(filePath);
-
-	return ReadFile(absoluteFilePath);
+	return ReadFile(GetAbsoluteFilePath(filePath));
 }
 
 string FileReader::ReadFile(const string_view filePath)
