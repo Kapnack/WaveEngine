@@ -45,7 +45,7 @@ public:
 	WAVEEXPORT int GetLayer() const;
 
 	WAVEEXPORT void SetMaterial(unsigned int materialID);
-	WAVEEXPORT const unsigned int GetMaterial() const;
+	WAVEEXPORT unsigned int GetMaterial() const;
 
 	WAVEEXPORT void SetColor(const Vector4& color);
 	WAVEEXPORT void SetVertexColor(const int& index, const Vector4& color);

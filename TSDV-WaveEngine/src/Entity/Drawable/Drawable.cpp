@@ -40,7 +40,7 @@ void Drawable::SetMaterial(unsigned int materialID)
 	this->materialID = materialID;
 }
 
-const unsigned int Drawable::GetMaterial() const
+unsigned int Drawable::GetMaterial() const
 {
 	return materialID;
 }
