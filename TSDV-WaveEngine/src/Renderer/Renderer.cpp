@@ -165,6 +165,8 @@ void Renderer::DrawElement(glm::mat4& model, const unsigned int& materialID, con
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*)0);
 
+	materialToUse->UnBind();
+
 	++drawCalls;
 }
 
