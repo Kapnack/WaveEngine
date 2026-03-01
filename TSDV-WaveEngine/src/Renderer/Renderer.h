@@ -16,6 +16,8 @@ class Renderer final : public Service
 {
 private:
 
+	unsigned int drawCalls = 0;
+
 	glm::mat4* view;
 	glm::mat4* proj;
 
@@ -53,7 +55,7 @@ public:
 
 	Vector3 GetRes();
 
-	static float GetGLTime();
+	unsigned int GetDrawCalls();
 
 	void DrawElement(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO);
 	void DrawElementSprite(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO, const unsigned int& texture);

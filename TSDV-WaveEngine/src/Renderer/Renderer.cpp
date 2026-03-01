@@ -133,11 +133,17 @@ void Renderer::UpdateBuffer(VertexData* vertex, int vertexSize, unsigned& VBO)
 void Renderer::Clear()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
+	drawCalls = 0;
 }
 
 Vector3 Renderer::GetRes()
 {
 	return res;
+}
+
+unsigned int Renderer::GetDrawCalls()
+{
+	return drawCalls;
 }
 
 void Renderer::DrawElement(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO)
@@ -158,6 +164,8 @@ void Renderer::DrawElement(glm::mat4& model, const unsigned int& materialID, con
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*)0);
+
+	++drawCalls;
 }
 
 void Renderer::DrawElementSprite(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO, const unsigned int& textureID)
