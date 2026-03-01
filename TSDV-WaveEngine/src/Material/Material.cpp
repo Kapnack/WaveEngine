@@ -95,7 +95,7 @@ void Material::SetMat4(const std::string& name, const glm::mat4& value)
 	if (it == uniforms.end())
 		return;
 
-	glUniformMatrix4fv(uniforms.at(name).location, 1, GL_FALSE, glm::value_ptr(value));
+	glUniformMatrix4fv(it->second.location, it->second.size, GL_FALSE, glm::value_ptr(value));
 }
 
 void Material::SetGLMVec4(const std::string& name, const glm::vec4& value)
@@ -113,7 +113,7 @@ void Material::SetGLMVec3(const std::string& name, const glm::vec3& value)
 	if (it == uniforms.end())
 		return;
 
-	glUniform3fv(it->second.location, 1, glm::value_ptr(value));
+	glUniform3fv(it->second.location, it->second.size, glm::value_ptr(value));
 }
 
 void Material::SetGLMVec2(const std::string& name, const glm::vec2& value)
@@ -122,7 +122,7 @@ void Material::SetGLMVec2(const std::string& name, const glm::vec2& value)
 	if (it == uniforms.end())
 		return;
 
-	glUniform2fv(it->second.location, 1, glm::value_ptr(value));
+	glUniform2fv(it->second.location, it->second.size, glm::value_ptr(value));
 }
 
 void Material::SetFloat(const std::string& name, const float& value)
@@ -131,7 +131,7 @@ void Material::SetFloat(const std::string& name, const float& value)
 	if (it == uniforms.end())
 		return;
 
-	glUniform1fv(it->second.location, 1, &value);
+	glUniform1fv(it->second.location, it->second.size, &value);
 }
 
 void Material::SetInt(const std::string& name, const int& value)
@@ -147,24 +147,24 @@ void Material::Bind()
 {
 	glUseProgram(program);
 
-	//if (textureID == Texture::NULL_TEXTURE)
-	//	return;
-	//
-	//int textureSlot = 0;
-	//
-	//for (unordered_map<string, Uniform>::iterator pair = uniforms.begin(); pair != uniforms.end(); ++pair)
-	//{
-	//	Uniform& u = pair->second;
-	//
-	//	if (u.type == GL_SAMPLER_2D)
-	//	{
-	//		glActiveTexture(GL_TEXTURE0 + textureSlot);
-	//		glBindTexture(GL_TEXTURE_2D, textureID);
-	//		glUniform1i(u.location, textureSlot);
-	//
-	//		textureSlot++;
-	//	}
-	//}
+	if (textureID == Texture::NULL_TEXTURE)
+		return;
+
+	int textureSlot = 0;
+
+	for (unordered_map<string, Uniform>::iterator pair = uniforms.begin(); pair != uniforms.end(); ++pair)
+	{
+		Uniform& u = pair->second;
+
+		if (u.type == GL_SAMPLER_2D)
+		{
+			glActiveTexture(GL_TEXTURE0 + textureSlot);
+			glBindTexture(GL_TEXTURE_2D, textureID);
+			glUniform1i(u.location, textureSlot);
+
+			textureSlot++;
+		}
+	}
 }
 
 void Material::UnBind()
