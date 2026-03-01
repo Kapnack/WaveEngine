@@ -2,6 +2,8 @@
 
 #include <GL/glew.h>
 #include <iostream>
+#include <string>
+#include <sstream>
 
 #include "Material.h"
 #include "FileReader/FileReader.h"
@@ -43,44 +45,77 @@ unsigned int MaterialFactory::CreateMaterial(const string_view name, const strin
 	if (vs == 0 || fs == 0)
 		return Material::NULL_MATERIAL;
 
-	unsigned int program = glCreateProgram();
+	unsigned int programID = glCreateProgram();
 
-	glAttachShader(program, vs);
-	glAttachShader(program, fs);
-	glLinkProgram(program);
-	glValidateProgram(program);
+	glAttachShader(programID, vs);
+	glAttachShader(programID, fs);
+	glLinkProgram(programID);
+	glValidateProgram(programID);
 
 	glDeleteShader(vs);
 	glDeleteShader(fs);
+
+	GLint success;
+	glGetProgramiv(programID, GL_LINK_STATUS, &success);
+
+	if (!success)
+	{
+		char infoLog[512];
+		glGetProgramInfoLog(programID, 512, nullptr, infoLog);
+		std::cout << "Program Link Error:\n" << infoLog << std::endl;
+
+		glDeleteProgram(programID);
+		return Material::NULL_MATERIAL;
+	}
 
 	++currentMaterialID;
 
 	Material* newMaterial = new Material(currentMaterialID);
 
-	newMaterial->SetProgram(program);
+	GLint uniformCount = 0;
+	glGetProgramiv(programID, GL_ACTIVE_UNIFORMS, &uniformCount);
 
-	newMaterial->SetUColor(glGetUniformLocation(program, "uColor"));
+	GLint maxNameLength = 0;
+	glGetProgramiv(programID, GL_ACTIVE_UNIFORM_MAX_LENGTH, &maxNameLength);
 
-	newMaterial->SetUModel(glGetUniformLocation(program, "uModel"));
+	std::vector<GLchar> buffer(maxNameLength);
 
-	newMaterial->SetUView(glGetUniformLocation(program, "uView"));
+	for (GLint i = 0; i < uniformCount; i++)
+	{
+		GLsizei length;
+		GLint size;
+		GLenum type;
 
-	newMaterial->SetUProj(glGetUniformLocation(program, "uProj"));
+		glGetActiveUniform(programID,
+			i,
+			maxNameLength,
+			&length,
+			&size,
+			&type,
+			buffer.data());
 
-	newMaterial->SetOurTexture(glGetUniformLocation(program, "ourTexture"));
+		std::string uniformName(buffer.data(), length);
+		GLint location = glGetUniformLocation(programID, uniformName.c_str());
+
+		newMaterial->AddUniform(uniformName, type, location, size);
+
+		std::cout << "Uniform: " << uniformName
+			<< " | Location: " << location
+			<< std::endl;
+	}
+
 
 	int i = 0;
-
 	string selectedName = name.data();
 
 	while (GetMaterialManager()->GetMaterial(selectedName))
 	{
 		++i;
-		selectedName = string(name) + " (" + to_string(i).c_str() + ")";
+		selectedName = string(name) + " (" + to_string(i) + ")";
 	}
 
 	newMaterial->SetName(selectedName);
-
+	newMaterial->program = programID;
 	GetMaterialManager()->SaveMaterial(currentMaterialID, newMaterial);
 
 	return currentMaterialID;
