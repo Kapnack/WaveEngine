@@ -117,7 +117,7 @@ void Renderer::CreateBuffersSprite(const VertexData* vertex, const int& vertexSi
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexData), (void*)offsetof(VertexData, textureCordinates));
 	glEnableVertexAttribArray(2);
 
-	glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(VertexData), (void*)offsetof(VertexData, textureID));
+	glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, sizeof(VertexData), (void*)offsetof(VertexData, textureID));
 	glEnableVertexAttribArray(3);
 
 	glBindVertexArray(0);
