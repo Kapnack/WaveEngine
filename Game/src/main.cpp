@@ -2,7 +2,7 @@
 
 int main()
 {
-	Game* game = new Game(800, 600);
+	Game* game = new Game(800, 800);
 
 	game->Run();
 
