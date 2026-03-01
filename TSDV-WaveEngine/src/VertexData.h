@@ -25,6 +25,8 @@ WAVEEXPORT struct VertexData
 
 	Vector2 textureCordinates;
 
+	float textureID = 0;
+
 	WAVEEXPORT VertexData();
 	WAVEEXPORT VertexData(float v1, float v2, float v3, float r, float g, float b, float a);
 	WAVEEXPORT VertexData(Vector3 position, Vector4 color);
