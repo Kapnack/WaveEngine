@@ -142,20 +142,19 @@ Vector3 Renderer::GetRes()
 
 void Renderer::DrawElement(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO)
 {
-	Material* materialToUse = GetMaterialManager()->GetMaterial(ReturnWorkingMaterial(materialID, spriteShaders));
+	Material* materialToUse =
+		GetMaterialManager()->GetMaterial(
+			ReturnWorkingMaterial(materialID, spriteShaders));
 
 	if (!materialToUse)
 		return;
 
 	materialToUse->Bind();
 
-	glUniform4f(materialToUse->GetUColor(), materialToUse->GetColor().x, materialToUse->GetColor().y, materialToUse->GetColor().z, materialToUse->GetColor().w);
-
-	glUniformMatrix4fv(materialToUse->GetUModel(), 1, GL_FALSE, glm::value_ptr(model));
-
-	glUniformMatrix4fv(materialToUse->GetUView(), 1, GL_FALSE, glm::value_ptr(*view));
-
-	glUniformMatrix4fv(materialToUse->GetUProj(), 1, GL_FALSE, glm::value_ptr(*proj));
+	materialToUse->SetVec4("uColor", materialToUse->GetColor());
+	materialToUse->SetMat4("uModel", model);
+	materialToUse->SetMat4("uView", *view);
+	materialToUse->SetMat4("uProj", *proj);
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*)0);
@@ -166,7 +165,10 @@ void Renderer::DrawElementSprite(glm::mat4& model, const unsigned int& materialI
 	Texture* texture = ChooseTextureToUse(textureID);
 
 	if (texture)
+	{
+		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture->GetTextureID());
+	}
 
 	DrawElement(model, materialID, indicesSize, VAO);
 
