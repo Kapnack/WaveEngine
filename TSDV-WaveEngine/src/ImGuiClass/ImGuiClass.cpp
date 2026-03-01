@@ -63,6 +63,8 @@ void ImGuiClass::Update()
 
 	ImGui::Begin("WaveEngine Debug Window");
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	string text = "Draw Calls: " + to_string(ServiceProvider::Instance().Get<Renderer>()->GetDrawCalls()) + ".";
+	ImGui::Text(text.c_str());
 
 	if (ImGui::Button("Entities", ImVec2(100, 25)))
 		state = showEntitiesState;
