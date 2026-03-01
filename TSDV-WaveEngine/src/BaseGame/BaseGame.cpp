@@ -59,8 +59,6 @@ void BaseGame::EngineUpdate()
 {
 	GetTime()->SetDeltaTime();
 
-	GetRenderer()->Clear();
-
 	GetImGuiClass()->Update();
 
 	if (ServiceProvider::Instance().TryGet<EntityController>())
@@ -69,6 +67,7 @@ void BaseGame::EngineUpdate()
 
 void BaseGame::EngineDraw()
 {
+	GetRenderer()->Clear();
 	GetEntityManager()->DrawEntities();
 	GetImGuiClass()->Draw();
 }
