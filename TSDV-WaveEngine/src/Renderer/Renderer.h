@@ -16,6 +16,9 @@ class Renderer final : public Service
 {
 private:
 
+	unsigned int shapeShaders;
+	unsigned int spriteShaders;
+
 	unsigned int drawCalls = 0;
 
 	glm::mat4* view;
@@ -40,9 +43,6 @@ public:
 
 	Renderer();
 	~Renderer();
-
-	unsigned int shapeShaders;
-	unsigned int spriteShaders;
 
 	void CreateBuffers(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const;
 	void CreateBuffersSprite(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const;
