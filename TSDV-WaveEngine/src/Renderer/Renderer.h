@@ -26,8 +26,6 @@ private:
 
 	unsigned int defualtTextureID = 0;
 
-	Vector3 res;
-
 	const unsigned int ReturnWorkingMaterial(const unsigned int& materialIDToTry, const unsigned int& materialIDfallBack);
 
 	Window* GetWindow();
@@ -52,8 +50,6 @@ public:
 	void UpdateBuffer(VertexData* vertex, int vertexSize, unsigned& VBO);
 
 	void Clear();
-
-	Vector3 GetRes();
 
 	unsigned int GetDrawCalls();
 

@@ -43,17 +43,13 @@ void Renderer::Init()
 {
 	defualtTextureID = ServiceProvider::Instance().Get<TextureImporter>()->LoadTextureAbsolutePath("Sprites/whiteImage.png");
 
-	res.x = GetWindow()->GetWidth();
-	res.y = GetWindow()->GetHeight();
-	res.z = 1.0f;
-
-	glViewport(0, 0, res.x, res.y);
+	glViewport(0, 0, GetWindow()->GetWidth(), GetWindow()->GetHeight());
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	view = new glm::mat4(1.0f);
-	proj = new glm::mat4(glm::ortho(0.0f, res.x, 0.0f, res.y, -1.0f, 1.0f));
+	proj = new glm::mat4(glm::ortho(0.0f, static_cast<float>(GetWindow()->GetHeight()), 0.0f, static_cast<float>(GetWindow()->GetHeight()), -1.0f, 1.0f));
 
 	FileReader* fileReader = ServiceProvider::Instance().Get<FileReader>();
 
@@ -137,11 +133,6 @@ void Renderer::Clear()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	drawCalls = 0;
-}
-
-Vector3 Renderer::GetRes()
-{
-	return res;
 }
 
 unsigned int Renderer::GetDrawCalls()
