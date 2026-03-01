@@ -30,7 +30,7 @@ const string Material::GetName()
 	return name;
 }
 
-Vector4 Material::GetColor() const
+Vector4 Material::GetColor()
 {
 	return color;
 }
@@ -40,69 +40,33 @@ unsigned int Material::GetID() const
 	return ID;
 }
 
-unsigned int Material::GetProgram() const
+unsigned int Material::GetProgram()
 {
 	return program;
 }
 
-unsigned int Material::GetUColor() const
+void Material::SetTexture(const unsigned int& ID)
 {
-	return uColor;
+	textureID = ID;
 }
 
-unsigned int Material::GetUModel() const
-{
-	return uModel;
-}
-
-unsigned int Material::GetUView() const
-{
-	return uView;
-}
-
-unsigned int Material::GetUProj() const
-{
-	return uProj;
-}
-
-void Material::SetName(const string_view name)
+void Material::SetName(const string& name)
 {
 	this->name = name;
 }
 
-void Material::SetProgram(const unsigned int& program)
+void Material::AddUniform(const std::string& name, const GLenum& type, const GLint& location, const GLint& size)
 {
-	this->program = program;
-}
+	if (location == -1)
+		return;
 
-void Material::SetUColor(const unsigned int& color)
-{
-	this->uColor = color;
-}
+	Uniform uniform;
+	uniform.name = name;
+	uniform.type = type;
+	uniform.location = location;
+	uniform.size = size;
 
-void Material::SetUModel(const unsigned int& model)
-{
-	uModel = model;
-}
-
-void Material::SetUView(const unsigned int& view)
-{
-	uView = view;
-}
-
-void Material::SetUProj(const unsigned int& projection)
-{
-	uProj = projection;
-}
-
-void Material::SetOurTexture(const unsigned int& ourTexture)
-{
-	this->ourTexture = ourTexture;
-}
-
-unsigned int Material::GetOurTexture() const
-{
-	return ourTexture;
+	uniforms[name] = uniform;
 }
 
 void Material::SetColor(const Vector4& color)
@@ -110,17 +74,105 @@ void Material::SetColor(const Vector4& color)
 	this->color = color;
 }
 
-void Material::Bind() const
+void Material::SetVec2(const std::string& name, const Vector2& value)
 {
-	glUseProgram(program);
+	SetGLMVec2(name, glm::vec2(value.x, value.y));
 }
 
-void Material::UnBind() const
+void Material::SetVec3(const std::string& name, const Vector3& value)
+{
+	SetGLMVec3(name, glm::vec3(value.x, value.y, value.z));
+}
+
+void Material::SetVec4(const std::string& name, const Vector4& value)
+{
+	SetGLMVec4(name, glm::vec4(value.x, value.y, value.z, value.w));
+}
+
+void Material::SetMat4(const std::string& name, const glm::mat4& value)
+{
+	unordered_map<string, Uniform>::iterator it = uniforms.find(name);
+	if (it == uniforms.end())
+		return;
+
+	glUniformMatrix4fv(uniforms.at(name).location, 1, GL_FALSE, glm::value_ptr(value));
+}
+
+void Material::SetGLMVec4(const std::string& name, const glm::vec4& value)
+{
+	unordered_map<string, Uniform>::iterator it = uniforms.find(name);
+	if (it == uniforms.end())
+		return;
+
+	glUniform4f(it->second.location, value.x, value.y, value.z, value.w);
+}
+
+void Material::SetGLMVec3(const std::string& name, const glm::vec3& value)
+{
+	unordered_map<string, Uniform>::iterator it = uniforms.find(name);
+	if (it == uniforms.end())
+		return;
+
+	glUniform3fv(it->second.location, 1, glm::value_ptr(value));
+}
+
+void Material::SetGLMVec2(const std::string& name, const glm::vec2& value)
+{
+	unordered_map<string, Uniform>::iterator it = uniforms.find(name);
+	if (it == uniforms.end())
+		return;
+
+	glUniform2fv(it->second.location, 1, glm::value_ptr(value));
+}
+
+void Material::SetFloat(const std::string& name, const float& value)
+{
+	unordered_map<string, Uniform>::iterator it = uniforms.find(name);
+	if (it == uniforms.end())
+		return;
+
+	glUniform1fv(it->second.location, 1, &value);
+}
+
+void Material::SetInt(const std::string& name, const int& value)
+{
+	unordered_map<string, Uniform>::iterator it = uniforms.find(name);
+	if (it == uniforms.end())
+		return;
+
+	glUniform1i(it->second.location, value);
+}
+
+void Material::Bind()
+{
+	glUseProgram(program);
+
+	//if (textureID == Texture::NULL_TEXTURE)
+	//	return;
+	//
+	//int textureSlot = 0;
+	//
+	//for (unordered_map<string, Uniform>::iterator pair = uniforms.begin(); pair != uniforms.end(); ++pair)
+	//{
+	//	Uniform& u = pair->second;
+	//
+	//	if (u.type == GL_SAMPLER_2D)
+	//	{
+	//		glActiveTexture(GL_TEXTURE0 + textureSlot);
+	//		glBindTexture(GL_TEXTURE_2D, textureID);
+	//		glUniform1i(u.location, textureSlot);
+	//
+	//		textureSlot++;
+	//	}
+	//}
+}
+
+void Material::UnBind()
 {
 	glUseProgram(0);
 }
 
-void Material::Unload() const
+void Material::Unload()
 {
 	glDeleteProgram(program);
 }
