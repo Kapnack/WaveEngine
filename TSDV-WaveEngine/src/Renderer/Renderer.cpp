@@ -8,6 +8,7 @@
 using namespace std;
 
 #include <map>
+#include <Camera/Camera.h>
 
 Renderer::Renderer()
 {
@@ -160,8 +161,8 @@ void Renderer::DrawElement(glm::mat4& model, const unsigned int& materialID, con
 
 	materialToUse->SetVec4("uColor", materialToUse->GetColor());
 	materialToUse->SetMat4("uModel", model);
-	materialToUse->SetMat4("uView", *view);
-	materialToUse->SetMat4("uProj", *proj);
+	materialToUse->SetMat4("uView", Camera::camera.GetView());
+	materialToUse->SetMat4("uProj", Camera::camera.GetProjection());
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indicesSize, GL_UNSIGNED_INT, (void*)0);
