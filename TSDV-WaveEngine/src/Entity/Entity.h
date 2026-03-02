@@ -33,7 +33,7 @@ protected:
 
 	glm::mat4 model;
 
-	void CalculateTRS();
+	virtual void CalculateTRS();
 
 	virtual void UpdateCollider() = 0;
 
