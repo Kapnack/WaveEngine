@@ -123,6 +123,13 @@ void Renderer::CreateBuffersSprite(const VertexData* vertex, const int& vertexSi
 	glBindVertexArray(0);
 }
 
+void Renderer::DeleteBuffers(unsigned int& VAO, unsigned int& VBO, unsigned int& EBO)
+{
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
+}
+
 void Renderer::UpdateBuffer(VertexData* vertex, int vertexSize, unsigned& VBO)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);

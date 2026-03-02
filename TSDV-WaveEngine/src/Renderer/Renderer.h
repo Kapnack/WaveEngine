@@ -47,6 +47,8 @@ public:
 	void CreateBuffers(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const;
 	void CreateBuffersSprite(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const;
 
+	void DeleteBuffers(unsigned int& VAO, unsigned int& VBO, unsigned int& EBO);
+
 	void UpdateBuffer(VertexData* vertex, int vertexSize, unsigned& VBO);
 
 	void Clear();
