@@ -52,7 +52,7 @@ public:
 		const float& animationTime);
 
 	WAVEEXPORT ~Animation();
-	WAVEEXPORT void Update();
+	WAVEEXPORT void Update(const float& deltaTime);
 	WAVEEXPORT void MoveToNextFrame();
 	WAVEEXPORT void MoveToPreviousFrame();
 	WAVEEXPORT void GoToFrame(const int& index);

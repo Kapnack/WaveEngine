@@ -87,12 +87,12 @@ Frame Animation::GetFrame(int index) const
 	return frames[index];
 }
 
-void Animation::Update()
+void Animation::Update(const float& deltaTime)
 {
 	if (paused)
 		return;
 
-	AddToTimer(animationSpeed * ServiceProvider::Instance().Get<Time>()->GetDeltaTime());
+	AddToTimer(animationSpeed * deltaTime);
 }
 
 void Animation::MoveToNextFrame()
