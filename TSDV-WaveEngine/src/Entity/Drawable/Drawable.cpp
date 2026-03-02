@@ -10,18 +10,10 @@ Drawable::Drawable(const unsigned int& ID)
 
 Drawable::~Drawable()
 {
+	GetRenderer()->DeleteBuffers(VAO, VBO, EBO);
+
 	delete[] vertex;
 	delete[] indices;
-}
-
-MaterialManager* Drawable::GetMaterialManager()
-{
-	return ServiceProvider::Instance().Get<MaterialManager>();
-}
-
-Renderer* Drawable::GetRenderer() const
-{
-	return ServiceProvider::Instance().Get<Renderer>();
 }
 
 void Drawable::SetLayer(const int& layer)
@@ -65,4 +57,14 @@ void Drawable::SetVertexColor(const int& index, const Vector4& color)
 void Drawable::UpdateVertexBuffer()
 {
 	GetRenderer()->UpdateBuffer(vertex, vertexSize, VBO);
+}
+
+MaterialManager* Drawable::GetMaterialManager()
+{
+	return ServiceProvider::Instance().Get<MaterialManager>();
+}
+
+Renderer* Drawable::GetRenderer() const
+{
+	return ServiceProvider::Instance().Get<Renderer>();
 }
