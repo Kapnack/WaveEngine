@@ -16,6 +16,7 @@ WAVEEXPORT struct Vector3
 	WAVEEXPORT Vector3(const float& x, const float& y);
 	WAVEEXPORT Vector3(const float& x, const float& y, const float& z);
 	WAVEEXPORT Vector3 operator/(const Vector3& other);
+	WAVEEXPORT Vector3 operator+(const Vector3& other);
 	WAVEEXPORT void operator+=(const Vector3& other);
 	WAVEEXPORT void operator-=(const Vector3& other);
 	WAVEEXPORT void operator=(const Vector2& vector2);
