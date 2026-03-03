@@ -13,11 +13,11 @@ Window* Time::GetWindow()
 	return ServiceProvider::Instance().Get<Window>();
 }
 
-void Time::SetDeltaTime()
+void Time::UpdateDeltaTime()
 {
 	float actualTime = GetWindow()->GetGLTime();
 
-	deltaTime = actualTime - lastTime;
+	deltaTime = actualTime - lastTime * multiplier;
 
 	lastTime = actualTime;
 }
@@ -25,4 +25,9 @@ void Time::SetDeltaTime()
 float Time::GetDeltaTime()
 {
 	return deltaTime;
+}
+
+void Time::SetTimeScale(const float& multiplier)
+{
+	this->multiplier = multiplier;
 }
