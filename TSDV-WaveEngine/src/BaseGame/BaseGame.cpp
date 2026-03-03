@@ -5,6 +5,7 @@
 #include "Material/MaterialFactory.h"
 #include "TextureImporter/TextureImporter.h"
 #include "TextureImporter/TextureManager.h"
+#include <Camera/Camera.h>
 
 BaseGame::BaseGame(const int& width, const int& height)
 {
@@ -33,6 +34,10 @@ void BaseGame::InitEngine(const int& width, const int& height)
 	ServiceProvider::Instance().Register(new Renderer());
 	ServiceProvider::Instance().Register(new Input());
 	ServiceProvider::Instance().Register(new Time());
+
+	Camera::camera.SetPosition(397, 392, 1042);
+	Camera::camera.SetFarPlane(10000);
+	Camera::camera.SetOrthographic(false);
 }
 
 void BaseGame::EndEngine()
@@ -57,6 +62,44 @@ void BaseGame::Run()
 
 void BaseGame::EngineUpdate()
 {
+	if (GetInput()->IsKeyPressed(Keys::W))
+	{
+		Camera::camera.Translate(Vector3::Up() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
+	}
+	else if (GetInput()->IsKeyPressed(Keys::A))
+	{
+		Camera::camera.Translate(Vector3::Left() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
+	}
+	else if (GetInput()->IsKeyPressed(Keys::S))
+	{
+		Camera::camera.Translate(Vector3::Down() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
+	}
+	else if (GetInput()->IsKeyPressed(Keys::D))
+	{
+		Camera::camera.Translate(Vector3::Right() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
+	}
+	else if (GetInput()->IsKeyPressed(Keys::SPACE))
+	{
+		Camera::camera.Translate(Vector3::Front() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
+	}
+	else if (GetInput()->IsKeyPressed(Keys::LEFT_CONTROL))
+	{
+		Camera::camera.Translate(Vector3::Back() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
+	}
+
+	if (GetInput()->IsKeyPressed(Keys::Q))
+		Camera::camera.AddToFarPlane(GetDeltaTime() * Camera::camera.GetMovementSpeed());
+	if (GetInput()->IsKeyPressed(Keys::E))
+		Camera::camera.AddToFarPlane(GetDeltaTime() * -Camera::camera.GetMovementSpeed());
+
+	if (GetInput()->IsKeyPressed(Keys::Z))
+		Camera::camera.Rotate(Vector3::Right() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
+	else if (GetInput()->IsKeyPressed(Keys::X))
+		Camera::camera.Rotate(Vector3::Front() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
+
+
+	cout << Camera::camera.GetPosition().x << "." << Camera::camera.GetPosition().y << ". " << Camera::camera.GetPosition().z << endl << endl;
+
 	GetTime()->SetDeltaTime();
 
 	GetImGuiClass()->Update();
