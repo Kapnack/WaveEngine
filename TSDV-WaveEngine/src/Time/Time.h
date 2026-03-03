@@ -15,17 +15,21 @@ private:
 	float deltaTime = 0;
 	float lastTime = 0;
 
+	float multiplier = 1;
+
 	Window* GetWindow();
 
 	Time();
 	~Time();
+
+	void UpdateDeltaTime();
 
 	friend class BaseGame;
 	friend class ServiceProvider;
 
 public:
 
-	void SetDeltaTime();
 	WAVEEXPORT float GetDeltaTime();
+	WAVEEXPORT void SetTimeScale(const float& multiplier);
 };
 
