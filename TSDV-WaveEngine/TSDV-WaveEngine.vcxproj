@@ -87,19 +87,20 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\include;$(ProjectDir)src;$(ProjectDir)lib\glew-2.2.0\include;$(ProjectDir)lib\glm-1.0.1\include;$(ProjectDir)lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\include;$(ProjectDir)src;$(ProjectDir)lib\glew-2.2.0\include;$(ProjectDir)lib\glm-1.0.1\include;$(ProjectDir)lib;$(ProjectDir)lib\assimp\include;$(ProjectDir)lib\assimp\Include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(CoreLibraryDependencies);opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\lib-vc2022;$(LibraryPath);$(ProjectDir)lib\glew-2.2.0\lib\Release\Win32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);opengl32.lib;glfw3.lib;glew32.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\lib-vc2022;$(LibraryPath);$(ProjectDir)lib\glew-2.2.0\lib\Release\Win32;$(ProjectDir)lib\assimp\lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)lib\glew-2.2.0\bin\Release\Win32\glew32.dll" "$(OutDir)" /i/y/s
-xcopy "$(ProjectDir)lib\glew-2.2.0\bin\Release\Win32\glew32.dll" "$(SolutionDir)" /i/y/s
-xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
+xcopy "$(ProjectDir)lib\assimp\lib\assimp-vc142-mtd.dll" "$(OutDir)" /i/y/s
+xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -110,20 +111,21 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\include;$(ProjectDir)src;$(ProjectDir)lib\glew-2.2.0\include;$(ProjectDir)lib\glm-1.0.1\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\include;$(ProjectDir)src;$(ProjectDir)lib\glew-2.2.0\include;$(ProjectDir)lib\glm-1.0.1\include;;$(ProjectDir)lib\assimp\include;$(ProjectDir)lib\assimp\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(CoreLibraryDependencies);opengl32.lib;glfw3.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\lib-vc2022;$(LibraryPath);$(ProjectDir)lib\glew-2.2.0\lib\Release\Win32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);opengl32.lib;glfw3.lib;glew32.lib;assimp-vc142-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib\glfw-3.4.bin.WIN32\lib-vc2022;$(LibraryPath);$(ProjectDir)lib\glew-2.2.0\lib\Release\Win32;$(ProjectDir)lib\assimp\lib</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)lib\glew-2.2.0\bin\Release\Win32\glew32.dll" "$(OutDir)" /i/y/s
-xcopy "$(ProjectDir)lib\glew-2.2.0\bin\Release\Win32\glew32.dll" "$(SolutionDir)" /i/y/s
-xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s</Command>
+xcopy "$(ProjectDir)lib\assimp\lib\assimp-vc142-mtd.dll" "$(OutDir)" /i/y/s
+xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

@@ -78,7 +78,8 @@ void BaseGame::EngineUpdate()
 	{
 		Camera::camera.Translate(Vector3::Right() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
 	}
-	else if (GetInput()->IsKeyPressed(Keys::SPACE))
+
+	if (GetInput()->IsKeyPressed(Keys::SPACE))
 	{
 		Camera::camera.Translate(Vector3::Front() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
 	}
@@ -95,7 +96,7 @@ void BaseGame::EngineUpdate()
 	if (GetInput()->IsKeyPressed(Keys::Z))
 		Camera::camera.Rotate(Vector3::Right() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
 	else if (GetInput()->IsKeyPressed(Keys::X))
-		Camera::camera.Rotate(Vector3::Front() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
+		Camera::camera.Rotate(Vector3::Left() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
 
 
 	cout << Camera::camera.GetPosition().x << "." << Camera::camera.GetPosition().y << ". " << Camera::camera.GetPosition().z << endl << endl;
