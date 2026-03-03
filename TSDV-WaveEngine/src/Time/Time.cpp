@@ -17,7 +17,7 @@ void Time::UpdateDeltaTime()
 {
 	float actualTime = GetWindow()->GetGLTime();
 
-	deltaTime = actualTime - lastTime * multiplier;
+	deltaTime = actualTime - lastTime * timeScale;
 
 	lastTime = actualTime;
 }
@@ -27,7 +27,7 @@ float Time::GetDeltaTime()
 	return deltaTime;
 }
 
-void Time::SetTimeScale(const float& multiplier)
+void Time::SetTimeScale(const float& timeScale)
 {
-	this->multiplier = multiplier;
+	this->timeScale = timeScale;
 }
