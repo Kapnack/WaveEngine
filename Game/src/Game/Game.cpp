@@ -7,6 +7,7 @@
 #include "Vector2.h"
 #include "TileMap/TileMap.h"
 #include <string>
+#include <Camera/Camera.h>
 
 Game::Game(int width, int height) : BaseGame(width, height)
 {
@@ -56,22 +57,22 @@ void Game::Update()
 	if (!GetEntityManager()->TryGet(player))
 		return;
 
-	if (GetInput()->IsKeyPressed(Keys::W))
+	if (GetInput()->IsKeyPressed(Keys::UP))
 	{
 		GetEntityManager()->Get<Sprite>(player)->SetAnimation(walkingUp);
 		GetEntityManager()->Get(player)->Translate(Vector2::Up() * playerVelocity * GetDeltaTime());
 	}
-	else if (GetInput()->IsKeyPressed(Keys::A))
+	else if (GetInput()->IsKeyPressed(Keys::LEFT))
 	{
 		GetEntityManager()->Get<Sprite>(player)->SetAnimation(walkingLeft);
 		GetEntityManager()->Get(player)->Translate(Vector2::Left() * playerVelocity * GetDeltaTime());
 	}
-	else if (GetInput()->IsKeyPressed(Keys::S))
+	else if (GetInput()->IsKeyPressed(Keys::DOWN))
 	{
 		GetEntityManager()->Get<Sprite>(player)->SetAnimation(walkingDown);
 		GetEntityManager()->Get(player)->Translate(Vector2::Down() * playerVelocity * GetDeltaTime());
 	}
-	else if (GetInput()->IsKeyPressed(Keys::D))
+	else if (GetInput()->IsKeyPressed(Keys::RIGHT))
 	{
 		GetEntityManager()->Get<Sprite>(player)->SetAnimation(walkingRight);
 		GetEntityManager()->Get(player)->Translate(Vector2::Right() * playerVelocity * GetDeltaTime());
@@ -83,7 +84,7 @@ void Game::Update()
 	if (GetInput()->IsKeyPressed(Keys::RIGHT))
 		GetEntityManager()->Get<Sprite>(player)->GetAnimation()->MoveToNextFrame();
 
-	GetEntityManager()->Get<Sprite>(player)->Update();
+	GetEntityManager()->Get<Sprite>(player)->Update(GetDeltaTime());
 
 	if (GetEntityManager()->TryGet<TileMap>(tileMap))
 		if (GetCollsionManager()->CheckCollision(player, *GetEntityManager()->Get<TileMap>(tileMap)))
