@@ -98,9 +98,6 @@ void BaseGame::EngineUpdate()
 	else if (GetInput()->IsKeyPressed(Keys::X))
 		Camera::camera.Rotate(Vector3::Left() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
 
-
-	cout << Camera::camera.GetPosition().x << "." << Camera::camera.GetPosition().y << ". " << Camera::camera.GetPosition().z << endl << endl;
-
 	GetTime()->SetDeltaTime();
 
 	GetImGuiClass()->Update();
