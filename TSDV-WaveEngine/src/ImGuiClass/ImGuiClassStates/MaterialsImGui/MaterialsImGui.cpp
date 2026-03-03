@@ -36,8 +36,7 @@ void MaterialsImGui::Update()
 
 	if (current == 1)
 	{
-		text = "Import Material";
-		ImGui::Text(text.c_str());
+		ImGui::Text("Import Material");
 
 		ImGui::InputText("Material Name", newMaterialName.data(), newMaterialName.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &newMaterialName);
 
@@ -63,8 +62,7 @@ void MaterialsImGui::Update()
 	}
 	else if(current == 2)
 	{
-		text = "Create Material";
-		ImGui::Text(text.c_str());
+		ImGui::Text("Create Material");
 
 		ImGui::InputText("Material Name", newMaterialName.data(), newMaterialName.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &newMaterialName);
 
@@ -82,24 +80,18 @@ void MaterialsImGui::Update()
 
 	ImGui::Separator();
 
-	text = "Delete by Name";
-	ImGui::Checkbox(text.c_str(), &deleteByName);
+	ImGui::Checkbox("Delete by Name", &deleteByName);
 
 	if (!deleteByName)
 	{
-		text = "Input Material ID";
-
-		ImGui::InputInt(text.c_str(), &materialID);
+		ImGui::InputInt("Input Material ID", &materialID);
 	}
 	else
 	{
-		text = "Input Material Name";
-
-		ImGui::InputText(text.c_str(), materialName, sizeof(materialName));
+		ImGui::InputText("Input Material Name", materialName, sizeof(materialName));
 	}
 
-	text = "Delete Material";
-	if (ImGui::Button(text.c_str()))
+	if (ImGui::Button("Delete Material"))
 		if (!deleteByName)
 			GetMaterialManager()->DeleteMaterial(materialID);
 		else

@@ -102,14 +102,11 @@ void EntitiesImGui::EntityDisplayer()
 {
 	ImGui::Combo("Filter", &currentFilter, filters, IM_ARRAYSIZE(filters));
 
-	text = "Display in Reverse";
-	ImGui::Checkbox(text.c_str(), &showInReverseOrder);
+	ImGui::Checkbox("Display in Reverse", &showInReverseOrder);
 
-	text = "Show Entities Materials";
-	ImGui::Checkbox(text.c_str(), &showMaterials);
+	ImGui::Checkbox("Show Entities Materials", &showMaterials);
 
-	text = "Show Entities Textures";
-	ImGui::Checkbox(text.c_str(), &showTextures);
+	ImGui::Checkbox("Show Entities Textures", &showTextures);
 
 	switch (currentFilter)
 	{
