@@ -141,14 +141,7 @@ void Camera::CalculateMatrixes()
 	view = glm::lookAt(pos, pos + forward, up);
 
 	projection = orthografic ?
-		glm::ortho(
-			-halfWidth,
-			halfWidth,
-			-halfHeight,
-			halfHeight,
-			nearPlane,
-			farPlane
-		)
+		glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, nearPlane, farPlane)
 		:
 		glm::perspective(glm::radians(fovDeg), aspect, nearPlane, farPlane);
 }
