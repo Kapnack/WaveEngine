@@ -30,7 +30,7 @@ public:
 
 	WAVEEXPORT void SetUVCordinates(const Vector2& cord1, const Vector2& cord2);
 	WAVEEXPORT void SetAnimation(Animation* animation);
-	WAVEEXPORT void Update();
+	WAVEEXPORT void Update(const float& deltaTime);
 	WAVEEXPORT void SetTexture(const unsigned int& textureID);
 	WAVEEXPORT Animation* GetAnimation();
 	WAVEEXPORT unsigned int GetTexture();

@@ -70,10 +70,10 @@ void Sprite::SetAnimation(Animation* animation)
 	this->animation = animation;
 }
 
-void Sprite::Update()
+void Sprite::Update(const float& deltaTime)
 {
 	if (animation)
-		animation->Update();
+		animation->Update(deltaTime);
 }
 
 void Sprite::SetTexture(const unsigned int& textureID)
