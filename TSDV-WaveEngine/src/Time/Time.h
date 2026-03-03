@@ -15,7 +15,7 @@ private:
 	float deltaTime = 0;
 	float lastTime = 0;
 
-	float multiplier = 1;
+	float timeScale = 1;
 
 	Window* GetWindow();
 
@@ -30,6 +30,6 @@ private:
 public:
 
 	WAVEEXPORT float GetDeltaTime();
-	WAVEEXPORT void SetTimeScale(const float& multiplier);
+	WAVEEXPORT void SetTimeScale(const float& timeScale);
 };
 
