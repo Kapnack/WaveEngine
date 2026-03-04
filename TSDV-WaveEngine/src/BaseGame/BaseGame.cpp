@@ -23,7 +23,6 @@ void BaseGame::InitEngine(const int& width, const int& height)
 		exit(-1);
 
 	ServiceProvider::Instance().Register(new Window(width, height, "WaveEngine", nullptr, nullptr));
-	ServiceProvider::Instance().Register(new ImGuiClass());
 	ServiceProvider::Instance().Register(new FileReader());
 	ServiceProvider::Instance().Register(new MaterialManager());
 	ServiceProvider::Instance().Register(new MaterialFactory());
@@ -34,6 +33,7 @@ void BaseGame::InitEngine(const int& width, const int& height)
 	ServiceProvider::Instance().Register(new Renderer());
 	ServiceProvider::Instance().Register(new Input());
 	ServiceProvider::Instance().Register(new Time());
+	imGuiClass = new ImGuiClass();
 
 	Camera::camera.SetPosition(397, 392, 1042);
 	Camera::camera.SetFarPlane(10000);
@@ -43,6 +43,7 @@ void BaseGame::InitEngine(const int& width, const int& height)
 void BaseGame::EndEngine()
 {
 	ServiceProvider::Instance().Clear();
+	delete imGuiClass;
 }
 
 void BaseGame::Run()
@@ -100,7 +101,7 @@ void BaseGame::EngineUpdate()
 
 	GetTime()->UpdateDeltaTime();
 
-	GetImGuiClass()->Update();
+	imGuiClass->Update();
 
 	if (ServiceProvider::Instance().TryGet<EntityController>())
 		ServiceProvider::Instance().Get<EntityController>()->Update(GetDeltaTime());
@@ -110,7 +111,7 @@ void BaseGame::EngineDraw()
 {
 	GetRenderer()->Clear();
 	GetEntityManager()->DrawEntities();
-	GetImGuiClass()->Draw();
+	imGuiClass->Draw();
 }
 
 Time* BaseGame::GetTime()
@@ -121,11 +122,6 @@ Time* BaseGame::GetTime()
 Renderer* BaseGame::GetRenderer()
 {
 	return ServiceProvider::Instance().Get<Renderer>();
-}
-
-ImGuiClass* BaseGame::GetImGuiClass()
-{
-	return ServiceProvider::Instance().Get<ImGuiClass>();
 }
 
 float BaseGame::GetDeltaTime()

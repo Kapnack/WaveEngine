@@ -16,6 +16,8 @@ WAVEEXPORT class BaseGame
 {
 private:
 
+	ImGuiClass* imGuiClass;
+
 	void InitEngine(const int& width, const int& height);
 
 	void EndEngine();
@@ -25,8 +27,6 @@ private:
 	void EngineDraw();
 
 	Renderer* GetRenderer();
-
-	ImGuiClass* GetImGuiClass();
 
 protected:
 
