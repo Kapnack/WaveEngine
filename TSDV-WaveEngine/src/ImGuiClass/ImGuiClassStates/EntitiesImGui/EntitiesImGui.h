@@ -10,7 +10,33 @@
 #include "TextureImporter/TextureManager.h"
 #include "Entity/EntityManager.h"
 #include "Entity/EntityFactory.h"
-#include <Entity/Entity2D/Sprite/Sprite.h>
+#include "Entity/Entity2D/Sprite/Sprite.h"
+#include "Entity/Entity2D/Shape/Triangle/Triangle.h"
+#include "Entity/Entity2D/Shape/Square/Square.h"
+
+struct ComboData
+{
+	const char* label;
+	std::function<void()> action;
+};
+
+struct ComoboStruct
+{
+	vector<ComboData> options;
+	vector<const char*> labels;
+	int selected = 0;
+
+	ComoboStruct()
+	{}
+
+	ComoboStruct(vector<ComboData> options)
+	{
+		this->options = options;
+
+		for (vector<ComboData>::iterator::value_type option : options)
+			labels.push_back(option.label);
+	}
+};
 
 class EntitiesImGui : public ImGuiClassState
 {
@@ -26,26 +52,9 @@ private:
 	bool showInReverseOrder = false;
 	bool changedEntityTRS = false;
 
-	const char* creationOptions[4] =
-	{
-		"None", "Sprite", "Square", "Triangle"
-	};
-
-	int currentCreationOption = 0;
-
-	const char* filters[7] =
-	{
-		"Entities", "Sprites", "Squares", "Triangles", "Tiles", "Drawables", "TileMaps"
-	};
-
-	int currentFilter = 0;
-
-	const char* delitionFilters[8] =
-	{
-		"By ID", "All Entities", "All Sprites", "All Squares", "All Triangles", "All Tiles", "All Drawables", "All TileMaps"
-	};
-
-	int currentDeletionFilter = 0;
+	ComoboStruct creation;
+	ComoboStruct filters;
+	ComoboStruct deletionOptions;
 
 	int textureID = 0;
 	int materialID = 0;
@@ -63,6 +72,15 @@ private:
 	void ShowMaterial(const unsigned int& ID, Drawable& entity);
 	void ShowTexture(Sprite& sprite);
 
+	void ShowAllEntities()
+	{
+		if (!showInReverseOrder)
+			for (map<unsigned int, Entity*>::iterator it = GetEntityManager()->GetEntities().begin(); it != GetEntityManager()->GetEntities().end(); ++it)
+				ShowEntity(*it->second);
+		else
+			for (map<unsigned int, Entity*>::reverse_iterator it = GetEntityManager()->GetEntities().rbegin(); it != GetEntityManager()->GetEntities().rend(); ++it)
+				ShowEntity(*it->second);
+	}
 
 	template<EntityManagerGetStandar T>
 	void ShowAllOfType()

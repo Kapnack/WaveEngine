@@ -9,6 +9,42 @@
 
 EntitiesImGui::EntitiesImGui() : ImGuiClassState()
 {
+	creation = ComoboStruct
+	(
+		{
+			{ "None", []() {} },
+			{ "Sprites", [this]() {GetEntityFactory()->Create<Sprite>(); } },
+			{ "Square", [this]() {GetEntityFactory()->Create<Square>(); } },
+			{ "Triangle", [this]() {GetEntityFactory()->Create<Triangle>(); } }
+		}
+	);
+
+	filters = ComoboStruct
+	(
+		{
+			{ "Entities", [this]() {ShowAllEntities(); } },
+			{ "Sprites", [this]() {ShowAllOfType<Sprite>(); } },
+			{ "Squares", [this]() {ShowAllOfType<Square>(); } },
+			{ "Triangles", [this]() {ShowAllOfType<Triangle>(); } },
+			{ "Tiles", [this]() {ShowAllOfType<Tile>(); } },
+			{ "Drawables", [this]() {ShowAllOfType<Drawable>(); } },
+			{ "TileMaps", [this]() {ShowAllOfType<TileMap>(); } }
+		}
+	);
+
+	deletionOptions = ComoboStruct
+	(
+		{
+	{ "By ID", [this]() {GetEntityManager()->DeleteEntity(entityToDelete); }},
+	{ "All Entities", [this]() {GetEntityManager()->DeleteAll(); }},
+	{ "All Sprites", [this]() {GetEntityManager()->DeleteAllOfType<Sprite>(); }},
+	{ "All Squares", [this]() {GetEntityManager()->DeleteAllOfType<Square>(); }},
+	{ "All Triangles", [this]() {GetEntityManager()->DeleteAllOfType<Triangle>(); }},
+	{ "All Tiles", [this]() {GetEntityManager()->DeleteAllOfType<Tile>(); }},
+	{ "All Drawables", [this]() {GetEntityManager()->DeleteAllOfType<Drawable>(); }},
+	{ "All TileMaps", [this]() {GetEntityManager()->DeleteAllOfType<TileMap>(); }},
+		}
+	);
 }
 
 EntitiesImGui::~EntitiesImGui()
@@ -46,21 +82,13 @@ void EntitiesImGui::Update()
 
 void EntitiesImGui::EntityCreator()
 {
-	ImGui::Combo("Entity Factory", &currentCreationOption, creationOptions, IM_ARRAYSIZE(creationOptions));
+	ImGui::Combo("Entity Factory", &creation.selected, creation.labels.data(), creation.labels.size());
 
-	if (currentCreationOption > 0)
+	if (creation.selected > 0)
 	{
 		text = "Spawn Entity";
 		if (ImGui::Button(text.c_str()))
-			switch (currentCreationOption)
-			{
-			case 1: GetEntityFactory()->Create<Sprite>(); break;
-			case 2: GetEntityFactory()->Create<Square>(); break;
-			case 3: GetEntityFactory()->Create<Triangle>(); break;
-
-			default:
-				break;
-			}
+			creation.options.at(creation.selected).action();
 	}
 
 	ImGui::Separator();
@@ -68,39 +96,25 @@ void EntitiesImGui::EntityCreator()
 
 void EntitiesImGui::EntityDeleter()
 {
-	ImGui::Combo("Choose Delete form", &currentDeletionFilter, delitionFilters, IM_ARRAYSIZE(delitionFilters));
+	ImGui::Combo("Choose Delete Form", &deletionOptions.selected, deletionOptions.labels.data(), deletionOptions.labels.size());
 
-
-	if (currentDeletionFilter == 0)
+	if (deletionOptions.selected == 0)
 	{
 		ImGui::Text("Delete Entity by ID");
 		ImGui::InputInt("Input Entity ID", &entityToDelete);
 	}
 
-
 	if (ImGui::Button("Delete"))
-		switch (currentDeletionFilter)
-		{
-		case 0: GetEntityManager()->DeleteEntity(entityToDelete); break;
-
-		case 1: GetEntityManager()->DeleteAll(); break;
-		case 2: GetEntityManager()->DeleteAllOfType<Sprite>(); break;
-		case 3: GetEntityManager()->DeleteAllOfType<Square>(); break;
-		case 4: GetEntityManager()->DeleteAllOfType<Triangle>(); break;
-		case 5: GetEntityManager()->DeleteAllOfType<Tile>(); break;
-		case 6: GetEntityManager()->DeleteAllOfType<Drawable>(); break;
-		case 7: GetEntityManager()->DeleteAllOfType<TileMap>(); break;
-
-		default:
-			break;
-		}
+	{
+		deletionOptions.options.at(deletionOptions.selected).action();
+	}
 
 	ImGui::Separator();
 }
 
 void EntitiesImGui::EntityDisplayer()
 {
-	ImGui::Combo("Filter", &currentFilter, filters, IM_ARRAYSIZE(filters));
+	ImGui::Combo("Filter", &filters.selected, filters.labels.data(), filters.labels.size());
 
 	ImGui::Checkbox("Display in Reverse", &showInReverseOrder);
 
@@ -108,24 +122,7 @@ void EntitiesImGui::EntityDisplayer()
 
 	ImGui::Checkbox("Show Entities Textures", &showTextures);
 
-	switch (currentFilter)
-	{
-	case 0:
-		if (!showInReverseOrder)
-			for (map<unsigned int, Entity*>::iterator it = GetEntityManager()->GetEntities().begin(); it != GetEntityManager()->GetEntities().end(); ++it)
-				ShowEntity(*it->second);
-		else
-			for (map<unsigned int, Entity*>::reverse_iterator it = GetEntityManager()->GetEntities().rbegin(); it != GetEntityManager()->GetEntities().rend(); ++it)
-				ShowEntity(*it->second);
-		break;
-
-	case 1: ShowAllOfType<Sprite>();   break;
-	case 2: ShowAllOfType<Square>();   break;
-	case 3: ShowAllOfType<Triangle>(); break;
-	case 4: ShowAllOfType<Tile>();     break;
-	case 5: ShowAllOfType<Drawable>();     break;
-	case 6: ShowAllOfType<TileMap>();     break;
-	}
+	filters.options.at(filters.selected).action();
 }
 
 void EntitiesImGui::ShowEntity(Entity& entity)
