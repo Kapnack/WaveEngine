@@ -4,7 +4,7 @@
 #include <ImGui/imgui_impl_opengl3.h>
 #include <ImGui/imgui_impl_glfw.h>
 
-ImGuiClass::ImGuiClass() : Service()
+ImGuiClass::ImGuiClass()
 {
 	Init();
 }

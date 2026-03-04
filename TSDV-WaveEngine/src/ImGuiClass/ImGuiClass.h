@@ -20,7 +20,7 @@ using namespace std;
 
 class BaseGame;
 
-class ImGuiClass : public Service
+class ImGuiClass final
 {
 private:
 
