@@ -8,18 +8,14 @@ const float Vector3::epsilon = 1e-05f;
 
 Vector3::Vector3()
 {
+	*this = Zero();
 }
 
 Vector3::Vector3(const Vector2& vector2)
 {
 	x = vector2.x;
 	y = vector2.y;
-}
-
-Vector3::Vector3(const float& x, const float& y)
-{
-	this->x = x;
-	this->y = y;
+	z = 0.0f;
 }
 
 Vector3::Vector3(const float& x, const float& y, const float& z)
@@ -39,14 +35,24 @@ float Vector3::Magnitude() const
 	return Vector3::Magnitude(*this);
 }
 
-float Vector3::SqrtMagnitude() const
+float Vector3::SqrMagnitude() const
 {
-	return Vector3::SqrtMagnitude(*this);
+	return Vector3::SqrMagnitude(*this);
 }
 
 void Vector3::Normalize()
 {
-	*this = Normalized(*this);
+	*this = Normalized();
+}
+
+Vector3 Vector3::Normalized() const
+{
+	return Normalized(*this);
+}
+
+void Vector3::MoveToWards(const Vector3& to, const float& distance)
+{
+	*this = MoveToWards(*this, to, distance);
 }
 
 Vector3 Vector3::operator/(const Vector3& other) const
@@ -64,6 +70,11 @@ Vector3 operator/(const float& scalar, const Vector3& vector)
 	return vector / scalar;
 }
 
+void Vector3::operator/=(const float& scalar)
+{
+	*this = *this / scalar;
+}
+
 Vector3 Vector3::operator+(const Vector3& other) const
 {
 	return Vector3(x + other.x, y + other.y, z + other.z);
@@ -71,9 +82,7 @@ Vector3 Vector3::operator+(const Vector3& other) const
 
 void Vector3::operator+=(const Vector3& other)
 {
-	x += other.x;
-	y += other.y;
-	z += other.z;
+	*this = *this + other;
 }
 
 Vector3 Vector3::operator-(const Vector3& other) const
@@ -83,9 +92,7 @@ Vector3 Vector3::operator-(const Vector3& other) const
 
 void Vector3::operator-=(const Vector3& other)
 {
-	x -= other.x;
-	y -= other.y;
-	z -= other.z;
+	*this = *this - other;
 }
 
 void Vector3::operator=(const Vector2& vector2)
@@ -104,9 +111,14 @@ Vector3 operator*(const float& scalar, const Vector3& vector3)
 	return vector3 * scalar;
 }
 
+void Vector3::operator*=(const float& scalar)
+{
+	*this = *this * scalar;
+}
+
 Vector3 Vector3::One()
 {
-	return Vector3(1, 1, 1);
+	return Vector3(1.0f, 1.0f, 1.0f);
 }
 
 Vector3 Vector3::Up()
@@ -129,7 +141,7 @@ Vector3 Vector3::Left()
 	return Vector3(-1.0f, 0.0f, 0.0f);
 }
 
-Vector3 Vector3::Front()
+Vector3 Vector3::Foward()
 {
 	return Vector3(0.0f, 0.0f, 1.0f);
 }
@@ -137,6 +149,11 @@ Vector3 Vector3::Front()
 Vector3 Vector3::Back()
 {
 	return Vector3(0.0f, 0.0f, -1.0f);
+}
+
+Vector3 Vector3::Zero()
+{
+	return Vector3(0.0f, 0.0f, 0.0f);
 }
 
 float Vector3::Angle(const Vector3& from, const Vector3& to)
@@ -161,7 +178,7 @@ float Vector3::Angle(const Vector3& from, const Vector3& to)
 
 Vector3 Vector3::ClampMagnitude(const Vector3& vector, const float& maxLength)
 {
-	float sqrMag = SqrtMagnitude(vector);
+	float sqrMag = SqrMagnitude(vector);
 
 	if (sqrMag > maxLength * maxLength)
 	{
@@ -187,10 +204,10 @@ Vector3 Vector3::Cross(const Vector3& a, const Vector3& b)
 
 float Vector3::Magnitude(const Vector3& vector)
 {
-	return std::sqrtf(Dot(vector, vector));
+	return std::sqrtf(SqrMagnitude(vector));
 }
 
-float Vector3::SqrtMagnitude(const Vector3& vector)
+float Vector3::SqrMagnitude(const Vector3& vector)
 {
 	return Dot(vector, vector);
 }
@@ -238,16 +255,41 @@ Vector3 Vector3::Min(const Vector3& a, const Vector3& b)
 Vector3 Vector3::Project(const Vector3& a, const Vector3& b)
 {
 	float dot = Dot(a, b);
-	float sqrMag = SqrtMagnitude(b);
+	float sqrMag = SqrMagnitude(b);
 
-	if (sqrMag < epsilon)
-		return Vector3(0.0f, 0.0f, 0.0f);
+	if (sqrMag < epsilon * epsilon)
+		return Vector3::Zero();
 
 	float scale = dot / sqrMag;
-	return Vector3(b * scale);
+	return b * scale;
 }
 
 Vector3 Vector3::Normalized(const Vector3& a)
 {
-	return Vector3(a / a.Magnitude());
+	float mag = a.Magnitude();
+
+	if (mag < epsilon)
+		return Vector3::Zero();
+
+	return a / mag;
+}
+
+Vector3 Vector3::MoveToWards(const Vector3& from, const Vector3& to, const float& distance)
+{
+	Vector3 toVector = to - from;
+
+	float sqDist = toVector.SqrMagnitude();
+
+	if (sqDist <= distance * distance)
+		return to;
+
+	float dist = std::sqrt(sqDist);
+
+	return from + toVector / dist * distance;
+}
+
+Vector3 Vector3::Reflect(const Vector3& direction, const Vector3& normal)
+{
+	float dot = Dot(direction, normal);
+	return direction - normal * (2.0f * dot);
 }
