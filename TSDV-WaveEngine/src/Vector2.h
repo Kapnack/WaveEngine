@@ -4,7 +4,7 @@
 
 struct Vector3;
 
-WAVEEXPORT struct Vector2
+WAVEEXPORT struct Vector2 final
 {
 	float x = 0.0f;
 	float y = 0.0f;
