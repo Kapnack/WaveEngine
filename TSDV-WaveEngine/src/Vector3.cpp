@@ -1,6 +1,10 @@
 #include "Vector3.h"
 
+#include <cmath>
+
 #include "Vector2.h"
+
+const float Vector3::epsilon = 1e-05f;
 
 Vector3::Vector3()
 {
@@ -25,12 +29,42 @@ Vector3::Vector3(const float& x, const float& y, const float& z)
 	this->z = z;
 }
 
-Vector3 Vector3::operator/(const Vector3& other)
+void Vector3::ClampMagnitude(const float& maxLength)
+{
+	*this = ClampMagnitude(*this, maxLength);
+}
+
+float Vector3::Magnitude() const
+{
+	return Vector3::Magnitude(*this);
+}
+
+float Vector3::SqrtMagnitude() const
+{
+	return Vector3::SqrtMagnitude(*this);
+}
+
+void Vector3::Normalize()
+{
+	*this = Normalized(*this);
+}
+
+Vector3 Vector3::operator/(const Vector3& other) const
 {
 	return Vector3(x / other.x, y / other.y, z / other.z);
 }
 
-Vector3 Vector3::operator+(const Vector3& other)
+Vector3 Vector3::operator/(const float& scalar) const
+{
+	return Vector3(x / scalar, y / scalar, z / scalar);
+}
+
+Vector3 operator/(const float& scalar, const Vector3& vector)
+{
+	return vector / scalar;
+}
+
+Vector3 Vector3::operator+(const Vector3& other) const
 {
 	return Vector3(x + other.x, y + other.y, z + other.z);
 }
@@ -40,6 +74,11 @@ void Vector3::operator+=(const Vector3& other)
 	x += other.x;
 	y += other.y;
 	z += other.z;
+}
+
+Vector3 Vector3::operator-(const Vector3& other) const
+{
+	return Vector3(x - other.x, y - other.y, z - other.z);
 }
 
 void Vector3::operator-=(const Vector3& other)
@@ -55,14 +94,14 @@ void Vector3::operator=(const Vector2& vector2)
 	y = vector2.y;
 }
 
-Vector3 Vector3::operator*(const float& scalar)
+Vector3 Vector3::operator*(const float& scalar) const
 {
 	return Vector3(x * scalar, y * scalar, z * scalar);
 }
 
 Vector3 operator*(const float& scalar, const Vector3& vector3)
 {
-	return Vector3(vector3.x * scalar, vector3.y * scalar, vector3.z * scalar);
+	return vector3 * scalar;
 }
 
 Vector3 Vector3::One()
@@ -100,3 +139,115 @@ Vector3 Vector3::Back()
 	return Vector3(0.0f, 0.0f, -1.0f);
 }
 
+float Vector3::Angle(const Vector3& from, const Vector3& to)
+{
+	float dot = Dot(from, to);
+
+	float magFrom = Magnitude(from);
+	float magTo = Magnitude(to);
+
+	if (magFrom == 0 || magTo == 0)
+	{
+
+		return 0.0f;
+	}
+
+	float cosTheta = dot / (magFrom * magTo);
+
+	cosTheta = cosTheta < -1.0f ? -1.0f : cosTheta > 1.0f ? 1.0f : cosTheta;
+
+	return std::acos(cosTheta);
+}
+
+Vector3 Vector3::ClampMagnitude(const Vector3& vector, const float& maxLength)
+{
+	float sqrMag = SqrtMagnitude(vector);
+
+	if (sqrMag > maxLength * maxLength)
+	{
+		float mag = std::sqrt(sqrMag);
+		float scale = maxLength / mag;
+
+		return Vector3(vector.x * scale, vector.y * scale, vector.z * scale);
+	}
+
+	return vector;
+}
+
+
+Vector3 Vector3::Cross(const Vector3& a, const Vector3& b)
+{
+	return Vector3
+	(
+		a.y * b.z - a.z * b.y,
+		a.z * b.x - a.x * b.z,
+		a.x * b.y - a.y * b.x
+	);
+}
+
+float Vector3::Magnitude(const Vector3& vector)
+{
+	return std::sqrtf(Dot(vector, vector));
+}
+
+float Vector3::SqrtMagnitude(const Vector3& vector)
+{
+	return Dot(vector, vector);
+}
+
+float Vector3::Dot(const Vector3& a, const Vector3& b)
+{
+	return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+Vector3 Vector3::Lerp(const Vector3& a, const Vector3& b, float t)
+{
+	t = t < -1.0f ? -1.0f : t > 1.0f ? 1.0f : t;
+
+	return LerpUnclamp(a, b, t);
+}
+
+Vector3 Vector3::LerpUnclamp(const Vector3& a, const Vector3& b, const float& t)
+{
+	return Vector3(a + (b - a) * t);
+}
+
+float Vector3::Distance(const Vector3& a, const Vector3& b)
+{
+	return (a - b).Magnitude();
+}
+
+Vector3 Vector3::Max(const Vector3& a, const Vector3& b)
+{
+	float x = a.x > b.x ? a.x : b.x;
+	float y = a.y > b.y ? a.y : b.y;
+	float z = a.z > b.z ? a.z : b.z;
+
+	return Vector3(x, y, z);
+}
+
+Vector3 Vector3::Min(const Vector3& a, const Vector3& b)
+{
+	float x = a.x < b.x ? a.x : b.x;
+	float y = a.y < b.y ? a.y : b.y;
+	float z = a.z < b.z ? a.z : b.z;
+
+	return Vector3(x, y, z);
+}
+
+Vector3 Vector3::Project(const Vector3& a, const Vector3& b)
+{
+	float dot = Dot(a, b);
+	float sqrMag = SqrtMagnitude(b);
+
+	if (sqrMag < epsilon)
+		return Vector3(0.0f, 0.0f, 0.0f);
+
+	float scale = dot / sqrMag;
+	return Vector3(b * scale);
+}
+
+Vector3 Vector3::Normalized(const Vector3& a)
+{
+	return Vector3(a / a.Magnitude());
+}
