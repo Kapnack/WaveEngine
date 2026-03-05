@@ -82,7 +82,7 @@ void BaseGame::EngineUpdate()
 
 	if (GetInput()->IsKeyPressed(Keys::SPACE))
 	{
-		Camera::camera.Translate(Vector3::Front() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
+		Camera::camera.Translate(Vector3::Foward() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
 	}
 	else if (GetInput()->IsKeyPressed(Keys::LEFT_CONTROL))
 	{
