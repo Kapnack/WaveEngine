@@ -157,6 +157,8 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\WaveMath\Matrix4x4\Matrix4x4.cpp" />
+    <ClCompile Include="src\WaveMath\Quaternion\Quaternion.cpp" />
     <ClCompile Include="src\ModelImporter\ModelImporter.cpp" />
     <ClCompile Include="src\Camera\Camera.cpp" />
     <ClCompile Include="src\Entity\Drawable\Drawable.cpp" />
@@ -206,8 +208,11 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s
     <ClCompile Include="src\TileMap\TileMap.cpp" />
     <ClCompile Include="src\TileMap\Tile.cpp" />
     <ClCompile Include="src\ImGuiClass\ImGuiClassStates\TexturesImGui\TexturesImGui.cpp" />
+    <ClCompile Include="src\WaveMath\Transform\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\WaveMath\Matrix4x4\Matrix4x4.h" />
+    <ClInclude Include="src\WaveMath\Quaternion\Quaternion.h" />
     <ClInclude Include="src\ModelImporter\ModelImporter.h" />
     <ClInclude Include="src\Camera\Camera.h" />
     <ClInclude Include="src\Entity\Drawable\Drawable.h" />
@@ -262,6 +267,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s
     <ClInclude Include="src\TileMap\TileMap.h" />
     <ClInclude Include="src\TileMap\Tile.h" />
     <ClInclude Include="src\ImGuiClass\ImGuiClassStates\TexturesImGui\TexturesImGui.h" />
+    <ClInclude Include="src\WaveMath\Transform\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
