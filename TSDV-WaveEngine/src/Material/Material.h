@@ -11,9 +11,9 @@
 #include <GLFW/glfw3.h>
 
 #include "TextureImporter/Texture.h"
-#include "Vector4.h"
-#include "Vector2.h"
-#include "Vector3.h"
+#include "WaveMath/Vector4/Vector4.h"
+#include "WaveMath/Vector2/Vector2.h"
+#include "WaveMath/Vector3/Vector3.h"
 
 class MaterialManager;
 class MaterialFactory;

@@ -149,7 +149,7 @@ void Entity::Scale(const Vector2& translation)
 
 void Entity::Scale(const float& x, const float& y)
 {
-	Scale(x, y, 0);
+	Scale(x, y, 0.0f);
 }
 
 void Entity::Scale(const float& x, const float& y, const float& z)

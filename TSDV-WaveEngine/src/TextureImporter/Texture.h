@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Vector2.h"
+#include "WaveMath/Vector2/Vector2.h"
 #include "Export.h"
 
 #include <string>

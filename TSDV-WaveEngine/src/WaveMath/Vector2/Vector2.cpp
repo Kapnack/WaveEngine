@@ -1,6 +1,6 @@
 #include "Vector2.h"
 
-#include "Vector3.h"
+#include "WaveMath/Vector3/Vector3.h"
 
 Vector2::Vector2()
 {

@@ -1,6 +1,6 @@
 #include "Square.h"
 
-#include "Vector4.h"
+#include "WaveMath/Vector4/Vector4.h"
 
 Square::Square(const unsigned int& ID) : Shape(ID)
 {

@@ -6,7 +6,7 @@
 
 #include "Export.h"
 #include "Window/Window.h"
-#include "Vector3.h"
+#include "WaveMath/Vector3/Vector3.h"
 
 class EntityManager;
 class EntityFactory;

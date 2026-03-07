@@ -3,6 +3,7 @@
 #include "Export.h"
 #include "Renderer/Renderer.h"
 #include "VertexData.h"
+#include "WaveMath/Vector3/Vector3.h"
 
 class EntityFactory;
 class EntityManager;

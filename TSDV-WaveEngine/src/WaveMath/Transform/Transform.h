@@ -2,7 +2,7 @@
 
 #include "Export.h"
 
-#include "Vector3.h"
+#include "WaveMath/Vector3/Vector3.h"
 #include "WaveMath/Quaternion/Quaternion.h"
 
 WAVEEXPORT class Transform final

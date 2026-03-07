@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include "Vector2.h"
+#include "Wavemath/Vector2/Vector2.h"
 
 const float Vector3::epsilon = 1e-05f;
 

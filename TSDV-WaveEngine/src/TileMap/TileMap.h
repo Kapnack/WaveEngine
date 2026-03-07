@@ -6,7 +6,7 @@
 #include "Tile.h"
 
 #include "Window/Window.h"
-#include "Vector2.h"
+#include "WaveMath/Vector2/Vector2.h"
 
 #include <vector>
 #include <string>

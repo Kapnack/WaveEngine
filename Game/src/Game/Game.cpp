@@ -4,7 +4,7 @@
 #include "CollisionManager/CollisionManager.h"
 #include "Material/MaterialManager.h"
 #include "Input/Input.h"
-#include "Vector2.h"
+#include "Wavemath/Vector2/Vector2.h"
 #include "TileMap/TileMap.h"
 #include <string>
 #include <Camera/Camera.h>

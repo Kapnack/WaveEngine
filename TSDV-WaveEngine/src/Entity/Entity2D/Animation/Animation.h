@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Export.h"
-#include "Vector2.h"
+#include "WaveMath/Vector2/Vector2.h"
 
 class Frame
 {

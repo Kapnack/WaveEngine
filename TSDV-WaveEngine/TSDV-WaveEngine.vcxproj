@@ -197,9 +197,9 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s
     <ClCompile Include="src\ServiceProvider\ServiceProvider.tpp" />
     <ClCompile Include="src\TextureImporter\Texture.cpp" />
     <ClCompile Include="src\TextureImporter\TextureManager.cpp" />
-    <ClCompile Include="src\Vector2.cpp" />
-    <ClCompile Include="src\Vector3.cpp" />
-    <ClCompile Include="src\Vector4.cpp" />
+    <ClCompile Include="src\WaveMath\Vector2\Vector2.cpp" />
+    <ClCompile Include="src\WaveMath\Vector3\Vector3.cpp" />
+    <ClCompile Include="src\WaveMath\Vector4\Vector4.cpp" />
     <ClCompile Include="src\VertexData.cpp" />
     <ClCompile Include="src\Window\Window.cpp" />
     <ClCompile Include="src\Entity\Entity2D\Shape\Triangle\Triangle.cpp" />
@@ -250,8 +250,8 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s
     <ClInclude Include="src\Singleton\Singleton.h" />
     <ClInclude Include="src\TextureImporter\Texture.h" />
     <ClInclude Include="src\TextureImporter\TextureManager.h" />
-    <ClInclude Include="src\Vector2.h" />
-    <ClInclude Include="src\Vector4.h" />
+    <ClInclude Include="src\WaveMath\Vector2\Vector2.h" />
+    <ClInclude Include="src\WaveMath\Vector4\Vector4.h" />
     <ClInclude Include="src\VertexData.h" />
     <ClInclude Include="src\Export.h" />
     <ClInclude Include="src\Material\Material.h" />
@@ -259,7 +259,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s
     <ClInclude Include="src\Entity\Entity.h" />
     <ClInclude Include="src\Entity\Entity2D\Entity2D.h" />
     <ClInclude Include="src\Renderer\Renderer.h" />
-    <ClInclude Include="src\Vector3.h" />
+    <ClInclude Include="src\WaveMath\Vector3\Vector3.h" />
     <ClInclude Include="src\Window\Window.h" />
     <ClInclude Include="src\Entity\Entity2D\Shape\Triangle\Triangle.h" />
     <ClInclude Include="src\Time\Time.h" />

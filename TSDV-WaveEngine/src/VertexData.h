@@ -1,8 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "Vector3.h"
-#include "Vector4.h"
+#include "WaveMath/Vector3/Vector3.h"
+#include "WaveMath/Vector4/Vector4.h"
 #include "Export.h"
 #include <Entity/Entity2D/Animation/Animation.h>
 

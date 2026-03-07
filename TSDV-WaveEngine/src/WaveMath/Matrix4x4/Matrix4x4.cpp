@@ -1,5 +1,7 @@
 #include "Matrix4x4.h"
 
+#include <cmath>
+
 #include <stdexcept> 
 
 Matrix4x4::Matrix4x4()
@@ -18,7 +20,7 @@ Matrix4x4::Matrix4x4(const float& m00, const float& m01, const float& m02, const
 Matrix4x4::Matrix4x4(const Quaternion& q0, const Quaternion& q1, const Quaternion& q2, const Quaternion& q3)
 {
 	m00 = q0.x; m01 = q0.y; m02 = q0.z; m03 = q0.w;
-	m10 = q1.x; m11 = q1.y; m12 = q1.z; m13 = q0.w;
+	m10 = q1.x; m11 = q1.y; m12 = q1.z; m13 = q1.w;
 	m20 = q2.x; m21 = q2.y; m22 = q2.z; m23 = q2.w;
 	m30 = q3.x; m31 = q3.y; m32 = q3.z; m33 = q3.w;
 }
@@ -41,9 +43,14 @@ void Matrix4x4::AddTranslate(const Vector3& vector)
 	m23 += vector.z;
 }
 
-Matrix4x4 Matrix4x4::GetTranslate() const
+Matrix4x4 Matrix4x4::GetTranslateMatrix() const
 {
-	return Translate(m03, m13, m23);
+	return CreateTranslate(m03, m13, m23);
+}
+
+Matrix4x4 Matrix4x4::GetRotationMatrix()
+{
+	return CreateRotation(*this);
 }
 
 void Matrix4x4::SetScale(const Vector3& vector)
@@ -60,103 +67,14 @@ void Matrix4x4::AddScale(const Vector3& vector)
 	m22 *= vector.z;
 }
 
-Matrix4x4 Matrix4x4::GetScale() const
+Matrix4x4 Matrix4x4::GetScaleMatrix() const
 {
-	return Scale(m00, m11, m22);
+	return CreateScale(m00, m11, m22);
 }
 
-Vector3 Matrix4x4::GetColumn(const int& index)
+void Matrix4x4::UpdateMaxtrix()
 {
-	switch (index)
-	{
-	case 0: return Vector3(m00, m01, m02);
-	case 1: return Vector3(m10, m11, m12);
-	case 2: return Vector3(m20, m21, m22);
-	case 3: return Vector3(m30, m31, m32);
-	default: throw std::out_of_range("Indices must be between 0 and 3.");
-	}
-
-	return Vector3::Zero();
-}
-
-Vector3 Matrix4x4::SetColumn(const int& index, const Vector3& vector)
-{
-	switch (index)
-	{
-	case 0:
-		m00 = vector.x;
-		m10 = vector.y;
-		m20 = vector.z;
-		m30 = 0.0f;
-		break;
-
-	case 1:
-		m01 = vector.x;
-		m11 = vector.y;
-		m21 = vector.z;
-		m31 = 0.0f;
-		break;
-
-	case 2:
-		m02 = vector.x;
-		m12 = vector.y;
-		m22 = vector.z;
-		m32 = 0.0f;
-		break;
-
-	case 3:
-		m03 = vector.x;
-		m13 = vector.y;
-		m23 = vector.z;
-		m33 = 0.0f;
-		break;
-
-	default: throw std::out_of_range("Indices must be between 0 and 3.");
-	}
-}
-
-Vector3 Matrix4x4::GetRow(const int& index)
-{
-	switch (index)
-	{
-	case 0: return Vector3(m00, m01, m03);
-	case 1: return Vector3(m01, m12, m13);
-	case 2: return Vector3(m02, m21, m23);
-	case 3: return Vector3(m03, m31, m33);
-	default:throw std::out_of_range("Row index must be 0 to 3");
-	}
-}
-
-Vector3 Matrix4x4::SetRow(const int& index, const Vector3& vector)
-{
-	switch (index)
-	{
-	case 0:
-		m00 = vector.x;
-		m01 = vector.y;
-		m02 = vector.z;
-		m03 = 0.0f;
-		break;
-	case 1:
-		m10 = vector.x;
-		m11 = vector.y;
-		m12 = vector.z;
-		m13 = 0.0f;
-		break;
-	case 2:
-		m20 = vector.x;
-		m21 = vector.y;
-		m22 = vector.z;
-		m23 = 0.0f;
-		break;
-	case 3:
-		m30 = vector.x;
-		m31 = vector.y;
-		m32 = vector.z;
-		m33 = 0.0f;
-		break;
-	default:throw std::out_of_range("Row index must be 0 to 3");
-	}
+	*this = TRS(GetTranslateMatrix(), GetRotationMatrix(), GetScaleMatrix());
 }
 
 Matrix4x4 Matrix4x4::operator*(const Matrix4x4& other) const
@@ -196,7 +114,7 @@ Matrix4x4 Matrix4x4::Identity()
 	);
 }
 
-Matrix4x4 Matrix4x4::Scale(const float& x, const float& y, const float& z)
+Matrix4x4 Matrix4x4::CreateScale(const float& x, const float& y, const float& z)
 {
 	Matrix4x4 scale;
 
@@ -207,12 +125,72 @@ Matrix4x4 Matrix4x4::Scale(const float& x, const float& y, const float& z)
 	return scale;
 }
 
-Matrix4x4 Matrix4x4::Scale(const Vector3& vector)
+Matrix4x4 Matrix4x4::CreateScale(const Vector3& vector)
 {
-	return Scale(vector.x, vector.y, vector.z);
+	return CreateScale(vector.x, vector.y, vector.z);
 }
 
-Matrix4x4 Matrix4x4::Rotate(const float& x, const float& y, const float& z, const float& w)
+Matrix4x4 Matrix4x4::CreateRotation(const Matrix4x4& matrix)
+{
+	Matrix4x4 r;
+
+	r.m00 = matrix.m00;
+	r.m01 = matrix.m01;
+	r.m02 = matrix.m02;
+
+	r.m10 = matrix.m10;
+	r.m11 = matrix.m11;
+	r.m12 = matrix.m12;
+
+	r.m20 = matrix.m20;
+	r.m21 = matrix.m21;
+	r.m22 = matrix.m22;
+
+	return r;
+}
+
+Quaternion Matrix4x4::GetRotation(const Matrix4x4& m)
+{
+	float trace = m.m00 + m.m11 + m.m22;
+	Quaternion q;
+
+	if (trace > 0.0f)
+	{
+		float s = std::sqrt(trace + 1.0f) * 2.0f;
+		q.w = 0.25f * s;
+		q.x = (m.m21 - m.m12) / s;
+		q.y = (m.m02 - m.m20) / s;
+		q.z = (m.m10 - m.m01) / s;
+	}
+	else if (m.m00 > m.m11 && m.m00 > m.m22)
+	{
+		float s = std::sqrt(1.0f + m.m00 - m.m11 - m.m22) * 2.0f;
+		q.w = (m.m21 - m.m12) / s;
+		q.x = 0.25f * s;
+		q.y = (m.m01 + m.m10) / s;
+		q.z = (m.m02 + m.m20) / s;
+	}
+	else if (m.m11 > m.m22)
+	{
+		float s = std::sqrt(1.0f + m.m11 - m.m00 - m.m22) * 2.0f;
+		q.w = (m.m02 - m.m20) / s;
+		q.x = (m.m01 + m.m10) / s;
+		q.y = 0.25f * s;
+		q.z = (m.m12 + m.m21) / s;
+	}
+	else
+	{
+		float s = std::sqrt(1.0f + m.m22 - m.m00 - m.m11) * 2.0f;
+		q.w = (m.m10 - m.m01) / s;
+		q.x = (m.m02 + m.m20) / s;
+		q.y = (m.m12 + m.m21) / s;
+		q.z = 0.25f * s;
+	}
+
+	return q;
+}
+
+Matrix4x4 Matrix4x4::CreateRotation(const float& x, const float& y, const float& z, const float& w)
 {
 	float xx = x * x;
 	float yy = y * y;
@@ -240,12 +218,12 @@ Matrix4x4 Matrix4x4::Rotate(const float& x, const float& y, const float& z, cons
 	return m;
 }
 
-Matrix4x4 Matrix4x4::Rotate(const Quaternion& q)
+Matrix4x4 Matrix4x4::CreateRotation(const Quaternion& q)
 {
-	return Rotate(q.x, q.y, q.z, q.w);
+	return CreateRotation(q.x, q.y, q.z, q.w);
 }
 
-Matrix4x4 Matrix4x4::Translate(const float& x, const float& y, const float& z)
+Matrix4x4 Matrix4x4::CreateTranslate(const float& x, const float& y, const float& z)
 {
 	Matrix4x4 translate;
 
@@ -256,16 +234,16 @@ Matrix4x4 Matrix4x4::Translate(const float& x, const float& y, const float& z)
 	return translate;
 }
 
-Matrix4x4 Matrix4x4::Translate(const Vector3& vector)
+Matrix4x4 Matrix4x4::CreateTranslate(const Vector3& vector)
 {
-	return Translate(vector.x, vector.y, vector.z);
+	return CreateTranslate(vector.x, vector.y, vector.z);
 }
 
 Matrix4x4 Matrix4x4::TRS(const Vector3& t, const Quaternion& r, const Vector3& s)
 {
-	const Matrix4x4 translate = Translate(t);
-	const Matrix4x4 rotate = Rotate(r);
-	const Matrix4x4 scale = Scale(s);
+	const Matrix4x4 translate = CreateTranslate(t);
+	const Matrix4x4 rotate = CreateRotation(r);
+	const Matrix4x4 scale = CreateScale(s);
 
 	return TRS(translate, rotate, scale);
 }

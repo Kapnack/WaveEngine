@@ -30,7 +30,7 @@
     <ClCompile Include="src\Entity\Entity2D\Shape\Shape.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vector3.cpp">
+    <ClCompile Include="src\WaveMath\Vector3\Vector3.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="src\Material\Material.cpp">
@@ -48,7 +48,7 @@
     <ClCompile Include="src\VertexData.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vector4.cpp">
+    <ClCompile Include="src\WaveMath\Vector4\Vector4.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="src\Time\Time.cpp">
@@ -132,7 +132,7 @@
     <ClCompile Include="src\TextureImporter\Texture.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\Vector2.cpp">
+    <ClCompile Include="src\WaveMath\Vector2\Vector2.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="src\ImGuiClass\ImGuiClassStates\EntitiesImGui\EntitiesImGui.cpp">
@@ -188,7 +188,7 @@
     <ClInclude Include="src\Entity\Entity2D\Shape\Shape.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\Vector3.h">
+    <ClInclude Include="src\WaveMath\Vector3\Vector3.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\Material\Material.h">
@@ -209,7 +209,7 @@
     <ClInclude Include="src\Entity\Entity2D\Shape\Triangle\Triangle.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\Vector4.h">
+    <ClInclude Include="src\WaveMath\Vector4\Vector4.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\Time\Time.h">
@@ -305,7 +305,7 @@
     <ClInclude Include="src\TextureImporter\Texture.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\Vector2.h">
+    <ClInclude Include="src\WaveMath\Vector2\Vector2.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\ImGuiClass\ImGuiClassStates\EntitiesImGui\EntitiesImGui.h">

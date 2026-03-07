@@ -10,8 +10,8 @@
 #include "ImGuiClassStates/MaterialsImGui/MaterialsImGui.h"
 #include "ImGuiClassStates/EntityControllerImGui/EntityControllerImGui.h"
 #include "ImGuiClassStates/MeshImGui/MeshImGui.h"
-#include "Vector3.h"
-#include "Vector4.h"
+#include "WaveMath/Vector3/Vector3.h"
+#include "WaveMath/Vector4/Vector4.h"
 
 #include <string>
 #include <vector>
