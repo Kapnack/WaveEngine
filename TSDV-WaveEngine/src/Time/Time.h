@@ -31,7 +31,7 @@ namespace WaveEngine
 
 	public:
 
-		WAVEEXPORT float GetDeltaTime();
+		WAVEEXPORT float GetDeltaTime() const;
 		WAVEEXPORT void SetTimeScale(const float& timeScale);
 	};
 }

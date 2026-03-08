@@ -24,7 +24,7 @@ namespace WaveEngine
 		lastTime = actualTime;
 	}
 
-	float Time::GetDeltaTime()
+	float Time::GetDeltaTime() const
 	{
 		return deltaTime;
 	}
