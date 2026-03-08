@@ -33,7 +33,7 @@ namespace WaveEngine
 
 		const unsigned int ReturnWorkingMaterial(const unsigned int& materialIDToTry, const unsigned int& materialIDfallBack);
 
-		Window* GetWindow() const;
+		Window* GetWindow();
 
 		MaterialManager* GetMaterialManager();
 
