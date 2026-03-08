@@ -47,16 +47,6 @@ namespace WaveEngine
 		return buffer.str();
 	}
 
-	string FileReader::GetAbsoluteFilePath(const string_view filePath) const
-	{
-		return filesystem::absolute(filePath).lexically_normal().string();
-	}
-
-	string FileReader::ReadFileAbsolutePath(const string_view filePath)
-	{
-		return ReadFile(GetAbsoluteFilePath(filePath));
-	}
-
 	string FileReader::ReadFile(const string_view filePath)
 	{
 		return FileImporter(filePath, false);
@@ -65,10 +55,5 @@ namespace WaveEngine
 	string FileReader::ReadFileBinary(const string_view filePath)
 	{
 		return FileImporter(filePath, true);
-	}
-
-	string FileReader::ReadFileBinaryAbsolutePath(const string_view filePath)
-	{
-		return ReadFileBinary(filePath);
 	}
 }

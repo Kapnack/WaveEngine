@@ -18,8 +18,6 @@ namespace WaveEngine
 	{
 	private:
 
-		string GetAbsoluteFilePath(const string_view filePath) const;
-
 		FileReader();
 		~FileReader();
 
@@ -42,11 +40,9 @@ namespace WaveEngine
 
 	public:
 
-		WAVEEXPORT string ReadFileAbsolutePath(const string_view filePath);
 		WAVEEXPORT string ReadFile(const string_view filePath);
 
 		WAVEEXPORT string ReadFileBinary(const string_view filePath);
-		WAVEEXPORT string ReadFileBinaryAbsolutePath(const string_view filePath);
 
 		template<typename... T>
 		void SaveData(const string_view filePath, T&... data)
