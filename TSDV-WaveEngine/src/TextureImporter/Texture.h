@@ -34,13 +34,13 @@ namespace WaveEngine
 
 		static const int NULL_TEXTURE = 0;
 
-		int GetWidth();
-		int GetHeight();
-		string GetName();
+		int GetWidth() const;
+		int GetHeight() const;
+		string GetName() const;
 
-		Vector2 GetRes();
+		Vector2 GetRes() const;
 
-		unsigned int GetTextureID();
-		unsigned int GetID();
+		unsigned int GetTextureID() const;
+		unsigned int GetID() const;
 	};
 }
