@@ -8,63 +8,67 @@
 #include "Window/Window.h"
 #include "WaveMath/Vector3/Vector3.h"
 
-class EntityManager;
-class EntityFactory;
-class Renderer;
-
-WAVEEXPORT class Camera : public Entity
+namespace WaveEngine
 {
-private:
+	class EntityManager;
+	class EntityFactory;
+	class Renderer;
 
-	float fovDeg = 45.0f;
-	float nearPlane = 0.1f;
-	float farPlane = 100.0f;
-	float orthoSize = 500.0f;
+	class Camera : public Entity
+	{
+	private:
 
-	float movementSpeed = 100.0f;
-	float sensitivity = 100.0f;
+		float fovDeg = 45.0f;
+		float nearPlane = 0.1f;
+		float farPlane = 100.0f;
+		float orthoSize = 500.0f;
 
-	bool orthografic = false;
+		float movementSpeed = 100.0f;
+		float sensitivity = 100.0f;
 
-	glm::mat4 view = glm::mat4(1.0f);
-	glm::mat4 projection = glm::mat4(1.0f);
+		bool orthografic = false;
 
-	void CalculateMatrixes();
+		glm::mat4 view = glm::mat4(1.0f);
+		glm::mat4 projection = glm::mat4(1.0f);
 
-	Window* GetWindow();
+		void CalculateMatrixes();
 
-	Camera(const unsigned& ID);
-	Camera();
-	~Camera();
+		Window* GetWindow();
 
-	glm::mat4 GetView();
-	glm::mat4 GetProjection();
+		Camera(const unsigned& ID);
 
-	friend class EntityManager;
-	friend class EntityFactory;
-	friend class Renderer;
+		glm::mat4 GetView();
+		glm::mat4 GetProjection();
 
-protected:
+		friend class EntityManager;
+		friend class EntityFactory;
+		friend class Renderer;
 
-	void UpdateCollider() override;
-	void CalculateTRS() override;
+	protected:
 
-public:
+		void UpdateCollider() override;
+		void CalculateTRS() override;
 
-	static Camera camera;
+	public:
 
-	WAVEEXPORT void SetOrthographic(const bool& value);
-	WAVEEXPORT void SetFarPlane(const float& value);
-	WAVEEXPORT void AddToFarPlane(const float& value);
-	WAVEEXPORT void SetNearPlane(const float& value);
-	WAVEEXPORT void AddToNearPlane(const float& value);
-	WAVEEXPORT void SetFovDegree(const float& value);
-	WAVEEXPORT void SetOrthoSize(const float& value);
-	WAVEEXPORT void AddToOrthoSize(const float& value);
+		static Camera camera;
 
-	WAVEEXPORT float GetFarPlane();
-	WAVEEXPORT float GetNearPlane();
-	WAVEEXPORT float GetFovDegree();
-	WAVEEXPORT float GetMovementSpeed();
-	WAVEEXPORT float GetOrthoSize();
-};
+		WAVEEXPORT	Camera();
+		WAVEEXPORT	~Camera();
+
+		WAVEEXPORT	void SetOrthographic(const bool& value);
+		WAVEEXPORT	void SetFarPlane(const float& value);
+		WAVEEXPORT	void AddToFarPlane(const float& value);
+		WAVEEXPORT	void SetNearPlane(const float& value);
+		WAVEEXPORT	void AddToNearPlane(const float& value);
+		WAVEEXPORT	void SetFovDegree(const float& value);
+		WAVEEXPORT	void SetOrthoSize(const float& value);
+		WAVEEXPORT	void AddToOrthoSize(const float& value);
+
+		WAVEEXPORT	float GetFarPlane();
+		WAVEEXPORT	float GetNearPlane();
+		WAVEEXPORT	float GetFovDegree();
+		WAVEEXPORT	float GetMovementSpeed();
+		WAVEEXPORT	float GetOrthoSize();
+	};
+}

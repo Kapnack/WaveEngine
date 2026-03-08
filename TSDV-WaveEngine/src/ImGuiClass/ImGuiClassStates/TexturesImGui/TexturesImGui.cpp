@@ -4,61 +4,64 @@
 
 #include "ServiceProvider/ServiceProvider.h"
 
-TexturesImGui::TexturesImGui() : ImGuiClassState()
+namespace WaveEngine
 {
-}
-
-TexturesImGui::~TexturesImGui()
-{
-}
-
-TextureManager* TexturesImGui::GetTextureManager()
-{
-	return ServiceProvider::Instance().Get<TextureManager>();
-}
-
-TextureImporter* TexturesImGui::GetTextureImporter()
-{
-	return ServiceProvider::Instance().Get<TextureImporter>();
-}
-
-void TexturesImGui::Update()
-{
-	ImGui::Checkbox("Use Absolute Path", &withAbsolutePath);
-
-	ImGui::InputText("Texture Path", fileTexurePath.data(), fileTexurePath.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &fileTexurePath);
-
-	if (ImGui::Button("Import Texture"))
-		if (withAbsolutePath)
-			GetTextureImporter()->LoadTextureAbsolutePath(fileTexurePath);
-		else
-			GetTextureImporter()->LoadTexture(fileTexurePath);
-
-	ImGui::Separator();
-
-	ImGui::Checkbox("Delete By Name", &deleteByName);
-
-	if (!deleteByName)
-		ImGui::InputInt("Input Texture ID.", &textureID);
-	else
-		ImGui::InputText("Input Texture Name.", textureName.data(), textureName.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &textureName);
-
-	if (ImGui::Button("Delete Texture"))
-		if (!deleteByName)
-			GetTextureManager()->DeleteTexture(textureID);
-		else
-			GetTextureManager()->DeleteTexture(textureName);
-	
-
-	for (unordered_map<unsigned int, Texture*>::iterator it = GetTextureManager()->GetTextures().begin(); it != GetTextureManager()->GetTextures().end(); ++it)
+	TexturesImGui::TexturesImGui() : ImGuiClassState()
 	{
-		if (it->second == nullptr)
-			continue;
-		
-		text = "Name:" + it->second->GetName() + ". ID: " + to_string(it->second->GetID()) + ". Texture ID: " + to_string(it->second->GetTextureID()) + ".";
+	}
 
-		ImGui::Text(text.c_str());
-		ImGui::Image(it->second->GetTextureID(), ImVec2(it->second->GetWidth() / 5, it->second->GetHeight() / 5), ImVec2(0, 1), ImVec2(1, 0));
+	TexturesImGui::~TexturesImGui()
+	{
+	}
+
+	TextureManager* TexturesImGui::GetTextureManager()
+	{
+		return ServiceProvider::Instance().Get<TextureManager>();
+	}
+
+	TextureImporter* TexturesImGui::GetTextureImporter()
+	{
+		return ServiceProvider::Instance().Get<TextureImporter>();
+	}
+
+	void TexturesImGui::Update()
+	{
+		ImGui::Checkbox("Use Absolute Path", &withAbsolutePath);
+
+		ImGui::InputText("Texture Path", fileTexurePath.data(), fileTexurePath.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &fileTexurePath);
+
+		if (ImGui::Button("Import Texture"))
+			if (withAbsolutePath)
+				GetTextureImporter()->LoadTextureAbsolutePath(fileTexurePath);
+			else
+				GetTextureImporter()->LoadTexture(fileTexurePath);
+
 		ImGui::Separator();
+
+		ImGui::Checkbox("Delete By Name", &deleteByName);
+
+		if (!deleteByName)
+			ImGui::InputInt("Input Texture ID.", &textureID);
+		else
+			ImGui::InputText("Input Texture Name.", textureName.data(), textureName.capacity() + 1, ImGuiInputTextFlags_CallbackResize, ResizeCallback, &textureName);
+
+		if (ImGui::Button("Delete Texture"))
+			if (!deleteByName)
+				GetTextureManager()->DeleteTexture(textureID);
+			else
+				GetTextureManager()->DeleteTexture(textureName);
+
+
+		for (unordered_map<unsigned int, Texture*>::iterator it = GetTextureManager()->GetTextures().begin(); it != GetTextureManager()->GetTextures().end(); ++it)
+		{
+			if (it->second == nullptr)
+				continue;
+
+			text = "Name:" + it->second->GetName() + ". ID: " + to_string(it->second->GetID()) + ". Texture ID: " + to_string(it->second->GetTextureID()) + ".";
+
+			ImGui::Text(text.c_str());
+			ImGui::Image(it->second->GetTextureID(), ImVec2(it->second->GetWidth() / 5, it->second->GetHeight() / 5), ImVec2(0, 1), ImVec2(1, 0));
+			ImGui::Separator();
+		}
 	}
 }

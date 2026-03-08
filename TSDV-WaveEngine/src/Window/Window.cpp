@@ -4,107 +4,110 @@
 
 using namespace std;
 
-Window::Window(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share) : Service()
+namespace WaveEngine
 {
-	this->width = width;
-	this->height = height;
-	this->title = title;
-	this->monitor = monitor;
-	this->share = share;
-
-	baseWidth = width;
-	baseHeight = height;
-
-	Init();
-}
-
-Window::~Window()
-{
-	Unload();
-}
-
-void Window::Init()
-{
-	//Adding hints for the window that is going to be created.
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // Vercion Mayor number 3.X
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);// Vercion Minor number 0.3
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //Sets up the profile that is going to be use for this Project.
-	//In this case GLFW_OPENGL_CORE_PROFILE. This doesn't allow old OpenGL functions.
-	//Example: glBegin(), glEnd(), glVertex3f(). So you are force on using VAO, VBO, EBO.
-
-	// Creates the window based on the parameter it recieves and the hints given.
-	window = glfwCreateWindow(width, height, title, monitor, share);
-	if (!window)
+	Window::Window(int width, int height, const char* title, GLFWmonitor* monitor, GLFWwindow* share) : Service()
 	{
-		cout << "Failed to create GLFW window" << endl;
-		glfwTerminate();
+		this->width = width;
+		this->height = height;
+		this->title = title;
+		this->monitor = monitor;
+		this->share = share;
 
-		exit(-1);
+		baseWidth = width;
+		baseHeight = height;
+
+		Init();
 	}
 
-	glfwMakeContextCurrent(window);
+	Window::~Window()
+	{
+		Unload();
+	}
 
-	glfwSetWindowUserPointer(window, this);
-	glfwSetFramebufferSizeCallback(window, Window::FrameBufferCallBack);
+	void Window::Init()
+	{
+		//Adding hints for the window that is going to be created.
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // Vercion Mayor number 3.X
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);// Vercion Minor number 0.3
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //Sets up the profile that is going to be use for this Project.
+		//In this case GLFW_OPENGL_CORE_PROFILE. This doesn't allow old OpenGL functions.
+		//Example: glBegin(), glEnd(), glVertex3f(). So you are force on using VAO, VBO, EBO.
 
-	if (glewInit() != GLEW_OK)
-		cout << "GLEW FAILED TO INIT!!!";
-}
+		// Creates the window based on the parameter it recieves and the hints given.
+		window = glfwCreateWindow(width, height, title, monitor, share);
+		if (!window)
+		{
+			cout << "Failed to create GLFW window" << endl;
+			glfwTerminate();
 
-GLFWwindow* Window::GetGLFWindow()
-{
-	return window;
-}
+			exit(-1);
+		}
 
-int Window::GetWidth()
-{
-	return width;
-}
+		glfwMakeContextCurrent(window);
 
-int Window::GetHeight()
-{
-	return height;
-}
+		glfwSetWindowUserPointer(window, this);
+		glfwSetFramebufferSizeCallback(window, Window::FrameBufferCallBack);
 
-int Window::GetBaseWidth()
-{
-	return baseWidth;
-}
+		if (glewInit() != GLEW_OK)
+			cout << "GLEW FAILED TO INIT!!!";
+	}
 
-int Window::GetBaseHeight()
-{
-	return baseHeight;
-}
+	GLFWwindow* Window::GetGLFWindow()
+	{
+		return window;
+	}
 
-void Window::SwapBuffer()
-{
-	glfwSwapBuffers(window);
-}
+	int Window::GetWidth()
+	{
+		return width;
+	}
 
-void Window::HandleInput()
-{
-	glfwPollEvents();
-}
+	int Window::GetHeight()
+	{
+		return height;
+	}
 
-float Window::GetGLTime()
-{
-	return static_cast<float>(glfwGetTime());
-}
+	int Window::GetBaseWidth()
+	{
+		return baseWidth;
+	}
 
-void Window::Unload()
-{
-	glfwTerminate();
-}
+	int Window::GetBaseHeight()
+	{
+		return baseHeight;
+	}
 
-void Window::FrameBufferCallBack(GLFWwindow* window, int width, int height)
-{
-	glViewport(0, 0, width, height);
+	void Window::SwapBuffer()
+	{
+		glfwSwapBuffers(window);
+	}
 
-	Window* win = static_cast<Window*>(glfwGetWindowUserPointer(window));
+	void Window::HandleInput()
+	{
+		glfwPollEvents();
+	}
 
-	if (!win)
-		return;
+	float Window::GetGLTime()
+	{
+		return static_cast<float>(glfwGetTime());
+	}
 
-	win->width = width;
-	win->height = height;
+	void Window::Unload()
+	{
+		glfwTerminate();
+	}
+
+	void Window::FrameBufferCallBack(GLFWwindow* window, int width, int height)
+	{
+		glViewport(0, 0, width, height);
+
+		Window* win = static_cast<Window*>(glfwGetWindowUserPointer(window));
+
+		if (!win)
+			return;
+
+		win->width = width;
+		win->height = height;
+	}
 }

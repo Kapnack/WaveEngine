@@ -12,50 +12,53 @@
 #include "VertexData.h"
 #include "Material/Material.h"
 
-class Renderer final : public Service
+namespace WaveEngine
 {
-private:
+	class Renderer final : public Service
+	{
+	private:
 
-	unsigned int shapeShaders;
-	unsigned int spriteShaders;
+		unsigned int shapeShaders;
+		unsigned int spriteShaders;
 
-	unsigned int drawCalls = 0;
+		unsigned int drawCalls = 0;
 
-	glm::mat4* view;
-	glm::mat4* proj;
+		glm::mat4* view;
+		glm::mat4* proj;
 
-	void Init();
-	void Unload();
+		void Init();
+		void Unload();
 
-	unsigned int defualtTextureID = 0;
+		unsigned int defualtTextureID = 0;
 
-	const unsigned int ReturnWorkingMaterial(const unsigned int& materialIDToTry, const unsigned int& materialIDfallBack);
+		const unsigned int ReturnWorkingMaterial(const unsigned int& materialIDToTry, const unsigned int& materialIDfallBack);
 
-	Window* GetWindow();
+		Window* GetWindow();
 
-	MaterialManager* GetMaterialManager();
+		MaterialManager* GetMaterialManager();
 
-	TextureManager* GetTextureManager();
+		TextureManager* GetTextureManager();
 
-	Texture* ChooseTextureToUse(const unsigned int& ID);
+		Texture* ChooseTextureToUse(const unsigned int& ID);
 
-public:
+	public:
 
-	Renderer();
-	~Renderer();
+		Renderer();
+		~Renderer();
 
-	void CreateBuffers(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const;
-	void CreateBuffersSprite(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const;
+		void CreateBuffers(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const;
+		void CreateBuffersSprite(const VertexData* vertex, const int& vertexSize, const int* indices, const int& indicesSize, unsigned& VAO, unsigned& VBO, unsigned& EBO) const;
 
-	void DeleteBuffers(unsigned int& VAO, unsigned int& VBO, unsigned int& EBO);
+		void DeleteBuffers(unsigned int& VAO, unsigned int& VBO, unsigned int& EBO);
 
-	void UpdateBuffer(VertexData* vertex, int vertexSize, unsigned& VBO);
+		void UpdateBuffer(VertexData* vertex, int vertexSize, unsigned& VBO);
 
-	void Clear();
+		void Clear();
 
-	unsigned int GetDrawCalls();
+		unsigned int GetDrawCalls();
 
-	void DrawElement(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO);
-	void DrawElementSprite(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO, const unsigned int& texture);
-};
+		void DrawElement(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO);
+		void DrawElementSprite(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO, const unsigned int& texture);
+	};
+}
 

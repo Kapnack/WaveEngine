@@ -8,29 +8,31 @@
 
 #include "Export.h"
 
-class BaseGame;
-
-class EntityFactory final : public Service
+namespace WaveEngine
 {
-private:
+	class BaseGame;
 
-	EntityManager* entityManager;
-	Window* window;
+	class EntityFactory final : public Service
+	{
+	private:
 
-	unsigned int currentEntityID = Entity::NULL_ENTITY;
+		EntityManager* entityManager;
+		Window* window;
 
-	inline EntityFactory(EntityManager* entityManager, Window* window);
-	inline ~EntityFactory();
+		unsigned int currentEntityID = Entity::NULL_ENTITY;
 
-	friend class ServiceProvider;
-	friend class BaseGame;
+		inline EntityFactory(EntityManager* entityManager, Window* window);
+		inline ~EntityFactory();
 
-public:
+		friend class ServiceProvider;
+		friend class BaseGame;
 
-	template<EntityManagerStandar T>
-	unsigned int Create();
+	public:
 
-	inline unsigned int CreateTileMap(const string_view mapFilePath, const bool& mapFileAddAbsolutePath, const string_view texturePath, const bool& texturePathAddAbsolutePath);
-};
+		template<EntityManagerStandar T>
+		unsigned int Create();
 
+		inline unsigned int CreateTileMap(const string_view mapFilePath, const bool& mapFileAddAbsolutePath, const string_view texturePath, const bool& texturePathAddAbsolutePath);
+	};
+}
 #include "EntityFactory.tpp"

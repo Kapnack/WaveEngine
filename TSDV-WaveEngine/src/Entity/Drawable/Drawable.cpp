@@ -3,68 +3,71 @@
 #include "ServiceProvider/ServiceProvider.h"
 #include "Entity/EntityManager.h"
 
-Drawable::Drawable(const unsigned int& ID)
+namespace WaveEngine
 {
-	this->ID = ID;
-}
+	Drawable::Drawable(const unsigned int& ID)
+	{
+		this->ID = ID;
+	}
 
-Drawable::~Drawable()
-{
-	GetRenderer()->DeleteBuffers(VAO, VBO, EBO);
+	Drawable::~Drawable()
+	{
+		GetRenderer()->DeleteBuffers(VAO, VBO, EBO);
 
-	delete[] vertex;
-	delete[] indices;
-}
+		delete[] vertex;
+		delete[] indices;
+	}
 
-void Drawable::SetLayer(const int& layer)
-{
-	ServiceProvider::Instance().Get<EntityManager>()->OnEntityChangeLayer(ID, this->layer, layer);
-	this->layer = layer;
-}
+	void Drawable::SetLayer(const int& layer)
+	{
+		ServiceProvider::Instance().Get<EntityManager>()->OnEntityChangeLayer(ID, this->layer, layer);
+		this->layer = layer;
+	}
 
-int Drawable::GetLayer() const
-{
-	return layer;
-}
+	int Drawable::GetLayer() const
+	{
+		return layer;
+	}
 
-void Drawable::SetMaterial(unsigned int materialID)
-{
-	this->materialID = materialID;
-}
+	void Drawable::SetMaterial(unsigned int materialID)
+	{
+		this->materialID = materialID;
+	}
 
-unsigned int Drawable::GetMaterial() const
-{
-	return materialID;
-}
+	unsigned int Drawable::GetMaterial() const
+	{
+		return materialID;
+	}
 
-void Drawable::SetColor(const Vector4& color)
-{
-	for (int i = 0; i < vertexSize; i++)
-		vertex[i].SetColor(color);
+	void Drawable::SetColor(const Vector4& color)
+	{
+		for (int i = 0; i < vertexSize; i++)
+			vertex[i].SetColor(color);
 
-	UpdateVertexBuffer();
-}
+		UpdateVertexBuffer();
+	}
 
-void Drawable::SetVertexColor(const int& index, const Vector4& color)
-{
-	if (index < 0 || index >= vertexSize)
-		return;
+	void Drawable::SetVertexColor(const int& index, const Vector4& color)
+	{
+		if (index < 0 || index >= vertexSize)
+			return;
 
-	vertex[index].SetColor(color);
-	UpdateVertexBuffer();
-}
+		vertex[index].SetColor(color);
+		UpdateVertexBuffer();
+	}
 
-void Drawable::UpdateVertexBuffer()
-{
-	GetRenderer()->UpdateBuffer(vertex, vertexSize, VBO);
-}
+	void Drawable::UpdateVertexBuffer()
+	{
+		GetRenderer()->UpdateBuffer(vertex, vertexSize, VBO);
+	}
 
-MaterialManager* Drawable::GetMaterialManager()
-{
-	return ServiceProvider::Instance().Get<MaterialManager>();
-}
+	MaterialManager* Drawable::GetMaterialManager()
+	{
+		return ServiceProvider::Instance().Get<MaterialManager>();
+	}
 
-Renderer* Drawable::GetRenderer() const
-{
-	return ServiceProvider::Instance().Get<Renderer>();
+	Renderer* Drawable::GetRenderer() const
+	{
+		return ServiceProvider::Instance().Get<Renderer>();
+	}
 }

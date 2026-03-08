@@ -3,147 +3,150 @@
 
 #include "ServiceProvider/ServiceProvider.h"
 
-const float Animation::DEFAULT_SPEED = 1;
-
-Animation::Animation(
-	const Vector2& startCoords,
-	const Vector2& frameArea,
-	const Vector2& textureArea,
-	const int& framesQuantity,
-	const float& animationTime
-)
+namespace WaveEngine
 {
-	this->currentFrame = 0;
-	this->currentTime = 0.0f;
-	this->animationTime = animationTime;
-	this->framesQuantity = framesQuantity;
+	const float Animation::DEFAULT_SPEED = 1;
 
-	float frameWidthFloat = frameArea.x;
-	float frameHeightFloat = frameArea.y;
-	float textureWidth = textureArea.x;
-	float textureHeight = textureArea.y;
-
-	Vector2 startUVCoords =
+	Animation::Animation(
+		const Vector2& startCoords,
+		const Vector2& frameArea,
+		const Vector2& textureArea,
+		const int& framesQuantity,
+		const float& animationTime
+	)
 	{
-		startCoords.x / textureWidth,
-		startCoords.y / textureHeight
-	};
+		this->currentFrame = 0;
+		this->currentTime = 0.0f;
+		this->animationTime = animationTime;
+		this->framesQuantity = framesQuantity;
 
-	frames = new Frame[framesQuantity];
+		float frameWidthFloat = frameArea.x;
+		float frameHeightFloat = frameArea.y;
+		float textureWidth = textureArea.x;
+		float textureHeight = textureArea.y;
 
-	for (int i = 0; i < framesQuantity; i++)
-	{
-		Vector2 leftTopUVCoords =
+		Vector2 startUVCoords =
 		{
-			startUVCoords.x + ((i * frameWidthFloat) / textureWidth),
-			startUVCoords.y
+			startCoords.x / textureWidth,
+			startCoords.y / textureHeight
 		};
 
-		Vector2 rightBottomUVCoords =
-		{
-			startUVCoords.x + frameWidthFloat / textureWidth + ((i * frameWidthFloat) / textureWidth),
-			startUVCoords.y - (frameHeightFloat / textureHeight)
-		};
+		frames = new Frame[framesQuantity];
 
-		frames[i] = Frame(leftTopUVCoords, rightBottomUVCoords);
+		for (int i = 0; i < framesQuantity; i++)
+		{
+			Vector2 leftTopUVCoords =
+			{
+				startUVCoords.x + ((i * frameWidthFloat) / textureWidth),
+				startUVCoords.y
+			};
+
+			Vector2 rightBottomUVCoords =
+			{
+				startUVCoords.x + frameWidthFloat / textureWidth + ((i * frameWidthFloat) / textureWidth),
+				startUVCoords.y - (frameHeightFloat / textureHeight)
+			};
+
+			frames[i] = Frame(leftTopUVCoords, rightBottomUVCoords);
+		}
+
+		timePerFrame = animationTime / framesQuantity;
 	}
 
-	timePerFrame = animationTime / framesQuantity;
-}
+	Animation::~Animation()
+	{
+		delete[] frames;
+	}
 
-Animation::~Animation()
-{
-	delete[] frames;
-}
+	void Animation::KeepTimerInBounds()
+	{
+		while (currentTime >= animationTime)
+			currentTime -= animationTime;
+	}
 
-void Animation::KeepTimerInBounds()
-{
-	while (currentTime >= animationTime)
-		currentTime -= animationTime;
-}
+	void Animation::SetCurrentFrame()
+	{
+		currentFrame = static_cast<int>(currentTime / timePerFrame);
+	}
 
-void Animation::SetCurrentFrame()
-{
-	currentFrame = static_cast<int>(currentTime / timePerFrame);
-}
+	void Animation::AddToTimer(const float& addition)
+	{
+		currentTime += addition;
 
-void Animation::AddToTimer(const float& addition)
-{
-	currentTime += addition;
+		KeepTimerInBounds();
 
-	KeepTimerInBounds();
+		SetCurrentFrame();
+	}
 
-	SetCurrentFrame();
-}
+	Frame Animation::GetCurrentFrame() const
+	{
+		return frames[currentFrame];
+	}
 
-Frame Animation::GetCurrentFrame() const
-{
-	return frames[currentFrame];
-}
+	Frame Animation::GetFrame(int index) const
+	{
+		index = index % framesQuantity;
+		return frames[index];
+	}
 
-Frame Animation::GetFrame(int index) const
-{
-	index = index % framesQuantity;
-	return frames[index];
-}
+	void Animation::Update(const float& deltaTime)
+	{
+		if (paused)
+			return;
 
-void Animation::Update(const float& deltaTime)
-{
-	if (paused)
-		return;
+		AddToTimer(animationSpeed * deltaTime);
+	}
 
-	AddToTimer(animationSpeed * deltaTime);
-}
-
-void Animation::MoveToNextFrame()
-{
-	AddToTimer(timePerFrame);
-}
-
-void Animation::MoveToPreviousFrame()
-{
-	AddToTimer(-timePerFrame);
-}
-
-void Animation::GoToFrame(const int& index)
-{
-	ResetTime();
-
-	for (int i = 0; i < index; ++i)
+	void Animation::MoveToNextFrame()
+	{
 		AddToTimer(timePerFrame);
-}
+	}
 
-void Animation::ResetTime()
-{
-	currentTime = 0;
-}
+	void Animation::MoveToPreviousFrame()
+	{
+		AddToTimer(-timePerFrame);
+	}
 
-void Animation::Pause()
-{
-	paused = true;
-}
+	void Animation::GoToFrame(const int& index)
+	{
+		ResetTime();
 
-void Animation::UnPause()
-{
-	paused = false;
-}
+		for (int i = 0; i < index; ++i)
+			AddToTimer(timePerFrame);
+	}
 
-void Animation::SetPause(const bool& paused)
-{
-	this->paused = paused;
-}
+	void Animation::ResetTime()
+	{
+		currentTime = 0;
+	}
 
-void Animation::SwitchPauseState()
-{
-	paused = !paused;
-}
+	void Animation::Pause()
+	{
+		paused = true;
+	}
 
-bool Animation::GetPause()
-{
-	return paused;
-}
+	void Animation::UnPause()
+	{
+		paused = false;
+	}
 
-void Animation::SetSpeed(const float& speed)
-{
-	animationSpeed = speed;
+	void Animation::SetPause(const bool& paused)
+	{
+		this->paused = paused;
+	}
+
+	void Animation::SwitchPauseState()
+	{
+		paused = !paused;
+	}
+
+	bool Animation::GetPause()
+	{
+		return paused;
+	}
+
+	void Animation::SetSpeed(const float& speed)
+	{
+		animationSpeed = speed;
+	}
 }

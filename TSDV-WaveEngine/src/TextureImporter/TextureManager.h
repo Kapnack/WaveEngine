@@ -8,40 +8,43 @@
 #include <unordered_map>
 #include "Export.h"
 
-class TextureImporter;
-class BaseGame;
-class EntitiesImGui;
-class TexturesImGui;
-class TileMap;
-class Renderer;
-
-using namespace std;
-
-WAVEEXPORT class TextureManager final : public Service
+namespace WaveEngine
 {
-private:
+	class TextureImporter;
+	class BaseGame;
+	class EntitiesImGui;
+	class TexturesImGui;
+	class TileMap;
+	class Renderer;
 
-	unordered_map<unsigned int, Texture*> textures;
+	using namespace std;
 
-	TextureManager();
-	~TextureManager();
+	WAVEEXPORT class TextureManager final : public Service
+	{
+	private:
 
-	void Save(const unsigned int& ID, Texture* texture);
+		unordered_map<unsigned int, Texture*> textures;
 
-	Texture* GetTexture(const unsigned int& ID);
+		TextureManager();
+		~TextureManager();
 
-	unordered_map<unsigned int, Texture*>& GetTextures();
+		void Save(const unsigned int& ID, Texture* texture);
 
-	friend class BaseGame;
-	friend class TextureImporter;
-	friend class ServiceProvider;
-	friend class EntitiesImGui;
-	friend class TexturesImGui;
-	friend class TileMap;
-	friend class Renderer;
+		Texture* GetTexture(const unsigned int& ID);
 
-public:
+		unordered_map<unsigned int, Texture*>& GetTextures();
 
-	WAVEEXPORT void DeleteTexture(const unsigned int& ID);
-	WAVEEXPORT void DeleteTexture(const string_view name);
-};
+		friend class BaseGame;
+		friend class TextureImporter;
+		friend class ServiceProvider;
+		friend class EntitiesImGui;
+		friend class TexturesImGui;
+		friend class TileMap;
+		friend class Renderer;
+
+	public:
+
+		WAVEEXPORT void DeleteTexture(const unsigned int& ID);
+		WAVEEXPORT void DeleteTexture(const string_view name);
+	};
+}

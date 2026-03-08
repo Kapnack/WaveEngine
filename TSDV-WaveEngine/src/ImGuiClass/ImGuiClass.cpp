@@ -4,101 +4,104 @@
 #include <ImGui/imgui_impl_opengl3.h>
 #include <ImGui/imgui_impl_glfw.h>
 
-ImGuiClass::ImGuiClass()
+namespace WaveEngine
 {
-	Init();
-}
+	ImGuiClass::ImGuiClass()
+	{
+		Init();
+	}
 
-ImGuiClass::~ImGuiClass()
-{
-	Unload();
-}
+	ImGuiClass::~ImGuiClass()
+	{
+		Unload();
+	}
 
-Window* ImGuiClass::GetWindow()
-{
-	return ServiceProvider::Instance().Get<Window>();
-}
+	Window* ImGuiClass::GetWindow()
+	{
+		return ServiceProvider::Instance().Get<Window>();
+	}
 
-Input* ImGuiClass::GetInput()
-{
-	return ServiceProvider::Instance().Get<Input>();
-}
- 
-void ImGuiClass::Init()
-{
-	showEntitiesState = new EntitiesImGui();
-	showTexturesState = new TexturesImGui();
-	showMaterialsState = new MaterialsImGui();
-	showMeshState = new MeshImGui();
-	showEntityController = new EntityControllerImGui();
+	Input* ImGuiClass::GetInput()
+	{
+		return ServiceProvider::Instance().Get<Input>();
+	}
 
-	state = showEntitiesState;
+	void ImGuiClass::Init()
+	{
+		showEntitiesState = new EntitiesImGui();
+		showTexturesState = new TexturesImGui();
+		showMaterialsState = new MaterialsImGui();
+		showMeshState = new MeshImGui();
+		showEntityController = new EntityControllerImGui();
 
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	ImGui_ImplGlfw_InitForOpenGL(GetWindow()->GetGLFWindow(), true);
-	ImGui_ImplOpenGL3_Init("#version 330");
-	ImGui::StyleColorsDark();
-}
-
-void ImGuiClass::Unload()
-{
-	delete showTexturesState;
-	delete showMaterialsState;
-	delete showEntitiesState;
-	delete showMeshState;
-	delete showEntityController;
-
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplGlfw_Shutdown();
-	ImGui::DestroyContext();
-}
-
-void ImGuiClass::Update()
-{
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
-	ImGui::NewFrame();
-
-	ImGui::Begin("WaveEngine Debug Window");
-	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-	string text = "Draw Calls: " + to_string(ServiceProvider::Instance().Get<Renderer>()->GetDrawCalls()) + ".";
-	ImGui::Text(text.c_str());
-
-	if (ImGui::Button("Entities", ImVec2(100, 25)))
 		state = showEntitiesState;
 
-	ImGui::SameLine();
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO();
+		ImGui_ImplGlfw_InitForOpenGL(GetWindow()->GetGLFWindow(), true);
+		ImGui_ImplOpenGL3_Init("#version 330");
+		ImGui::StyleColorsDark();
+	}
 
-	if (ImGui::Button("Textures", ImVec2(100, 25)))
-		state = showTexturesState;
+	void ImGuiClass::Unload()
+	{
+		delete showTexturesState;
+		delete showMaterialsState;
+		delete showEntitiesState;
+		delete showMeshState;
+		delete showEntityController;
 
-	ImGui::SameLine();
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
+	}
 
-	if (ImGui::Button("Materials", ImVec2(100, 25)))
-		state = showMaterialsState;
+	void ImGuiClass::Update()
+	{
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
-	ImGui::SameLine();
+		ImGui::Begin("WaveEngine Debug Window");
+		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		string text = "Draw Calls: " + to_string(ServiceProvider::Instance().Get<Renderer>()->GetDrawCalls()) + ".";
+		ImGui::Text(text.c_str());
 
-	if (ImGui::Button("Meshes", ImVec2(100, 25)))
-		state = showMeshState;
+		if (ImGui::Button("Entities", ImVec2(100, 25)))
+			state = showEntitiesState;
 
-	ImGui::SameLine();
+		ImGui::SameLine();
 
-	if (ImGui::Button("Entity Controller", ImVec2(100, 25)))
-		state = showEntityController;
+		if (ImGui::Button("Textures", ImVec2(100, 25)))
+			state = showTexturesState;
 
-	ImGui::Separator();
+		ImGui::SameLine();
 
-	if (state)
-		state->Update();
+		if (ImGui::Button("Materials", ImVec2(100, 25)))
+			state = showMaterialsState;
 
-	ImGui::End();
-}
+		ImGui::SameLine();
 
-void ImGuiClass::Draw()
-{
-	ImGui::Render();
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		if (ImGui::Button("Meshes", ImVec2(100, 25)))
+			state = showMeshState;
+
+		ImGui::SameLine();
+
+		if (ImGui::Button("Entity Controller", ImVec2(100, 25)))
+			state = showEntityController;
+
+		ImGui::Separator();
+
+		if (state)
+			state->Update();
+
+		ImGui::End();
+	}
+
+	void ImGuiClass::Draw()
+	{
+		ImGui::Render();
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	}
 }

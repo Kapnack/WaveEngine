@@ -3,17 +3,19 @@
 #include "../ImGuiClassState.h"
 #include "Entity/Controller/EntityController/EntityController.h"
 
-class EntityControllerImGui : public ImGuiClassState
+namespace WaveEngine
 {
-private:
+	class EntityControllerImGui : public ImGuiClassState
+	{
+	private:
 
-	EntityController* GetEntityController();
+		EntityController* GetEntityController();
 
-	int entityToAdd = 0;
-	int entityToRemove = 0;
+		int entityToAdd = 0;
+		int entityToRemove = 0;
 
-public:
+	public:
 
-	void Update() override;
-};
-
+		void Update() override;
+	};
+}

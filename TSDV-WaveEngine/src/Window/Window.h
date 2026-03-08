@@ -7,47 +7,49 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-class BaseGame;
-class ServiceProvider;
-
-WAVEEXPORT class Window final : public Service
+namespace WaveEngine
 {
-private:
+	class BaseGame;
+	class ServiceProvider;
 
-	GLFWwindow* window = nullptr;
+	WAVEEXPORT class Window final : public Service
+	{
+	private:
 
-	int width = 0;
-	int height = 0;
+		GLFWwindow* window = nullptr;
 
-	int baseWidth = 0;
-	int baseHeight = 0;
+		int width = 0;
+		int height = 0;
 
-	const char* title;
-	GLFWmonitor* monitor;
-	GLFWwindow* share;
+		int baseWidth = 0;
+		int baseHeight = 0;
 
-	void Init();
-	void Unload();
+		const char* title;
+		GLFWmonitor* monitor;
+		GLFWwindow* share;
 
-	static void FrameBufferCallBack(GLFWwindow* window, int width, int height);
+		void Init();
+		void Unload();
 
-	Window(int width, int height, const char* title, GLFWmonitor* monitor = nullptr, GLFWwindow* share = nullptr);
-	~Window();
+		static void FrameBufferCallBack(GLFWwindow* window, int width, int height);
 
-	friend class BaseGame;
-	friend class ServiceProvider;
+		Window(int width, int height, const char* title, GLFWmonitor* monitor = nullptr, GLFWwindow* share = nullptr);
+		~Window();
 
-public:
+		friend class BaseGame;
+		friend class ServiceProvider;
 
-	GLFWwindow* GetGLFWindow();
-	WAVEEXPORT int GetWidth();
-	WAVEEXPORT int GetHeight();
-	WAVEEXPORT int GetBaseWidth();
-	WAVEEXPORT int GetBaseHeight();
+	public:
 
-	WAVEEXPORT void SwapBuffer();
-	WAVEEXPORT void HandleInput();
+		GLFWwindow* GetGLFWindow();
+		WAVEEXPORT int GetWidth();
+		WAVEEXPORT int GetHeight();
+		WAVEEXPORT int GetBaseWidth();
+		WAVEEXPORT int GetBaseHeight();
 
-	WAVEEXPORT float GetGLTime();
-};
+		WAVEEXPORT void SwapBuffer();
+		WAVEEXPORT void HandleInput();
 
+		WAVEEXPORT float GetGLTime();
+	};
+}

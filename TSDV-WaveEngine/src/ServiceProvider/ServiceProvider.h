@@ -9,30 +9,33 @@
 
 using namespace std;
 
-template<typename T>
-concept ServiceStandard = is_base_of_v<Service, T>;
-
-class ServiceProvider final : public Singleton<ServiceProvider>
+namespace WaveEngine
 {
-private:
+	template<typename T>
+	concept ServiceStandard = is_base_of_v<Service, T>;
 
-	unordered_map<type_index, Service*> services;
+	class ServiceProvider final : public Singleton<ServiceProvider>
+	{
+	private:
 
-public:
+		unordered_map<type_index, Service*> services;
 
-	template<ServiceStandard T>
-	void Register(T* service);
+	public:
 
-	template<ServiceStandard T>
-	T* Get();
+		template<ServiceStandard T>
+		void Register(T* service);
 
-	template<ServiceStandard T>
-	T* TryGet();
+		template<ServiceStandard T>
+		T* Get();
 
-	template<ServiceStandard T>
-	void UnRegister();
+		template<ServiceStandard T>
+		T* TryGet();
 
-	inline void Clear();
-};
+		template<ServiceStandard T>
+		void UnRegister();
+
+		inline void Clear();
+	};
+}
 
 #include "ServiceProvider.tpp"

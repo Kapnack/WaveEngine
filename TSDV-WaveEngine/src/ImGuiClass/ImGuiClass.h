@@ -20,32 +20,35 @@ using namespace std;
 
 class BaseGame;
 
-class ImGuiClass final
+namespace WaveEngine
 {
-private:
+	class ImGuiClass final
+	{
+	private:
 
-	EntitiesImGui* showEntitiesState;
-	TexturesImGui* showTexturesState;
-	MaterialsImGui* showMaterialsState;
-	MeshImGui* showMeshState;
-	EntityControllerImGui* showEntityController;
+		EntitiesImGui* showEntitiesState;
+		TexturesImGui* showTexturesState;
+		MaterialsImGui* showMaterialsState;
+		MeshImGui* showMeshState;
+		EntityControllerImGui* showEntityController;
 
-	ImGuiClassState* state;
+		ImGuiClassState* state;
 
-	Window* GetWindow();
+		Window* GetWindow();
 
-	Input* GetInput();
+		Input* GetInput();
 
-	bool isActive = false;
+		bool isActive = false;
 
-	void Init();
-	void Update();
-	void Draw();
-	void Unload();
+		void Init();
+		void Update();
+		void Draw();
+		void Unload();
 
-	ImGuiClass();
-	~ImGuiClass();
+		ImGuiClass();
+		~ImGuiClass();
 
-	friend class BaseGame;
-	friend class ServiceProvider;
-};
+		friend class BaseGame;
+		friend class ServiceProvider;
+	};
+}

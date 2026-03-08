@@ -10,14 +10,16 @@
 
 using namespace std;
 
-WAVEEXPORT class ModelImporter
+namespace WaveEngine
 {
-private:
+	WAVEEXPORT class ModelImporter
+	{
+	private:
 
-	void InitFromScene(const aiScene* pScene, const string_view filepath);
+		void InitFromScene(const aiScene* pScene, const string_view filepath);
 
-public:
+	public:
 
-	WAVEEXPORT void LoadMesh(const string_view filePath);
-};
-
+		WAVEEXPORT void LoadMesh(const string_view filePath);
+	};
+}

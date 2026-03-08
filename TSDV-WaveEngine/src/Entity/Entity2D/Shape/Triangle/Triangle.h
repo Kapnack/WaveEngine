@@ -2,17 +2,19 @@
 
 #include "../Shape.h"
 
-class EntityFactory;
-class EntityManager;
-
-WAVEEXPORT class Triangle : public Shape
+namespace WaveEngine
 {
-private:
+	class EntityFactory;
+	class EntityManager;
 
-	WAVEEXPORT Triangle(const unsigned int& ID);
-	WAVEEXPORT ~Triangle();
+	WAVEEXPORT class Triangle : public Shape
+	{
+	private:
 
-	friend class EntityFactory;
-	friend class EntityManager;
-};
+		WAVEEXPORT Triangle(const unsigned int& ID);
+		WAVEEXPORT ~Triangle();
 
+		friend class EntityFactory;
+		friend class EntityManager;
+	};
+}

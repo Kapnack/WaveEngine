@@ -13,34 +13,37 @@ using namespace std;
 template<typename T>
 concept ControllerStandar = is_same_v<T, unsigned int> || is_integral_v<T>;
 
-class Controller : public Service
+namespace WaveEngine
 {
-protected:
+	class Controller : public Service
+	{
+	protected:
 
-	vector<unsigned int> entitiesIDs;
+		vector<unsigned int> entitiesIDs;
 
-	inline Input* GetInput();
-	inline EntityManager* GetEntityManager();
+		inline Input* GetInput();
+		inline EntityManager* GetEntityManager();
 
-public:
+	public:
 
-	inline Controller();
-	inline Controller(const unsigned int& entityID);
-	inline ~Controller();
+		inline Controller();
+		inline Controller(const unsigned int& entityID);
+		inline ~Controller();
 
-	inline virtual void Update(const float& deltaTime) = 0;
+		inline virtual void Update(const float& deltaTime) = 0;
 
-	template<ControllerStandar... T>
-	void AddEntityIDs(const T&... entityIDs);
+		template<ControllerStandar... T>
+		void AddEntityIDs(const T&... entityIDs);
 
-	inline void AddEntityID(const unsigned int& entityID);
+		inline void AddEntityID(const unsigned int& entityID);
 
-	template<ControllerStandar... T>
-	void RemoveEntityIDs(const T&... entityIDs);
+		template<ControllerStandar... T>
+		void RemoveEntityIDs(const T&... entityIDs);
 
-	inline void RemoveEntityID(const unsigned int& entityID);
+		inline void RemoveEntityID(const unsigned int& entityID);
 
-	inline const std::vector<unsigned int>& GetEntityIDs();
-};
+		inline const std::vector<unsigned int>& GetEntityIDs();
+	};
+}
 
 #include "Controller.tpp"

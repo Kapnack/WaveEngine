@@ -14,99 +14,103 @@
 #include "Entity/Entity2D/Shape/Triangle/Triangle.h"
 #include "Entity/Entity2D/Shape/Square/Square.h"
 
-struct ComboData
+namespace WaveEngine
 {
-	const char* label;
-	std::function<void()> action;
-};
-
-struct ComoboStruct
-{
-	vector<ComboData> options;
-	vector<const char*> labels;
-	int selected = 0;
-
-	ComoboStruct()
-	{}
-
-	ComoboStruct(vector<ComboData> options)
+	struct ComboData
 	{
-		this->options = options;
+		const char* label;
+		std::function<void()> action;
+	};
 
-		for (vector<ComboData>::iterator::value_type option : options)
-			labels.push_back(option.label);
-	}
-};
-
-class EntitiesImGui : public ImGuiClassState
-{
-private:
-
-	EntityManager* GetEntityManager();
-	EntityFactory* GetEntityFactory();
-	MaterialManager* GetMaterialManager();
-	TextureManager* GetTextureManager();
-
-	bool showMaterials = false;
-	bool showTextures = false;
-	bool showInReverseOrder = false;
-	bool changedEntityTRS = false;
-
-	ComoboStruct creation;
-	ComoboStruct filters;
-	ComoboStruct deletionOptions;
-
-	int textureID = 0;
-	int materialID = 0;
-	int layer = 0;
-	int entityToDelete = 0;
-
-	map<unsigned int, Drawable*>::iterator drawableIT;
-
-	void EntityCreator();
-	void EntityDeleter();
-
-	void EntityDisplayer();
-	void ShowEntity(Entity& entity);
-	void ShowEntityData(Entity& it);
-	void ShowMaterial(const unsigned int& ID, Drawable& entity);
-	void ShowTexture(Sprite& sprite);
-
-	void ShowAllEntities()
+	struct ComoboStruct
 	{
-		if (!showInReverseOrder)
-			for (map<unsigned int, Entity*>::iterator it = GetEntityManager()->GetEntities().begin(); it != GetEntityManager()->GetEntities().end(); ++it)
-				ShowEntity(*it->second);
-		else
-			for (map<unsigned int, Entity*>::reverse_iterator it = GetEntityManager()->GetEntities().rbegin(); it != GetEntityManager()->GetEntities().rend(); ++it)
-				ShowEntity(*it->second);
-	}
+		vector<ComboData> options;
+		vector<const char*> labels;
+		int selected = 0;
 
-	template<EntityManagerGetStandar T>
-	void ShowAllOfType()
-	{
-		vector<unsigned int>& vec = GetEntityManager()->GetAllOfType<T>();
-
-		unsigned int* data = vec.data();
-		size_t size = vec.size();
-
-		if (!showInReverseOrder)
+		ComoboStruct()
 		{
-			for (unsigned int* it = data; it != data + size; ++it)
-				ShowEntity(*GetEntityManager()->Get(*it));
 		}
-		else
+
+		ComoboStruct(vector<ComboData> options)
 		{
-			for (unsigned int* it = data + size; it != data;)
-				ShowEntity(*GetEntityManager()->Get(*--it));
+			this->options = options;
+
+			for (vector<ComboData>::iterator::value_type option : options)
+				labels.push_back(option.label);
 		}
-	}
+	};
 
-public:
+	class EntitiesImGui : public ImGuiClassState
+	{
+	private:
 
-	EntitiesImGui();
-	~EntitiesImGui();
+		EntityManager* GetEntityManager();
+		EntityFactory* GetEntityFactory();
+		MaterialManager* GetMaterialManager();
+		TextureManager* GetTextureManager();
 
-	void Update() override;
-};
+		bool showMaterials = false;
+		bool showTextures = false;
+		bool showInReverseOrder = false;
+		bool changedEntityTRS = false;
+
+		ComoboStruct creation;
+		ComoboStruct filters;
+		ComoboStruct deletionOptions;
+
+		int textureID = 0;
+		int materialID = 0;
+		int layer = 0;
+		int entityToDelete = 0;
+
+		map<unsigned int, Drawable*>::iterator drawableIT;
+
+		void EntityCreator();
+		void EntityDeleter();
+
+		void EntityDisplayer();
+		void ShowEntity(Entity& entity);
+		void ShowEntityData(Entity& it);
+		void ShowMaterial(const unsigned int& ID, Drawable& entity);
+		void ShowTexture(Sprite& sprite);
+
+		void ShowAllEntities()
+		{
+			if (!showInReverseOrder)
+				for (map<unsigned int, Entity*>::iterator it = GetEntityManager()->GetEntities().begin(); it != GetEntityManager()->GetEntities().end(); ++it)
+					ShowEntity(*it->second);
+			else
+				for (map<unsigned int, Entity*>::reverse_iterator it = GetEntityManager()->GetEntities().rbegin(); it != GetEntityManager()->GetEntities().rend(); ++it)
+					ShowEntity(*it->second);
+		}
+
+		template<EntityManagerGetStandar T>
+		void ShowAllOfType()
+		{
+			vector<unsigned int>& vec = GetEntityManager()->GetAllOfType<T>();
+
+			unsigned int* data = vec.data();
+			size_t size = vec.size();
+
+			if (!showInReverseOrder)
+			{
+				for (unsigned int* it = data; it != data + size; ++it)
+					ShowEntity(*GetEntityManager()->Get(*it));
+			}
+			else
+			{
+				for (unsigned int* it = data + size; it != data;)
+					ShowEntity(*GetEntityManager()->Get(*--it));
+			}
+		}
+
+	public:
+
+		EntitiesImGui();
+		~EntitiesImGui();
+
+		void Update() override;
+	};
+}
 

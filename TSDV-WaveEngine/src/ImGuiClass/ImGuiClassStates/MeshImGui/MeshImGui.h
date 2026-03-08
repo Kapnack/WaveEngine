@@ -4,19 +4,21 @@
 #include "Entity/Entity.h"
 #include "Entity/EntityManager.h"
 
-class MeshImGui : public ImGuiClassState
+namespace WaveEngine
 {
-private:
+	class MeshImGui : public ImGuiClassState
+	{
+	private:
 
-	EntityManager* GetEntityManager();
+		EntityManager* GetEntityManager();
 
-	VertexData* currentVertex;
+		VertexData* currentVertex;
 
-public:
+	public:
 
-	MeshImGui();
-	~MeshImGui();
+		MeshImGui();
+		~MeshImGui();
 
-	void Update() override;
-};
-
+		void Update() override;
+	};
+}

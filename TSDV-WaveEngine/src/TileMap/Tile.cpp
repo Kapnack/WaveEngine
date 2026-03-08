@@ -1,39 +1,42 @@
 #include "Tile.h"
 
-Tile::Tile(const unsigned int& ID) : Sprite(ID)
+namespace WaveEngine
 {
-}
+	Tile::Tile(const unsigned int& ID) : Sprite(ID)
+	{
+	}
 
-Tile::~Tile()
-{
-}
+	Tile::~Tile()
+	{
+	}
 
-void Tile::SetCollide(bool walkable)
-{
-	this->collide = walkable;
-}
+	void Tile::SetCollide(bool walkable)
+	{
+		this->collide = walkable;
+	}
 
-bool Tile::CanCollide()
-{
-	return collide;
-}
+	bool Tile::CanCollide()
+	{
+		return collide;
+	}
 
-void Tile::SetTileID(unsigned int id)
-{
-	this->tileID = id;
-}
+	void Tile::SetTileID(unsigned int id)
+	{
+		this->tileID = id;
+	}
 
-unsigned int Tile::GetTileID()
-{
-	return tileID;
-}
+	unsigned int Tile::GetTileID()
+	{
+		return tileID;
+	}
 
-void Tile::SetSpriteSheetID(int id)
-{
-	spriteSheetID = id;
-}
+	void Tile::SetSpriteSheetID(int id)
+	{
+		spriteSheetID = id;
+	}
 
-unsigned int Tile::GetSpriteSheetID()
-{
-	return spriteSheetID;
+	unsigned int Tile::GetSpriteSheetID()
+	{
+		return spriteSheetID;
+	}
 }

@@ -3,55 +3,57 @@
 
 #include "ServiceProvider.h"
 
-template<ServiceStandard T>
-void ServiceProvider::Register(T* service)
+namespace WaveEngine
 {
-	if (services.contains(typeid(T)) && services[typeid(T)] != nullptr)
+	template<ServiceStandard T>
+	void ServiceProvider::Register(T* service)
 	{
-		delete service;
-		return;
+		if (services.contains(typeid(T)) && services[typeid(T)] != nullptr)
+		{
+			delete service;
+			return;
+		}
+
+		services[typeid(T)] = service;
 	}
 
-	services[typeid(T)] = service;
-}
-
-template<ServiceStandard T>
-T* ServiceProvider::Get()
-{
-	return static_cast<T*>(services.at(typeid(T)));
-}
-
-template<ServiceStandard T>
-T* ServiceProvider::TryGet()
-{
-	unordered_map<type_index, Service*>::iterator it = services.find(typeid(T));
-
-	return (it != services.end() && it->second != nullptr) ? static_cast<T*>(it->second) : nullptr;
-}
-
-template<ServiceStandard T>
-void ServiceProvider::UnRegister()
-{
-	unordered_map<type_index, Service*>::iterator it = services.find(typeid(T));
-
-	if (it == services.end())
-		return;
-
-	if (it->second != nullptr)
-		delete it->second;
-
-	services.erase(it);
-}
-
-void ServiceProvider::Clear()
-{
-	for (unordered_map<type_index, Service*>::iterator it = services.begin(); it != services.end(); ++it)
+	template<ServiceStandard T>
+	T* ServiceProvider::Get()
 	{
-		delete it->second;
-		services[it->first] = nullptr;
+		return static_cast<T*>(services.at(typeid(T)));
 	}
 
-	services.clear();
-}
+	template<ServiceStandard T>
+	T* ServiceProvider::TryGet()
+	{
+		unordered_map<type_index, Service*>::iterator it = services.find(typeid(T));
 
+		return (it != services.end() && it->second != nullptr) ? static_cast<T*>(it->second) : nullptr;
+	}
+
+	template<ServiceStandard T>
+	void ServiceProvider::UnRegister()
+	{
+		unordered_map<type_index, Service*>::iterator it = services.find(typeid(T));
+
+		if (it == services.end())
+			return;
+
+		if (it->second != nullptr)
+			delete it->second;
+
+		services.erase(it);
+	}
+
+	void ServiceProvider::Clear()
+	{
+		for (unordered_map<type_index, Service*>::iterator it = services.begin(); it != services.end(); ++it)
+		{
+			delete it->second;
+			services[it->first] = nullptr;
+		}
+
+		services.clear();
+	}
+}
 #endif

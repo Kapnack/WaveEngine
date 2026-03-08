@@ -8,28 +8,31 @@
 
 class BaseGame;
 
-WAVEEXPORT class Time : public Service
+namespace WaveEngine
 {
-private:
+	WAVEEXPORT class Time : public Service
+	{
+	private:
 
-	float deltaTime = 0;
-	float lastTime = 0;
+		float deltaTime = 0;
+		float lastTime = 0;
 
-	float timeScale = 1;
+		float timeScale = 1;
 
-	Window* GetWindow();
+		Window* GetWindow();
 
-	Time();
-	~Time();
+		Time();
+		~Time();
 
-	void UpdateDeltaTime();
+		void UpdateDeltaTime();
 
-	friend class BaseGame;
-	friend class ServiceProvider;
+		friend class BaseGame;
+		friend class ServiceProvider;
 
-public:
+	public:
 
-	WAVEEXPORT float GetDeltaTime();
-	WAVEEXPORT void SetTimeScale(const float& timeScale);
-};
+		WAVEEXPORT float GetDeltaTime();
+		WAVEEXPORT void SetTimeScale(const float& timeScale);
+	};
+}
 

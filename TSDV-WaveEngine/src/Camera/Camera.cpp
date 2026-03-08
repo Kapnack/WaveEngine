@@ -5,148 +5,151 @@
 
 #include "ServiceProvider/ServiceProvider.h"
 
-Camera Camera::camera;
-
-Camera::Camera(const unsigned int& ID) : Entity(ID)
+namespace WaveEngine
 {
-}
+	Camera Camera::camera;
 
-Camera::Camera() : Entity(Entity::NULL_ENTITY)
-{
-}
+	Camera::Camera(const unsigned int& ID) : Entity(ID)
+	{
+	}
 
-Camera::~Camera()
-{
-}
+	Camera::Camera() : Entity(Entity::NULL_ENTITY)
+	{
+	}
 
-void Camera::UpdateCollider()
-{
-}
+	Camera::~Camera()
+	{
+	}
 
-void Camera::CalculateTRS()
-{
-	Entity::CalculateTRS();
+	void Camera::UpdateCollider()
+	{
+	}
 
-	CalculateMatrixes();
-}
+	void Camera::CalculateTRS()
+	{
+		Entity::CalculateTRS();
 
-void Camera::SetOrthographic(const bool& value)
-{
-	orthografic = value;
+		CalculateMatrixes();
+	}
 
-	CalculateMatrixes();
-}
+	void Camera::SetOrthographic(const bool& value)
+	{
+		orthografic = value;
 
-void Camera::SetFarPlane(const float& value)
-{
-	farPlane = value;
+		CalculateMatrixes();
+	}
 
-	CalculateMatrixes();
-}
+	void Camera::SetFarPlane(const float& value)
+	{
+		farPlane = value;
 
-void Camera::AddToFarPlane(const float& value)
-{
-	farPlane += value;
+		CalculateMatrixes();
+	}
 
-	CalculateMatrixes();
-}
+	void Camera::AddToFarPlane(const float& value)
+	{
+		farPlane += value;
 
-void Camera::SetNearPlane(const float& value)
-{
-	nearPlane = value;
+		CalculateMatrixes();
+	}
 
-	CalculateMatrixes();
-}
+	void Camera::SetNearPlane(const float& value)
+	{
+		nearPlane = value;
 
-void Camera::AddToNearPlane(const float& value)
-{
-	nearPlane += value;
+		CalculateMatrixes();
+	}
 
-	CalculateMatrixes();
-}
+	void Camera::AddToNearPlane(const float& value)
+	{
+		nearPlane += value;
 
-void Camera::SetFovDegree(const float& value)
-{
-	fovDeg = value;
+		CalculateMatrixes();
+	}
 
-	CalculateMatrixes();
-}
+	void Camera::SetFovDegree(const float& value)
+	{
+		fovDeg = value;
 
-void Camera::SetOrthoSize(const float& value)
-{
-	orthoSize = value;
-}
+		CalculateMatrixes();
+	}
 
-void Camera::AddToOrthoSize(const float& value)
-{
-	orthoSize += value;
-}
+	void Camera::SetOrthoSize(const float& value)
+	{
+		orthoSize = value;
+	}
 
-glm::mat4 Camera::GetView()
-{
-	return view;
-}
+	void Camera::AddToOrthoSize(const float& value)
+	{
+		orthoSize += value;
+	}
 
-glm::mat4 Camera::GetProjection()
-{
-	return projection;
-}
+	glm::mat4 Camera::GetView()
+	{
+		return view;
+	}
 
-float Camera::GetFarPlane()
-{
-	return farPlane;
-}
+	glm::mat4 Camera::GetProjection()
+	{
+		return projection;
+	}
 
-float Camera::GetNearPlane()
-{
-	return nearPlane;
-}
+	float Camera::GetFarPlane()
+	{
+		return farPlane;
+	}
 
-float Camera::GetFovDegree()
-{
-	return fovDeg;
-}
+	float Camera::GetNearPlane()
+	{
+		return nearPlane;
+	}
 
-float Camera::GetMovementSpeed()
-{
-	return movementSpeed;
-}
+	float Camera::GetFovDegree()
+	{
+		return fovDeg;
+	}
 
-float Camera::GetOrthoSize()
-{
-	return orthoSize;
-}
+	float Camera::GetMovementSpeed()
+	{
+		return movementSpeed;
+	}
 
-void Camera::CalculateMatrixes()
-{
-	float aspect =
-		static_cast<float>(GetWindow()->GetWidth()) /
-		static_cast<float>(GetWindow()->GetHeight());
+	float Camera::GetOrthoSize()
+	{
+		return orthoSize;
+	}
 
-	glm::vec3 pos = glm::vec3(position.x, position.y, position.z);
+	void Camera::CalculateMatrixes()
+	{
+		float aspect =
+			static_cast<float>(GetWindow()->GetWidth()) /
+			static_cast<float>(GetWindow()->GetHeight());
 
-	glm::mat4 rotationMatrix = glm::yawPitchRoll
-	(
-		glm::radians(rotation.y),
-		glm::radians(rotation.x),
-		glm::radians(rotation.z)
-	);
+		glm::vec3 pos = glm::vec3(position.x, position.y, position.z);
 
-	glm::vec3 forward = glm::vec3(rotationMatrix * glm::vec4(0, 0, -1, 0));
-	glm::vec3 up = glm::vec3(rotationMatrix * glm::vec4(0, 1, 0, 0));
+		glm::mat4 rotationMatrix = glm::yawPitchRoll
+		(
+			glm::radians(rotation.y),
+			glm::radians(rotation.x),
+			glm::radians(rotation.z)
+		);
 
-	float halfHeight = orthoSize;
-	float halfWidth = orthoSize * aspect;
+		glm::vec3 forward = glm::vec3(rotationMatrix * glm::vec4(0, 0, -1, 0));
+		glm::vec3 up = glm::vec3(rotationMatrix * glm::vec4(0, 1, 0, 0));
 
-	view = glm::lookAt(pos, pos + forward, up);
+		float halfHeight = orthoSize;
+		float halfWidth = orthoSize * aspect;
 
-	projection = orthografic ?
-		glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, nearPlane, farPlane)
-		:
-		glm::perspective(glm::radians(fovDeg), aspect, nearPlane, farPlane);
-}
+		view = glm::lookAt(pos, pos + forward, up);
 
-Window* Camera::GetWindow()
-{
-	return ServiceProvider::Instance().Get<Window>();
+		projection = orthografic ?
+			glm::ortho(-halfWidth, halfWidth, -halfHeight, halfHeight, nearPlane, farPlane)
+			:
+			glm::perspective(glm::radians(fovDeg), aspect, nearPlane, farPlane);
+	}
+
+	Window* Camera::GetWindow()
+	{
+		return ServiceProvider::Instance().Get<Window>();
+	}
 }

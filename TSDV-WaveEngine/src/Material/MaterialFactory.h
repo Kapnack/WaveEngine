@@ -8,26 +8,28 @@
 
 using namespace std;
 
-class BaseGame;
-
-class MaterialFactory final : public Service
+namespace WaveEngine
 {
-private:
+	class BaseGame;
 
-	unsigned int currentMaterialID = Material::NULL_MATERIAL;
+	class MaterialFactory final : public Service
+	{
+	private:
 
-	MaterialManager* GetMaterialManager();
+		unsigned int currentMaterialID = Material::NULL_MATERIAL;
 
-	unsigned int CompileShader(const string_view source, const unsigned int type);
+		MaterialManager* GetMaterialManager();
 
-	MaterialFactory();
-	~MaterialFactory();
+		unsigned int CompileShader(const string_view source, const unsigned int type);
 
-	friend class BaseGame;
-	friend class ServiceProvider;
+		MaterialFactory();
+		~MaterialFactory();
 
-public:
+		friend class BaseGame;
+		friend class ServiceProvider;
 
-	unsigned int CreateMaterial(const string_view name, const string_view vertexShader, const string_view fragmentShader);
-};
+	public:
 
+		unsigned int CreateMaterial(const string_view name, const string_view vertexShader, const string_view fragmentShader);
+	};
+}

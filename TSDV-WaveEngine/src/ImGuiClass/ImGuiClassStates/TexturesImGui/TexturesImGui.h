@@ -9,25 +9,27 @@
 
 using namespace std;
 
-class TexturesImGui : public ImGuiClassState
+namespace WaveEngine
 {
-private:
+	class TexturesImGui : public ImGuiClassState
+	{
+	private:
 
-	TextureManager* GetTextureManager();
-	TextureImporter* GetTextureImporter();
+		TextureManager* GetTextureManager();
+		TextureImporter* GetTextureImporter();
 
-	string fileTexurePath;
-	string textureName;
+		string fileTexurePath;
+		string textureName;
 
-	bool withAbsolutePath = false;
-	bool deleteByName = false;
-	int textureID = 0;
+		bool withAbsolutePath = false;
+		bool deleteByName = false;
+		int textureID = 0;
 
-public:
+	public:
 
-	TexturesImGui();
-	~TexturesImGui();
+		TexturesImGui();
+		~TexturesImGui();
 
-	void Update() override;
-};
-
+		void Update() override;
+	};
+}

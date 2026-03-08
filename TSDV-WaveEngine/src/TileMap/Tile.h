@@ -2,34 +2,36 @@
 
 #include "Entity/Entity2D/Sprite/Sprite.h"
 
-class TileMap;
-class EntityManager;
-class EntityFactory;
-
-class Tile : public Sprite
+namespace WaveEngine
 {
-private:
+	class TileMap;
+	class EntityManager;
+	class EntityFactory;
 
-	int spriteSheetID = -1;
-	unsigned int tileID = 0;
-	bool collide = false;
+	class Tile : public Sprite
+	{
+	private:
 
-	Tile(const unsigned int& ID);
-	~Tile();
+		int spriteSheetID = -1;
+		unsigned int tileID = 0;
+		bool collide = false;
 
-	friend class TileMap;
-	friend class EntityManager;
-	friend class EntityFactory;
+		Tile(const unsigned int& ID);
+		~Tile();
 
-public:
+		friend class TileMap;
+		friend class EntityManager;
+		friend class EntityFactory;
 
-	bool CanCollide();
-	void SetCollide(bool walkable);
+	public:
 
-	void SetTileID(unsigned int id);
-	unsigned int GetTileID();
+		bool CanCollide();
+		void SetCollide(bool walkable);
 
-	void SetSpriteSheetID(int id);
-	unsigned int GetSpriteSheetID();
-};
+		void SetTileID(unsigned int id);
+		unsigned int GetTileID();
 
+		void SetSpriteSheetID(int id);
+		unsigned int GetSpriteSheetID();
+	};
+}

@@ -1,9 +1,12 @@
 #pragma once
 
-struct Collider 
+namespace WaveEngine
 {
-    float x;
-    float y;
-    float width;
-    float height;
-};
+	struct Collider
+	{
+		float x;
+		float y;
+		float width;
+		float height;
+	};
+}

@@ -5,19 +5,21 @@
 
 #include "Export.h"
 
-WAVEEXPORT class EntityController : public Controller
+namespace WaveEngine
 {
-private:
+	WAVEEXPORT class EntityController : public Controller
+	{
+	private:
 
-	Entity* currentEntity;
+		Entity* currentEntity;
 
-public:
+	public:
 
-	WAVEEXPORT EntityController();
-	WAVEEXPORT EntityController(const unsigned int entityID);
-	WAVEEXPORT ~EntityController();
+		WAVEEXPORT EntityController();
+		WAVEEXPORT EntityController(const unsigned int entityID);
+		WAVEEXPORT ~EntityController();
 
-	WAVEEXPORT void Update(const float& deltaTime) override;
+		WAVEEXPORT void Update(const float& deltaTime) override;
 
-};
-
+	};
+}

@@ -4,7 +4,7 @@
 
 #include "../Quaternion/Quaternion.h"
 
-WAVEEXPORT struct Matrix4x4 final
+struct WAVEEXPORT Matrix4x4 final
 {
 	float m00, m01, m02, m03;
 	float m10, m11, m12, m13;
@@ -19,29 +19,28 @@ WAVEEXPORT struct Matrix4x4 final
 	Matrix4x4(const Quaternion& q0, const Quaternion& q1, const Quaternion& q2, const Quaternion& q3);
 	~Matrix4x4();
 
-	WAVEEXPORT void SetTranslate(const Vector3& vector);
-	WAVEEXPORT void AddTranslate(const Vector3& vector);
-	WAVEEXPORT Matrix4x4 GetTranslateMatrix() const;
-	WAVEEXPORT Matrix4x4 GetRotationMatrix();
-	WAVEEXPORT void SetScale(const Vector3& vector);
-	WAVEEXPORT void AddScale(const Vector3& vector);
-	WAVEEXPORT Matrix4x4 GetScaleMatrix() const;
+	void SetTranslate(const Vector3& vector);
+	void AddTranslate(const Vector3& vector);
+	Matrix4x4 GetTranslateMatrix() const;
+	Matrix4x4 GetRotationMatrix();
+	void SetScale(const Vector3& vector);
+	void AddScale(const Vector3& vector);
+	Matrix4x4 GetScaleMatrix() const;
 
-	WAVEEXPORT void UpdateMaxtrix();
+	void UpdateMaxtrix();
 
 	Matrix4x4 operator*(const Matrix4x4& other) const;
 
-	WAVEEXPORT static Matrix4x4 Identity();
-	WAVEEXPORT static Matrix4x4 CreateScale(const float& x, const float& y, const float& z);
-	WAVEEXPORT static Matrix4x4 CreateScale(const Vector3& vector);
-	WAVEEXPORT static Matrix4x4 CreateRotation(const Matrix4x4& matrix);
-	WAVEEXPORT static Quaternion GetRotation(const Matrix4x4& matrix);
-	WAVEEXPORT static Matrix4x4 CreateRotation(const float& x, const float& y, const float& z, const float& w);
-	WAVEEXPORT static Matrix4x4 CreateRotation(const Quaternion& quaternian);
-	WAVEEXPORT static Matrix4x4 CreateTranslate(const float& x, const float& y, const float& z);
-	WAVEEXPORT static Matrix4x4 CreateTranslate(const Vector3& vector);
+	static Matrix4x4 Identity();
+	static Matrix4x4 CreateScale(const float& x, const float& y, const float& z);
+	static Matrix4x4 CreateScale(const Vector3& vector);
+	static Matrix4x4 CreateRotation(const Matrix4x4& matrix);
+	static Quaternion GetRotation(const Matrix4x4& matrix);
+	static Matrix4x4 CreateRotation(const float& x, const float& y, const float& z, const float& w);
+	static Matrix4x4 CreateRotation(const Quaternion& quaternian);
+	static Matrix4x4 CreateTranslate(const float& x, const float& y, const float& z);
+	static Matrix4x4 CreateTranslate(const Vector3& vector);
 
-	WAVEEXPORT static Matrix4x4 TRS(const Vector3& t, const Quaternion& r, const Vector3& s);
-	WAVEEXPORT static Matrix4x4 TRS(const Matrix4x4& t, const Matrix4x4& r, const Matrix4x4& s);
+	static Matrix4x4 TRS(const Vector3& t, const Quaternion& r, const Vector3& s);
+	static Matrix4x4 TRS(const Matrix4x4& t, const Matrix4x4& r, const Matrix4x4& s);
 };
-

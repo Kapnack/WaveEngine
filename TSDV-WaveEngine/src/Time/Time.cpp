@@ -1,33 +1,36 @@
 #include "Time.h"
 
-Time::Time() : Service()
+namespace WaveEngine
 {
-}
+	Time::Time() : Service()
+	{
+	}
 
-Time::~Time()
-{
-}
+	Time::~Time()
+	{
+	}
 
-Window* Time::GetWindow()
-{
-	return ServiceProvider::Instance().Get<Window>();
-}
+	Window* Time::GetWindow()
+	{
+		return ServiceProvider::Instance().Get<Window>();
+	}
 
-void Time::UpdateDeltaTime()
-{
-	float actualTime = GetWindow()->GetGLTime();
+	void Time::UpdateDeltaTime()
+	{
+		float actualTime = GetWindow()->GetGLTime();
 
-	deltaTime = actualTime - lastTime * timeScale;
+		deltaTime = actualTime - lastTime * timeScale;
 
-	lastTime = actualTime;
-}
+		lastTime = actualTime;
+	}
 
-float Time::GetDeltaTime()
-{
-	return deltaTime;
-}
+	float Time::GetDeltaTime()
+	{
+		return deltaTime;
+	}
 
-void Time::SetTimeScale(const float& timeScale)
-{
-	this->timeScale = timeScale;
+	void Time::SetTimeScale(const float& timeScale)
+	{
+		this->timeScale = timeScale;
+	}
 }

@@ -4,35 +4,37 @@
 #include "Entity/Drawable/Drawable.h"
 #include "Entity/Entity2D/Animation/Animation.h"
 
-class EntityFactory;
-class EntitiesImGui;
-
-class Sprite : public Entity2D, public Drawable
+namespace WaveEngine
 {
-private:
+	class EntityFactory;
+	class EntitiesImGui;
 
-	unsigned int textureID = 0;
-	Animation* animation = nullptr;
+	class Sprite : public Entity2D, public Drawable
+	{
+	private:
 
-	void Init(const Vector4& color);
+		unsigned int textureID = 0;
+		Animation* animation = nullptr;
 
-	friend class EntityFactory;
-	friend class EntitiesImGui;
+		void Init(const Vector4& color);
 
-protected:
+		friend class EntityFactory;
+		friend class EntitiesImGui;
 
-	WAVEEXPORT void Draw() override;
+	protected:
 
-public:
+		WAVEEXPORT void Draw() override;
 
-	WAVEEXPORT Sprite(const unsigned int& ID);
-	WAVEEXPORT virtual ~Sprite();
+	public:
 
-	WAVEEXPORT void SetUVCordinates(const Vector2& cord1, const Vector2& cord2);
-	WAVEEXPORT void SetAnimation(Animation* animation);
-	WAVEEXPORT void Update(const float& deltaTime);
-	WAVEEXPORT void SetTexture(const unsigned int& textureID);
-	WAVEEXPORT Animation* GetAnimation();
-	WAVEEXPORT unsigned int GetTexture();
-};
+		WAVEEXPORT Sprite(const unsigned int& ID);
+		WAVEEXPORT virtual ~Sprite();
 
+		WAVEEXPORT void SetUVCordinates(const Vector2& cord1, const Vector2& cord2);
+		WAVEEXPORT void SetAnimation(Animation* animation);
+		WAVEEXPORT void Update(const float& deltaTime);
+		WAVEEXPORT void SetTexture(const unsigned int& textureID);
+		WAVEEXPORT Animation* GetAnimation();
+		WAVEEXPORT unsigned int GetTexture();
+	};
+}

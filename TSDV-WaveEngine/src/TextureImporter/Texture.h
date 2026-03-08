@@ -5,38 +5,42 @@
 
 #include <string>
 
-class TextureManager;
-class TextureImporter;
 
 using namespace std;
 
-class Texture final
+namespace WaveEngine
 {
-private:
+	class TextureManager;
+	class TextureImporter;
 
-	string name;
-	unsigned int ID = 0;
-	unsigned int textureID = 0;
+	class Texture final
+	{
+	private:
 
-	int width;
-	int height;
+		string name;
+		unsigned int ID = 0;
+		unsigned int textureID = 0;
 
-	Texture(const unsigned int& ID, const unsigned int& textureID, const int& width, const int& height);
-	~Texture();
+		int width;
+		int height;
 
-	friend class TextureManager;
-	friend class TextureImporter;
+		Texture(const unsigned int& ID, const unsigned int& textureID, const int& width, const int& height);
+		~Texture();
 
-public:
+		friend class TextureManager;
+		friend class TextureImporter;
 
-	static const int NULL_TEXTURE = 0;
+	public:
 
-	int GetWidth();
-	int GetHeight();
-	string GetName();
+		static const int NULL_TEXTURE = 0;
 
-	Vector2 GetRes();
+		int GetWidth();
+		int GetHeight();
+		string GetName();
 
-	unsigned int GetTextureID();
-	unsigned int GetID();
-};
+		Vector2 GetRes();
+
+		unsigned int GetTextureID();
+		unsigned int GetID();
+	};
+}

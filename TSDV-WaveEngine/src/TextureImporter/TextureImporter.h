@@ -12,22 +12,25 @@ class BaseGame;
 
 using namespace std;
 
-WAVEEXPORT class TextureImporter final : public Service
+namespace WaveEngine
 {
-private:
+	WAVEEXPORT class TextureImporter final : public Service
+	{
+	private:
 
-	unsigned int currentTextureID = Texture::NULL_TEXTURE;
+		unsigned int currentTextureID = Texture::NULL_TEXTURE;
 
-	TextureManager* GetTextureManager();
+		TextureManager* GetTextureManager();
 
-	TextureImporter();
-	~TextureImporter();
+		TextureImporter();
+		~TextureImporter();
 
-	friend class BaseGame;
-	friend class ServiceProvider;
+		friend class BaseGame;
+		friend class ServiceProvider;
 
-public:
+	public:
 
-	WAVEEXPORT unsigned int  LoadTextureAbsolutePath(const string_view filePath);
-	WAVEEXPORT unsigned int  LoadTexture(const string_view filePath);
-};
+		WAVEEXPORT unsigned int  LoadTextureAbsolutePath(const string_view filePath);
+		WAVEEXPORT unsigned int  LoadTexture(const string_view filePath);
+	};
+}

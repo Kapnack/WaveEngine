@@ -7,71 +7,74 @@
 #include <iostream>
 #include <filesystem>
 
-TextureImporter::TextureImporter() : Service()
+namespace WaveEngine
 {
-}
-
-TextureImporter::~TextureImporter()
-{
-}
-
-TextureManager* TextureImporter::GetTextureManager()
-{
-	return ServiceProvider::Instance().Get<TextureManager>();
-}
-
-unsigned int TextureImporter::LoadTextureAbsolutePath(const string_view filePath)
-{
-	string absolutePath = std::filesystem::absolute(filePath).lexically_normal().string();
-
-	return LoadTexture(absolutePath);
-}
-
-unsigned int TextureImporter::LoadTexture(const string_view filePath)
-{
-	int width;
-	int height;
-	int nrChannels;
-
-	stbi_set_flip_vertically_on_load(true);
-	unsigned char* data = stbi_load(filePath.data(), &width, &height, &nrChannels, 0);
-
-	GLenum format = (nrChannels == 4) ? GL_RGBA : GL_RGB;
-
-	if (!data)
+	TextureImporter::TextureImporter() : Service()
 	{
-		std::cout << "Failed to load texture: " << filePath << std::endl;
-		return 0;
 	}
 
-	unsigned int texture = 0;
+	TextureImporter::~TextureImporter()
+	{
+	}
 
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	TextureManager* TextureImporter::GetTextureManager()
+	{
+		return ServiceProvider::Instance().Get<TextureManager>();
+	}
 
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	unsigned int TextureImporter::LoadTextureAbsolutePath(const string_view filePath)
+	{
+		string absolutePath = std::filesystem::absolute(filePath).lexically_normal().string();
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		return LoadTexture(absolutePath);
+	}
 
-	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-	glGenerateMipmap(GL_TEXTURE_2D);
+	unsigned int TextureImporter::LoadTexture(const string_view filePath)
+	{
+		int width;
+		int height;
+		int nrChannels;
 
-	++currentTextureID;
+		stbi_set_flip_vertically_on_load(true);
+		unsigned char* data = stbi_load(filePath.data(), &width, &height, &nrChannels, 0);
 
-	Texture* newTexture = new Texture(currentTextureID, texture, width, height);
+		GLenum format = (nrChannels == 4) ? GL_RGBA : GL_RGB;
 
-	std::filesystem::path path = filePath;
+		if (!data)
+		{
+			std::cout << "Failed to load texture: " << filePath << std::endl;
+			return 0;
+		}
 
-	newTexture->name = path.filename().string();
+		unsigned int texture = 0;
 
-	GetTextureManager()->Save(currentTextureID, newTexture);
+		glGenTextures(1, &texture);
+		glBindTexture(GL_TEXTURE_2D, texture);
 
-	stbi_image_free(data);
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-	std::cout << "Loaded texture: " << filePath << " (" << width << "x" << height << ")" << std::endl;
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-	return currentTextureID;
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		++currentTextureID;
+
+		Texture* newTexture = new Texture(currentTextureID, texture, width, height);
+
+		std::filesystem::path path = filePath;
+
+		newTexture->name = path.filename().string();
+
+		GetTextureManager()->Save(currentTextureID, newTexture);
+
+		stbi_image_free(data);
+
+		std::cout << "Loaded texture: " << filePath << " (" << width << "x" << height << ")" << std::endl;
+
+		return currentTextureID;
+	}
 }

@@ -15,72 +15,75 @@
 #include "WaveMath/Vector2/Vector2.h"
 #include "WaveMath/Vector3/Vector3.h"
 
-class MaterialManager;
-class MaterialFactory;
-class EntitiesImGui;
-class MaterialsImGui;
-
-using namespace std;
-
-struct Uniform
+namespace WaveEngine
 {
-	string name;
-	GLenum type;
-	GLint location;
-	GLint size;
-};
+	class MaterialManager;
+	class MaterialFactory;
+	class EntitiesImGui;
+	class MaterialsImGui;
 
-class Material final
-{
-private:
+	using namespace std;
 
-	string name;
+	struct Uniform
+	{
+		string name;
+		GLenum type;
+		GLint location;
+		GLint size;
+	};
 
-	Vector4 color = Vector4(1, 1, 1, 1);
+	class Material final
+	{
+	private:
 
-	unsigned int ID = 0;
+		string name;
 
-	unsigned int program = 0;
+		Vector4 color = Vector4(1, 1, 1, 1);
 
-	unordered_map<string, Uniform> uniforms;
+		unsigned int ID = 0;
 
-	unsigned int textureID = Texture::NULL_TEXTURE;
+		unsigned int program = 0;
 
-	Material(const unsigned int& ID);
-	~Material();
+		unordered_map<string, Uniform> uniforms;
 
-	void SetName(const string& name);
-	void AddUniform(const std::string& name, const GLenum& type, const GLint& location, const GLint& size);
-	void Unload();
+		unsigned int textureID = Texture::NULL_TEXTURE;
 
-	friend class MaterialManager;
-	friend class MaterialFactory;
-	friend class EntitiesImGui;
-	friend class MaterialsImGui;
+		Material(const unsigned int& ID);
+		~Material();
 
-public:
+		void SetName(const string& name);
+		void AddUniform(const std::string& name, const GLenum& type, const GLint& location, const GLint& size);
+		void Unload();
 
-	const static unsigned int NULL_MATERIAL;
+		friend class MaterialManager;
+		friend class MaterialFactory;
+		friend class EntitiesImGui;
+		friend class MaterialsImGui;
 
-	const string GetName();
+	public:
 
-	Vector4 GetColor();
-	unsigned int GetID() const;
-	unsigned int GetProgram();
-	void SetTexture(const unsigned int& ID);
-	void SetColor(const Vector4& color);
+		const static unsigned int NULL_MATERIAL;
 
-	void SetVec2(const std::string& name, const Vector2& value);
-	void SetVec3(const std::string& name, const Vector3& value);
-	void SetVec4(const std::string& name, const Vector4& value);
-	void SetMat4(const std::string& name, const glm::mat4& value);
-	void SetGLMVec4(const std::string& name, const glm::vec4& value);
-	void SetGLMVec3(const std::string& name, const glm::vec3& value);
-	void SetGLMVec2(const std::string& name, const glm::vec2& value);
-	void SetFloat(const std::string& name, const float& value);
-	void SetInt(const std::string& name, const int& value);
+		const string GetName();
 
-	void Bind();
-	void UnBind();
-};
+		Vector4 GetColor();
+		unsigned int GetID() const;
+		unsigned int GetProgram();
+		void SetTexture(const unsigned int& ID);
+		void SetColor(const Vector4& color);
+
+		void SetVec2(const std::string& name, const Vector2& value);
+		void SetVec3(const std::string& name, const Vector3& value);
+		void SetVec4(const std::string& name, const Vector4& value);
+		void SetMat4(const std::string& name, const glm::mat4& value);
+		void SetGLMVec4(const std::string& name, const glm::vec4& value);
+		void SetGLMVec3(const std::string& name, const glm::vec3& value);
+		void SetGLMVec2(const std::string& name, const glm::vec2& value);
+		void SetFloat(const std::string& name, const float& value);
+		void SetInt(const std::string& name, const int& value);
+
+		void Bind();
+		void UnBind();
+	};
+}
 

@@ -17,58 +17,61 @@ using namespace std;
 
 using namespace nlohmann;
 
-WAVEEXPORT class TileMap final : public Entity2D
+namespace WaveEngine
 {
-public:
+	WAVEEXPORT class TileMap final : public Entity2D
+	{
+	public:
 
-	WAVEEXPORT TileMap(const string_view mapFilePath, const bool& mapFileAddAbsolutePath, const string_view texturePath, const bool& texturePathAddAbsolutePath, const unsigned int& ID);
-	WAVEEXPORT ~TileMap();
+		WAVEEXPORT TileMap(const string_view mapFilePath, const bool& mapFileAddAbsolutePath, const string_view texturePath, const bool& texturePathAddAbsolutePath, const unsigned int& ID);
+		WAVEEXPORT ~TileMap();
 
-	WAVEEXPORT float GetMapWidth() const;
-	WAVEEXPORT float GetMapHeight() const;
+		WAVEEXPORT float GetMapWidth() const;
+		WAVEEXPORT float GetMapHeight() const;
 
-	WAVEEXPORT float GetTileWidth() const;
-	WAVEEXPORT float GetTileHeight() const;
+		WAVEEXPORT float GetTileWidth() const;
+		WAVEEXPORT float GetTileHeight() const;
 
-	WAVEEXPORT int GetLayerCount() const;
+		WAVEEXPORT int GetLayerCount() const;
 
-	WAVEEXPORT unsigned int GetTileAt(const int& layer, const int& col, const int& row) const;
+		WAVEEXPORT unsigned int GetTileAt(const int& layer, const int& col, const int& row) const;
 
-	WAVEEXPORT void ImportTileMap(const string_view filePath, const bool& addAbsolutePath);
+		WAVEEXPORT void ImportTileMap(const string_view filePath, const bool& addAbsolutePath);
 
-private:
+	private:
 
-	unsigned int*** _tileMapGrid = nullptr;
+		unsigned int*** _tileMapGrid = nullptr;
 
-	int layersAmount = 0;
-	int rowAmount = 0;
-	int columnsAmount = 0;
+		int layersAmount = 0;
+		int rowAmount = 0;
+		int columnsAmount = 0;
 
-	float _tilePixelSize;
-	float _worldTileWidth;
-	float _worldTileHeight;
+		float _tilePixelSize;
+		float _worldTileWidth;
+		float _worldTileHeight;
 
-	unsigned int texture;
+		unsigned int texture;
 
-	string _imagePath;
+		string _imagePath;
 
-	json data;
+		json data;
 
-	Vector2 tilesAmount;
+		Vector2 tilesAmount;
 
-	Vector2 textureSize;
+		Vector2 textureSize;
 
-	Tile* GetTile(const unsigned int id) const;
+		Tile* GetTile(const unsigned int id) const;
 
-	void SetTileDimensions(float tileWidth, float tileHeigth) noexcept;
+		void SetTileDimensions(float tileWidth, float tileHeigth) noexcept;
 
-	void SetTexture(const unsigned int texture) noexcept;
+		void SetTexture(const unsigned int texture) noexcept;
 
-	void SetTileUV(Tile& tile, unsigned int id) const;
+		void SetTileUV(Tile& tile, unsigned int id) const;
 
-	void UpdateTilesPositions();
+		void UpdateTilesPositions();
 
-	Window* GetWindow() const;
+		Window* GetWindow() const;
 
-	EntityManager* GetEntityManager() const;
-};
+		EntityManager* GetEntityManager() const;
+	};
+}

@@ -10,56 +10,59 @@
 #include "Material/Material.h"
 #include "ServiceProvider/ServiceProvider.h"
 
-class Renderer;
-class MaterialFactory;
-class EntityManager;
-class BaseGame;
-class EntitiesImGui;
-class MaterialsImGui;
-
 using namespace std;
 
-WAVEEXPORT class MaterialManager final : public Service
+namespace WaveEngine
 {
-private:
+	class Renderer;
+	class MaterialFactory;
+	class EntityManager;
+	class BaseGame;
+	class EntitiesImGui;
+	class MaterialsImGui;
 
-	unsigned int currentMaterialID = Material::NULL_MATERIAL;
+	WAVEEXPORT class MaterialManager final : public Service
+	{
+	private:
 
-	unordered_map<unsigned int, Material*> materials;
+		unsigned int currentMaterialID = Material::NULL_MATERIAL;
 
-	void SaveMaterial(const unsigned int& ID, Material* material);
+		unordered_map<unsigned int, Material*> materials;
 
-	vector<Drawable*> listeners;
+		void SaveMaterial(const unsigned int& ID, Material* material);
 
-	Material* GetMaterial(const unsigned int id);
+		vector<Drawable*> listeners;
 
-	unordered_map<unsigned int, Material*>& GetMaterials();
+		Material* GetMaterial(const unsigned int id);
 
-	void ClearListeners();
+		unordered_map<unsigned int, Material*>& GetMaterials();
 
-	MaterialManager();
-	~MaterialManager();
+		void ClearListeners();
 
-	friend class Renderer;
-	friend class MaterialFactory;
-	friend class EntityManager;
-	friend class BaseGame;
-	friend class ServiceProvider;
-	friend class EntitiesImGui;
-	friend class MaterialsImGui;
+		MaterialManager();
+		~MaterialManager();
 
-	void OnDeleteMaterial(const Material& material);
+		friend class Renderer;
+		friend class MaterialFactory;
+		friend class EntityManager;
+		friend class BaseGame;
+		friend class ServiceProvider;
+		friend class EntitiesImGui;
+		friend class MaterialsImGui;
 
-public:
+		void OnDeleteMaterial(const Material& material);
 
-	WAVEEXPORT unsigned int GetMaterial(const string_view name);
+	public:
 
-	WAVEEXPORT void DeleteMaterial(const string_view name);
+		WAVEEXPORT unsigned int GetMaterial(const string_view name);
 
-	WAVEEXPORT void DeleteMaterial(const unsigned int& ID);
+		WAVEEXPORT void DeleteMaterial(const string_view name);
 
-	WAVEEXPORT void AddListener(Drawable* entity);
+		WAVEEXPORT void DeleteMaterial(const unsigned int& ID);
 
-	WAVEEXPORT void RemoveListener(Drawable* entity);
-};
+		WAVEEXPORT void AddListener(Drawable* entity);
+
+		WAVEEXPORT void RemoveListener(Drawable* entity);
+	};
+}
 

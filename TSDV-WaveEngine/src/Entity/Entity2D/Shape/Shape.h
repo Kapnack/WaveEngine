@@ -3,19 +3,21 @@
 #include "Entity/Entity2D/Entity2D.h"
 #include "Entity/Drawable/Drawable.h"
 
-class EntityFactory;
-class EntityManager;
-
-WAVEEXPORT class Shape : public Entity2D, public Drawable
+namespace WaveEngine
 {
-protected:
+	class EntityFactory;
+	class EntityManager;
 
-	WAVEEXPORT void Draw() override;
+	WAVEEXPORT class Shape : public Entity2D, public Drawable
+	{
+	protected:
 
-	WAVEEXPORT Shape(const unsigned int& ID);
-	WAVEEXPORT virtual ~Shape();
+		WAVEEXPORT void Draw() override;
 
-	friend class EntityFactory;
-	friend class EntityManager;
-};
+		WAVEEXPORT Shape(const unsigned int& ID);
+		WAVEEXPORT virtual ~Shape();
 
+		friend class EntityFactory;
+		friend class EntityManager;
+	};
+}

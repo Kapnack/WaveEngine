@@ -5,89 +5,92 @@
 #include "VertexData.h"
 #include "WaveMath/Vector3/Vector3.h"
 
-class EntityFactory;
-class EntityManager;
-class EntitiesImGui;
-class MeshImGui;
-
-WAVEEXPORT class Entity
+namespace WaveEngine
 {
-private:
+	class EntityFactory;
+	class EntityManager;
+	class EntitiesImGui;
+	class MeshImGui;
 
-	unsigned int ID = 0;
+	WAVEEXPORT class Entity
+	{
+	private:
 
-	bool isActive = true;
-	bool shouldUpdateTRS = false;
+		unsigned int ID = 0;
 
-	friend class EntityFactory;
-	friend class EntityManager;
-	friend class EntitiesImGui;
-	friend class MeshImGui;
+		bool isActive = true;
+		bool shouldUpdateTRS = false;
 
-protected:
+		friend class EntityFactory;
+		friend class EntityManager;
+		friend class EntitiesImGui;
+		friend class MeshImGui;
 
-	Vector3 previousPosition;
-	Vector3 position;
+	protected:
 
-	Vector3 scale = Vector3(1.0f, 1.0f, 1.0f);
-	Vector3 rotation;
+		Vector3 previousPosition;
+		Vector3 position;
 
-	glm::mat4 model;
+		Vector3 scale = Vector3(1.0f, 1.0f, 1.0f);
+		Vector3 rotation;
 
-	virtual void CalculateTRS();
+		glm::mat4 model;
 
-	virtual void UpdateCollider() = 0;
+		virtual void CalculateTRS();
 
-	WAVEEXPORT	Entity(const unsigned int& ID);
-	WAVEEXPORT virtual ~Entity();
+		virtual void UpdateCollider() = 0;
 
-public:
+		Entity(const unsigned int& ID);
+		virtual ~Entity();
 
-	static const unsigned int NULL_ENTITY = 0;
+	public:
 
-	WAVEEXPORT unsigned int GetID() const;
+		static const unsigned int NULL_ENTITY = 0;
 
-	WAVEEXPORT void SetIsActive(const bool& setActive);
-	WAVEEXPORT bool GetIsActive() const;
+		WAVEEXPORT unsigned int GetID() const;
 
-	WAVEEXPORT Vector3 GetPosition() const;
-	WAVEEXPORT Vector3 GetScale() const;
-	WAVEEXPORT Vector3 GetRotation() const;
+		WAVEEXPORT void SetIsActive(const bool& setActive);
+		WAVEEXPORT bool GetIsActive() const;
 
-	WAVEEXPORT Vector3 GetPreviousPos() const;
-	WAVEEXPORT void GoToPreviousPos();
+		WAVEEXPORT Vector3 GetPosition() const;
+		WAVEEXPORT Vector3 GetScale() const;
+		WAVEEXPORT Vector3 GetRotation() const;
 
-	WAVEEXPORT void SetPosition(const Vector3& vector);
-	WAVEEXPORT void SetPosition(const Vector2& translation);
-	WAVEEXPORT void SetPosition(const float& x, const float& y);
-	WAVEEXPORT virtual void SetPosition(const float& x, const float& y, const float& z);
+		WAVEEXPORT Vector3 GetPreviousPos() const;
+		WAVEEXPORT void GoToPreviousPos();
 
-	WAVEEXPORT void Translate(const Vector3& translation);
-	WAVEEXPORT void Translate(const Vector2& translation);
-	WAVEEXPORT void Translate(const float& x, const float& y);
-	WAVEEXPORT virtual void Translate(const float& x, const float& y, const float& z);
+		WAVEEXPORT void SetPosition(const Vector3& vector);
+		WAVEEXPORT void SetPosition(const Vector2& translation);
+		WAVEEXPORT void SetPosition(const float& x, const float& y);
+		WAVEEXPORT virtual void SetPosition(const float& x, const float& y, const float& z);
 
-	WAVEEXPORT void SetScale(const Vector3& vector);
-	WAVEEXPORT void SetScale(const Vector2& translation);
-	WAVEEXPORT void SetScale(const float& x, const float& y);
-	WAVEEXPORT virtual void SetScale(const float& x, const float& y, const float& z);
+		WAVEEXPORT void Translate(const Vector3& translation);
+		WAVEEXPORT void Translate(const Vector2& translation);
+		WAVEEXPORT void Translate(const float& x, const float& y);
+		WAVEEXPORT virtual void Translate(const float& x, const float& y, const float& z);
 
-	WAVEEXPORT void Scale(const Vector3& vector);
-	WAVEEXPORT void Scale(const Vector2& translation);
-	WAVEEXPORT void Scale(const float& x, const float& y);
-	WAVEEXPORT virtual void Scale(const float& x, const float& y, const float& z);
+		WAVEEXPORT void SetScale(const Vector3& vector);
+		WAVEEXPORT void SetScale(const Vector2& translation);
+		WAVEEXPORT void SetScale(const float& x, const float& y);
+		WAVEEXPORT virtual void SetScale(const float& x, const float& y, const float& z);
 
-	WAVEEXPORT void SetRotation(const Vector3& vector);
-	WAVEEXPORT void SetRotation(const Vector2& vector);
-	WAVEEXPORT void SetRotation(const float& x, const float& y);
-	WAVEEXPORT virtual void SetRotation(const float& x, const float& y, const float& z);
+		WAVEEXPORT void Scale(const Vector3& vector);
+		WAVEEXPORT void Scale(const Vector2& translation);
+		WAVEEXPORT void Scale(const float& x, const float& y);
+		WAVEEXPORT virtual void Scale(const float& x, const float& y, const float& z);
 
-	WAVEEXPORT void Rotate(const Vector3& vector);
-	WAVEEXPORT void Rotate(const Vector2& vector);
-	WAVEEXPORT void Rotate(const float& x, const float& y);
-	WAVEEXPORT virtual void Rotate(const float& x, const float& y, const float& z);
+		WAVEEXPORT void SetRotation(const Vector3& vector);
+		WAVEEXPORT void SetRotation(const Vector2& vector);
+		WAVEEXPORT void SetRotation(const float& x, const float& y);
+		WAVEEXPORT virtual void SetRotation(const float& x, const float& y, const float& z);
 
-	WAVEEXPORT void FlipX();
-	WAVEEXPORT void FlipY();
-	WAVEEXPORT void FlipZ();
-};
+		WAVEEXPORT void Rotate(const Vector3& vector);
+		WAVEEXPORT void Rotate(const Vector2& vector);
+		WAVEEXPORT void Rotate(const float& x, const float& y);
+		WAVEEXPORT virtual void Rotate(const float& x, const float& y, const float& z);
+
+		WAVEEXPORT void FlipX();
+		WAVEEXPORT void FlipY();
+		WAVEEXPORT void FlipZ();
+	};
+}

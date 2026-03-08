@@ -5,19 +5,21 @@
 
 using namespace std;
 
-class ImGuiClassState
+namespace WaveEngine
 {
-protected:
+	class ImGuiClassState
+	{
+	protected:
 
-	string text;
+		string text;
 
-	static int ResizeCallback(ImGuiInputTextCallbackData* data);
+		static int ResizeCallback(ImGuiInputTextCallbackData* data);
 
-public:
+	public:
 
-	ImGuiClassState();
-	~ImGuiClassState();
+		ImGuiClassState();
+		~ImGuiClassState();
 
-	virtual void Update() = 0;
-};
-
+		virtual void Update() = 0;
+	};
+}

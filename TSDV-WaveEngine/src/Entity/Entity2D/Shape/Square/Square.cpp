@@ -2,30 +2,33 @@
 
 #include "WaveMath/Vector4/Vector4.h"
 
-Square::Square(const unsigned int& ID) : Shape(ID)
+namespace WaveEngine
 {
-	vertexSize = 4;
-
-	vertex = new VertexData[vertexSize]
+	Square::Square(const unsigned int& ID) : Shape(ID)
 	{
-		VertexData(Vector3(0.5f, 0.5f, 0.0f), Vector4(1.0f, 0.0f, 0.0f, 1.0f)),
-		VertexData(Vector3(0.5f, -0.5f, 0.0f), Vector4(0.0f, 1.0f, 0.0f, 1.0f)),
-		VertexData(Vector3(-0.5f, -0.5f, 0.0f), Vector4(0.0f, 0.0f, 1.0f, 1.0f)),
-		VertexData(Vector3(-0.5f, 0.5f, 0.0f), Vector4(0.5f, 0.0f, 0.5f, 1.0f))
-	};
+		vertexSize = 4;
 
-	indexSize = 6;
-	indices = new int[indexSize]
+		vertex = new VertexData[vertexSize]
 		{
-			0, 1, 3,   // first triangle
-				1, 2, 3    // second triangle
+			VertexData(Vector3(0.5f, 0.5f, 0.0f), Vector4(1.0f, 0.0f, 0.0f, 1.0f)),
+			VertexData(Vector3(0.5f, -0.5f, 0.0f), Vector4(0.0f, 1.0f, 0.0f, 1.0f)),
+			VertexData(Vector3(-0.5f, -0.5f, 0.0f), Vector4(0.0f, 0.0f, 1.0f, 1.0f)),
+			VertexData(Vector3(-0.5f, 0.5f, 0.0f), Vector4(0.5f, 0.0f, 0.5f, 1.0f))
 		};
 
-	CalculateTRS();
+		indexSize = 6;
+		indices = new int[indexSize]
+			{
+				0, 1, 3,   // first triangle
+					1, 2, 3    // second triangle
+			};
 
-	GetRenderer()->CreateBuffers(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO);
-}
+		CalculateTRS();
 
-Square::~Square()
-{
+		GetRenderer()->CreateBuffers(vertex, vertexSize, indices, indexSize, VAO, VBO, EBO);
+	}
+
+	Square::~Square()
+	{
+	}
 }

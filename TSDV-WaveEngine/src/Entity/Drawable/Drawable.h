@@ -4,52 +4,54 @@
 #include "VertexData.h"
 #include "Renderer/Renderer.h"
 
-class MeshImGui;
-
-WAVEEXPORT class Drawable
+namespace WaveEngine
 {
-private:
+	class MeshImGui;
 
-	void UpdateVertexBuffer();
+	WAVEEXPORT class Drawable
+	{
+	private:
 
-	friend class MeshImGui;
+		void UpdateVertexBuffer();
 
-	unsigned int ID;
+		friend class MeshImGui;
 
-	unsigned int layer;
+		unsigned int ID;
 
-protected:
+		unsigned int layer;
 
-	unsigned int VAO;
-	unsigned int VBO;
-	unsigned int EBO;
+	protected:
 
-	unsigned int materialID;
+		unsigned int VAO;
+		unsigned int VBO;
+		unsigned int EBO;
 
-	VertexData* vertex;
-	int vertexSize;
+		unsigned int materialID;
 
-	int* indices;
-	int indexSize;
+		VertexData* vertex;
+		int vertexSize;
 
-	MaterialManager* GetMaterialManager();
+		int* indices;
+		int indexSize;
 
-	Renderer* GetRenderer() const;
+		MaterialManager* GetMaterialManager();
 
-	Drawable(const unsigned int& ID);
-	~Drawable();
+		Renderer* GetRenderer() const;
 
-public:
+		Drawable(const unsigned int& ID);
+		~Drawable();
 
-	WAVEEXPORT void SetLayer(const int& layer);
-	WAVEEXPORT int GetLayer() const;
+	public:
 
-	WAVEEXPORT void SetMaterial(unsigned int materialID);
-	WAVEEXPORT unsigned int GetMaterial() const;
+		WAVEEXPORT void SetLayer(const int& layer);
+		WAVEEXPORT int GetLayer() const;
 
-	WAVEEXPORT void SetColor(const Vector4& color);
-	WAVEEXPORT void SetVertexColor(const int& index, const Vector4& color);
+		WAVEEXPORT void SetMaterial(unsigned int materialID);
+		WAVEEXPORT unsigned int GetMaterial() const;
 
-	WAVEEXPORT virtual void Draw() = 0;
-};
+		WAVEEXPORT void SetColor(const Vector4& color);
+		WAVEEXPORT void SetVertexColor(const int& index, const Vector4& color);
 
+		WAVEEXPORT virtual void Draw() = 0;
+	};
+}

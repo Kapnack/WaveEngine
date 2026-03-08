@@ -12,50 +12,53 @@
 #include "Entity/EntityManager.h"
 #include "Entity/EntityFactory.h"
 
-WAVEEXPORT class BaseGame
+namespace WaveEngine
 {
-private:
+	WAVEEXPORT class BaseGame
+	{
+	private:
 
-	ImGuiClass* imGuiClass;
+		ImGuiClass* imGuiClass;
 
-	void InitEngine(const int& width, const int& height);
+		void InitEngine(const int& width, const int& height);
 
-	void EndEngine();
+		void EndEngine();
 
-	void EngineUpdate();
+		void EngineUpdate();
 
-	void EngineDraw();
+		void EngineDraw();
 
-	Renderer* GetRenderer();
+		Renderer* GetRenderer();
 
-protected:
+	protected:
 
-	WAVEEXPORT	virtual void Init(const int& width, const int& height) = 0;
-	WAVEEXPORT	virtual void Update() = 0;
-	WAVEEXPORT	virtual void Unload() = 0;
+		WAVEEXPORT	virtual void Init(const int& width, const int& height) = 0;
+		WAVEEXPORT	virtual void Update() = 0;
+		WAVEEXPORT	virtual void Unload() = 0;
 
-	WAVEEXPORT float GetDeltaTime();
+		WAVEEXPORT float GetDeltaTime();
 
-	WAVEEXPORT MaterialManager* GetMaterialManager();
-	WAVEEXPORT MaterialFactory* GetMaterialFactory();
-	WAVEEXPORT Input* GetInput();
-	WAVEEXPORT Window* GetWindow();
-	WAVEEXPORT Time* GetTime();
-	WAVEEXPORT EntityManager* GetEntityManager();
-	WAVEEXPORT EntityFactory* GetEntityFactory();
-	WAVEEXPORT TextureManager* GetTextureManager();
-	WAVEEXPORT TextureImporter* GetTextureImporter();
-	WAVEEXPORT FileReader* GetFileReader();
-	WAVEEXPORT CollisionManager* GetCollsionManager();
+		WAVEEXPORT MaterialManager* GetMaterialManager();
+		WAVEEXPORT MaterialFactory* GetMaterialFactory();
+		WAVEEXPORT Input* GetInput();
+		WAVEEXPORT Window* GetWindow();
+		WAVEEXPORT Time* GetTime();
+		WAVEEXPORT EntityManager* GetEntityManager();
+		WAVEEXPORT EntityFactory* GetEntityFactory();
+		WAVEEXPORT TextureManager* GetTextureManager();
+		WAVEEXPORT TextureImporter* GetTextureImporter();
+		WAVEEXPORT FileReader* GetFileReader();
+		WAVEEXPORT CollisionManager* GetCollsionManager();
 
-	WAVEEXPORT void CreateCollisionManager();
-	WAVEEXPORT void DestroyCollisionManager();
+		WAVEEXPORT void CreateCollisionManager();
+		WAVEEXPORT void DestroyCollisionManager();
 
-public:
+	public:
 
-	WAVEEXPORT BaseGame(const int& width, const int& height);
-	WAVEEXPORT virtual ~BaseGame();
+		WAVEEXPORT BaseGame(const int& width, const int& height);
+		WAVEEXPORT virtual ~BaseGame();
 
-	WAVEEXPORT	void Run();
-};
+		WAVEEXPORT	void Run();
+	};
+}
 

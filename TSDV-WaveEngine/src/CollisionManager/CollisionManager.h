@@ -8,27 +8,30 @@
 #include "Entity/EntityManager.h"
 #include "Collider.h"
 
-class BaseGame;
-class ServiceProvider;
-
-WAVEEXPORT class CollisionManager : public Service
+namespace WaveEngine
 {
-private:
+	class BaseGame;
+	class ServiceProvider;
 
-	EntityManager* GetEntityManager() const;
+	WAVEEXPORT class CollisionManager : public Service
+	{
+	private:
 
-	bool AreColliding(const Collider& a, const Collider& b) const;
+		EntityManager* GetEntityManager() const;
 
-	CollisionManager();
-	~CollisionManager();
+		bool AreColliding(const Collider& a, const Collider& b) const;
 
-	friend class BaseGame;
-	friend class ServiceProvider;
+		CollisionManager();
+		~CollisionManager();
 
-public:
+		friend class BaseGame;
+		friend class ServiceProvider;
+
+	public:
 
 
-	WAVEEXPORT bool CheckCollision(const unsigned int& anEntity, const unsigned int& otherEntity) const;
-	WAVEEXPORT bool CheckCollision(const unsigned int& anEntity, const TileMap& tileMap) const;
-};
+		WAVEEXPORT bool CheckCollision(const unsigned int& anEntity, const unsigned int& otherEntity) const;
+		WAVEEXPORT bool CheckCollision(const unsigned int& anEntity, const TileMap& tileMap) const;
+	};
+}
 

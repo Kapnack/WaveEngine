@@ -1,11 +1,14 @@
 #include "Service.h"
 
-Service::Service()
+namespace WaveEngine
 {
+	Service::Service()
+	{
 
-}
+	}
 
-Service::~Service()
-{
+	Service::~Service()
+	{
 
+	}
 }

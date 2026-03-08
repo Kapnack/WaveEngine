@@ -2,15 +2,18 @@
 
 #include "Export.h"
 
-class ServiceProvider;
-
-WAVEEXPORT class Service
+namespace WaveEngine
 {
-protected:
+	class ServiceProvider;
 
-	WAVEEXPORT Service();
-	WAVEEXPORT virtual ~Service();
+	WAVEEXPORT class Service
+	{
+	protected:
 
-	friend class ServiceProvider;
-};
+		WAVEEXPORT Service();
+		WAVEEXPORT virtual ~Service();
+
+		friend class ServiceProvider;
+	};
+}
 

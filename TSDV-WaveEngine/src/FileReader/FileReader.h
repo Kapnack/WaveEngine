@@ -9,21 +9,23 @@ class ServiceProvider;
 
 using namespace std;
 
-WAVEEXPORT class FileReader : public Service
+namespace WaveEngine
 {
-private:
+	WAVEEXPORT class FileReader : public Service
+	{
+	private:
 
-	string GetAbsoluteFilePath(const string_view filePath) const;
+		string GetAbsoluteFilePath(const string_view filePath) const;
 
-	FileReader();
-	~FileReader();
+		FileReader();
+		~FileReader();
 
-	friend class BaseGame;
-	friend class ServiceProvider;
+		friend class BaseGame;
+		friend class ServiceProvider;
 
-public:
+	public:
 
-	WAVEEXPORT string ReadFileAbsolutePath(const string_view filePath);
-	WAVEEXPORT string ReadFile(const string_view filePath);
-};
-
+		WAVEEXPORT string ReadFileAbsolutePath(const string_view filePath);
+		WAVEEXPORT string ReadFile(const string_view filePath);
+	};
+}

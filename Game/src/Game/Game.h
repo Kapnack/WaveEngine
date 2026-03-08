@@ -5,7 +5,9 @@
 #include "CollisionManager/CollisionManager.h"
 #include "Entity/Controller/EntityController/EntityController.h"
 
-class Game : public BaseGame
+using namespace WaveEngine;
+
+class Game : public WaveEngine::BaseGame
 {
 private:
 
