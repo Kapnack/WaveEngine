@@ -48,7 +48,7 @@ Matrix4x4 Matrix4x4::GetTranslateMatrix() const
 	return CreateTranslate(m03, m13, m23);
 }
 
-Matrix4x4 Matrix4x4::GetRotationMatrix()
+Matrix4x4 Matrix4x4::GetRotationMatrix() const
 {
 	return CreateRotation(*this);
 }
