@@ -14,15 +14,15 @@ namespace WaveEngine
 	{
 		FileReader* fileReader = ServiceProvider::Instance().Get<FileReader>();
 
-		string vertexShader = fileReader->ReadFileAbsolutePath("Shaders/Shapes/basicVertexShader.shader");
+		string vertexShader = fileReader->ReadFile("Shaders/Shapes/basicVertexShader.shader");
 
-		string fragmentShader = fileReader->ReadFileAbsolutePath("Shaders/Shapes/basicFragmentShader.shader");
+		string fragmentShader = fileReader->ReadFile("Shaders/Shapes/basicFragmentShader.shader");
 
 		CreateMaterial("basicShapeMaterial", vertexShader, fragmentShader);
 
-		vertexShader = fileReader->ReadFileAbsolutePath("Shaders/Sprites/basicVertexShader.shader");
+		vertexShader = fileReader->ReadFile("Shaders/Sprites/basicVertexShader.shader");
 
-		fragmentShader = fileReader->ReadFileAbsolutePath("Shaders/Sprites/basicFragmentShader.shader");
+		fragmentShader = fileReader->ReadFile("Shaders/Sprites/basicFragmentShader.shader");
 
 		CreateMaterial("basicSpriteMaterial", vertexShader, fragmentShader);
 	}
