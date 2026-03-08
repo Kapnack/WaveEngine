@@ -22,7 +22,7 @@ struct WAVEEXPORT Matrix4x4 final
 	void SetTranslate(const Vector3& vector);
 	void AddTranslate(const Vector3& vector);
 	Matrix4x4 GetTranslateMatrix() const;
-	Matrix4x4 GetRotationMatrix();
+	Matrix4x4 GetRotationMatrix() const;
 	void SetScale(const Vector3& vector);
 	void AddScale(const Vector3& vector);
 	Matrix4x4 GetScaleMatrix() const;
