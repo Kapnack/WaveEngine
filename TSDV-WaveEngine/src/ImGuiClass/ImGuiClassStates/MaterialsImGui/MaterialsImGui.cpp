@@ -55,8 +55,8 @@ namespace WaveEngine
 				string fileVertexShader;
 				string fileFragmentShader;
 
-				fileVertexShader = addAbsoluteToVertexPath ? GetFileReader()->ReadFileAbsolutePath(vertexShaderPath) : GetFileReader()->ReadFile(vertexShaderPath);
-				fileFragmentShader = addAbsoluteToFragmentPath ? GetFileReader()->ReadFileAbsolutePath(fragmentShaderPath) : GetFileReader()->ReadFile(fragmentShaderPath);
+				fileVertexShader = addAbsoluteToVertexPath ? GetFileReader()->ReadFile(vertexShaderPath) : GetFileReader()->ReadFile(vertexShaderPath);
+				fileFragmentShader = addAbsoluteToFragmentPath ? GetFileReader()->ReadFile(fragmentShaderPath) : GetFileReader()->ReadFile(fragmentShaderPath);
 
 				GetMaterialFactory()->CreateMaterial(newMaterialName, fileVertexShader, fileFragmentShader);
 			}
