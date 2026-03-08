@@ -25,13 +25,13 @@ namespace WaveEngine
 
 	public:
 
-		bool CanCollide();
+		bool CanCollide() const;
 		void SetCollide(bool walkable);
 
 		void SetTileID(unsigned int id);
-		unsigned int GetTileID();
+		unsigned int GetTileID() const;
 
 		void SetSpriteSheetID(int id);
-		unsigned int GetSpriteSheetID();
+		unsigned int GetSpriteSheetID() const;
 	};
 }

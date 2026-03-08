@@ -15,7 +15,7 @@ namespace WaveEngine
 		this->collide = walkable;
 	}
 
-	bool Tile::CanCollide()
+	bool Tile::CanCollide() const
 	{
 		return collide;
 	}
@@ -25,7 +25,7 @@ namespace WaveEngine
 		this->tileID = id;
 	}
 
-	unsigned int Tile::GetTileID()
+	unsigned int Tile::GetTileID() const
 	{
 		return tileID;
 	}
@@ -35,7 +35,7 @@ namespace WaveEngine
 		spriteSheetID = id;
 	}
 
-	unsigned int Tile::GetSpriteSheetID()
+	unsigned int Tile::GetSpriteSheetID() const
 	{
 		return spriteSheetID;
 	}
