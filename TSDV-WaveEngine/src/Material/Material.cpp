@@ -27,12 +27,12 @@ namespace WaveEngine
 		Unload();
 	}
 
-	const string Material::GetName()
+	const string Material::GetName() const
 	{
 		return name;
 	}
 
-	Vector4 Material::GetColor()
+	Vector4 Material::GetColor() const
 	{
 		return color;
 	}
@@ -42,7 +42,7 @@ namespace WaveEngine
 		return ID;
 	}
 
-	unsigned int Material::GetProgram()
+	unsigned int Material::GetProgram() const
 	{
 		return program;
 	}

@@ -64,11 +64,11 @@ namespace WaveEngine
 
 		const static unsigned int NULL_MATERIAL;
 
-		const string GetName();
+		const string GetName() const;
 
-		Vector4 GetColor();
+		Vector4 GetColor() const;
 		unsigned int GetID() const;
-		unsigned int GetProgram();
+		unsigned int GetProgram() const;
 		void SetTexture(const unsigned int& ID);
 		void SetColor(const Vector4& color);
 
