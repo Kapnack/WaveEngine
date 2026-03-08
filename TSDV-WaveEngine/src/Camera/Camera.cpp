@@ -84,37 +84,37 @@ namespace WaveEngine
 		orthoSize += value;
 	}
 
-	glm::mat4 Camera::GetView()
+	glm::mat4 Camera::GetView() const
 	{
 		return view;
 	}
 
-	glm::mat4 Camera::GetProjection()
+	glm::mat4 Camera::GetProjection() const
 	{
 		return projection;
 	}
 
-	float Camera::GetFarPlane()
+	float Camera::GetFarPlane() const
 	{
 		return farPlane;
 	}
 
-	float Camera::GetNearPlane()
+	float Camera::GetNearPlane() const
 	{
 		return nearPlane;
 	}
 
-	float Camera::GetFovDegree()
+	float Camera::GetFovDegree() const
 	{
 		return fovDeg;
 	}
 
-	float Camera::GetMovementSpeed()
+	float Camera::GetMovementSpeed() const
 	{
 		return movementSpeed;
 	}
 
-	float Camera::GetOrthoSize()
+	float Camera::GetOrthoSize() const
 	{
 		return orthoSize;
 	}
@@ -148,7 +148,7 @@ namespace WaveEngine
 			glm::perspective(glm::radians(fovDeg), aspect, nearPlane, farPlane);
 	}
 
-	Window* Camera::GetWindow()
+	Window* Camera::GetWindow() const
 	{
 		return ServiceProvider::Instance().Get<Window>();
 	}

@@ -33,12 +33,12 @@ namespace WaveEngine
 
 		void CalculateMatrixes();
 
-		Window* GetWindow();
+		Window* GetWindow() const;
 
 		Camera(const unsigned& ID);
 
-		glm::mat4 GetView();
-		glm::mat4 GetProjection();
+		glm::mat4 GetView() const;
+		glm::mat4 GetProjection() const;
 
 		friend class EntityManager;
 		friend class EntityFactory;
@@ -65,10 +65,10 @@ namespace WaveEngine
 		WAVEEXPORT	void SetOrthoSize(const float& value);
 		WAVEEXPORT	void AddToOrthoSize(const float& value);
 
-		WAVEEXPORT	float GetFarPlane();
-		WAVEEXPORT	float GetNearPlane();
-		WAVEEXPORT	float GetFovDegree();
-		WAVEEXPORT	float GetMovementSpeed();
-		WAVEEXPORT	float GetOrthoSize();
+		WAVEEXPORT	float GetFarPlane() const;
+		WAVEEXPORT	float GetNearPlane() const;
+		WAVEEXPORT	float GetFovDegree() const;
+		WAVEEXPORT	float GetMovementSpeed() const;
+		WAVEEXPORT	float GetOrthoSize() const;
 	};
 }
