@@ -87,7 +87,7 @@ namespace WaveEngine
 		const string tileName = "tiles";
 		const string colliderName = "collider";
 
-		const string jsonString = addAbsolutePath ? ServiceProvider::Instance().Get<FileReader>()->ReadFileAbsolutePath(filePath)
+		const string jsonString = addAbsolutePath ? ServiceProvider::Instance().Get<FileReader>()->ReadFile(filePath)
 			: ServiceProvider::Instance().Get<FileReader>()->ReadFile(filePath);
 
 		if (jsonString == "")
