@@ -145,7 +145,7 @@ namespace WaveEngine
 		drawCalls = 0;
 	}
 
-	unsigned int Renderer::GetDrawCalls()
+	unsigned int Renderer::GetDrawCalls() const
 	{
 		return drawCalls;
 	}

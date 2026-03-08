@@ -33,7 +33,7 @@ namespace WaveEngine
 
 		const unsigned int ReturnWorkingMaterial(const unsigned int& materialIDToTry, const unsigned int& materialIDfallBack);
 
-		Window* GetWindow();
+		Window* GetWindow() const;
 
 		MaterialManager* GetMaterialManager();
 
@@ -55,7 +55,7 @@ namespace WaveEngine
 
 		void Clear();
 
-		unsigned int GetDrawCalls();
+		unsigned int GetDrawCalls() const;
 
 		void DrawElement(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO);
 		void DrawElementSprite(glm::mat4& model, const unsigned int& materialID, const unsigned int& indicesSize, const unsigned int& VAO, const unsigned int& texture);
