@@ -30,7 +30,7 @@ namespace WaveEngine
 
 		void Save(const unsigned int& ID, Texture* texture);
 
-		Texture* GetTexture(const unsigned int& ID);
+		Texture* GetTexture(const unsigned int& ID) const;
 
 		unordered_map<unsigned int, Texture*>& GetTextures();
 

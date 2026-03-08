@@ -19,9 +19,9 @@ namespace WaveEngine
 		textures[ID] = texture;
 	}
 
-	Texture* TextureManager::GetTexture(const unsigned int& ID)
+	Texture* TextureManager::GetTexture(const unsigned int& ID) const
 	{
-		return textures[ID];
+		return textures.at(ID);
 	}
 
 	unordered_map<unsigned int, Texture*>& TextureManager::GetTextures()
