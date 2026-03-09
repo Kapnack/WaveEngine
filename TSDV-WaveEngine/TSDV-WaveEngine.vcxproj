@@ -157,6 +157,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Serializable\Serializable.cpp" />
     <ClCompile Include="src\WaveMath\Matrix4x4\Matrix4x4.cpp" />
     <ClCompile Include="src\WaveMath\Quaternion\Quaternion.cpp" />
     <ClCompile Include="src\ModelImporter\ModelImporter.cpp" />
@@ -211,6 +212,7 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s
     <ClCompile Include="src\WaveMath\Transform\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Serializable\Serializable.h" />
     <ClInclude Include="src\WaveMath\Matrix4x4\Matrix4x4.h" />
     <ClInclude Include="src\WaveMath\Quaternion\Quaternion.h" />
     <ClInclude Include="src\ModelImporter\ModelImporter.h" />
