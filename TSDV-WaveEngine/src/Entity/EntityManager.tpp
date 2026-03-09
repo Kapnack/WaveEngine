@@ -126,6 +126,14 @@ namespace WaveEngine
 		drawableByLayer.clear();
 	}
 
+	void EntityManager::Serialize(std::ostream& stream) const
+	{
+	}
+
+	void EntityManager::Deserialize(std::istream& stream)
+	{
+	} 
+
 	template<EntityManagerGetStandar T>
 	vector<unsigned int>& EntityManager::GetAllOfType()
 	{

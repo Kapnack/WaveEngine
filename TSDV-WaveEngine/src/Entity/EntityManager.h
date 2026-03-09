@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ServiceProvider/Service.h"
+#include "Serializable/Serializable.h"
 
 #include <map>
 #include <typeindex>
@@ -24,7 +25,7 @@ namespace WaveEngine
 	template<typename T>
 	concept EntityManagerGetStandar = derived_from<T, Entity> || derived_from<T, Drawable>;
 
-	class EntityManager final : public Service
+	class EntityManager final : public Service, public Serializable
 	{
 	private:
 
@@ -80,6 +81,9 @@ namespace WaveEngine
 		void DeleteAllOfType();
 
 		inline void DeleteAll();
+
+		void Serialize(std::ostream& stream) const override;
+		void Deserialize(std::istream& stream) override;
 	};
 }
 #include "EntityManager.tpp"
