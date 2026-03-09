@@ -53,5 +53,63 @@ namespace WaveEngine
 
 		return newEntity->GetID();
 	}
+
+	void EntityFactory::Serialize(std::ostream& stream) const
+	{
+		size_t typeCount = entityManager->entitiesIDByType.size();
+		stream.write((char*)&typeCount, sizeof(typeCount));
+
+		for (const auto& pair : entityManager->entitiesIDByType)
+		{
+			const std::type_index& type = pair.first;
+			const std::vector<unsigned int>& ids = pair.second;
+
+			std::string name = type.name();
+			size_t len = name.size();
+
+			stream.write((char*)&len, sizeof(len));
+			stream.write(name.data(), len);
+
+			size_t idCount = ids.size();
+			stream.write((char*)&idCount, sizeof(idCount));
+
+			for (unsigned int id : ids)
+			{
+				Entity* entity = entityManager->entitiesByID.at(id);
+
+				stream.write((char*)&id, sizeof(id));
+				entity->Serialize(stream);
+			}
+		}
+	}
+
+	void EntityFactory::Deserialize(std::istream& stream)
+	{
+		size_t typeCount;
+		stream.read((char*)&typeCount, sizeof(typeCount));
+
+		for (size_t i = 0; i < typeCount; i++)
+		{
+			size_t len;
+			stream.read((char*)&len, sizeof(len));
+
+			std::string typeName(len, '\0');
+			stream.read(typeName.data(), len);
+
+			size_t idCount;
+			stream.read((char*)&idCount, sizeof(idCount));
+
+			for (size_t j = 0; j < idCount; j++)
+			{
+				unsigned int id;
+				stream.read((char*)&id, sizeof(id));
+
+				Entity* entity = CreateEntityFromType(typeName);
+				entity->Deserialize(stream);
+
+				entityManager->entitiesByID[id] = entity;
+			}
+		}
+	}
 }
 #endif

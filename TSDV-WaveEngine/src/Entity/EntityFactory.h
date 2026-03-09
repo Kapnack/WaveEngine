@@ -1,7 +1,9 @@
 #pragma once
 
-#include "Entity/EntityManager.h"
 #include "ServiceProvider/Service.h"
+#include "Serializable/Serializable.h"
+
+#include "Entity/EntityManager.h"
 #include "Window/Window.h"
 #include "Material/MaterialManager.h"
 #include "ServiceProvider/ServiceProvider.h"
@@ -12,7 +14,7 @@ namespace WaveEngine
 {
 	class BaseGame;
 
-	class EntityFactory final : public Service
+	class EntityFactory final : public Service, public Serializable
 	{
 	private:
 
@@ -33,6 +35,9 @@ namespace WaveEngine
 		unsigned int Create();
 
 		inline unsigned int CreateTileMap(const string_view mapFilePath, const bool& mapFileAddAbsolutePath, const string_view texturePath, const bool& texturePathAddAbsolutePath);
+
+		void Serialize(std::ostream& stream) const override;
+		void Deserialize(std::istream& stream) override;
 	};
 }
 #include "EntityFactory.tpp"
