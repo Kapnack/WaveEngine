@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Serializable/Serializable.h"
+
 #include "Export.h"
 #include "VertexData.h"
 #include "Renderer/Renderer.h"
@@ -8,7 +10,7 @@ namespace WaveEngine
 {
 	class MeshImGui;
 
-	WAVEEXPORT class Drawable
+	WAVEEXPORT class Drawable : public Serializable
 	{
 	private:
 
@@ -53,5 +55,8 @@ namespace WaveEngine
 		WAVEEXPORT void SetVertexColor(const int& index, const Vector4& color);
 
 		WAVEEXPORT virtual void Draw() = 0;
+
+		WAVEEXPORT void Serialize(std::ostream& stream) const override;
+		WAVEEXPORT void Deserialize(std::istream& stream) override;
 	};
 }

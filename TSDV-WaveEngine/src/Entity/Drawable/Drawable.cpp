@@ -56,6 +56,36 @@ namespace WaveEngine
 		UpdateVertexBuffer();
 	}
 
+	void Drawable::Serialize(std::ostream& stream) const
+	{
+		stream.write(reinterpret_cast<const char*>(&materialID), sizeof(materialID));
+		stream.write(reinterpret_cast<const char*>(&vertexSize), sizeof(vertexSize));
+
+		for (int i = 0; i < vertexSize; i++)
+			stream.write(reinterpret_cast<const char*>(&vertex[i]), sizeof(vertex[i]));
+
+		stream.write(reinterpret_cast<const char*>(&indexSize), sizeof(indexSize));
+
+		for (int i = 0; i < indexSize; i++)
+			stream.write(reinterpret_cast<const char*>(&indices[i]), sizeof(indices[i]));
+	}
+
+	void Drawable::Deserialize(std::istream& stream)
+	{
+		stream.read(reinterpret_cast<char*>(&materialID), sizeof(materialID));
+		stream.read(reinterpret_cast<char*>(&vertexSize), sizeof(vertexSize));
+
+		for (int i = 0; i < vertexSize; i++)
+			stream.read(reinterpret_cast<char*>(&vertex[i]), sizeof(vertex[i]));
+
+		stream.read(reinterpret_cast<char*>(&indexSize), sizeof(indexSize));
+
+		for (int i = 0; i < indexSize; i++)
+			stream.read(reinterpret_cast<char*>(&indices[i]), sizeof(indices[i]));
+
+		UpdateVertexBuffer();
+	}
+
 	void Drawable::UpdateVertexBuffer()
 	{
 		GetRenderer()->UpdateBuffer(vertex, vertexSize, VBO);
