@@ -8,7 +8,7 @@
 
 namespace WaveEngine
 {
-	Entity::Entity(const unsigned int& ID)
+	Entity::Entity(const unsigned int& ID) : Serializable()
 	{
 		this->ID = ID;
 	}
@@ -230,6 +230,24 @@ namespace WaveEngine
 	void Entity::FlipZ()
 	{
 		SetScale(scale.x, scale.y, -scale.z);
+	}
+
+	void Entity::Serialize(std::ostream& stream) const
+	{
+		stream.write(reinterpret_cast<const char*>(&previousPosition), sizeof(previousPosition));
+		stream.write(reinterpret_cast<const char*>(&position), sizeof(position));
+		stream.write(reinterpret_cast<const char*>(&scale), sizeof(scale));
+		stream.write(reinterpret_cast<const char*>(&scale), sizeof(scale));
+		stream.write(reinterpret_cast<const char*>(&model), sizeof(model));
+	}
+
+	void Entity::Deserialize(std::istream& stream)
+	{
+		stream.read(reinterpret_cast<char*>(&previousPosition), sizeof(previousPosition));
+		stream.read(reinterpret_cast<char*>(&position), sizeof(position));
+		stream.read(reinterpret_cast<char*>(&scale), sizeof(scale));
+		stream.read(reinterpret_cast<char*>(&scale), sizeof(scale));
+		stream.read(reinterpret_cast<char*>(&model), sizeof(model));
 	}
 
 	void Entity::CalculateTRS()

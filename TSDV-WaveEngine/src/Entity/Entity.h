@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Serializable/Serializable.h"
+
 #include "Export.h"
 #include "Renderer/Renderer.h"
 #include "VertexData.h"
@@ -12,7 +14,7 @@ namespace WaveEngine
 	class EntitiesImGui;
 	class MeshImGui;
 
-	WAVEEXPORT class Entity
+	WAVEEXPORT class Entity : public Serializable
 	{
 	private:
 
@@ -92,5 +94,8 @@ namespace WaveEngine
 		WAVEEXPORT void FlipX();
 		WAVEEXPORT void FlipY();
 		WAVEEXPORT void FlipZ();
+
+		WAVEEXPORT void Serialize(std::ostream& stream) const override;
+		WAVEEXPORT void Deserialize(std::istream& stream) override;
 	};
 }
