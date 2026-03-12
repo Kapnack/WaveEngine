@@ -35,6 +35,14 @@ namespace WaveEngine
 
 		inline ~EventSystem()
 		{
+			for (unordered_map<type_index, queue<Event*>>::iterator it = events.begin(); it != events.end(); ++it)
+			{
+				while (!it->second.empty())
+				{
+					delete it->second.front();
+					it->second.pop();
+				}
+			}
 		}
 
 		template<typename TEvent>
