@@ -3,13 +3,16 @@
 #include "ServiceProvider/Service.h"
 
 #include <map>
+#include <list>
+#include <unordered_map>
 #include <typeindex>
 #include <concepts>
 #include <vector>
 
-#include "Entity.h"
-#include "Entity/Drawable/Drawable.h"
+#include "Entity/Entity.h"
 #include "Material/MaterialManager.h"
+
+#include "EventSystem/Event.h"
 
 class BaseGame;
 class EntityFactory;
@@ -30,7 +33,7 @@ namespace WaveEngine
 		int oldLayer = 0;
 		int newLayer = 0;
 
-		EntityChangeLayer(unsigned int ID, int oldLayer, int newLayer)
+		EntityChangeLayer(const unsigned int& ID, const int& oldLayer, const int& newLayer)
 		{
 			this->ID = ID;
 			this->oldLayer = oldLayer;
@@ -60,16 +63,17 @@ namespace WaveEngine
 
 		map<int, list<unsigned int>> drawableByLayer;
 
+		ServiceProvider* serviceProvider;
 		MaterialManager* materialManager;
 
 		inline void SaveEntity(const unsigned int& ID, Entity* entity);
 
 		inline void DrawEntities();
 
-		inline EntityManager(MaterialManager* materialManager);
+		inline EntityManager(ServiceProvider* serviceProvider, MaterialManager* materialManager);
 		inline ~EntityManager();
 
-		inline void OnEntityChangeLayer(const unsigned int& id, const int& oldLayer, const int& newLayer);
+		inline void OnEntityChangeLayer(const EntityChangeLayer& entityChangeLayer);
 		inline void OnEntityDestroy(const unsigned int& id);
 
 		inline map<unsigned int, Drawable*>& GetDrawables();
