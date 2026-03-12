@@ -5,7 +5,7 @@
 #include "Material/MaterialFactory.h"
 #include "TextureImporter/TextureImporter.h"
 #include "TextureImporter/TextureManager.h"
-#include <Camera/Camera.h>
+#include "Camera/Camera.h"
 
 namespace WaveEngine
 {
@@ -24,17 +24,19 @@ namespace WaveEngine
 		if (!glfwInit())
 			exit(-1);
 
+		ServiceProvider::Instance().Register(new EventSystem());
 		ServiceProvider::Instance().Register(new Window(width, height, "WaveEngine", nullptr, nullptr));
 		ServiceProvider::Instance().Register(new FileReader());
 		ServiceProvider::Instance().Register(new MaterialManager());
 		ServiceProvider::Instance().Register(new MaterialFactory());
 		ServiceProvider::Instance().Register(new TextureManager());
 		ServiceProvider::Instance().Register(new TextureImporter());
-		ServiceProvider::Instance().Register(new EntityManager(GetMaterialManager()));
+		ServiceProvider::Instance().Register(new EntityManager(&ServiceProvider::Instance(), GetMaterialManager()));
 		ServiceProvider::Instance().Register(new EntityFactory(GetEntityManager(), GetWindow()));
 		ServiceProvider::Instance().Register(new Renderer());
 		ServiceProvider::Instance().Register(new Input());
 		ServiceProvider::Instance().Register(new Time());
+
 		imGuiClass = new ImGuiClass();
 
 		Camera::camera.SetPosition(397, 392, 1042);
@@ -90,6 +92,12 @@ namespace WaveEngine
 		{
 			Camera::camera.Translate(Vector3::Back() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
 		}
+
+		if (GetInput()->IsKeyPressed(Keys::V))
+			GetFileReader()->SaveData("CamaraData.sav", Camera::camera, *GetEntityManager()->TryGet(1));
+
+		if (GetInput()->IsKeyPressed(Keys::B))
+			GetFileReader()->LoadData("CamaraData.sav", Camera::camera, *GetEntityManager()->TryGet(1));
 
 		if (GetInput()->IsKeyPressed(Keys::Q))
 			Camera::camera.AddToFarPlane(GetDeltaTime() * Camera::camera.GetMovementSpeed());
@@ -179,6 +187,11 @@ namespace WaveEngine
 	CollisionManager* BaseGame::GetCollsionManager()
 	{
 		return ServiceProvider::Instance().Get<CollisionManager>();
+	}
+
+	EventSystem* BaseGame::GetEventSystem()
+	{
+		return ServiceProvider::Instance().Get<EventSystem>();
 	}
 
 	void BaseGame::CreateCollisionManager()
