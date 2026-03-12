@@ -7,6 +7,7 @@
 namespace WaveEngine
 {
 	class MeshImGui;
+	class MaterialManager;
 
 	WAVEEXPORT class Drawable
 	{
@@ -18,7 +19,7 @@ namespace WaveEngine
 
 		unsigned int ID;
 
-		unsigned int layer;
+		int layer;
 
 	protected:
 
