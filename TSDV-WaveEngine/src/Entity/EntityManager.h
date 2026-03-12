@@ -24,6 +24,31 @@ namespace WaveEngine
 	template<typename T>
 	concept EntityManagerGetStandar = derived_from<T, Entity> || derived_from<T, Drawable>;
 
+	struct EntityChangeLayer : public Event
+	{
+		unsigned int ID = 0;
+		int oldLayer = 0;
+		int newLayer = 0;
+
+		EntityChangeLayer(unsigned int ID, int oldLayer, int newLayer)
+		{
+			this->ID = ID;
+			this->oldLayer = oldLayer;
+			this->newLayer = newLayer;
+		}
+
+		EntityChangeLayer()
+		{
+		}
+
+		void Reset() override
+		{
+			ID = 0;
+			oldLayer = 0;
+			newLayer = 0;
+		}
+	};
+
 	class EntityManager final : public Service
 	{
 	private:
