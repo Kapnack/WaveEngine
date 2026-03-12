@@ -344,6 +344,9 @@
     <ClInclude Include="src\WaveMath\Matrix4x4\Matrix4x4.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="src\EventSystem\Event.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />
