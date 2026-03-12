@@ -12,6 +12,7 @@
 #include "Entity/EntityManager.h"
 #include "Entity/EntityFactory.h"
 
+#include "EventSystem/EventSystem.h"
 namespace WaveEngine
 {
 	WAVEEXPORT class BaseGame
@@ -49,6 +50,7 @@ namespace WaveEngine
 		WAVEEXPORT TextureImporter* GetTextureImporter();
 		WAVEEXPORT FileReader* GetFileReader();
 		WAVEEXPORT CollisionManager* GetCollsionManager();
+		WAVEEXPORT EventSystem* GetEventSystem();
 
 		WAVEEXPORT void CreateCollisionManager();
 		WAVEEXPORT void DestroyCollisionManager();
