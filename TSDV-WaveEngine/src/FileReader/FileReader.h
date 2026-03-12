@@ -73,6 +73,35 @@ namespace WaveEngine
 		}
 
 		template<typename... T>
+		void SaveData(const string_view filePath, int& amount, T&... data)
+		{
+			ofstream outStream;
+
+			try
+			{
+				outStream.open(filePath, ios::out | ios::binary);
+
+				if (!outStream.is_open())
+					throw runtime_error("FilePath; " + string(filePath) + " wasn't found.\n");
+
+				WriteIntoFile(outStream, amount);
+				(WriteIntoFile(outStream, data), ...);
+
+			}
+			catch (const runtime_error& e)
+			{
+				cerr << e.what() << "\n";
+			}
+			catch (...)
+			{
+				cerr << "Unknow error detected while trying to read file.\n";
+			}
+
+			if (outStream.is_open())
+				outStream.close();
+		}
+
+		template<typename... T>
 		void LoadData(const string_view filePath, T&... data)
 		{
 			ifstream inStream;
