@@ -13,7 +13,7 @@ namespace WaveEngine
 		this->serviceProvider = serviceProvider;
 		this->materialManager = materialManager;
 
-		serviceProvider->Get<EventSystem>()->Subscribe<EntityManager, EntityChangeLayer>(this, &EntityManager::OnEntityChangeLayer);
+		serviceProvider->Get<EventSystem>()->Subscribe<EntityChangeLayer>(this, &EntityManager::OnEntityChangeLayer);
 	}
 
 	EntityManager::~EntityManager()
