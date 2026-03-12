@@ -3,13 +3,17 @@
 
 #include "EntityManager.h"
 
-#include "TileMap/Tile.h"
+#include "EventSystem/EventSystem.h"
+#include "Material/MaterialManager.h"
 
 namespace WaveEngine
 {
-	EntityManager::EntityManager(MaterialManager* materialManager) : Service()
+	EntityManager::EntityManager(ServiceProvider* serviceProvider, MaterialManager* materialManager) : Service()
 	{
+		this->serviceProvider = serviceProvider;
 		this->materialManager = materialManager;
+
+		serviceProvider->Get<EventSystem>()->Subscribe<EntityManager, EntityChangeLayer>(this, &EntityManager::OnEntityChangeLayer);
 	}
 
 	EntityManager::~EntityManager()
@@ -17,10 +21,10 @@ namespace WaveEngine
 		DeleteAll();
 	}
 
-	void EntityManager::OnEntityChangeLayer(const unsigned int& id, const int& oldLayer, const int& newLayer)
+	void EntityManager::OnEntityChangeLayer(const EntityChangeLayer& entityChangeLayer)
 	{
-		drawableByLayer[oldLayer].remove(id);
-		drawableByLayer[newLayer].push_back(id);
+		drawableByLayer[entityChangeLayer.oldLayer].remove(entityChangeLayer.ID);
+		drawableByLayer[entityChangeLayer.newLayer].push_back(entityChangeLayer.ID);
 	}
 
 	inline void EntityManager::OnEntityDestroy(const unsigned int& id)
@@ -64,7 +68,7 @@ namespace WaveEngine
 		{
 			drawableByID[ID] = drawable;
 			drawableByLayer[drawable->GetLayer()].push_back(ID);
-			materialManager->AddListener(drawable);
+			serviceProvider->Get<MaterialManager>()->AddListener(drawable);
 
 			entitiesIDByType[typeid(Drawable)].push_back(ID);
 		}
