@@ -1,6 +1,7 @@
 #include "Drawable.h"
 
 #include "ServiceProvider/ServiceProvider.h"
+#include "EventSystem/EventSystem.h"
 #include "Entity/EntityManager.h"
 
 namespace WaveEngine
@@ -20,7 +21,7 @@ namespace WaveEngine
 
 	void Drawable::SetLayer(const int& layer)
 	{
-		ServiceProvider::Instance().Get<EntityManager>()->OnEntityChangeLayer(ID, this->layer, layer);
+		ServiceProvider::Instance().Get<EventSystem>()->Invoke<EntityChangeLayer>(ID, this->layer, layer);
 		this->layer = layer;
 	}
 
