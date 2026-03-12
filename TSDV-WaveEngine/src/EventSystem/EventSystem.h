@@ -70,7 +70,7 @@ namespace WaveEngine
 			subscribers[eventType].push_back(sub);
 		}
 
-		template<typename TObject, typename TEvent>
+		template<typename TEvent, typename TObject>
 		void Subscribe(TObject* instance, void(TObject::* method)(const TEvent&))
 		{
 			type_index eventType = typeid(TEvent);
@@ -97,7 +97,7 @@ namespace WaveEngine
 			subscribers[eventType].push_back(sub);
 		}
 
-		template<typename TObject, typename TEvent>
+		template<typename TEvent, typename TObject>
 		void Unsubscribe(void(*func)(const TEvent&))
 		{
 			vector<Subscriber>& vec = subscribers[typeid(TEvent)];
@@ -114,7 +114,7 @@ namespace WaveEngine
 			);
 		}
 
-		template<typename TObject, typename TEvent>
+		template<typename TEvent, typename TObject>
 		void Unsubscribe(TObject* instance, void(TObject::* method)(const TEvent&))
 		{
 			vector<Subscriber>& vec = subscribers[typeid(TEvent)];
