@@ -4,10 +4,8 @@
 
 #include <unordered_map>
 #include <vector>
-#include <functional>
+#include <queue>
 #include <typeindex>
-
-#include "Export.h"
 
 using namespace std;
 
@@ -15,14 +13,14 @@ namespace WaveEngine
 {
 	struct Event
 	{
-
+		void Reset(){}
 	};
 
 	struct Subscriber
 	{
 		void* instance = nullptr;
 		void* method = nullptr;
-		function<void(const void*)> callback;
+		void (*invoke)(void*, void*, const void*);
 	};
 
 	class EventSystem : public Service
@@ -30,6 +28,7 @@ namespace WaveEngine
 	private:
 
 		unordered_map<type_index, vector<Subscriber>> subscribers;
+		unordered_map<type_index, queue<Event*>> events;
 
 	public:
 
@@ -44,37 +43,53 @@ namespace WaveEngine
 		template<typename TEvent>
 		void Subscribe(void(*func)(const TEvent&))
 		{
+			type_index eventType = typeid(TEvent);
+
+			events[eventType];
+
 			Subscriber sub;
 
 			sub.instance = nullptr;
 			sub.method = reinterpret_cast<void*>(func);
 
-			sub.callback =
-				[func](const void* event)
+			sub.invoke =
+				[](void*, void* m, const void* event)
 				{
+					void(*funcPtr)(const TEvent&) = reinterpret_cast<void(*)(const TEvent&)>(m);
+
 					const TEvent* e = static_cast<const TEvent*>(event);
-					func(*e);
+
+					funcPtr(*e);
 				};
 
-			subscribers[typeid(TEvent)].push_back(sub);
+			subscribers[eventType].push_back(sub);
 		}
 
 		template<typename TObject, typename TEvent>
 		void Subscribe(TObject* instance, void(TObject::* method)(const TEvent&))
 		{
+			type_index eventType = typeid(TEvent);
+
+			events[eventType];
+
 			Subscriber sub;
 
 			sub.instance = instance;
 			sub.method = *(void**)&method;
 
-			sub.callback =
-				[instance, method](const void* event)
+			sub.invoke =
+				[](void* obj, void* m, const void* event)
 				{
+					TObject* o = static_cast<TObject*>(obj);
+
+					void(TObject:: * methodPtr)(const TEvent&) = *(void(TObject::**)(const TEvent&)) & m;
+
 					const TEvent* e = static_cast<const TEvent*>(event);
-					(instance->*method)(*e);
+
+					(o->*methodPtr)(*e);
 				};
 
-			subscribers[typeid(TEvent)].push_back(sub);
+			subscribers[eventType].push_back(sub);
 		}
 
 		template<typename TObject, typename TEvent>
@@ -111,11 +126,33 @@ namespace WaveEngine
 			);
 		}
 
-		template<typename TEvent>
-		void Invoke(const TEvent& event)
+		template<typename TEvent, typename... T>
+		void Invoke(T... data)
 		{
-			for (Subscriber& s : subscribers[typeid(TEvent)])
-				s.callback(&event);
+			type_index eventType = typeid(TEvent);
+
+			queue<Event*>& queue = events.at(eventType);
+
+			TEvent* event;
+
+			if (!queue.empty())
+			{
+				event = static_cast<TEvent*>(queue.front());
+				queue.pop();
+			}
+			else
+			{
+				event = new TEvent();
+			}
+
+			*event = TEvent{ data... };
+
+			for (Subscriber& s : subscribers[eventType])
+				s.invoke(s.instance, s.method, event);
+
+			event->Reset();
+
+			queue.push(event);
 		}
 	};
 }
