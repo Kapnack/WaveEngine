@@ -10,8 +10,10 @@
 #include <vector>
 
 #include "Entity/Entity.h"
+#include "Entity/Drawable/Drawable.h"
 #include "Entity/Events/EntityChangeLayer.h"
 #include "Material/MaterialManager.h"
+#include "Material/Event/MaterialDelition.h"
 
 class BaseGame;
 class EntityFactory;
@@ -38,19 +40,20 @@ namespace WaveEngine
 		map<int, list<unsigned int>> drawableByLayer;
 
 		ServiceProvider* serviceProvider;
-		MaterialManager* materialManager;
 
 		inline void SaveEntity(const unsigned int& ID, Entity* entity);
 
 		inline void DrawEntities();
 
-		inline EntityManager(ServiceProvider* serviceProvider, MaterialManager* materialManager);
+		inline EntityManager(ServiceProvider* serviceProvider);
 		inline ~EntityManager();
 
 		inline void OnEntityChangeLayer(const EntityChangeLayer& entityChangeLayer);
 		inline void OnEntityDestroy(const unsigned int& id);
 
 		inline map<unsigned int, Drawable*>& GetDrawables();
+
+		inline void OnMaterialDeleted(const MaterialDelition& materialDelition);
 
 		friend class Entity;
 		friend class EntitiesImGui;

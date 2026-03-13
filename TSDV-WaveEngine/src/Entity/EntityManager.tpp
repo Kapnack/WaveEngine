@@ -8,17 +8,20 @@
 
 namespace WaveEngine
 {
-	EntityManager::EntityManager(ServiceProvider* serviceProvider, MaterialManager* materialManager) : Service()
+	EntityManager::EntityManager(ServiceProvider* serviceProvider) : Service()
 	{
 		this->serviceProvider = serviceProvider;
-		this->materialManager = materialManager;
 
 		serviceProvider->Get<EventSystem>()->Subscribe<EntityChangeLayer>(this, &EntityManager::OnEntityChangeLayer);
+		serviceProvider->Get<EventSystem>()->Subscribe<MaterialDelition>(this, &EntityManager::OnMaterialDeleted);
 	}
 
 	EntityManager::~EntityManager()
 	{
 		DeleteAll();
+
+		serviceProvider->Get<EventSystem>()->Unsubscribe<EntityChangeLayer>(this, &EntityManager::OnEntityChangeLayer);
+		serviceProvider->Get<EventSystem>()->Unsubscribe<MaterialDelition>(this, &EntityManager::OnMaterialDeleted);
 	}
 
 	void EntityManager::OnEntityChangeLayer(const EntityChangeLayer& entityChangeLayer)
@@ -35,15 +38,19 @@ namespace WaveEngine
 		if (!drawableByID.contains(id))
 			return;
 
-		if (drawableByID[id])
-			materialManager->RemoveListener(drawableByID[id]);
-
 		drawableByID.erase(id);
 	}
 
 	inline map<unsigned int, Drawable*>& EntityManager::GetDrawables()
 	{
 		return drawableByID;
+	}
+
+	inline void EntityManager::OnMaterialDeleted(const MaterialDelition& materialDelition)
+	{
+		for (map<unsigned int, Drawable*>::iterator it = drawableByID.begin(); it != drawableByID.end(); ++it)
+			if (it->second->GetMaterial() == materialDelition.ID)
+				it->second->SetMaterial(Material::NULL_MATERIAL);
 	}
 
 	map<unsigned int, Entity*>& EntityManager::GetEntities()
@@ -68,8 +75,6 @@ namespace WaveEngine
 		{
 			drawableByID[ID] = drawable;
 			drawableByLayer[drawable->GetLayer()].push_back(ID);
-			serviceProvider->Get<MaterialManager>()->AddListener(drawable);
-
 			entitiesIDByType[typeid(Drawable)].push_back(ID);
 		}
 	}
