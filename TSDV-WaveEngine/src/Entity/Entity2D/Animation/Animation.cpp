@@ -82,6 +82,7 @@ namespace WaveEngine
 		if (auxFrame != currentFrame)
 		{
 			previousFrame = auxFrame;
+			frames[currentFrame].Invoke();
 		}
 	}
 
