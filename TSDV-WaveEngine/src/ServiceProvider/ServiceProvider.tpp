@@ -47,7 +47,7 @@ namespace WaveEngine
 
 	void ServiceProvider::Clear()
 	{
-		for (map<type_index, Service*>::reverse_iterator it = services.rbegin(); it != services.rend(); ++it)
+		for (map<type_index, Service*>::iterator it = services.begin(); it != services.end(); ++it)
 		{
 			delete it->second;
 			services[it->first] = nullptr;
