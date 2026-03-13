@@ -13,6 +13,9 @@ using namespace std;
 
 namespace WaveEngine
 {
+	template<typename TEvent>
+	concept AvailableEvent = derived_from<TEvent, Event>;
+
 	class EventSystem : public Service
 	{
 	private:
@@ -45,7 +48,7 @@ namespace WaveEngine
 			}
 		}
 
-		template<typename TEvent>
+		template<AvailableEvent TEvent>
 		void Subscribe(void(*func)(const TEvent&))
 		{
 			type_index eventType = typeid(TEvent);
@@ -70,7 +73,7 @@ namespace WaveEngine
 			subscribers[eventType].push_back(sub);
 		}
 
-		template<typename TEvent, typename TObject>
+		template<AvailableEvent TEvent, typename TObject>
 		void Subscribe(TObject* instance, void(TObject::* method)(const TEvent&))
 		{
 			type_index eventType = typeid(TEvent);
@@ -97,7 +100,7 @@ namespace WaveEngine
 			subscribers[eventType].push_back(sub);
 		}
 
-		template<typename TEvent, typename TObject>
+		template<AvailableEvent TEvent, typename TObject>
 		void Unsubscribe(void(*func)(const TEvent&))
 		{
 			vector<Subscriber>& vec = subscribers[typeid(TEvent)];
@@ -114,7 +117,7 @@ namespace WaveEngine
 			);
 		}
 
-		template<typename TEvent, typename TObject>
+		template<AvailableEvent TEvent, typename TObject>
 		void Unsubscribe(TObject* instance, void(TObject::* method)(const TEvent&))
 		{
 			vector<Subscriber>& vec = subscribers[typeid(TEvent)];
@@ -131,7 +134,7 @@ namespace WaveEngine
 			);
 		}
 
-		template<typename TEvent, typename... T>
+		template<AvailableEvent TEvent, typename... T>
 		void Invoke(T... data)
 		{
 			type_index eventType = typeid(TEvent);
