@@ -96,6 +96,14 @@ namespace WaveEngine
 		return frames[index];
 	}
 
+	void Animation::SetCallbackToFrame(const int& index, void(*func)())
+	{
+		if (index >= framesQuantity)
+			return;
+
+		frames[index].SetCallback(func);
+	}
+
 	void Animation::Update(const float& deltaTime)
 	{
 		if (paused)
