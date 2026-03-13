@@ -3,7 +3,8 @@
 #include <GL/glew.h>
 #include <algorithm>
 
-#include "FileReader/FileReader.h"
+#include "EventSystem/EventSystem.h"
+#include "Material/Event/MaterialDelition.h"
 
 namespace WaveEngine
 {
@@ -62,7 +63,7 @@ namespace WaveEngine
 		if (it == materials.end())
 			return;
 
-		OnDeleteMaterial(*it->second);
+		ServiceProvider::Instance().Get<EventSystem>()->Invoke<MaterialDelition>(it->first);
 
 		delete it->second;
 		materials.erase(it);
@@ -78,39 +79,9 @@ namespace WaveEngine
 		if (it == nullptr)
 			return;
 
-		OnDeleteMaterial(*it);
+		ServiceProvider::Instance().Get<EventSystem>()->Invoke<MaterialDelition>(ID);
 
 		delete it;
 		materials.erase(ID);
-	}
-
-	void MaterialManager::AddListener(Drawable* entity)
-	{
-		listeners.push_back(entity);
-	}
-
-	void MaterialManager::OnDeleteMaterial(const Material& material)
-	{
-		for (Drawable* entity : listeners)
-			if (entity->GetMaterial() == material.GetID())
-				entity->SetMaterial(Material::NULL_MATERIAL);
-	}
-
-	void MaterialManager::RemoveListener(Drawable* entity)
-	{
-		if (listeners.size() == 0)
-			return;
-
-		for (vector<Drawable*>::iterator it = listeners.begin(); it != listeners.end(); ++it)
-			if (*it == entity)
-			{
-				listeners.erase(it);
-				break;
-			}
-	}
-
-	void MaterialManager::ClearListeners()
-	{
-		listeners.clear();
 	}
 }

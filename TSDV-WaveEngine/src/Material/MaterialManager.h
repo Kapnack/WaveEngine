@@ -3,10 +3,8 @@
 #include "ServiceProvider/Service.h"
 
 #include <unordered_map>
-#include <vector>
 
 #include "Export.h"
-#include "Entity/Drawable/Drawable.h"
 #include "Material/Material.h"
 #include "ServiceProvider/ServiceProvider.h"
 
@@ -31,13 +29,9 @@ namespace WaveEngine
 
 		void SaveMaterial(const unsigned int& ID, Material* material);
 
-		vector<Drawable*> listeners;
-
 		Material* GetMaterial(const unsigned int id);
 
 		unordered_map<unsigned int, Material*>& GetMaterials();
-
-		void ClearListeners();
 
 		MaterialManager();
 		~MaterialManager();
@@ -50,8 +44,6 @@ namespace WaveEngine
 		friend class EntitiesImGui;
 		friend class MaterialsImGui;
 
-		void OnDeleteMaterial(const Material& material);
-
 	public:
 
 		WAVEEXPORT unsigned int GetMaterial(const string_view name);
@@ -59,10 +51,6 @@ namespace WaveEngine
 		WAVEEXPORT void DeleteMaterial(const string_view name);
 
 		WAVEEXPORT void DeleteMaterial(const unsigned int& ID);
-
-		WAVEEXPORT void AddListener(Drawable* entity);
-
-		WAVEEXPORT void RemoveListener(Drawable* entity);
 	};
 }
 
