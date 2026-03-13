@@ -31,7 +31,7 @@ namespace WaveEngine
 		ServiceProvider::Instance().Register(new MaterialFactory());
 		ServiceProvider::Instance().Register(new TextureManager());
 		ServiceProvider::Instance().Register(new TextureImporter());
-		ServiceProvider::Instance().Register(new EntityManager(&ServiceProvider::Instance(), GetMaterialManager()));
+		ServiceProvider::Instance().Register(new EntityManager(&ServiceProvider::Instance()));
 		ServiceProvider::Instance().Register(new EntityFactory(GetEntityManager(), GetWindow()));
 		ServiceProvider::Instance().Register(new Renderer());
 		ServiceProvider::Instance().Register(new Input());
