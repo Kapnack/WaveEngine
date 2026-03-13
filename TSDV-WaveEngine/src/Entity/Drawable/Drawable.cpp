@@ -2,7 +2,8 @@
 
 #include "ServiceProvider/ServiceProvider.h"
 #include "EventSystem/EventSystem.h"
-#include "Entity/EntityManager.h"
+#include "Entity/Events/EntityChangeLayer.h"
+#include "Material/MaterialManager.h"
 
 namespace WaveEngine
 {
