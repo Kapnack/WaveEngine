@@ -12,7 +12,9 @@ namespace WaveEngine
 		Vector2 topLeft;
 		Vector2 bottomRight;
 
-		void(*func)() = nullptr;
+		void* instance = nullptr;
+		void* method = nullptr;
+		void(*invoke)(void*, void*) = nullptr;
 
 		Frame()
 		{
@@ -26,13 +28,36 @@ namespace WaveEngine
 
 		void SetCallback(void(*func)())
 		{
-			this->func = func;
+			method = *(void**)&func;
+
+			invoke =
+				[](void*, void* m)
+				{
+					void(*callback)() = reinterpret_cast<void(*)()>(m);
+					callback();
+				};
+		}
+
+		template<typename T>
+		void SetCallback(T* instance, void(T::* func)())
+		{
+			this->instance = instance;
+
+			method = *(void**)&func;
+
+			invoke =
+				[](void* instance, void* m)
+				{
+					T* o = static_cast<T*>(instance);
+					void(T:: * callback)() = *(void(T::**)()) & m;
+					(o->*callback)();
+				};
 		}
 
 		void Invoke()
 		{
-			if (func)
-				func();
+			if (invoke)
+				invoke(instance, method);
 		}
 	};
 
@@ -86,5 +111,14 @@ namespace WaveEngine
 		WAVEEXPORT Frame GetFrame(int index) const;
 
 		WAVEEXPORT void SetCallbackToFrame(const int& index, void(*func)());
+
+		template<typename T>
+		void SetCallbackToFrame(const int& index, T* instance, void(T::* func)())
+		{
+			if (index >= framesQuantity)
+				return;
+
+			frames[index].SetCallback(instance, func);
+		}
 	};
 }
