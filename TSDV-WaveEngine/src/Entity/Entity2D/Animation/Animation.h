@@ -12,6 +12,8 @@ namespace WaveEngine
 		Vector2 topLeft;
 		Vector2 bottomRight;
 
+		void(*func)() = nullptr;
+
 		Frame()
 		{
 		}
@@ -20,6 +22,17 @@ namespace WaveEngine
 		{
 			this->topLeft = topLeft;
 			this->bottomRight = bottomRight;
+		}
+
+		void SetCallback(void(*func)())
+		{
+			this->func = func;
+		}
+
+		void Invoke()
+		{
+			if (func)
+				func();
 		}
 	};
 
@@ -71,5 +84,7 @@ namespace WaveEngine
 
 		WAVEEXPORT Frame GetCurrentFrame() const;
 		WAVEEXPORT Frame GetFrame(int index) const;
+
+		WAVEEXPORT void SetCallbackToFrame(const int& index, void(*func)());
 	};
 }
