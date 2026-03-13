@@ -98,7 +98,7 @@ namespace WaveEngine
 		if (!GetIsActive())
 			return;
 
-		if (animation)
+		if (animation && animation->DidChangeFrame())
 		{
 			Frame frame = animation->GetCurrentFrame();
 			SetUVCordinates(frame.topLeft, frame.bottomRight);
