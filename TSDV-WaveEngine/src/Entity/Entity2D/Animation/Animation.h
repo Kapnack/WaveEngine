@@ -37,6 +37,7 @@ namespace WaveEngine
 
 		Frame* frames = nullptr;
 
+		int previousFrame = -1;
 		unsigned int currentFrame = 0;
 
 		bool paused = false;
@@ -46,7 +47,6 @@ namespace WaveEngine
 		void AddToTimer(const float& addition);
 
 	public:
-
 
 		WAVEEXPORT Animation(const Vector2& startCoords,
 			const Vector2& frameArea,
@@ -65,6 +65,7 @@ namespace WaveEngine
 		WAVEEXPORT void SetPause(const bool& paused);
 		WAVEEXPORT void SwitchPauseState();
 		WAVEEXPORT bool GetPause();
+		WAVEEXPORT bool DidChangeFrame();
 
 		WAVEEXPORT void SetSpeed(const float& speed);
 
