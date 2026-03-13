@@ -211,7 +211,9 @@ xcopy "$(OutDir)*.dll" "$(SolutionDir)" /i/y/s
     <ClCompile Include="src\WaveMath\Transform\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entity\Events\EntityChangeLayer.h" />
     <ClInclude Include="src\EventSystem\Event.h" />
+    <ClInclude Include="src\Material\Event\MaterialDelition.h" />
     <ClInclude Include="src\WaveMath\Matrix4x4\Matrix4x4.h" />
     <ClInclude Include="src\WaveMath\Quaternion\Quaternion.h" />
     <ClInclude Include="src\ModelImporter\ModelImporter.h" />
