@@ -71,11 +71,18 @@ namespace WaveEngine
 
 	void Animation::AddToTimer(const float& addition)
 	{
+		int auxFrame = currentFrame;
+
 		currentTime += addition;
 
 		KeepTimerInBounds();
 
 		SetCurrentFrame();
+
+		if (auxFrame != currentFrame)
+		{
+			previousFrame = auxFrame;
+		}
 	}
 
 	Frame Animation::GetCurrentFrame() const
@@ -118,6 +125,7 @@ namespace WaveEngine
 	void Animation::ResetTime()
 	{
 		currentTime = 0;
+		previousFrame = -1;
 	}
 
 	void Animation::Pause()
@@ -143,6 +151,11 @@ namespace WaveEngine
 	bool Animation::GetPause()
 	{
 		return paused;
+	}
+
+	bool Animation::DidChangeFrame()
+	{
+		return previousFrame != currentFrame;
 	}
 
 	void Animation::SetSpeed(const float& speed)
