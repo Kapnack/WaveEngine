@@ -73,6 +73,29 @@ namespace WaveEngine
 			subscribers[eventType].push_back(sub);
 		}
 
+		template<AvailableEvent TEvent>
+		void Subscribe(void(*func)())
+		{
+			type_index eventType = typeid(TEvent);
+
+			events[eventType];
+
+			Subscriber sub;
+
+			sub.instance = nullptr;
+			sub.method = reinterpret_cast<void*>(func);
+
+			sub.invoke =
+				[](void*, void* m, const void*)
+				{
+					void(*funcPtr)() = reinterpret_cast<void(*)()>(m);
+
+					funcPtr();
+				};
+
+			subscribers[eventType].push_back(sub);
+		}
+
 		template<AvailableEvent TEvent, typename TObject>
 		void Subscribe(TObject* instance, void(TObject::* method)(const TEvent&))
 		{
@@ -101,7 +124,49 @@ namespace WaveEngine
 		}
 
 		template<AvailableEvent TEvent, typename TObject>
+		void Subscribe(TObject* instance, void(TObject::* method)())
+		{
+			type_index eventType = typeid(TEvent);
+
+			events[eventType];
+
+			Subscriber sub;
+
+			sub.instance = instance;
+			sub.method = *(void**)&method;
+
+			sub.invoke =
+				[](void* obj, void* m, const void*)
+				{
+					TObject* o = static_cast<TObject*>(obj);
+
+					void(TObject:: * methodPtr)() = *(void(TObject::**)()) & m;
+
+					(o->*methodPtr)();
+				};
+
+			subscribers[eventType].push_back(sub);
+		}
+
+		template<AvailableEvent TEvent, typename TObject>
 		void Unsubscribe(void(*func)(const TEvent&))
+		{
+			vector<Subscriber>& vec = subscribers[typeid(TEvent)];
+
+			void* m = *(void**)&func;
+
+			vec.erase(
+				remove_if(vec.begin(), vec.end(),
+					[&](const Subscriber& s)
+					{
+						return s.instance == nullptr && s.method == m;
+					}),
+				vec.end()
+			);
+		}
+
+		template<AvailableEvent TEvent>
+		void Unsubscribe(void(*func)())
 		{
 			vector<Subscriber>& vec = subscribers[typeid(TEvent)];
 
@@ -119,6 +184,23 @@ namespace WaveEngine
 
 		template<AvailableEvent TEvent, typename TObject>
 		void Unsubscribe(TObject* instance, void(TObject::* method)(const TEvent&))
+		{
+			vector<Subscriber>& vec = subscribers[typeid(TEvent)];
+
+			void* m = *(void**)&method;
+
+			vec.erase(
+				remove_if(vec.begin(), vec.end(),
+					[&](const Subscriber& s)
+					{
+						return s.instance == instance && s.method == m;
+					}),
+				vec.end()
+			);
+		}
+
+		template<AvailableEvent TEvent, typename TObject>
+		void Unsubscribe(TObject* instance, void(TObject::* method)())
 		{
 			vector<Subscriber>& vec = subscribers[typeid(TEvent)];
 
