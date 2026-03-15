@@ -69,7 +69,6 @@ namespace WaveEngine
 		~ParticleSystem();
 
 		void Update(const float& deltaTime);
-		void Draw();
 		void Emit(const ParticleProps& particleProps);
 	};
 }
