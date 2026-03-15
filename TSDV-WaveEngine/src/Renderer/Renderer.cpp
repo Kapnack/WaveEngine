@@ -39,7 +39,7 @@ namespace WaveEngine
 
 	Texture* Renderer::ChooseTextureToUse(const unsigned int& ID)
 	{
-		return GetTextureManager()->GetTexture(ID) ? GetTextureManager()->GetTexture(ID) : GetTextureManager()->GetTexture(defualtTextureID);
+		return GetTextureManager()->TryGetTexture(ID) ? GetTextureManager()->GetTexture(ID) : GetTextureManager()->GetTexture(defualtTextureID);
 	}
 
 	void Renderer::Init()
@@ -48,8 +48,13 @@ namespace WaveEngine
 
 		glViewport(0, 0, GetWindow()->GetWidth(), GetWindow()->GetHeight());
 
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glDisable(GL_CULL_FACE);
 
 		view = new glm::mat4(1.0f);
 		proj = new glm::mat4(glm::ortho(0.0f, static_cast<float>(GetWindow()->GetHeight()), 0.0f, static_cast<float>(GetWindow()->GetHeight()), -1.0f, 1.0f));
@@ -141,7 +146,7 @@ namespace WaveEngine
 
 	void Renderer::Clear()
 	{
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		drawCalls = 0;
 	}
 
