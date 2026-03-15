@@ -14,6 +14,7 @@
 #include "Entity/Events/EntityChangeLayer.h"
 #include "Material/MaterialManager.h"
 #include "Material/Event/MaterialDelition.h"
+#include "Events/DestroyEntity.h"
 
 class BaseGame;
 class EntityFactory;
@@ -46,6 +47,7 @@ namespace WaveEngine
 
 		inline void SaveEntity(const unsigned int& ID, Entity* entity);
 
+		inline void UpdateEntities();
 		inline void DrawEntities();
 
 		inline EntityManager(ServiceProvider* serviceProvider);
@@ -57,6 +59,8 @@ namespace WaveEngine
 		inline vector<Drawable*>& GetDrawables();
 
 		inline void OnMaterialDeleted(const MaterialDelition& materialDelition);
+
+		inline void DeleteEntity(const DestroyEntity& destroyEntity);
 
 		friend class Entity;
 		friend class EntitiesImGui;
@@ -82,8 +86,6 @@ namespace WaveEngine
 
 		template<EntityManagerGetStandar T>
 		vector<unsigned int>& GetAllOfType();
-
-		inline void DeleteEntity(const unsigned int& ID);
 
 		template<EntityManagerGetStandar T>
 		void DeleteAllOfType();
