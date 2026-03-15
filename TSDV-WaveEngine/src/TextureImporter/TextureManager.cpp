@@ -24,6 +24,16 @@ namespace WaveEngine
 		return textures.at(ID);
 	}
 
+	Texture* TextureManager::TryGetTexture(const unsigned int& ID) const
+	{
+		unordered_map<unsigned int, Texture*>::const_iterator it = textures.find(ID);
+
+		if (it == textures.end())
+			return nullptr;
+
+		return it->second;
+	}
+
 	unordered_map<unsigned int, Texture*>& TextureManager::GetTextures()
 	{
 		return textures;
