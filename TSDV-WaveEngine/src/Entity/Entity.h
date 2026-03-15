@@ -2,8 +2,15 @@
 
 #include "Export.h"
 #include "Renderer/Renderer.h"
-#include "VertexData.h"
+#include "Component/Component.h"
 #include "WaveMath/Vector3/Vector3.h"
+
+#include <concepts>
+
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
 
 namespace WaveEngine
 {
@@ -11,6 +18,10 @@ namespace WaveEngine
 	class EntityManager;
 	class EntitiesImGui;
 	class MeshImGui;
+	class BaseGame;
+
+	template<typename T>
+	concept ComoponentConcept = derived_from<T, Component>;
 
 	WAVEEXPORT class Entity
 	{
@@ -21,10 +32,16 @@ namespace WaveEngine
 		bool isActive = true;
 		bool shouldUpdateTRS = false;
 
+		vector<Component*> components;
+		unordered_map<type_index, unsigned int> componentsIndexByType;
+
+		void Update();
+
 		friend class EntityFactory;
 		friend class EntityManager;
 		friend class EntitiesImGui;
 		friend class MeshImGui;
+		friend class BaseGame;
 
 	protected:
 
@@ -92,5 +109,59 @@ namespace WaveEngine
 		WAVEEXPORT void FlipX();
 		WAVEEXPORT void FlipY();
 		WAVEEXPORT void FlipZ();
+
+		WAVEEXPORT virtual void Destroy();
+
+		template<ComoponentConcept T>
+		void AddComponent()
+		{
+			type_index type = typeid(T);
+
+			if (componentsIndexByType.contains(type))
+				return;
+
+			T* newComponent = new T();
+
+			newComponent->entity = this;
+
+			components.push_back(newComponent);
+			componentsIndexByType[type] = components.size() - 1;
+		}
+
+		template<ComoponentConcept T>
+		T* GetComponent()
+		{
+			return components.at(componentsIndexByType.at(typeid(T)));
+		}
+
+		template<ComoponentConcept T>
+		T* TryGetComponent()
+		{
+			unordered_map<type_index, unsigned int>::iterator it = componentsIndexByType.find(typeid(T));
+
+			if (it == componentsIndexByType.end())
+				return nullptr;
+
+			return components.at(it->second);
+		}
+
+		template<ComoponentConcept T>
+		void RemoveComponent()
+		{
+			type_index type = typeid(T);
+
+			if (!componentsIndexByType.contains(type))
+				return;
+
+			const unsigned int index = componentsIndexByType.at(type);
+			const unsigned int lastIndex = components.size() - 1;
+
+			swap(components.at(index), components.at(lastIndex));
+
+			componentsIndexByType.erase(type);
+
+			delete components.at(lastIndex);
+			components.pop_back();
+		}
 	};
 }

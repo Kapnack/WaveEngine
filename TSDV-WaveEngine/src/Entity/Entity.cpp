@@ -1,6 +1,5 @@
 #include "Entity.h"
 
-#include "Material/MaterialManager.h"
 #include "ImGuiClass/ImGuiClass.h"
 #include "Entity/EntityManager.h"
 
@@ -15,6 +14,8 @@ namespace WaveEngine
 
 	Entity::~Entity()
 	{
+		for (Component* component : components)
+			delete component;
 	}
 
 	unsigned int Entity::GetID() const
@@ -230,6 +231,17 @@ namespace WaveEngine
 	void Entity::FlipZ()
 	{
 		SetScale(scale.x, scale.y, -scale.z);
+	}
+
+	void Entity::Destroy()
+	{
+		ServiceProvider::Instance().Get<EventSystem>()->Invoke<DestroyEntity>(ID);
+	}
+
+	void Entity::Update()
+	{
+		for (Component* component : components)
+			component->Update();
 	}
 
 	void Entity::CalculateTRS()
