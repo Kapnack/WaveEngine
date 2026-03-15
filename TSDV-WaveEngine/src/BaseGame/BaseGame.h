@@ -11,8 +11,12 @@
 #include "FileReader/FileReader.h"
 #include "Entity/EntityManager.h"
 #include "Entity/EntityFactory.h"
+#include "Mesh/MeshFactory/MeshFactory.h"
+#include "Mesh/MeshManager/MeshManager.h"
 
 #include "EventSystem/EventSystem.h"
+#include <ParticleSystem/ParticleSystem.h>
+
 namespace WaveEngine
 {
 	WAVEEXPORT class BaseGame
@@ -51,6 +55,8 @@ namespace WaveEngine
 		WAVEEXPORT FileReader* GetFileReader();
 		WAVEEXPORT CollisionManager* GetCollsionManager();
 		WAVEEXPORT EventSystem* GetEventSystem();
+		WAVEEXPORT MeshFactory* GetMeshFactory();
+		WAVEEXPORT MeshManager* GetMeshManager();
 
 		WAVEEXPORT void CreateCollisionManager();
 		WAVEEXPORT void DestroyCollisionManager();
