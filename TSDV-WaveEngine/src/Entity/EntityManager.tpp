@@ -4,7 +4,6 @@
 #include "EntityManager.h"
 
 #include "EventSystem/EventSystem.h"
-#include "Material/MaterialManager.h"
 
 namespace WaveEngine
 {
@@ -14,6 +13,7 @@ namespace WaveEngine
 
 		serviceProvider->Get<EventSystem>()->Subscribe<EntityChangeLayer>(this, &EntityManager::OnEntityChangeLayer);
 		serviceProvider->Get<EventSystem>()->Subscribe<MaterialDelition>(this, &EntityManager::OnMaterialDeleted);
+		serviceProvider->Get<EventSystem>()->Subscribe<DestroyEntity>(this, &EntityManager::DeleteEntity);
 	}
 
 	EntityManager::~EntityManager()
@@ -22,6 +22,7 @@ namespace WaveEngine
 
 		serviceProvider->Get<EventSystem>()->Unsubscribe<EntityChangeLayer>(this, &EntityManager::OnEntityChangeLayer);
 		serviceProvider->Get<EventSystem>()->Unsubscribe<MaterialDelition>(this, &EntityManager::OnMaterialDeleted);
+		serviceProvider->Get<EventSystem>()->Unsubscribe<DestroyEntity>(this, &EntityManager::DeleteEntity);
 	}
 
 	void EntityManager::OnEntityChangeLayer(const EntityChangeLayer& entityChangeLayer)
@@ -36,8 +37,8 @@ namespace WaveEngine
 		if (it == drawableIndexByID.end())
 			return;
 
-		unsigned int index = it->second;
-		unsigned int lastIndex = drawables.size() - 1;
+		const unsigned int index = it->second;
+		const unsigned int lastIndex = drawables.size() - 1;
 
 		Drawable* lastDrawable = drawables[lastIndex];
 
@@ -57,9 +58,9 @@ namespace WaveEngine
 
 	inline void EntityManager::OnMaterialDeleted(const MaterialDelition& materialDelition)
 	{
-		for (vector<Drawable*>::iterator it = drawables.begin(); it != drawables.end(); ++it)
-			if ((*it)->GetMaterial() == materialDelition.ID)
-				(*it)->SetMaterial(Material::NULL_MATERIAL);
+		for (Drawable* it : drawables)
+			if (it->GetMaterial() == materialDelition.ID)
+				it->SetMaterial(Material::NULL_MATERIAL);
 	}
 
 	vector<Entity*>& EntityManager::GetEntities()
@@ -67,10 +68,16 @@ namespace WaveEngine
 		return entities;
 	}
 
+	inline void EntityManager::UpdateEntities()
+	{
+		for (Entity* entity : entities)
+			entity->Update();
+	}
+
 	inline void EntityManager::DrawEntities()
 	{
-		for (Drawable* d : drawables)
-			d->Draw();
+		for (Drawable* drawable : drawables)
+			drawable->Draw();
 	}
 
 	void EntityManager::SaveEntity(const unsigned int& ID, Entity* entity)
@@ -118,12 +125,12 @@ namespace WaveEngine
 		return Get<Entity>(ID);
 	}
 
-	inline void EntityManager::DeleteEntity(const unsigned int& ID)
+	inline void EntityManager::DeleteEntity(const DestroyEntity& destroyEntity)
 	{
-		if (ID == Entity::NULL_ENTITY)
+		if (destroyEntity.ID == Entity::NULL_ENTITY)
 			return;
 
-		auto it = entitiesIndexByID.find(ID);
+		auto it = entitiesIndexByID.find(destroyEntity.ID);
 		if (it == entitiesIndexByID.end())
 			return;
 
@@ -133,20 +140,20 @@ namespace WaveEngine
 		Entity* entity = entities[index];
 		Entity* lastEntity = entities[lastIndex];
 
-		OnEntityDestroy(ID);
+		OnEntityDestroy(destroyEntity.ID);
 
 		swap(entities[index], entities[lastIndex]);
 
 		entitiesIndexByID[lastEntity->GetID()] = index;
 
 		entities.pop_back();
-		entitiesIndexByID.erase(ID);
+		entitiesIndexByID.erase(destroyEntity.ID);
 
 		delete entity;
 
 		type_index entityType = typeid(*entity);
 
-		entitiesIDByType.at(entityType).erase(remove(entitiesIDByType.at(entityType).begin(), entitiesIDByType.at(entityType).end(), ID), entitiesIDByType.at(entityType).begin());
+		entitiesIDByType.at(entityType).erase(remove(entitiesIDByType.at(entityType).begin(), entitiesIDByType.at(entityType).end(), destroyEntity.ID), entitiesIDByType.at(entityType).begin());
 	}
 
 	inline void EntityManager::DeleteAll()
