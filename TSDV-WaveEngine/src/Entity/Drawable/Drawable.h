@@ -53,6 +53,8 @@ namespace WaveEngine
 		WAVEEXPORT void SetColor(const Vector4& color);
 		WAVEEXPORT void SetVertexColor(const int& index, const Vector4& color);
 
+		unsigned int GetID();
+
 		WAVEEXPORT virtual void Draw() = 0;
 	};
 }

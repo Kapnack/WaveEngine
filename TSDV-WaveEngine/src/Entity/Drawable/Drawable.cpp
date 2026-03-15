@@ -58,6 +58,11 @@ namespace WaveEngine
 		UpdateVertexBuffer();
 	}
 
+	unsigned int Drawable::GetID()
+	{
+		return ID;
+	}
+
 	void Drawable::UpdateVertexBuffer()
 	{
 		GetRenderer()->UpdateBuffer(vertex, vertexSize, VBO);
