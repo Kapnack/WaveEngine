@@ -32,12 +32,15 @@ namespace WaveEngine
 	{
 	private:
 
-		map<unsigned int, Entity*> entitiesByID;
-		map<unsigned int, Drawable*> drawableByID;
+		vector<Entity*> entities;
+		map<unsigned int, unsigned int> entitiesIndexByID;
+
+		vector<Drawable*> drawables;
+		map<unsigned int, unsigned int> drawableIndexByID;
 
 		unordered_map<type_index, vector<unsigned int>> entitiesIDByType;
 
-		map<int, list<unsigned int>> drawableByLayer;
+		map<int, vector<unsigned int>> drawableIDByLayer;
 
 		ServiceProvider* serviceProvider;
 
@@ -49,9 +52,9 @@ namespace WaveEngine
 		inline ~EntityManager();
 
 		inline void OnEntityChangeLayer(const EntityChangeLayer& entityChangeLayer);
-		inline void OnEntityDestroy(const unsigned int& id);
+		inline void OnEntityDestroy(const unsigned int& ID);
 
-		inline map<unsigned int, Drawable*>& GetDrawables();
+		inline vector<Drawable*>& GetDrawables();
 
 		inline void OnMaterialDeleted(const MaterialDelition& materialDelition);
 
@@ -65,7 +68,7 @@ namespace WaveEngine
 
 	public:
 
-		inline map<unsigned int, Entity*>& GetEntities();
+		inline vector<Entity*>& GetEntities();
 
 		template<EntityManagerGetStandar T>
 		T* TryGet(const unsigned int& ID);
