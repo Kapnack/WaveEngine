@@ -9,7 +9,7 @@ namespace WaveEngine
 
 	WAVEEXPORT class Square : public Shape
 	{
-	private:
+	protected:
 
 		WAVEEXPORT Square(const unsigned int& ID);
 		WAVEEXPORT ~Square();
