@@ -7,6 +7,8 @@
 #include "TextureImporter/TextureManager.h"
 #include "Camera/Camera.h"
 
+#include "Random/Random.h"
+
 namespace WaveEngine
 {
 	BaseGame::BaseGame(const int& width, const int& height)
@@ -24,9 +26,13 @@ namespace WaveEngine
 		if (!glfwInit())
 			exit(-1);
 
+		//Random::Init();
+
 		ServiceProvider::Instance().Register(new EventSystem());
 		ServiceProvider::Instance().Register(new Window(width, height, "WaveEngine", nullptr, nullptr));
 		ServiceProvider::Instance().Register(new FileReader());
+		ServiceProvider::Instance().Register(new MeshFactory());
+		ServiceProvider::Instance().Register(new MeshManager());
 		ServiceProvider::Instance().Register(new MaterialManager());
 		ServiceProvider::Instance().Register(new MaterialFactory());
 		ServiceProvider::Instance().Register(new TextureManager());
@@ -46,8 +52,8 @@ namespace WaveEngine
 
 	void BaseGame::EndEngine()
 	{
-		ServiceProvider::Instance().Clear();
 		delete imGuiClass;
+		ServiceProvider::Instance().Clear();
 	}
 
 	void BaseGame::Run()
@@ -192,6 +198,16 @@ namespace WaveEngine
 	EventSystem* BaseGame::GetEventSystem()
 	{
 		return ServiceProvider::Instance().Get<EventSystem>();
+	}
+
+	MeshFactory* BaseGame::GetMeshFactory()
+	{
+		return ServiceProvider::Instance().Get<MeshFactory>();
+	}
+
+	MeshManager* BaseGame::GetMeshManager()
+	{
+		return ServiceProvider::Instance().Get<MeshManager>();
 	}
 
 	void BaseGame::CreateCollisionManager()
