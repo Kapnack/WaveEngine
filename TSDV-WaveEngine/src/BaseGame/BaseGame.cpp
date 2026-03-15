@@ -7,7 +7,7 @@
 #include "TextureImporter/TextureManager.h"
 #include "Camera/Camera.h"
 
-#include "Random/Random.h"
+#include "TESTINGComponent/CameraComp.h"
 
 namespace WaveEngine
 {
@@ -48,6 +48,7 @@ namespace WaveEngine
 		Camera::camera.SetPosition(397, 392, 1042);
 		Camera::camera.SetFarPlane(10000);
 		Camera::camera.SetOrthographic(false);
+		Camera::camera.AddComponent<CameraComp>();
 	}
 
 	void BaseGame::EndEngine()
@@ -73,32 +74,6 @@ namespace WaveEngine
 
 	void BaseGame::EngineUpdate()
 	{
-		if (GetInput()->IsKeyPressed(Keys::W))
-		{
-			Camera::camera.Translate(Vector3::Up() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
-		}
-		else if (GetInput()->IsKeyPressed(Keys::A))
-		{
-			Camera::camera.Translate(Vector3::Left() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
-		}
-		else if (GetInput()->IsKeyPressed(Keys::S))
-		{
-			Camera::camera.Translate(Vector3::Down() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
-		}
-		else if (GetInput()->IsKeyPressed(Keys::D))
-		{
-			Camera::camera.Translate(Vector3::Right() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
-		}
-
-		if (GetInput()->IsKeyPressed(Keys::SPACE))
-		{
-			Camera::camera.Translate(Vector3::Foward() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
-		}
-		else if (GetInput()->IsKeyPressed(Keys::LEFT_CONTROL))
-		{
-			Camera::camera.Translate(Vector3::Back() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
-		}
-
 		if (GetInput()->IsKeyPressed(Keys::V))
 			GetFileReader()->SaveData("CamaraData.sav", Camera::camera, *GetEntityManager()->TryGet(1));
 
@@ -116,6 +91,9 @@ namespace WaveEngine
 			Camera::camera.Rotate(Vector3::Left() * GetDeltaTime() * Camera::camera.GetMovementSpeed());
 
 		GetTime()->UpdateDeltaTime();
+
+		Camera::camera.Update();
+		GetEntityManager()->UpdateEntities();
 
 		imGuiClass->Update();
 
