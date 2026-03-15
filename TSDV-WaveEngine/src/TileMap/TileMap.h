@@ -21,23 +21,6 @@ namespace WaveEngine
 {
 	WAVEEXPORT class TileMap final : public Entity2D
 	{
-	public:
-
-		WAVEEXPORT TileMap(const string_view mapFilePath, const bool& mapFileAddAbsolutePath, const string_view texturePath, const bool& texturePathAddAbsolutePath, const unsigned int& ID);
-		WAVEEXPORT ~TileMap();
-
-		WAVEEXPORT float GetMapWidth() const;
-		WAVEEXPORT float GetMapHeight() const;
-
-		WAVEEXPORT float GetTileWidth() const;
-		WAVEEXPORT float GetTileHeight() const;
-
-		WAVEEXPORT int GetLayerCount() const;
-
-		WAVEEXPORT unsigned int GetTileAt(const int& layer, const int& col, const int& row) const;
-
-		WAVEEXPORT void ImportTileMap(const string_view filePath, const bool& addAbsolutePath);
-
 	private:
 
 		unsigned int*** _tileMapGrid = nullptr;
@@ -73,5 +56,24 @@ namespace WaveEngine
 		Window* GetWindow() const;
 
 		EntityManager* GetEntityManager() const;
+
+	public:
+
+		WAVEEXPORT TileMap(const string_view mapFilePath, const bool& mapFileAddAbsolutePath, const string_view texturePath, const bool& texturePathAddAbsolutePath, const unsigned int& ID);
+		WAVEEXPORT ~TileMap();
+
+		WAVEEXPORT float GetMapWidth() const;
+		WAVEEXPORT float GetMapHeight() const;
+
+		WAVEEXPORT float GetTileWidth() const;
+		WAVEEXPORT float GetTileHeight() const;
+
+		WAVEEXPORT int GetLayerCount() const;
+
+		WAVEEXPORT unsigned int GetTileAt(const int& layer, const int& col, const int& row) const;
+
+		WAVEEXPORT void ImportTileMap(const string_view filePath, const bool& addAbsolutePath);
+
+		WAVEEXPORT void Destroy() override;
 	};
 }
