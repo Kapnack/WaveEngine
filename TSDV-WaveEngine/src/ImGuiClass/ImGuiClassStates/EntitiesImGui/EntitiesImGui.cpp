@@ -130,19 +130,19 @@ namespace WaveEngine
 	{
 		ShowEntityData(entity);
 
-		drawableIT = GetEntityManager()->GetDrawables().find(entity.ID);
+		drawableIT = GetEntityManager()->TryGet<Drawable>(entity.ID);
 
-		if (drawableIT != GetEntityManager()->GetDrawables().end() && drawableIT->second)
+		if (drawableIT)
 		{
-			text = "Current Layer : " + to_string(drawableIT->second->GetLayer()) + "##xx ID: " + to_string(drawableIT->first);
+			text = "Current Layer : " + to_string(drawableIT->GetLayer()) + "##xx ID: " + to_string(entity.ID);
 			ImGui::InputInt(text.c_str(), &layer);
 
-			text = "Change Layer ##xx ID: " + to_string(drawableIT->first);
+			text = "Change Layer ##xx ID: " + to_string(entity.ID);
 			if (ImGui::Button(text.c_str()))
-				drawableIT->second->SetLayer(layer);
+				drawableIT->SetLayer(layer);
 
 			if (showMaterials)
-				ShowMaterial(drawableIT->first, *drawableIT->second);
+				ShowMaterial(entity.ID, *drawableIT);
 
 			if (showTextures)
 				if (Sprite* sprite = GetEntityManager()->TryGet<Sprite>(entity.ID))
@@ -183,8 +183,6 @@ namespace WaveEngine
 
 		text = "Set Material ##xx ID: " + to_string(ID);
 
-		drawableIT = GetEntityManager()->GetDrawables().find(ID);
-
 		if (ImGui::Button(text.c_str()))
 			drawable.SetMaterial(materialID);
 
@@ -200,10 +198,10 @@ namespace WaveEngine
 
 	void EntitiesImGui::ShowTexture(Sprite& sprite)
 	{
-		text = "ID: " + to_string(sprite.GetID()) + ". Position. ";
+		text = "ID: " + to_string(sprite.Entity::GetID()) + ". Position. ";
 		ImGui::InputInt(text.c_str(), &textureID);
 
-		text = "Set Texture ##xx ID: " + to_string(sprite.GetID());
+		text = "Set Texture ##xx ID: " + to_string(sprite.Entity::GetID());
 
 		if (ImGui::Button(text.c_str()))
 			sprite.SetTexture(textureID);

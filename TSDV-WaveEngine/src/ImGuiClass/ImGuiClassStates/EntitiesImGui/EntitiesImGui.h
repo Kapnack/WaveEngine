@@ -64,7 +64,7 @@ namespace WaveEngine
 		int layer = 0;
 		int entityToDelete = 0;
 
-		map<unsigned int, Drawable*>::iterator drawableIT;
+		Drawable* drawableIT;
 
 		void EntityCreator();
 		void EntityDeleter();
@@ -78,11 +78,11 @@ namespace WaveEngine
 		void ShowAllEntities()
 		{
 			if (!showInReverseOrder)
-				for (map<unsigned int, Entity*>::iterator it = GetEntityManager()->GetEntities().begin(); it != GetEntityManager()->GetEntities().end(); ++it)
-					ShowEntity(*it->second);
+				for (vector<Entity*>::iterator it = GetEntityManager()->GetEntities().begin(); it != GetEntityManager()->GetEntities().end(); ++it)
+					ShowEntity(**it);
 			else
-				for (map<unsigned int, Entity*>::reverse_iterator it = GetEntityManager()->GetEntities().rbegin(); it != GetEntityManager()->GetEntities().rend(); ++it)
-					ShowEntity(*it->second);
+				for (vector<Entity*>::reverse_iterator it = GetEntityManager()->GetEntities().rbegin(); it != GetEntityManager()->GetEntities().rend(); ++it)
+					ShowEntity(**it);
 		}
 
 		template<EntityManagerGetStandar T>
