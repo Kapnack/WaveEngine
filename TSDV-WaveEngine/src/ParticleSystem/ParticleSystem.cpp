@@ -1,6 +1,7 @@
 #include "ParticleSystem.h"
 
-#include "Random/Random.h"
+#include "EventSystem/EventSystem.h"
+#include "ServiceProvider/ServiceProvider.h"
 
 namespace WaveEngine
 {
@@ -18,8 +19,8 @@ namespace WaveEngine
 
 	ParticleSystem::~ParticleSystem()
 	{
-		for (vector<unsigned int>::iterator it = particlePool.begin(); it != particlePool.end(); ++it)
-			GetEntityManager()->DeleteEntity(*it);
+		for (unsigned int it : particlePool)
+			ServiceProvider::Instance().Get<EventSystem>()->Invoke<DestroyEntity>(it);
 	}
 
 	EntityManager* ParticleSystem::GetEntityManager()
