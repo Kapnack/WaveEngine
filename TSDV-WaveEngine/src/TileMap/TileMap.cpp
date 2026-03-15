@@ -146,6 +146,16 @@ namespace WaveEngine
 		UpdateTilesPositions();
 	}
 
+	void TileMap::Destroy()
+	{
+		for (int layer = 0; layer < layersAmount; ++layer)
+			for (int y = 0; y < columnsAmount; ++y)
+				for (int x = 0; x < rowAmount; ++x)
+					GetEntityManager()->Get(_tileMapGrid[layer][y][x])->Destroy();
+
+		Entity::Destroy();
+	}
+
 	void TileMap::UpdateTilesPositions()
 	{
 		Window* window = GetWindow();
