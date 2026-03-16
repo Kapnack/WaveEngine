@@ -147,7 +147,7 @@ namespace WaveEngine
 		template<ComoponentConcept T>
 		T& GetComponent()
 		{
-			return components.at(componentsIndexByType.at(typeid(T)));
+			return *components.at(componentsIndexByType.at(typeid(T)));
 		}
 
 		template<ComoponentConcept T>
@@ -176,7 +176,7 @@ namespace WaveEngine
 		template<ComoponentConcept T>
 		T& GetComponentAtIndex(const unsigned int& index)
 		{
-			return static_cast<T*>(components.at(index));
+			return *static_cast<T*>(components.at(index));
 		}
 
 		template<ComoponentConcept T>
