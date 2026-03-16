@@ -129,6 +129,22 @@ namespace WaveEngine
 		}
 
 		template<ComoponentConcept T>
+		void AddComponent(T* newComponent)
+		{
+			type_index type = typeid(T);
+
+			if (componentsIndexByType.contains(type))
+				return;
+
+			T* newComponent = new T();
+
+			newComponent->entity = this;
+
+			components.push_back(newComponent);
+			componentsIndexByType[type] = components.size() - 1;
+		}
+
+		template<ComoponentConcept T>
 		T* GetComponent()
 		{
 			return components.at(componentsIndexByType.at(typeid(T)));
@@ -143,6 +159,26 @@ namespace WaveEngine
 				return nullptr;
 
 			return components.at(it->second);
+		}
+
+		template<ComoponentConcept T>
+		T* GetComponentAtIndex(const unsigned int& index)
+		{
+			return static_cast<T*>(components.at(index));
+		}
+
+		template<ComoponentConcept T>
+		T* TryGetComponentAtIndex(const unsigned int& index)
+		{
+			if (index >= components.size())
+				return nullptr;
+
+			return static_cast<T*>(components.at(index));
+		}
+
+		int GetComponentsAmount()
+		{
+			return components.size();
 		}
 
 		template<ComoponentConcept T>
