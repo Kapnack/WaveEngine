@@ -145,7 +145,7 @@ namespace WaveEngine
 		}
 
 		template<ComoponentConcept T>
-		T* GetComponent()
+		T& GetComponent()
 		{
 			return components.at(componentsIndexByType.at(typeid(T)));
 		}
@@ -162,7 +162,19 @@ namespace WaveEngine
 		}
 
 		template<ComoponentConcept T>
-		T* GetComponentAtIndex(const unsigned int& index)
+		bool TryGetComponent(T*& reference)
+		{
+			unordered_map<type_index, unsigned int>::iterator it = componentsIndexByType.find(typeid(T));
+
+			if (it == componentsIndexByType.end())
+				return false;
+
+			reference = components.at(it->second);
+			return true;
+		}
+
+		template<ComoponentConcept T>
+		T& GetComponentAtIndex(const unsigned int& index)
 		{
 			return static_cast<T*>(components.at(index));
 		}
