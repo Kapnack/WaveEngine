@@ -119,6 +119,11 @@ namespace WaveEngine
 		return orthoSize;
 	}
 
+	void Camera::SetTarget(Entity* entity)
+	{
+		target = entity;
+	}
+
 	void Camera::CalculateMatrixes()
 	{
 		float aspect =

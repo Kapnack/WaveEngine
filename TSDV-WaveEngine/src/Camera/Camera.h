@@ -37,12 +37,15 @@ namespace WaveEngine
 
 		Camera(const unsigned& ID);
 
+		Entity* target = nullptr;
+
 		glm::mat4 GetView() const;
 		glm::mat4 GetProjection() const;
 
 		friend class EntityManager;
 		friend class EntityFactory;
 		friend class Renderer;
+		friend class Entity;
 
 	protected:
 
@@ -70,5 +73,7 @@ namespace WaveEngine
 		WAVEEXPORT	float GetFovDegree() const;
 		WAVEEXPORT	float GetMovementSpeed() const;
 		WAVEEXPORT	float GetOrthoSize() const;
+
+		WAVEEXPORT	void SetTarget(Entity* entity);
 	};
 }

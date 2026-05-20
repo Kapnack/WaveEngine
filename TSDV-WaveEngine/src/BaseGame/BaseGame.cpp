@@ -74,6 +74,8 @@ namespace WaveEngine
 
 	void BaseGame::EngineUpdate()
 	{
+		Camera::camera.SetTarget(GetEntityManager()->Get(1));
+
 		if (GetInput()->IsKeyPressed(Keys::V))
 			GetFileReader()->SaveData("CamaraData.sav", Camera::camera, *GetEntityManager()->TryGet(1));
 

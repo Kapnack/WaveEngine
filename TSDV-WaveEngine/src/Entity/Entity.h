@@ -19,6 +19,7 @@ namespace WaveEngine
 	class EntitiesImGui;
 	class MeshImGui;
 	class BaseGame;
+	class Camera;
 
 	template<typename T>
 	concept ComoponentConcept = derived_from<T, Component>;
@@ -42,6 +43,8 @@ namespace WaveEngine
 		friend class EntitiesImGui;
 		friend class MeshImGui;
 		friend class BaseGame;
+		friend class Camera;
+		friend class Entity;
 
 	protected:
 
@@ -59,6 +62,9 @@ namespace WaveEngine
 
 		Entity(const unsigned int& ID);
 		virtual ~Entity();
+
+		unsigned int parentID = NULL_ENTITY;
+		std::vector<unsigned int> childrenIDs;
 
 	public:
 
@@ -111,6 +117,10 @@ namespace WaveEngine
 		WAVEEXPORT void FlipZ();
 
 		WAVEEXPORT virtual void Destroy();
+
+		WAVEEXPORT void SetParent(const unsigned int& newParentID);
+		WAVEEXPORT unsigned int GetParent() const;
+
 
 		template<ComoponentConcept T>
 		void AddComponent()

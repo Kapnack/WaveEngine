@@ -256,4 +256,44 @@ namespace WaveEngine
 		model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0, 0, 1)); // Rotate Z
 		model = glm::scale(model, glm::vec3(scale.x, scale.y, scale.z)); // Scale
 	}
+
+	void Entity::SetParent(const unsigned int& newParentID)
+	{
+		if (parentID == newParentID)
+			return;
+
+		EntityManager* entityManager = ServiceProvider::Instance().Get<EntityManager>();
+
+		if (parentID != NULL_ENTITY)
+		{
+			Entity* oldParent = entityManager->Get(parentID);
+
+			if (oldParent != nullptr)
+			{
+				auto& siblings = oldParent->childrenIDs;
+
+				siblings.erase(
+					std::remove(siblings.begin(), siblings.end(), ID),
+					siblings.end()
+				);
+			}
+		}
+
+		parentID = newParentID;
+
+		if (parentID != NULL_ENTITY)
+		{
+			Entity* newParent = entityManager->Get(parentID);
+
+			if (newParent != nullptr)
+				newParent->childrenIDs.push_back(ID);
+		}
+
+		CalculateTRS();
+	}
+
+	unsigned int Entity::GetParent() const
+	{
+		return parentID;
+	}
 }
